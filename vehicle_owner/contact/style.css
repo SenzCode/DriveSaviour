@@ -1,0 +1,71 @@
+.contact-in {
+    margin-left: 10rem;
+    display: flex;
+    
+
+}
+
+.contact-form {
+    width: 550px;
+    height: 650px;
+    margin-right: 50px;
+    border: 1px solid #2B5AC2;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.contact-in h1 {
+    font-size: 2.5rem;
+    font-weight:800;
+}
+
+.contact-pic {
+    margin-left: 100px;
+    padding-left: 50px;
+    width: 600px;
+    height: 800px;
+}
+
+.contact-pic img {
+    border-radius: 20px;
+}
+
+input[type="text"], input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    box-sizing: border-box;
+}
+
+.contact-form-btn {
+    margin-top: 20px;
+    width: 100%;
+    color: #182431;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: 1px solid #2B5AC2;
+    border-radius: 88px;
+    background-color: #f0f8ff;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+.contact-form-btn:hover{
+    background-color: #2B5AC2;
+    color: white;
+    cursor: pointer;
+}
+
