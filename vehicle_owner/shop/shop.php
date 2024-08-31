@@ -25,7 +25,7 @@
                 </button>
             </div>
             <div class="title-image">
-                <img src="../../img/about.png" alt="Mechanic and Car">
+                <img src="../../img/shop.png" alt="Mechanic and Car">
             </div>
         </div>
 
