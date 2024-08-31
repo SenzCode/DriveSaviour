@@ -12,7 +12,7 @@
 <body>
     <button>
         <a href="../shop/shop.php">
-            shops
+            home
         </a>
     </button>
 </body>
