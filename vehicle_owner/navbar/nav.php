@@ -30,7 +30,7 @@
                         <li>
                             <!-- Dark Mode Toggle -->
                             <input type="checkbox" id="darkmode-toggle" style="display: none;">
-                            <label for="darkmode-toggle">
+                            <label for="darkmode-toggle" class="darkmode-toggle-label">
                                 <svg version="1.1" class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 496">
                                     <!-- SVG content for Sun -->
                                     <rect x="152.994" y="58.921" transform="matrix(0.3827 0.9239 -0.9239 0.3827 168.6176 -118.5145)" width="40.001" height="16"/>

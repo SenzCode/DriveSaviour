@@ -134,7 +134,7 @@ nav ul li a:hover::before {
     margin-left: -800px;
 }
 
-label {
+.darkmode-toggle-label {
     width: 50px;
     height: 25px; 
     position: relative;
@@ -147,7 +147,7 @@ label {
     margin: 0 auto; 
 }
 
-label:after {
+.darkmode-toggle-label:after {
     content: "";
     width: 20px; 
     height: 20px; 
@@ -166,7 +166,7 @@ input:checked + label:after {
     background: linear-gradient(180deg,#777,#3a3a3a);
 }
 
-label svg {
+.darkmode-toggle-label svg {
     position: absolute;
     width: 15px; 
     top: 50%; 
@@ -174,12 +174,12 @@ label svg {
     transition: 0.3s;
 }
 
-label svg.sun {
+.darkmode-toggle-label svg.sun {
     left: 5px;
     fill: #fff;
 }
 
-label svg.moon {
+.darkmode-toggle-label svg.moon {
     right: 5px; 
     fill: #7e7e7e;
 }
