@@ -1,0 +1,522 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    scroll-behavior: smooth;
+    scroll-padding-top: 3rem;
+}
+
+:root{
+    --primary-color:#2B5AC2;
+}
+
+html {
+    scrollbar-width: none; 
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #000000; /* Default text color */
+    margin: 0;
+    padding: 0;
+}
+
+body.dark-mode {
+    background-color: #000000; /* Dark background */
+    color: #ffffff; /* Dark mode text color */
+}
+
+header {
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 70px;
+    margin-left: 40px;
+}
+
+.logo .logo2 {
+    height: 70px;
+    margin-left: 40px;
+    display: none; 
+}
+
+.dark-mode .logo img {
+    display: none; 
+}
+
+.dark-mode .logo .logo2 {
+    display: block; 
+}
+
+
+nav ul {
+    list-style-type: none;
+    top: 0;
+    display: flex;
+    text-align: center; 
+    justify-content: center; 
+    padding: 0; 
+}
+
+nav ul li {
+    margin-left: 30px;
+    position: relative; 
+}
+
+nav ul li a {
+    color: rgb(0, 0, 0); 
+    text-decoration: none;
+    margin-right: 20px;
+    padding: 5px 15px;
+    font-weight: 400;
+    display: inline-block; 
+    position: relative; 
+}
+
+/* Underline effect */
+nav ul li a::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #000; 
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::before {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+    z-index: 1001;
+}
+
+.menu-toggle .bar {
+    height: 3px;
+    width: 25px;
+    background-color: rgb(0, 0, 0);
+    margin: 4px 0;
+    transition: 0.3s ease;
+}
+
+.menu-toggle .bar2 {
+    height: 3px;
+    width: 15px;
+    background-color: rgb(0, 0, 0);
+    margin: 4px 0;
+    transition: 0.3s ease;
+}
+
+#darkmode-toggle {
+    margin-left: -800px;
+}
+
+label {
+    width: 50px;
+    height: 25px; 
+    position: relative;
+    display: block;
+    background: #ebebeb;
+    border-radius: 50px; 
+    box-shadow: inset 0px 5px 15px rgba(0,0,0,0.4), inset 0px -5px 15px rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 0 auto; 
+}
+
+label:after {
+    content: "";
+    width: 20px; 
+    height: 20px; 
+    position: absolute;
+    top: 2.5px; 
+    left: 2.5px; 
+    background: linear-gradient(180deg,#ffcc89,#d8860b);
+    border-radius: 50%; 
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+input:checked + label:after {
+    left: calc(100% - 25px); 
+    transform: translateX(0);
+    background: linear-gradient(180deg,#777,#3a3a3a);
+}
+
+label svg {
+    position: absolute;
+    width: 15px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    transition: 0.3s;
+}
+
+label svg.sun {
+    left: 5px;
+    fill: #fff;
+}
+
+label svg.moon {
+    right: 5px; 
+    fill: #7e7e7e;
+}
+
+/*home*/
+#home{
+    background-color: white;
+    color: black;
+  }
+  
+  .container-home-section {
+    margin-left: 80px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .home-content {
+    margin-top: 200px;
+  }
+  .home-content h1{
+    font-size: 3.5rem;
+    margin-bottom: 40px;
+  }
+  .home-content h3{
+    color: black;
+    font-size: 4.2rem;
+  }
+  .home-content h3 span{
+    color: transparent;
+    font-size: 4.2rem;
+    -webkit-text-stroke: 4px #0085FF;
+    margin-bottom: 70px;
+  }
+  
+  .home-content p {
+    width: 750px;
+    color: #515151;
+    font-size: 1.2rem;
+    line-height: 2rem;
+    text-align: justify;
+    margin-bottom: 40px;
+    margin-top: 50px;
+  }
+  
+  .profile-picture {
+    position: relative;
+    width: 150px;
+    height: 150px; 
+    margin: 0 auto;
+} 
+
+.profile-picture .side-img {
+    width: 700px;
+    height: 600px;
+    margin-top: 100px;
+    margin-left: -210px;
+    z-index: 2; /* Ensure side image is on top of the gears */
+    position: relative; /* Ensure correct stacking with z-index */
+}
+
+.gear {
+    position: absolute;
+    z-index: 1; /* Place all gears behind the side image */
+}
+
+.gear.rotate1 {
+    animation: rotate1 7s linear infinite;
+    width: 270px; 
+    height: 270px; 
+    opacity: 0.3;
+    top: 130%;
+    left: 80%;
+}
+
+.gear.rotate2 {
+    animation: rotate2 6s linear infinite;
+    width: 400px; 
+    height: 400px; 
+    opacity: 0.4;
+    top: 220%;
+    left: -110%;
+}
+
+.gear.rotate3 {
+    animation: rotate3 9s linear infinite;
+    width: 180px; 
+    height: 180px; 
+    opacity: 0.2;
+    top: 340%;
+    left: 150%;
+}
+
+@keyframes rotate1 {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes rotate2 {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+}
+
+@keyframes rotate3 {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+body.dark-mode nav ul li a {
+    color: #ffffff; 
+}
+
+body.dark-mode nav ul li a::before {
+    background-color: #ffffff; 
+}
+body.dark-mode nav .menu-toggle .bar,
+body.dark-mode nav .menu-toggle .bar2{
+    background-color: rgb(255, 255, 255);
+}
+
+body.dark-mode #home{
+    background-color: black;
+    color: white;
+}
+body.dark-mode h3{
+    color: white;
+}
+
+body.dark-mode .home-content p{
+    color: rgb(183, 183, 183);
+}
+
+@media (max-width: 1024px) {
+    .profile-picture img {
+      width: 450px;
+      height: 450px;
+    }
+  
+    .home-content h2 {
+      font-size: 3.5rem;
+    }
+  
+    .home-content h3 {
+      font-size: 3.5rem;
+    }
+  
+    .home-content p {
+      width: 600px;
+      font-size: 1.1rem;
+    }
+  }
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .logo img {
+        margin-left: 5px;
+    }
+
+    .social-links {
+        margin-left: 30px;
+    }
+
+    nav ul {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 250px;
+        height: 450px;
+        background-color: #e6e6e6;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 30px 0 0 30px;
+        transition: right 0.3s ease;
+    }
+
+    body.dark-mode nav ul {
+        background-color: #000000; 
+        color: white;
+        border: 2px solid var(--primary-color);
+    }
+
+    nav ul.show {
+        right: -20px;
+    }
+
+    nav ul li {
+        margin-top: 10px;
+    }
+
+    nav ul li a {
+        text-align: center;
+        line-height: 2.5rem;
+        color: #000000; 
+    }
+
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .menu-toggle.show .bar:nth-child(1) {
+        transform: rotate(45deg) translate(15px, 10px);
+    }
+
+    .menu-toggle.show .bar2:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.show .bar:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -1px);
+    }
+    .container-home-section {
+        flex-direction: column;
+        align-items: center;
+        margin-left: 0;
+      }
+    
+      .home-content {
+        margin-top: 10px; 
+        text-align: center;
+      }
+
+      .home-content h1{
+        font-size: 1.8rem;
+        margin-top: 200px;
+      }
+
+      .home-content h3{
+        font-size: 2.6rem;
+      }
+    
+      .home-content h3 span{
+        font-size: 2.5rem;
+        -webkit-text-stroke: 3px #0085FF;
+      }
+    
+      .home-content p {
+        width: 100%;
+        padding: 0 20px;
+        margin-top: 30px;
+      }
+    
+      .profile-picture {
+        order: initial;
+        margin-left: 0;
+        order: -1;
+        margin-top: 80px;
+        margin-bottom: 50px;
+      }
+
+      .profile-picture .gear.rotate1{
+        width: 150px;
+        height: 150px;
+        top: 40%;
+        left: 250%;
+      }
+
+      .profile-picture .gear.rotate2{
+        width: 80px;
+        height: 80px;
+        top: 170%;
+        left: 290%;
+      }
+
+      .profile-picture .gear.rotate3{
+        width: 200px;
+        height: 200px;
+        top: 110%;
+        left: 160%;
+      }
+    
+      .profile-picture .side-img {
+        width: 350px;
+        height: 300px;
+        margin-left: 230px;
+        margin-top: 40px;
+      }
+}
+
+@media (max-width: 480px) {
+    .home-content h1 {
+        font-size: 1.8rem;
+        margin-top: 250px;
+    }
+    .home-content h3 {
+        font-size: 2.5rem;
+        margin-top: -20px;
+    }
+
+    .home-content h3 span {
+        font-size: 2.5rem;
+        -webkit-text-stroke: 2px #0085FF;
+    }
+  
+    .profile-picture {
+        position: relative; 
+    }
+
+    .profile-picture .side-img {
+        width: 300px;
+        height: 250px;
+        margin-top: 120px;
+        margin-left: 60px;
+        z-index: 2; 
+        position: relative; 
+    }
+
+    .profile-picture .gear.rotate2 {
+        width: 50px;
+        height: 50px;
+        left: 140%;
+        z-index: 1; 
+        opacity: 0.1;
+        position: absolute; 
+    }
+
+    .profile-picture .gear.rotate3 {
+        width: 100px;
+        height: 100px;
+        z-index: 1; 
+        top: 110%;
+        position: absolute; 
+    }
+
+    .profile-picture .gear.rotate1 {
+        width: 180px;
+        height: 180px;
+        top: 140%;
+        z-index: 1; 
+        position: absolute; 
+        left: 30%;
+    }
+}
+
+  
