@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find a Mech</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../navbar/style.css">
 </head>
 <body>
     <div class="container-mech">
@@ -19,8 +20,8 @@
                 <h1>We're Here to Help</h1>
 
                 <button>
-                    <a href="../book/book.php">
-                        Book Now
+                    <a href="../post/post.php">
+                        Find
                     </a>
                 </button>
             </div>
@@ -51,7 +52,7 @@
             Auto repair and maintenance services.</h2>
 
             <button class="services-btn">
-                <a href="../book/book.php">
+                <a href="../post/post.php">
                     View Services
                 </a>
             </button>
