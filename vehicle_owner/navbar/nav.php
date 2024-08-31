@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DriveSaviour</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" /> -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
 
 </head>
 <body>
     
 <section class="wrapper">
-        <div id="stars"></div>
-        <div id="stars2"></div>
         <header>
             <div class="container">
                 <div class="logo">
@@ -22,7 +20,7 @@
                 </div>
                 <nav>
                     <ul id="menu">
-                        <li><a href="#home">Home</a></li>
+                        <li><a href="../home/home.php">Home</a></li>
                         <li><a href="../about/about.php">About Us</a></li>
                         <li><a href="../shop/shop.php">Shop</a></li>
                         <li><a href="#contact">Contact Us</a></li>
@@ -68,6 +66,43 @@
         </header>
 
     </section>
+
+    <script>
+    document.getElementById("menu-toggle").addEventListener("click", function() {
+    var menu = document.getElementById("menu");
+    var toggleButton = document.getElementById("menu-toggle");
+    menu.classList.toggle("show");
+    toggleButton.classList.toggle("show");
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const darkModeToggle = document.getElementById('darkmode-toggle');
+    const body = document.body;
+
+    darkModeToggle.addEventListener('change', function () {
+        if (darkModeToggle.checked) {
+            body.classList.add('dark-mode');
+        } else {
+            body.classList.remove('dark-mode');
+        }
+    });
+
+    // Set initial state based on saved preference
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        darkModeToggle.checked = true;
+        body.classList.add('dark-mode');
+    }
+
+    darkModeToggle.addEventListener('change', function () {
+        if (darkModeToggle.checked) {
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            localStorage.setItem('darkMode', 'disabled');
+        }
+    });
+});
+    </script>
 
 
 </body>

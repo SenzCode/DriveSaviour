@@ -37,7 +37,13 @@ header {
     position: fixed;
     width: 100%;
     top: 0;
+    background-color: #ffffff; 
     z-index: 1000;
+}
+
+body.dark-mode header {
+    background-color: #000000; 
+    color: white;
 }
 
 .container {
@@ -182,6 +188,10 @@ label svg.sun {
 label svg.moon {
     right: 5px; 
     fill: #7e7e7e;
+}
+
+body.dark-mode nav ul a{
+    color: white;
 }
 
 /* Responsive Styles */
