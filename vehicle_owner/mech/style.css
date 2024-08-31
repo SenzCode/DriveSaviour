@@ -87,9 +87,9 @@ button:hover {
     max-width: 100px;
     margin-bottom: 20px;
     display: block;
-     margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
 .box-service p {
@@ -101,12 +101,88 @@ button:hover {
     transform: scale(1.05);
 }
 
-.view-services{
+.view-services {
     margin-top: 60px;
     text-align: center;
     font-size: 40px;
     font-weight: bold;
+}
 
+.title-contri {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    color: #fff;
+}
+
+.carousel-items {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    overflow: hidden;
+    margin-left: 10px;
+    padding: 0 10px; 
+}
+
+.carousel-item {
+    min-width: 30%;
+    height: 600px;
+    background-color: #007bff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-right: 10px; 
+    transition: transform 0.3s ease;
+    padding: 20px; /
+}
+
+.carousel-item:last-child {
+    margin-right: 0; 
+}
+
+.carousel-item h3 {
+    text-align: center;
+}
+
+.carousel-item p {
+    margin-top: 20px;
+    text-align: justify;
+}
+
+.img-best-mechanic {
+    scale: 50%;
+}
+
+.carousel-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    color: #333;
+    padding: 0 20px;
+    transition: color 0.3s ease;
+}
+
+.carousel-btn:hover {
+    color: #007bff;
+}
+
+.carousel-btn.prev {
+    position: absolute;
+    left: 0;
+}
+
+.carousel-btn.next {
+    position: absolute;
+    right: 0;
 }
 
 @media (max-width: 768px) {

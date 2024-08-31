@@ -57,6 +57,42 @@
                     </a>
                 </button>
         </div>
+
+        <div class="contribution">
+            <div class="title-contri">
+                <h1>Best Mechanics of this week</h1>
+            </div>
+                <div class="body-contri">
+                    <div class="carousel">
+                        <button class="carousel-btn prev">&#10094;</button>
+                            <div class="carousel-items">
+                                <div class="carousel-item">
+                                    <img src="../../img/mechanic.png" alt="best mechanincs" class="img-best-mechanic">
+                                    <h3>Franklin Rodriguez</h3>
+                                    <p>Frank is a master mechanic with over 30 years of experience. Known for his precision and expertise in engine rebuilding, Frank's workshop is the go-to place for classic car enthusiasts.</p>
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="../../img/mechanic.png" alt="best mechanincs" class="img-best-mechanic">
+                                    <h3>Migual Sanchez</h3>
+                                    <p>With a passion for performance tuning, Mike specializes in high-performance modifications. His knowledge of turbochargers and custom exhaust systems has made him a favorite among speed lovers.</p>
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="../../img/mechanic.png" alt="best mechanincs" class="img-best-mechanic">
+                                    <h3>Vincent Romano</h3>
+                                    <p>Vince brings a touch of old-school craftsmanship to the modern auto repair world. His meticulous attention to detail and commitment to quality work are evident in every car he services.</p>
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="../../img/mechanic.png" alt="best mechanincs" class="img-best-mechanic">
+                                    <h3>Sophia Davis</h3>
+                                    <p>Sophia is a rising star in the automotive repair industry. With a knack for diagnostics and electrical systems, she’s quickly earned a reputation for solving the toughest car problems.</p>
+                                </div>
+                            </div>
+                        <button class="carousel-btn next">&#10095;</button>
+                    </div>
+                </div>
+        </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
