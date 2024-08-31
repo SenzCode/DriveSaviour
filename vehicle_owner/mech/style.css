@@ -17,8 +17,6 @@ body {
    
     padding: 50px 20px;
     border-radius: 10px;
-    color: #000000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,9 +32,11 @@ body {
 }
 
 .topic h1 {
-    font-size: 36px;
+    font-size: 40px;
     margin: 10px 0;
     line-height: 1.2;
+    font-weight: bold;
+    
 }
 
 .topic img {
@@ -49,10 +49,10 @@ body {
 
 
 button {
-    background-color: #ff5722; 
+    background-color: #0400d8; 
     border: none;
     padding: 15px 30px;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 20px;
@@ -67,6 +67,23 @@ button a {
 
 button:hover {
     background-color: #e64a19; 
+}
+.services{
+    display: flex;
+    color: #ffffff;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.box-service{
+    width: auto;
+    height: auto;
+    background-color: #747474;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    margin-left: 30px;
+
 }
 
 
