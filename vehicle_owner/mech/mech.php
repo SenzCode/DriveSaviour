@@ -30,16 +30,20 @@
 
         <div class="services">
             <div class="box-service">
-                <p>We offer a wide range of auto repair services. Our expert mechanics diagnose issues quickly and find the safest, most cost-effective solution to get your vehicle back on the road.</p>
+                <img src="../../img/mechanic.png" alt="mechanic image" class="image-services">
+                    <p>We offer a wide range of auto repair services. Our expert mechanics diagnose issues quickly and find the safest, most cost-effective solution to get your vehicle back on the road.</p>
             </div>
             <div class="box-service">
-                <p>The Drive Saviour peace-of-mind warranty means you’re protected against any unexpected issues. We cover parts and labor for a full year, ensuring that you’re never stuck with a problem we can fix.</p>
+                <img src="../../img/handshake.png" alt="handshake image" class="image-services">
+                    <p>The Drive Saviour peace-of-mind warranty means you’re protected against any unexpected issues. We cover parts and labor for a full year, ensuring that you’re never stuck with a problem we can fix.</p>
             </div>
             <div class="box-service">
-                <p>Our 5-star service at Drive Saviour is built on trust and reliability. We back our work with a strong warranty, so you can drive with confidence, knowing you’re fully covered.</p>
+                <img src="../../img/satisfaction.png" alt="5 star rating image" class="image-services">
+                    <p>Our 5-star service at Drive Saviour is built on trust and reliability. We back our work with a strong warranty, so you can drive with confidence, knowing you’re fully covered.</p>
             </div>
             <div class="box-service">
-                <p>With up to 5 years of hands-on experience, our mechanics at Drive Saviour deliver expert care for your vehicle. Their skill and dedication ensure a quick and safe return to the road.</p>
+                <img src="../../img/user-experience.png" alt="user-experience image" class="image-services">
+                    <p>With up to 5 years of hands-on experience, our mechanics at Drive Saviour deliver expert care for your vehicle. Their skill and dedication ensure a quick and safe return to the road.</p>
             </div>
         </div>
     </div>
