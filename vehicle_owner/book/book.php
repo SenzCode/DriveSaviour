@@ -1,5 +1,5 @@
 <?php
-    require '../../navbar/nav.php';
+    require '../navbar/nav.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
