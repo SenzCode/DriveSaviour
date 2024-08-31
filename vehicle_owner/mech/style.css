@@ -101,6 +101,14 @@ button:hover {
     transform: scale(1.05);
 }
 
+.view-services{
+    margin-top: 60px;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+
+}
+
 @media (max-width: 768px) {
     .topic h1 {
         font-size: 28px;

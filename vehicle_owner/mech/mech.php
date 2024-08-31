@@ -24,7 +24,7 @@
                     </a>
                 </button>
             </div>
-            <img src="../../img/mechnic.png" alt="">
+            <img src="../../img/mechnic.png" alt="mechanic image">
         </div>
 
 
@@ -45,6 +45,17 @@
                 <img src="../../img/user-experience.png" alt="user-experience image" class="image-services">
                     <p>With up to 5 years of hands-on experience, our mechanics at Drive Saviour deliver expert care for your vehicle. Their skill and dedication ensure a quick and safe return to the road.</p>
             </div>
+        </div>
+
+        <div class="view-services">
+            <h2>Explore our full range of expert <br>
+            Auto repair and maintenance services.</h2>
+
+            <button class="services-btn">
+                    <a href="../book/book.php">
+                        View Services
+                    </a>
+                </button>
         </div>
     </div>
 </body>
