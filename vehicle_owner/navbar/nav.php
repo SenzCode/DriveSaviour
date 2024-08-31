@@ -22,11 +22,11 @@
                 </div>
                 <nav>
                     <ul id="menu">
-                        <li><a href="#home">Home</a></li>
+                        <li><a href="../home/home.php">Home</a></li>
                         <li><a href="../about/about.php">About Us</a></li>
                         <li><a href="../shop/shop.php">Shop</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
-                        <li><a href="#findmech">Find a Mech</a></li>
+                        <li><a href="../contact/contact.php">Contact Us</a></li>
+                        <li><a href="../mech/mech.php">Find a Mech</a></li>
                         <li>
                             <!-- Dark Mode Toggle -->
                             <input type="checkbox" id="darkmode-toggle" style="display: none;">
