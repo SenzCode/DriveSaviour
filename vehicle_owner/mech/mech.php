@@ -20,8 +20,8 @@
                 <h1>We're Here to Help</h1>
 
                 <button>
-                    <a href="../post/post.php">
-                        Find
+                    <a href="../book/book.php">
+                        Book Now
                     </a>
                 </button>
             </div>
@@ -52,7 +52,7 @@
             Auto repair and maintenance services.</h2>
 
             <button class="services-btn">
-                <a href="../post/post.php">
+                <a href="../book/book.php">
                     View Services
                 </a>
             </button>

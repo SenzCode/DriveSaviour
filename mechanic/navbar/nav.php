@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DriveSaviour - About Us</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" /> -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <link rel="stylesheet" href="../navbar/style.css">
 
 </head>
 <body>
     
 
 <section class="wrapper">
-        <div id="stars"></div>
-        <div id="stars2"></div>
         <header>
             <div class="container">
                 <div class="logo">
@@ -69,6 +68,44 @@
         </header>
 
     </section>
+
+    <script>
+    document.getElementById("menu-toggle").addEventListener("click", function() {
+    var menu = document.getElementById("menu");
+    var toggleButton = document.getElementById("menu-toggle");
+    menu.classList.toggle("show");
+    toggleButton.classList.toggle("show");
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const darkModeToggle = document.getElementById('darkmode-toggle');
+    const body = document.body;
+
+    darkModeToggle.addEventListener('change', function () {
+        if (darkModeToggle.checked) {
+            body.classList.add('dark-mode');
+        } else {
+            body.classList.remove('dark-mode');
+        }
+    });
+
+    // Set initial state based on saved preference
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        darkModeToggle.checked = true;
+        body.classList.add('dark-mode');
+    }
+
+    darkModeToggle.addEventListener('change', function () {
+        if (darkModeToggle.checked) {
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            localStorage.setItem('darkMode', 'disabled');
+        }
+    });
+});
+    </script>
+
 
 
 </body>

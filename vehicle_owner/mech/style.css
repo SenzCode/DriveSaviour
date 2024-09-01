@@ -50,7 +50,7 @@ button {
     text-decoration: none;
     font-weight: bold;
     padding: 10px;
-    border: 1px solid #235ddb;
+    border: 1px solid #2B5AC2;
     border-radius: 88px;
     background-color: #f0f8ff;
     transition: background-color 0.3s, color 0.3s;
@@ -195,6 +195,10 @@ button:hover{
 .carousel-btn.next {
     position: absolute;
     right: 0;
+}
+body.dark-mode nav .menu-toggle .bar,
+body.dark-mode nav .menu-toggle .bar2{
+    background-color: rgb(255, 255, 255);
 }
 
 @media (max-width: 768px) {

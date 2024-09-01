@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/contact.css">
-    <link rel="stylesheet" href="../navbar/style.css">
 </head>
 <body>
     <div class="contact-in">
@@ -28,7 +27,7 @@
         </div>
 
         <div class="contact-pic">
-            <img src="../../img/contact.jpg" alt="">
+            <img src="../../img/City driver-rafiki.png" alt="">
         </div>
 
     </div>

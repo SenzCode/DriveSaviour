@@ -35,7 +35,13 @@ header {
     position: fixed;
     width: 100%;
     top: 0;
+    background-color: #ffffff; 
     z-index: 1000;
+}
+
+body.dark-mode header {
+    background-color: #000000; 
+    color: white;
 }
 
 .container {
@@ -286,6 +292,78 @@ label svg.moon {
 }
 
 
+/*services*/
+
+#services {
+    padding: 80px 20px;
+    background-color: #ffffff;
+    margin-top: 100px;
+  }
+  
+  .text-center {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .text-center h1 {
+    font-size: 2.5rem;
+    color: #000000;
+    margin-bottom: 10px;
+  }
+  
+  .text-center h2 {
+    font-size: 1.2rem;
+    color: #0085FF;
+    font-weight: 200;
+  }
+  
+  #services .container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .services-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .service-box {
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 10px 8px #a9a9a9;
+    text-align: center;
+    padding: 10px;
+    border: 2px solid #0085FF;
+    width: 250px;
+    height: 200px;
+  }
+  
+  body.dark-mode .service-box{
+    box-shadow: none;
+    background-color: black;
+    color: white;
+  }
+  
+  body.dark-mode .service-box h3{
+    color: white;
+  }
+  
+  .service-box img {
+    width: 150px;
+    height: 150px;
+    text-align: center;
+  }
+  
+  .service-box h3 {
+    font-size: 16px;
+    color: #333;
+  }
+  
+
+
 /* Dark mode styles */
 body.dark-mode {
     background-color: #000000;
@@ -314,6 +392,15 @@ body.dark-mode h3{
 
 body.dark-mode .home-content p{
     color: rgb(183, 183, 183);
+}
+
+body.dark-mode #services{
+    background-color: black;
+    color: white;
+}
+
+body.dark-mode #services h1{
+    color: white;
 }
 
 @media (max-width: 1024px) {
@@ -462,9 +549,16 @@ body.dark-mode .home-content p{
         margin-left: 230px;
         margin-top: 40px;
       }
+      #services{
+        margin-top: -60px;
+      }
+
 }
 
 @media (max-width: 480px) {
+    #home{
+        margin-top: -100px;
+    }
     .home-content h1 {
         font-size: 1.8rem;
         margin-top: 250px;

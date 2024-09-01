@@ -140,6 +140,10 @@
     line-height: 20px;
     margin-top: 20px;
   }
+  body.dark-mode nav .menu-toggle .bar,
+body.dark-mode nav .menu-toggle .bar2{
+    background-color: rgb(255, 255, 255);
+}
 @media (max-width: 768px) {
     .container-home-section {
         flex-direction: column;
