@@ -34,7 +34,7 @@ if (isset($_POST['logout'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="../welcome/welcome.php">
+                    <a href="../dashboard/dashoard.php">
                         <i class='bx bxs-dashboard'></i>
                         <span class="nav-item">Dashboard</span>
                     </a>
