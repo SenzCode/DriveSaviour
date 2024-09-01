@@ -9,17 +9,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $vehicle_model = htmlspecialchars($_POST['vehicle_model']);
     $year = intval($_POST['year']);
     $mobile_number = htmlspecialchars($_POST['mobile_number']);
-    $city_location = htmlspecialchars($_POST['city_location']);
+    $location = htmlspecialchars($_POST['location']);
     $vehicle_issue = htmlspecialchars($_POST['vehicle_issue']);
 
-    $sql = "INSERT INTO VehicleIssues (first_name, last_name, email, vehicle_model, year, mobile_number, city_location, vehicle_issue) 
+    $sql = "INSERT INTO VehicleIssues (first_name, last_name, email, vehicle_model, year, mobile_number, location, vehicle_issue) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("ssssisss", $first_name, $last_name, $email, $vehicle_model, $year, $mobile_number, $city_location, $vehicle_issue);
+        $stmt->bind_param("ssssisss", $first_name, $last_name, $email, $vehicle_model, $year, $mobile_number, $location, $vehicle_issue);
 
         if ($stmt->execute()) {
-            $success_message = "Data submitted successfully!";
+            $success_message = "Post Added successfully!";
         } else {
             $error_message = "Error: " . $stmt->error;
         }
@@ -70,8 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="mobile_number">Mobile Number:</label>
             <input type="text" id="mobile_number" name="mobile_number" required>
 
-            <label for="city_location">City/Location:</label>
-            <input type="text" id="city_location" name="city_location" required>
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
 
             <label for="vehicle_issue">Vehicle Issue:</label>
             <textarea id="vehicle_issue" name="vehicle_issue" required></textarea>
