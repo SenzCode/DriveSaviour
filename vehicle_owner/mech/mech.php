@@ -51,7 +51,7 @@
             <h2>Explore our full range of expert <br>
             Auto repair and maintenance services.</h2>
 
-            <a href="../home/home.php" class="button modify">View Services</a>
+            <a href="../home/home.php" class="button modify">Services</a>
         </div>
 
         <div class="contribution">
