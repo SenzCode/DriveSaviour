@@ -20,8 +20,8 @@
                 <h1>We're Here to Help</h1>
 
                 <button>
-                    <a href="../book/book.php">
-                        Book Now
+                    <a href="../post/post.php">
+                        Find
                     </a>
                 </button>
             </div>
