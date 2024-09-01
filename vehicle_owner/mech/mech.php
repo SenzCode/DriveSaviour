@@ -20,14 +20,7 @@
                 <h1>We're Here to Help</h1>
 
 
-            <a href="../home/home.php" class="button modify">Book Now</a>
-
-
-                <button>
-                    <a href="../post/post.php">
-                        Find
-                    </a>
-                </button>
+            <a href="../post/post.php" class="button modify">Find</a>
 
             </div>
             <div class="side-img">
