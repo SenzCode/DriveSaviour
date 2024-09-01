@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../navbar/style.css">
 </head>
 <body>
     <div class="container-shops">

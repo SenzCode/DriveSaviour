@@ -196,6 +196,10 @@ button:hover{
     position: absolute;
     right: 0;
 }
+body.dark-mode nav .menu-toggle .bar,
+body.dark-mode nav .menu-toggle .bar2{
+    background-color: rgb(255, 255, 255);
+}
 
 @media (max-width: 768px) {
     .topic h1 {
