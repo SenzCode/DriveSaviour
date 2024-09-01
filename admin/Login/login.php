@@ -15,7 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $admin = $result->fetch_assoc();
 
         if ($password === $admin['password']) {
+
             header("Location: ../dashboard/dashoard.php");
+
+            header("Location: ../navbar/navbar.php");
+
             exit();
         } else {
             echo "Invalid password!";

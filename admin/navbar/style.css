@@ -46,7 +46,11 @@ main {
   position: fixed;
   top: 15px;
   left: 15px;
+
   font-size: 18px;
+
+  font-size: 24px;
+
   cursor: pointer;
   z-index: 1000;
 }
