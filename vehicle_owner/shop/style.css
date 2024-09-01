@@ -94,10 +94,6 @@ body.dark-mode .title-text p{
     color: #a4a4a4;
 }
 
-body.dark-mode .title-image img{
-    border: 2px solid var(--primary-color);
-}
-
 .carousel {
     position: relative;
     display: flex;
