@@ -106,6 +106,14 @@ body.dark-mode .title-image img{
     margin-top: 100px;
 }
 
+body.dark-mode ul li a{
+    color: white;
+}
+
+body.dark-mode nav ul li a::before {
+    background-color: #ffffff; 
+}
+
 .carousel-items {
     display: flex;
     justify-content: space-between;

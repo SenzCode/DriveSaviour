@@ -24,6 +24,14 @@ body {
     margin-top: 50px;
 }
 
+body.dark-mode ul li a{
+    color: white;
+}
+
+body.dark-mode nav ul li a::before {
+    background-color: #ffffff; 
+}
+
 .topic {
     max-width: 60%;
     margin-left: 50px;

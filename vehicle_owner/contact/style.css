@@ -23,6 +23,14 @@
     margin-bottom: 30px;
 }
 
+body.dark-mode ul li a{
+    color: white;
+}
+
+body.dark-mode nav ul li a::before {
+    background-color: #ffffff; 
+}
+
 .contact-in p{
     margin-bottom: 20px;
 }
