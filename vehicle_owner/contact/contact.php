@@ -28,7 +28,7 @@
         </div>
 
         <div class="contact-pic">
-            <img src="../../img/contact.jpg" alt="">
+            <img src="../../img/City driver-rafiki.png" alt="">
         </div>
 
     </div>
