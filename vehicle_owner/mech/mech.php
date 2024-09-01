@@ -19,7 +19,15 @@
                 <h1>Wherever You are?</h1>
                 <h1>We're Here to Help</h1>
 
+
             <a href="../home/home.php" class="button modify">Book Now</a>
+
+
+                <button>
+                    <a href="../post/post.php">
+                        Find
+                    </a>
+                </button>
 
             </div>
             <div class="side-img">
