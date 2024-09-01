@@ -6,13 +6,13 @@ body {
 }
 
 .container-mech {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
 }
 
 .top {
-    padding: 50px 20px;
+    padding: 50px 0;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
@@ -20,8 +20,13 @@ body {
     flex-wrap: wrap;
 }
 
+.top .side-img{
+    margin-top: 50px;
+}
+
 .topic {
     max-width: 60%;
+    margin-left: 50px;
 }
 
 .topic h1.first {
@@ -29,9 +34,9 @@ body {
 }
 
 .topic h1 {
-    font-size: 45px;
+    font-size: 3rem; /* Updated font size */
     margin: 10px 0;
-    line-height: 1.2;
+    line-height: 1.5;
     font-weight: bold;
 }
 
@@ -40,25 +45,27 @@ body {
     height: auto;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-left: 20px;
+    margin-left: 50px;
 }
 
 button {
     margin-top: 20px;
     width: 150px;
+    height: 50px;
     color: #182431;
     text-decoration: none;
     font-weight: bold;
     padding: 10px;
     border: 1px solid #2B5AC2;
     border-radius: 88px;
+    text-decoration: none;
     background-color: #f0f8ff;
-    transition: background-color 0.3s, color 0.3s;
+    transition: 0.3s ease;
 }
 
-button:hover{
+button:hover {
     background-color: #2B5AC2;
-    color: white;
+    color: rgb(255, 255, 255);
     cursor: pointer;
 }
 
@@ -76,21 +83,30 @@ button:hover{
 }
 
 .services {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     gap: 20px;
-    margin-top: 40px;
+    margin-top: 70px;
+}
+
+body.dark-mode  .box-service{
+    border: 2px solid #2B5AC2;
 }
 
 .box-service {
-    justify-content: center;
-    background-color: #747474;
+    background-color: #d2d2d2;
+    cursor: pointer;
     color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
     padding: 20px;
     text-align: justify;
     transition: transform 0.3s ease-in-out;
+    width: 250px;
+    height: 300px;
+    max-width: 100%;
 }
 
 .box-service img {
@@ -104,6 +120,7 @@ button:hover{
 
 .box-service p {
     margin: 10px 0;
+    color: rgb(68, 68, 68);
     font-size: 16px;
 }
 
@@ -118,7 +135,7 @@ button:hover{
 }
 
 .view-services h2 {
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .title-contri {
@@ -135,6 +152,7 @@ button:hover{
     justify-content: center;
     margin-top: 20px;
     color: #fff;
+     overflow: hidden;
 }
 
 .carousel-items {
@@ -146,29 +164,43 @@ button:hover{
     padding: 0 10px; 
 }
 
+.title-contri h1 {
+    font-size: 2.5rem;
+}
+
 .carousel-item {
     min-width: 30%;
-    height: 500px;
     background-color: #007bff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-right: 10px; 
+    margin-right: 20px; 
     transition: transform 0.3s ease;
     padding: 20px;
+    box-sizing: border-box;
+    text-align: center; 
 }
 
 .carousel-item:last-child {
     margin-right: 0; 
 }
 
+.carousel-item img {
+    max-width: 80%;
+    height: auto; 
+    display: block; 
+    margin: 7px auto; 
+}
+
 .carousel-item h3 {
-    text-align: center;
+    margin: 10px 0; 
 }
 
 .carousel-item p {
-    margin-top: 20px;
-    text-align: justify;
+    margin-top: 7px; 
+    text-align: justify; 
+    line-height: 20px;
 }
+
 
 .img-best-mechanic {
     scale: 50%;
@@ -184,7 +216,8 @@ button:hover{
 }
 
 .carousel-btn:hover {
-    color: #fff;
+    color: #ff0000;
+    background-color: transparent;
 }
 
 .carousel-btn.prev {
@@ -196,20 +229,29 @@ button:hover{
     position: absolute;
     right: 0;
 }
+
 body.dark-mode nav .menu-toggle .bar,
-body.dark-mode nav .menu-toggle .bar2{
+body.dark-mode nav .menu-toggle .bar2 {
     background-color: rgb(255, 255, 255);
 }
 
 @media (max-width: 768px) {
+    .container-mech{
+        margin-top: 50px;
+    }
     .topic h1 {
-        font-size: 28px;
+        font-size: 40px;
+    }
+
+    .top .side-img img{
+        width: 70%;
+        margin-left: 20%;
     }
 
     .topic img {
-        width: 100%;
+        width: 50%;
         max-width: 250px;
-        margin: 20px auto;
+        margin: 30px auto;
     }
 
     button {
@@ -224,5 +266,68 @@ body.dark-mode nav .menu-toggle .bar2{
 
     .services {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 10px;
+    }
+
+    .box-service {
+        width: 100%;
+    }
+    .carousel {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .carousel-items {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    .carousel-item {
+        min-width: 100%;
+        height: auto;
+        margin: 10px 0;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .carousel-btn {
+        display: none;
+    }
+    .title-contri h1{
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .topic h1 {
+        font-size: 24px;
+    }
+
+    .topic img {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .view-services h2 {
+        font-size: 24px;
+    }
+
+    .title-contri {
+        font-size: 28px;
+    }
+    .carousel-btn {
+        display: none;
+    }
+
+    .carousel-item h3 {
+        font-size: 1.2rem;
+    }
+
+    .carousel-item p {
+        font-size: 14px;
     }
 }

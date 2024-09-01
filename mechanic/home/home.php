@@ -34,7 +34,7 @@
 <!--services-->
 <section id="services">
         <div class="text-center">
-          <h1 class="services-text reveal">Services</h1>
+          <h1 class="services-text reveal">Key Features</h1>
         </div>
         <div class="container">
             <div class="services-boxes">
