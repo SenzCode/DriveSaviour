@@ -46,54 +46,37 @@ $result = $conn->query($sql);
 </head>
 <body>
 
-    <div class="container-post">
-        
-        <?php if (!empty($success_message)): ?>
-            <p class="success"><?= $success_message; ?></p>
-        <?php elseif (!empty($error_message)): ?>
-            <p class="error"><?= $error_message; ?></p>
-        <?php endif; ?>
-            <div class="breakdown-table">
-                <table>
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Vehicle Model</th>
-                        <th>Year</th>
-                        <th>Mobile Number</th>
-                        <th>Location</th>
-                        <th>Vehicle Issue</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if ($result->num_rows > 0): ?>
-                        <?php while($row = $result->fetch_assoc()): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($row['first_name']); ?></td>
-                                <td><?= htmlspecialchars($row['last_name']); ?></td>
-                                <td><?= htmlspecialchars($row['email']); ?></td>
-                                <td><?= htmlspecialchars($row['vehicle_model']); ?></td>
-                                <td><?= htmlspecialchars($row['year']); ?></td>
-                                <td><?= htmlspecialchars($row['mobile_number']); ?></td>
-                                <td><?= htmlspecialchars($row['location']); ?></td>
-                                <td><?= htmlspecialchars($row['vehicle_issue']); ?></td>
-                                <td><?= htmlspecialchars($row['status']); ?></td>
-                            </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="9">No job posts found.</td>
-                        </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+<div class="container-post">
+    <?php if (!empty($success_message)): ?>
+        <p class="success"><?= $success_message; ?></p>
+    <?php elseif (!empty($error_message)): ?>
+        <p class="error"><?= $error_message; ?></p>
+    <?php endif; ?>
 
-            </div>
-        
+    <div class="issues-container">
+        <?php if ($result->num_rows > 0): ?>
+            <?php while($row = $result->fetch_assoc()): ?>
+                <div class="issue-card">
+                    <div class="card-header">
+                        <h5><?= htmlspecialchars($row['first_name'] . ' ' . $row['last_name']); ?></h5>
+                    </div>
+                    <div class="card-body">
+                        <p><span class="issue-title">Email: </span><?= htmlspecialchars($row['email']); ?></p>
+                        <p><span class="issue-title">Vehicle Model: </span><?= htmlspecialchars($row['vehicle_model']); ?></p>
+                        <p><span class="issue-title">Year: </span><?= htmlspecialchars($row['year']); ?></p>
+                        <p><span class="issue-title">Mobile Number: </span><?= htmlspecialchars($row['mobile_number']); ?></p>
+                        <p><span class="issue-title">Location: </span><?= htmlspecialchars($row['location']); ?></p>
+                        <p><span class="issue-title">Vehicle Issue: </span><?= htmlspecialchars($row['vehicle_issue']); ?></p>
+                        <p><span class="issue-title">Status: </span><span class="issue-status"><?= htmlspecialchars($row['status']); ?></span></p>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p>No job posts found.</p>
+        <?php endif; ?>
     </div>
+</div>
+
 
     <script>
         // JavaScript for dark mode toggle
