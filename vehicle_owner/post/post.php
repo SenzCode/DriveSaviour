@@ -45,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
     <div class="container-post">
+        
         <?php if (!empty($success_message)): ?>
             <p class="success"><?= $success_message; ?></p>
         <?php elseif (!empty($error_message)): ?>

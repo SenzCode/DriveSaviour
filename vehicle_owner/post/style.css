@@ -1,20 +1,23 @@
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
     transition: background-color 0.3s, color 0.3s;
-    margin-top: 150px;
+    background-image: url("../../img/post-background.jpg");
+    background-size: cover;
+    background-position: center 100px;
+    background-repeat: no-repeat;
 }
 
 .container-post {
-    width: 50%;
-    margin: 50px auto;
+    width: 80%; 
+    margin: 50px auto; 
     padding: 20px;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    position: relative;
 }
 
 form {
@@ -48,7 +51,7 @@ textarea {
 
 button[type="submit"] {
     padding: 10px;
-    background-color: #28a745;
+    background-color: #2B5AC2;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -72,3 +75,18 @@ button[type="submit"]:hover {
     margin-bottom: 20px;
 }
 
+@media (min-width: 768px) {
+
+    .container-post {
+        width: 60%;
+        
+        margin-top: 100px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container-post {
+        width: 50%;
+        margin: 150px auto; 
+    }
+}

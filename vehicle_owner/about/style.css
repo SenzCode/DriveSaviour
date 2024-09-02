@@ -58,6 +58,14 @@ nav ul {
   padding: 0; 
 }
 
+body.dark-mode ul li a{
+  color: white;
+}
+
+body.dark-mode nav ul li a::before {
+  background-color: #ffffff; 
+}
+
 nav ul li {
   margin-left: 30px;
   position: relative; 

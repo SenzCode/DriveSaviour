@@ -94,16 +94,20 @@ body.dark-mode .title-text p{
     color: #a4a4a4;
 }
 
-body.dark-mode .title-image img{
-    border: 2px solid var(--primary-color);
-}
-
 .carousel {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 100px;
+}
+
+body.dark-mode ul li a{
+    color: white;
+}
+
+body.dark-mode nav ul li a::before {
+    background-color: #ffffff; 
 }
 
 .carousel-items {

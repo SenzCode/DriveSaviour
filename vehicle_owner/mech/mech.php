@@ -20,14 +20,7 @@
                 <h1>We're Here to Help</h1>
 
 
-            <a href="../home/home.php" class="button modify">Book Now</a>
-
-
-                <button>
-                    <a href="../post/post.php">
-                        Find
-                    </a>
-                </button>
+            <a href="../post/post.php" class="button modify">Find</a>
 
             </div>
             <div class="side-img">
@@ -58,7 +51,7 @@
             <h2>Explore our full range of expert <br>
             Auto repair and maintenance services.</h2>
 
-            <a href="../home/home.php" class="button modify">View Services</a>
+            <a href="../home/home.php" class="button modify">Services</a>
         </div>
 
         <div class="contribution">
