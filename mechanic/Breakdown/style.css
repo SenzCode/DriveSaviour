@@ -1,0 +1,105 @@
+/* style.css */
+
+/* General reset and box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container for the post form and table */
+.container-post {
+    width: 80%;
+    margin: 50px auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Success and error messages */
+.success {
+    color: #28a745;
+    background-color: #d4edda;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.error {
+    color: #dc3545;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Table styling */
+.breakdown-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.breakdown-table th, .breakdown-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.breakdown-table th {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.breakdown-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.breakdown-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.breakdown-table td {
+    font-size: 14px;
+    color: #555;
+}
+
+[data-theme="dark"] {
+    background-color: #333;
+    color: #ddd;
+}
+
+[data-theme="dark"] .container-post {
+    background-color: #444;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .success {
+    background-color: #155724;
+    color: #d4edda;
+}
+
+[data-theme="dark"] .error {
+    background-color: #721c24;
+    color: #f8d7da;
+}
+
+[data-theme="dark"] .breakdown-table th {
+    background-color: #555;
+    color: #ddd;
+}
+
+[data-theme="dark"] .breakdown-table td {
+    color: #ccc;
+}
+
+[data-theme="dark"] .breakdown-table tr:nth-child(even) {
+    background-color: #444;
+}
+
+[data-theme="dark"] .breakdown-table tr:hover {
+    background-color: #555;
+}
