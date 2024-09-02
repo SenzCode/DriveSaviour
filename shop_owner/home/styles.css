@@ -5,6 +5,10 @@
     font-family: Arial, sans-serif;
 }
 
+.home-container{
+    margin-left: 300px;
+}
+
 .container {
     display: flex;
 }
