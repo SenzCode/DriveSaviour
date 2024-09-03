@@ -18,8 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
 
             header("Location: ../dashboard/dashoard.php");
 
-            header("Location: ../navbar/navbar.php");
-
             exit();
         } else {
             echo "Invalid password!";
