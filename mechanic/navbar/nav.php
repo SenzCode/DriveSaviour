@@ -26,7 +26,7 @@
                         <li><a href="../about/about.php">About Us</a></li>
                         <li><a href="../shop/shop.php">Shop</a></li>
                         <li><a href="../contact/contact.php">Contact Us</a></li>
-                        <li><a href="../mech/mech.php">Find a Mech</a></li>
+                        <li><a href="../mech/mech.php">Breakdowns</a></li>
                         <li>
                             <!-- Dark Mode Toggle -->
                             <input type="checkbox" id="darkmode-toggle" style="display: none;">
