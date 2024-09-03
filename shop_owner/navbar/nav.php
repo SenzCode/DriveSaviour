@@ -6,62 +6,57 @@
     <title>DriveSaviour - About Us</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
-    <div class="sidebar">
-        <div class="logo">
-            <img src="../../img/ss.png" alt="Logo">
-        </div>
-        <nav>
-            <ul>
+<div class="sidebar">
+            <div class="logo">
+            <img src="../../img/ss.png">
+            </div>
+            <nav>
+                <ul>
                 <li class="dropdown">
-                    <a href="#" class="dropbtn">
-                        <i class="fas fa-user"></i> Profile
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="/shop_owner/ownerprofile/manage_profile.php"><i class="fas fa-edit"></i> Edit Profile</a>
-                        <a href="/shop_owner/password/manage_password.php"><i class="fas fa-key"></i> Change Password</a>
-                    </div>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">
-                        <i class="fas fa-store"></i> Shop
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="#"><i class="fas fa-edit"></i> Edit Shop</a>
-                        <a href="#"><i class="fas fa-boxes"></i> Manage Products</a>
-                        <a href="#"><i class="fas fa-receipt"></i> Manage Orders</a>
-                        <a href="#"><i class="fas fa-coins"></i> Income Dashboard</a>
-                        <a href="#"><i class="fas fa-star"></i> Customer Ratings & Reviews</a>
-                    </div>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">
-                        <i class="fas fa-warehouse"></i> Garage
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="#"><i class="fas fa-tools"></i> Edit Garage</a>
-                        <a href="#"><i class="fas fa-calendar-check"></i> View Bookings</a>
-                        <a href="#"><i class="fas fa-plus-circle"></i> Add Services</a>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-        <div class="bottom-links">
-            <a href="#" class="bottom-link">
-                <i class="fas fa-headset"></i> Contact Admin
-            </a>
-            <a href="#" class="bottom-link">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
-        </div>
+                <a href="#" class="dropbtn">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+                <div class="dropdown-content">
+                    <a href="#"><i class="fas fa-edit"></i> Edit Profile</a>
+                    <a href="#"><i class="fas fa-key"></i> Change Password</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">
+                    <i class="fas fa-store"></i> Shop
+                </a>
+                <div class="dropdown-content">
+                    <a href="#"><i class="fas fa-edit"></i> Edit Shop</a>
+                    <a href="#"><i class="fas fa-boxes"></i> Manage Products</a>
+                    <a href="#"><i class="fas fa-receipt"></i> Manage Orders</a>
+                    <a href="#"><i class="fas fa-star"></i> Customer Ratings & Reviews</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">
+                    <i class="fas fa-warehouse"></i> Garage
+                </a>
+                <div class="dropdown-content">
+                    <a href="#"><i class="fas fa-tools"></i> Edit Garage</a>
+                    <a href="#"><i class="fas fa-calendar-check"></i> View Bookings</a>
+                    <a href="#"><i class="fas fa-plus-circle"></i> Add Services</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    
+    <div class="bottom-links">
+        <a href="#" class="bottom-link">
+            <i class="fas fa-headset"></i> Contact Admin
+        </a>
+        <a href="#" class="bottom-link">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
     </div>
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('active');
-        }
-    </script>
+</div>
 </body>
 </html>

@@ -1,69 +1,61 @@
 <?php
 require '../../connection.php';
 
-session_start();
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $phone = $_POST['phone'];
+    $dob = $_POST['dob'];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['register'])) {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $phone = $_POST['phone'];
-        $dob = $_POST['dob'];
+    // Check if the email already exists
+    $checkEmail = $conn->prepare("SELECT * FROM shop_owner WHERE email = ?");
+    $checkEmail->bind_param("s", $email);
+    $checkEmail->execute();
+    $result = $checkEmail->get_result();
 
-        // Check if the email already exists
-        $checkEmail = $conn->prepare("SELECT * FROM shop_owner WHERE email = ?");
-        $checkEmail->bind_param("s", $email);
-        $checkEmail->execute();
-        $result = $checkEmail->get_result();
+    if ($result->num_rows > 0) {
+        echo "Email already registered. Please use a different email.";
+    } else {
+        $stmt = $conn->prepare("INSERT INTO shop_owner (name, email, password, phone, dob) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $name, $email, $password, $phone, $dob);
 
-        if ($result->num_rows > 0) {
-            echo "Email already registered. Please use a different email.";
+        if ($stmt->execute()) {
+            echo "Registration successful!";
         } else {
-            $stmt = $conn->prepare("INSERT INTO shop_owner (name, email, password, phone, dob) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssss", $name, $email, $password, $phone, $dob);
-
-            if ($stmt->execute()) {
-                echo "Registration successful!";
-            } else {
-                echo "Error: " . $stmt->error;
-            }
-
-            $stmt->close();
-        }
-
-        $checkEmail->close();
-    }
-
-    if (isset($_POST['login'])) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        // Fetch user data from the database
-        $stmt = $conn->prepare("SELECT * FROM shop_owner WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $user = $result->fetch_assoc();
-
-            if (password_verify($password, $user['password'])) {
-                $_SESSION['user_id'] = $user['ownerID']; // Use 'ownerID' for consistency
-
-                // Check if there is a redirect query parameter
-                $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : '../home/home.php';
-                header("Location: $redirect");
-                exit();
-            } else {
-                echo "Invalid password!";
-            }
-        } else {
-            echo "No user found with this email.";
+            echo "Error: " . $stmt->error;
         }
 
         $stmt->close();
     }
+
+    $checkEmail->close();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Fetch user data from the database
+    $stmt = $conn->prepare("SELECT * FROM shop_owner WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+
+        if (password_verify($password, $user['password'])) {
+            header("Location: ../home/home.php");
+            exit();
+        } else {
+            echo "Invalid password!";
+        }
+    } else {
+        echo "No user found with this email.";
+    }
+
+    $stmt->close();
 }
 
 $conn->close();

@@ -9,23 +9,19 @@
     display: flex;
 }
 
-
+/* Sidebar Styles */
 .sidebar {
     width: 250px;
     background-color: #f0f4ff;
     padding: 20px;
     min-height: 100vh;
-    position: fixed; 
-    left: 0;
-    top: 0;
-    transition: transform 0.3s ease; 
+    position: fixed;
 }
 
 .logo img {
-    max-width: 100%; 
-    height: auto;
+    width: 100%;
+    margin-bottom: 30px;
 }
-
 
 .sidebar nav ul {
     list-style: none;
@@ -52,8 +48,8 @@
 
 .sidebar nav ul li .dropdown-content {
     display: none;
-    padding-left: 20px; 
-    background-color: #f0f4ff; 
+    padding-left: 20px;
+    background-color: #f0f4ff;
 }
 
 .sidebar nav ul li:hover .dropdown-content {
@@ -73,16 +69,16 @@
     background-color: #d9e1ff;
 }
 
-
+/* Bottom Links Styles */
 .bottom-links {
     position: absolute;
     bottom: 20px;
-    width: calc(100% - 40px); 
+    width: calc(100% - 40px);
 }
 
 .bottom-link {
     text-decoration: none;
-    color: #000; 
+    color: #000;
     font-size: 18px;
     display: block;
     padding: 10px;
@@ -92,58 +88,78 @@
 
 .bottom-link:hover {
     background-color: #d9e1ff;
-    color: #000; 
 }
 
+/* Main Content Styles */
+.main-content {
+    padding: 20px;
+    margin-left: 270px;
+    flex-grow: 1;
+}
 
-@media (max-width: 768px) {
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        position: fixed;
-        transform: translateX(-100%); 
-        z-index: 1000;
-    }
+.home-container {
+    margin-left: 30px;
+}
 
-    .sidebar.active {
-        transform: translateX(0); 
-    }
+.overview-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
 
-    .sidebar .logo img {
-        width: auto;
-        max-width: 80%;
-        height: auto;
-    }
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
+}
 
-    .sidebar nav ul {
-        display: flex;
-        flex-direction: column;
-    }
+.card i {
+    font-size: 50px;
+    color: #5f79e6;
+    margin-bottom: 10px;
+}
 
-    .sidebar nav ul li {
-        margin: 10px 0;
-    }
+.card h3 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
 
-    .bottom-links {
-        position: relative;
-        bottom: 0;
-        width: 100%;
-    }
+.card p {
+    font-size: 18px;
+    color: #555;
+}
 
-    .bottom-link {
-        margin-top: 5px;
-    }
+.section-title {
+    font-size: 24px;
+    color: red;
+    margin-bottom: 20px;
+}
 
-    .sidebar-toggle {
-        position: fixed;
-        top: 8px; 
-        left: 8px; 
-        z-index: 1001;
-        background-color: transparent; 
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        font-size: 24px;
-    }
-    
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.product-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+}
+
+.product-card img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.product-card p {
+    font-size: 16px;
+    color: #333;
 }

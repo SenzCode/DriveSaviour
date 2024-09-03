@@ -13,46 +13,6 @@
     <link rel="stylesheet" href="../navbar/style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <div class="logo">
-                <img src="../../img/ss.png" alt="Drive Saviour Logo">
-            </div>
-            <nav>
-                <ul>
-                    <li class="dropdown">
-                        <a href="#" class="dropbtn"><i class="fas fa-user"></i> Profile</a>
-                        <div class="dropdown-content">
-                            <a href="#"><i class="fas fa-edit"></i> Edit Profile</a>
-                            <a href="#"><i class="fas fa-key"></i> Change Password</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropbtn"><i class="fas fa-store"></i> Shop</a>
-                        <div class="dropdown-content">
-                            <a href="#"><i class="fas fa-edit"></i> Edit Shop</a>
-                            <a href="#"><i class="fas fa-boxes"></i> Manage Products</a>
-                            <a href="#"><i class="fas fa-receipt"></i> Manage Orders</a>
-                            <a href="#"><i class="fas fa-star"></i> Customer Ratings & Reviews</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropbtn"><i class="fas fa-warehouse"></i> Garage</a>
-                        <div class="dropdown-content">
-                            <a href="#"><i class="fas fa-tools"></i> Edit Garage</a>
-                            <a href="#"><i class="fas fa-calendar-check"></i> View Bookings</a>
-                            <a href="#"><i class="fas fa-plus-circle"></i> Add Services</a>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-
-            <div class="bottom-links">
-                <a href="#" class="bottom-link"><i class="fas fa-headset"></i> Contact Admin</a>
-                <a href="#" class="bottom-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </div>
-        </div>
-        
         <div class="main-content">
             <div class="home-container">
                 <div class="overview-cards">
