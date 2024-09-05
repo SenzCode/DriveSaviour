@@ -58,6 +58,11 @@
         </div>
     </section> <br> 
 
+    <?php
+    require '../footer/footer.php';
+    ?>
+
+
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="js/script.js"></script>
@@ -82,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             body.classList.remove('dark-mode');
         }
-    });
+    });z
 
     // Set initial state based on saved preference
     if (localStorage.getItem('darkMode') === 'enabled') {

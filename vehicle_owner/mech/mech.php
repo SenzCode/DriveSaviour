@@ -89,6 +89,11 @@
         </div>
     </div> <br> <br>
 
+    <?php
+    require '../footer/footer.php';
+    ?>
+
+
     <script src="script.js"></script>
 </body>
 </html>

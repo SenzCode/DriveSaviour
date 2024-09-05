@@ -132,6 +132,9 @@
         </div>
 </section> <br> 
 
+<?php
+    require '../footer/footer.php';
+    ?>
 
 </body>
 </html>
