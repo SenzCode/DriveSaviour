@@ -1,0 +1,282 @@
+/* General */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+
+    font-family: "Poppins", sans-serif, "Pangolin";
+    
+}
+.container {
+    margin: 0;
+    display: flex;
+}
+.form-row{
+    clear: both;
+}
+.form-label{
+    font-weight: bold;
+    font-size: 18px;
+    width: 200px;
+    float: left;
+    text-align: left;
+    /* padding-left: 50px; */
+}
+
+.form-value{
+    float: left;
+    font-size: 18px;
+    text-align: left;
+}
+
+.profilepic {
+    position: fixed;
+    margin-top: 100px;
+    margin-right: 10px;    
+    float: right;
+    width: 250px;
+    height: 250px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profilepic img {
+    width: 100%;
+    height: auto;
+}
+
+.profileTop {
+    overflow: hidden;
+    margin-top: 100px;
+    margin-left: 15rem;
+}
+
+.profileTop h1, .profileTop h6 {
+    text-align: left;
+    font-size: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    width: 100px;
+    color: #182431;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #2B5AC2;
+    border-radius: 88px;
+    background-color: #f0f8ff;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.modal-content .btn {
+    margin-top: 20px;
+    
+}
+
+.btn:hover {
+    background-color: #2B5AC2;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.side-container{
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;    
+    margin-top: -30rem;
+}
+
+/* Modal */
+.modal { 
+    display: none; /* Hidden by default */ 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="email"], select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.modal::-webkit-scrollbar {
+    Display: none
+}
+
+/* vehicle card */
+.vehicle-card-container {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.vehicle-card {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.vehicle-card:hover {
+    transform: scale(1.05);
+}
+
+.vehicle-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.vehicle-card p {
+    margin: 8px 0;
+}
+
+.vehicle-card strong {
+    font-weight: 600;
+}
+
+header {
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: #ffffff; 
+    z-index: 1000;
+  }
+  
+  body.dark-mode header {
+    background-color: #000000; 
+    color: white;
+}
+
+
+/* Mobile view adjustments */
+@media (max-width: 875px) {
+    .form-value{
+        float: left;
+        font-size: 16px;
+        text-align: left;
+    }
+    .container {
+        width: 100%;
+        padding: 0 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .side-container{
+        order: 1;
+        margin-top: 100px;
+        margin-right: 50px;    
+        margin-left: 50px;
+    }
+    
+    .profilepic {
+        transform: scale(1.0);
+        margin-top: 80px;
+        margin: 0 auto;
+        width: 150px;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+       
+        
+    }
+
+    .profilepic img {
+        width: 100%;
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    .profileTop {
+        order: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; /* Center align items */
+        text-align: center; /* Center align text on mobile */
+        margin-top: 20px;
+        margin-left: -5px;
+    }
+
+    .profileTop h1, .profileTop h6 {
+        text-align: center; /* Center align text on mobile */
+    }
+
+    .p_data, .University_data {
+        width: 100%;
+        margin-top: 20px;
+        padding: 0 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center align items */
+    }
+
+    .p_data h2, .University_data h2 {
+        text-align: center; /* Center align text on mobile */
+    }
+
+    .p_data h4, .University_data h4 {
+        text-align: center; /* Center align text on mobile */
+    }
+}
+
