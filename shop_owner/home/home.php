@@ -40,7 +40,7 @@
                     </div>
                     <div class="product-card">
                         <img src="products/2.png" alt="Mobil Super">
-                        <p>Mobil Super</p>
+                        <p>MOBIL SUPER</p>
                     </div>
                     <div class="product-card">
                         <img src="products/7.png" alt="EXIDE BATTERY">
