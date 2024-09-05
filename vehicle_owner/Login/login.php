@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../../connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
@@ -16,17 +17,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
 
     if ($result->num_rows > 0) {
         echo "Email already registered. Please use a different email.";
-    }
-    
-    else {
+    } else {
         $stmt = $conn->prepare("INSERT INTO vehicle_owner (name, email, password, phone, city) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssis", $name, $email, $password, $phone, $city);
+        $stmt->bind_param("sssss", $name, $email, $password, $phone, $city);
 
         if ($stmt->execute()) {
-            echo "Registration successful!";
-        }
+            $_SESSION['name'] = $name;
+            $_SESSION['email'] = $email;
+            $_SESSION['phone'] = $phone;
+            $_SESSION['city'] = $city;
 
-        else {
+            echo "Registration successful!";
+        } else {
             echo "Error: " . $stmt->error;
         }
 
@@ -36,11 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
     $checkEmail->close();
 }
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Fetch user data from the database
     $stmt = $conn->prepare("SELECT * FROM vehicle_owner WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -50,16 +52,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $user = $result->fetch_assoc();
 
         if (password_verify($password, $user['password'])) {
+            $_SESSION['userID'] = $userID;
+            $_SESSION['name'] = $user['name'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['phone'] = $user['phone'];
+            $_SESSION['city'] = $user['city'];
+
             header("Location: ../home/home.php");
             exit();
-        }
-        
-        else {
+        } else {
             echo "Invalid password!";
         }
-    }
-    
-    else {
+    } else {
         echo "No user found with this email.";
     }
 
@@ -68,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
 
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -92,8 +97,8 @@ $conn->close();
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email for registration</span>
-                <input type="text" name="name" placeholder="Name" required>
                 <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="name" placeholder="Name" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="number" name="phone" placeholder="Phone" required>
                 <input type="text" name="city" placeholder="City" required>
