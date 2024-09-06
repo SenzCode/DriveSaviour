@@ -45,8 +45,6 @@ header {
     display: block; 
 }
 
-nav {}
-
 nav ul {
     list-style-type: none;
     top: 0;
@@ -225,7 +223,7 @@ input:checked + label:after {
 
 .btn {
     display: inline-block;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     width: 100px;
     color: #182431;
     font-weight: bold;
@@ -423,22 +421,24 @@ header {
     .profileTop h1, .profileTop h6 {
         text-align: center; /* Center align text on mobile */
     }
-
-    .p_data, .University_data {
-        width: 100%;
-        margin-top: 20px;
-        padding: 0 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* Center align items */
-    }
-
-    .p_data h2, .University_data h2 {
-        text-align: center; /* Center align text on mobile */
-    }
-
-    .p_data h4, .University_data h4 {
-        text-align: center; /* Center align text on mobile */
-    }
 }
+
+@media (max-width: 480px) {
+    .profileTop h1 {
+        display: none;
+    }
+
+    .personal_details {
+        margin-left: 20px;
+    }
+
+    .vehicle-card-container {
+        justify-content: center;
+    }
+
+    .modal-content {
+      margin-top: 100px;
+    }
+  
+  }
 

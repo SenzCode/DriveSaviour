@@ -49,8 +49,41 @@
     border-radius: 4px;
 }
 
+/* view_issue.php  */
+
+.issue_container {
+    display: flex;
+    margin-top: 100px;
+    gap: 50px;
+}
+
+.issue-details {
+    margin-top: 30px;
+    margin-left: 100px;
+    width: 500px;
+
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.map-container {
+    width: 800px;
+    margin-right: 50px;
+}
+
 @media screen and (max-width: 736px) {
     .issue-card {
         width: calc(100% - 20px);
     }
 }
+
+/* @media (max-width: 480px) {
+    .issue_container {
+        display: inline;
+        font-size: 10px;
+        align-items: center;
+    }
+} */

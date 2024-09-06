@@ -22,7 +22,6 @@ $vehicleResult = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../navbar/style.css">
-    <link rel="stylesheet" href="../profile/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -72,16 +71,12 @@ $vehicleResult = $stmt->get_result();
                 <input type="hidden" id="fuel_type" name="fuel_type">
                 <input type="hidden" id="engine_type" name="engine_type">
                 <input type="hidden" id="tire_size" name="tire_size">
+                <input type="hidden" id="location" name="location">
+
                 <div class="form-row">
                     <label for="model">Model:</label>
-                    <input type="text" id="model" name="model" readonly>
+                    <input type="text" id="model" name="model" readonly> <!-- Ensure the name matches -->
                 </div>
-                <div class="form-row">
-                    <label for="location">Location:</label>
-                    <button type="button" id="shareLocationBtn" class="btn">Share My Location</button>
-                    <input type="hidden" id="location" name="location">
-                </div>
-
 
                 <div class="form-row">
                     <label for="vehicle_issue">Describe the Issue:</label>
@@ -89,50 +84,58 @@ $vehicleResult = $stmt->get_result();
                 </div>
 
                 <div class="form-row">
-                    <button type="submit" class="btn">Submit</button>
+                    <button type="submit" class="btn" id="shareLocationBtn">Submit</button>
                 </div>
             </form>
+
+
         </div>
     </div>
 
     <script>
-    $(document).ready(function() {
-        // Open modal on 'Choose' button click
-        $('.openModal').click(function() {
-            $('#model').val($(this).data('model'));
-            $('#year').val($(this).data('year'));
-            $('#number_plate').val($(this).data('number_plate'));
-            $('#fuel_type').val($(this).data('fuel_type'));
-            $('#engine_type').val($(this).data('engine_type'));
-            $('#tire_size').val($(this).data('tire_size'));
+$(document).ready(function() {
+    // Open modal on 'Choose' button click
+    $('.openModal').click(function() {
+        $('#model').val($(this).data('model'));
+        $('#year').val($(this).data('year'));
+        $('#number_plate').val($(this).data('number_plate'));
+        $('#fuel_type').val($(this).data('fuel_type'));
+        $('#engine_type').val($(this).data('engine_type'));
+        $('#tire_size').val($(this).data('tire_size'));
 
-            $('#vehicleModal').show();
-        });
-
-        // Close modal
-        $('.close').click(function() {
-            $('#vehicleModal').hide();
-        });
-
-        // Handle Share My Location button click
-        $('#shareLocationBtn').click(function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    // Get user's latitude and longitude
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-
-                    // Redirect to the map page with latitude and longitude as query parameters
-                    window.location.href = `map.php?lat=${latitude}&lon=${longitude}`;
-                }, function(error) {
-                    alert("Error fetching location: " + error.message);
-                });
-            } else {
-                alert("Geolocation is not supported by this browser.");
-            }
-        });
+        $('#vehicleModal').show();
     });
+
+    // Close modal
+    $('.close').click(function() {
+        $('#vehicleModal').hide();
+    });
+
+    // Handle Share My Location button click
+    $('#shareLocationBtn').click(function(event) {
+        event.preventDefault();  // Prevent the default form submission
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                // Get user's latitude and longitude
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Set the location input field with the lat and long values
+                $('#location').val(`${latitude}, ${longitude}`);
+
+                // Now that location is set, submit the form
+                $('#issueForm').submit();
+            }, function(error) {
+                alert("Error fetching location: " + error.message);
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    });
+});
 </script>
+
 
 </body>
 </html>
