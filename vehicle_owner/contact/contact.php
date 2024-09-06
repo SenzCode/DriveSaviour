@@ -32,5 +32,10 @@
         </div>
 
     </div>
+
+    <?php
+    require '../footer/footer.php';
+    ?>
+
 </body>
 </html>
