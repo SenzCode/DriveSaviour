@@ -2,9 +2,9 @@
 // Start session to access session variables
 session_start();
 
-// Include the database connection and navbar
 require('../../connection.php');
-require('../navbar/nav.php');
+require '../navbar/nav.php';
+
 
 // Retrieve user information from session variables
 $userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : '';
@@ -21,20 +21,18 @@ $stmt->execute();
 $vehicleResult = $stmt->get_result();
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABC INSTITUTE</title>
-    <link rel="stylesheet" href="../navbar/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../navbar/style.css">
 </head>
 <body>
-<div class="container">
+ 
+<div class="container1">
     <!-- Adding user profile image -->
     <div class="side-container">
         <div class="profilepic">
@@ -73,8 +71,7 @@ $vehicleResult = $stmt->get_result();
                 </div>
             </div>
             <br><br>
-            <button type="button" class="btn" id="openUpdateModalBtn">Update</button>
-
+            <button type="submit" class="btn">Update</button>
 
             <!-- Vehicle Details -->
             <br> <br>
@@ -100,7 +97,7 @@ $vehicleResult = $stmt->get_result();
             <button type="button" class="btn" id="openModalBtn">Add</button>
         </div>
     </div>
-</div>
+</div> <br> <br> <br>
 
 
 <!-- Modal HTML -->
@@ -171,42 +168,6 @@ $vehicleResult = $stmt->get_result();
     </div>
 </div>
 
-<!-- Update Profile Modal HTML -->
-<div id="updateProfileModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Update Profile Details</h2>
-        
-        <form id="updateProfileForm" method="POST" action="update_profile.php">
-            <div class="form-row">
-                <label for="name">Name:</label>
-                <input type="text" id="update-name" name="name" value="<?php echo $name; ?>" required>
-            </div>
-
-            <div class="form-row">
-                <label for="email">Email:</label>
-                <input type="email" id="update-email" name="email" value="<?php echo $email; ?>" readonly>
-            </div>
-
-            <div class="form-row">
-                <label for="contact">Phone:</label>
-                <input type="text" id="update-contact" name="phone" value="<?php echo $contact; ?>" required>
-            </div>
-
-            <div class="form-row">
-                <label for="city">City:</label>
-                <input type="text" id="update-city" name="city" value="<?php echo $city; ?>" required>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="form-row">
-                <button type="submit" class="btn">Update</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
 
 <script>
     // Get modal elements
@@ -231,30 +192,11 @@ $vehicleResult = $stmt->get_result();
         }
     }
 
-    // Get modal elements
-var updateModal = document.getElementById('updateProfileModal');
-var updateBtn = document.getElementById('openUpdateModalBtn');
-var closeBtn = document.getElementsByClassName('close')[0];
-
-// Open the modal when the button is clicked
-updateBtn.onclick = function() {
-    updateModal.style.display = 'block';
-}
-
-// Close the modal when the 'x' is clicked
-closeBtn.onclick = function() {
-    updateModal.style.display = 'none';
-}
-
-// Close the modal if the user clicks outside the modal
-window.onclick = function(event) {
-    if (event.target == updateModal) {
-        updateModal.style.display = 'none';
-    }
-}
-
-
 </script>
 
+
+<?php
+    require '../footer/footer.php';
+?>
 </body>
 </html>

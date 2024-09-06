@@ -41,7 +41,7 @@
             </div>
             <button class="carousel-btn next">&#10095;</button>
         </div>
-    </div>
+    </div> <br> <br> <br>
 
     <?php
     require '../footer/footer.php';

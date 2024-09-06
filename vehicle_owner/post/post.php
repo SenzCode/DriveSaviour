@@ -90,7 +90,7 @@ $vehicleResult = $stmt->get_result();
 
 
         </div>
-    </div>
+    </div> <br> <br>
 
     <script>
 $(document).ready(function() {
@@ -136,6 +136,9 @@ $(document).ready(function() {
 });
 </script>
 
+<?php
+    require '../footer/footer.php';
+?>
 
 </body>
 </html>

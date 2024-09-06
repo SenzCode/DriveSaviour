@@ -31,7 +31,7 @@
             <img src="../../img/City driver-rafiki.png" alt="">
         </div>
 
-    </div>
+    </div> <br> <br> <br>
 
     <?php
     require '../footer/footer.php';

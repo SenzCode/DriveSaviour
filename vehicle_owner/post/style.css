@@ -40,8 +40,13 @@ body.dark-mode header {
 }
 
 .post-container {
-  margin-top: 100px;
+  margin-top: 150px;
   margin-left: 100px;
+}
+
+body.dark-mode nav .menu-toggle .bar,
+body.dark-mode nav .menu-toggle .bar2{
+    background-color: rgb(255, 255, 255);
 }
 
 textarea {
@@ -65,7 +70,7 @@ textarea {
 
 .vehicle-card {
   background-color: #f8f8f8;
-  border-radius: 10px;
+  border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   width: 300px;
@@ -78,11 +83,29 @@ textarea {
 
 .vehicle-card h3 {
   font-size: 1.5em;
-  margin-bottom: 10px;
+  margin-bottom: 18px;
 }
 
 .vehicle-card p {
   margin: 8px 0;
+  margin-bottom: 10px;
+}
+
+.vehicle-card .btn{
+  margin-top: 10px;
+}
+
+body.dark-mode .vehicle-card{
+  background-color: transparent;
+  border: 1px solid #2B5AC2;
+}
+
+body.dark-mode .vehicle-card h3{
+  color: #ffffff;
+}
+
+body.dark-mode .vehicle-card p{
+  color: #c8c8c8;
 }
 
 .vehicle-card strong {

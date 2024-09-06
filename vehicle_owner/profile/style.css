@@ -7,16 +7,19 @@
     padding: 0;
 }
 body{
-
     font-family: "Poppins", sans-serif, "Pangolin";
-    
 }
+
 header {
     padding: 10px 20px;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+}
+
+body.dark-mode nav ul li a {
+    color: white;
 }
 
 .container {
@@ -171,10 +174,13 @@ input:checked + label:after {
     fill: #7e7e7e;
 }
 
-.container {
+.container1 {
     margin: 0;
     display: flex;
+    margin-left: -100px;
+    margin-top: 50px;
 }
+
 .form-row{
     clear: both;
 }
@@ -195,8 +201,8 @@ input:checked + label:after {
 
 .profilepic {
     position: fixed;
-    margin-top: 100px;
-    margin-right: 10px;    
+    margin-top: 730px;
+    margin-right: 60px;    
     float: right;
     width: 250px;
     height: 250px;
@@ -218,12 +224,51 @@ input:checked + label:after {
 
 .profileTop h1, .profileTop h6 {
     text-align: left;
-    font-size: 2rem;
+    font-size: 1.5rem;
+}
+
+.profileTop .personal_details{
+    margin-top: 20px;
+}
+
+.profileTop .personal_details h2{
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.profileTop .personal_details .form-row span{
+    margin-top: 15px;
+}
+
+body.dark-mode .profileTop .personal_details h2{
+    color: #b9b9b9;
+}
+
+body.dark-mode nav .menu-toggle .bar,
+body.dark-mode nav .menu-toggle .bar2{
+    background-color: rgb(255, 255, 255);
+}
+
+/*vehicle details*/
+.vehicle_details{
+    margin-top: 20px;
+}
+
+.vehicle_details h2{
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+body.dark-mode .vehicle_details h2{
+    color: #b9b9b9;
 }
 
 .btn {
     display: inline-block;
     margin-bottom: 10px;
+    margin-top: 20px;
     width: 100px;
     color: #182431;
     font-weight: bold;
@@ -233,7 +278,7 @@ input:checked + label:after {
     background-color: #f0f8ff;
     text-decoration: none;
     text-align: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color .50s ease, color .50s ease;
 }
 
 .modal-content .btn {
@@ -328,7 +373,7 @@ input[type="text"]:focus, select:focus {
 
 .vehicle-card {
     background-color: #f8f8f8;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 300px;
@@ -339,9 +384,22 @@ input[type="text"]:focus, select:focus {
     transform: scale(1.05);
 }
 
+body.dark-mode .vehicle-card{
+    background-color: transparent;
+    border: 1px solid #2B5AC2;
+}
+
+body.dark-mode .vehicle-card h3{
+    color: #ffffff;
+}
+
+body.dark-mode .vehicle-card p{
+    color: #c8c8c8;
+}
+
 .vehicle-card h3 {
     font-size: 1.5em;
-    margin-bottom: 10px;
+    margin-bottom: 18px;
 }
 
 .vehicle-card p {
@@ -367,44 +425,38 @@ header {
 }
 
 
-/* Mobile view adjustments */
+/* Responsive */
 @media (max-width: 875px) {
-    .form-value{
-        float: left;
+    .form-value {
         font-size: 16px;
-        text-align: left;
+        text-align: center; 
     }
-    .container {
+
+    .container1 {
         width: 100%;
         padding: 0 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 100px auto; 
     }
-    .side-container{
+
+    .side-container {
         order: 1;
-        margin-top: 100px;
-        margin-right: 50px;    
-        margin-left: 50px;
+        margin: 20px 0; 
+        width: 100%; 
+        display: flex;
+        justify-content: center; 
     }
     
     .profilepic {
-        transform: scale(1.0);
-        margin-top: 80px;
-        margin: 0 auto;
+        margin-top: 20px;
         width: 150px;
         height: 150px;
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
-       
-        
-    }
-
-    .profilepic img {
-        width: 100%;
-        height: auto; /* Maintain aspect ratio */
+        margin: 20px auto; 
     }
 
     .profileTop {
@@ -412,14 +464,32 @@ header {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center; /* Center align items */
-        text-align: center; /* Center align text on mobile */
-        margin-top: 20px;
-        margin-left: -5px;
+        align-items: center;
+        text-align: center;
+        margin: 20px auto; 
+        width: 100%; 
     }
 
     .profileTop h1, .profileTop h6 {
-        text-align: center; /* Center align text on mobile */
+        text-align: center;
+    }
+
+    .vehicle-card-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        margin: 20px auto;
+        width: 100%; 
+    }
+
+    .vehicle-card {
+        width: 90%;
+        max-width: 300px; 
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        text-align: center; 
     }
 }
 
@@ -429,16 +499,32 @@ header {
     }
 
     .personal_details {
-        margin-left: 20px;
+        margin: 0; 
+        text-align: center; 
     }
 
     .vehicle-card-container {
         justify-content: center;
+        width: 100%; 
+    }
+
+    .vehicle-card {
+        width: 100%; 
+        max-width: 300px; 
+    }
+    
+    .vehicle_details{
+        margin-top: 30px;
     }
 
     .modal-content {
-      margin-top: 100px;
+        margin-top: 100px;
+        width: 90%; 
+        max-width: 500px; 
     }
-  
-  }
 
+    .profilepic {
+        width: 120px;
+        height: 120px;
+    }
+}
