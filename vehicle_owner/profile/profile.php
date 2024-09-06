@@ -73,7 +73,8 @@ $vehicleResult = $stmt->get_result();
                 </div>
             </div>
             <br><br>
-            <button type="submit" class="btn">Update</button>
+            <button type="button" class="btn" id="openUpdateModalBtn">Update</button>
+
 
             <!-- Vehicle Details -->
             <br> <br>
@@ -170,6 +171,42 @@ $vehicleResult = $stmt->get_result();
     </div>
 </div>
 
+<!-- Update Profile Modal HTML -->
+<div id="updateProfileModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Update Profile Details</h2>
+        
+        <form id="updateProfileForm" method="POST" action="update_profile.php">
+            <div class="form-row">
+                <label for="name">Name:</label>
+                <input type="text" id="update-name" name="name" value="<?php echo $name; ?>" required>
+            </div>
+
+            <div class="form-row">
+                <label for="email">Email:</label>
+                <input type="email" id="update-email" name="email" value="<?php echo $email; ?>" readonly>
+            </div>
+
+            <div class="form-row">
+                <label for="contact">Phone:</label>
+                <input type="text" id="update-contact" name="phone" value="<?php echo $contact; ?>" required>
+            </div>
+
+            <div class="form-row">
+                <label for="city">City:</label>
+                <input type="text" id="update-city" name="city" value="<?php echo $city; ?>" required>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-row">
+                <button type="submit" class="btn">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 
 <script>
     // Get modal elements
@@ -193,6 +230,29 @@ $vehicleResult = $stmt->get_result();
             modal.style.display = 'none';
         }
     }
+
+    // Get modal elements
+var updateModal = document.getElementById('updateProfileModal');
+var updateBtn = document.getElementById('openUpdateModalBtn');
+var closeBtn = document.getElementsByClassName('close')[0];
+
+// Open the modal when the button is clicked
+updateBtn.onclick = function() {
+    updateModal.style.display = 'block';
+}
+
+// Close the modal when the 'x' is clicked
+closeBtn.onclick = function() {
+    updateModal.style.display = 'none';
+}
+
+// Close the modal if the user clicks outside the modal
+window.onclick = function(event) {
+    if (event.target == updateModal) {
+        updateModal.style.display = 'none';
+    }
+}
+
 
 </script>
 
