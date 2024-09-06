@@ -28,7 +28,7 @@
                         <li><a href="../mech/mech.php">Find a Mech</a></li>
                     <!-- User Icon -->
                     <div class="user-icon">
-                        <a href="../post/post.php"><i class='bx bx-user'></i></a>
+                        <a href="../profile/profile.php"><i class='bx bx-user'></i></a>
                     </div>
                         <li>
                             <!-- Dark Mode Toggle -->

@@ -18,7 +18,7 @@ $location = $_POST['location']; // Get the location
 
 // Insert data into vehicleissues table
 $sql = "INSERT INTO vehicleissues (email, vehicle_model, year, mobile_number, vehicle_issue, status, location) 
-        VALUES (?, ?, ?, ?, ?, ?, ?)"; // Add location here
+        VALUES (?, ?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("sssssss", $email, $model, $year, $contact, $vehicle_issue, $status, $location); // Bind location here
 
