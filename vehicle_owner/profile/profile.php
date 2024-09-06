@@ -30,6 +30,7 @@ $vehicleResult = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABC INSTITUTE</title>
     <link rel="stylesheet" href="../navbar/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>

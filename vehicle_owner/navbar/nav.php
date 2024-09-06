@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DriveSaviour</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" type="dp" href="../../img/ss.png">
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 
 </head>
 <body>
@@ -24,6 +26,10 @@
                         <li><a href="../shop/shop.php">Shop</a></li>
                         <li><a href="../contact/contact.php">Contact Us</a></li>
                         <li><a href="../mech/mech.php">Find a Mech</a></li>
+                    <!-- User Icon -->
+                    <div class="user-icon">
+                        <a href="../post/post.php"><i class='bx bx-user'></i></a>
+                    </div>
                         <li>
                             <!-- Dark Mode Toggle -->
                             <input type="checkbox" id="darkmode-toggle" style="display: none;">
