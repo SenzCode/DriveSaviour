@@ -24,7 +24,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABC INSTITUTE</title>
     <link rel="stylesheet" href="../navbar/style.css">
-    <link rel="stylesheet" href="style-studentSearch.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -134,7 +134,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <div class="modal-content">
             <span id="closeManageBatchModal" class="close">&times;</span>
             <h2>Manage Shop</h2>
-            <form id="manageBatchForm" action="batch_manage.php" method="POST">
+            <form id="manageBatchForm" action="shop_manage.php" method="POST">
                 <input type="hidden" id="manage_shop_id" name="id">
                 <div class="form-group">
                     <label for="manage_shop_name">Shop Name:</label>
