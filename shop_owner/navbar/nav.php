@@ -29,7 +29,7 @@
                         <i class="fas fa-store"></i> Shop
                     </a>
                     <div class="dropdown-content">
-                        <a href="#"><i class="fas fa-edit"></i> Edit Shop</a>
+                        <a href="#"><i class="fas fa-edit"></i> Manage Shop</a>
                         <a href="#"><i class="fas fa-boxes"></i> Manage Products</a>
                         <a href="#"><i class="fas fa-receipt"></i> Manage Orders</a>
                         <a href="#"><i class="fas fa-coins"></i> Income Dashboard</a>
