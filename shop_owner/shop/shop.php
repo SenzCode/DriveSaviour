@@ -22,7 +22,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABC INSTITUTE</title>
+    <title>Shop Manage</title>
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -38,6 +38,10 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <?php endif; ?>
 
     <br>
+    <div class="title">
+        <h1>Shop Manage</h1>
+        <br><br>     
+    </div>
 
     <form action="addshop.php" method="POST">
         <div class="form-container">
@@ -93,7 +97,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <table>
             <thead>
                 <tr>
-                    <th>Shop ID</th>
                     <th>Shop Name</th>
                     <th>Email</th>
                     <th>Number</th>
@@ -105,16 +108,14 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             <tbody id="course-tbody">
                 <?php foreach ($shop_data as $row): ?>
                     <tr>
-                        <td data-cell="id"><?= htmlspecialchars($row['id']) ?></td>
-                        <td><?= htmlspecialchars($row['shop_name']) ?></td>
-                        <td><?= htmlspecialchars($row['email']) ?></td>
-                        <td><?= htmlspecialchars($row['number']) ?></td>
-                        <td><?= htmlspecialchars($row['address']) ?></td>
-                        <td><?= htmlspecialchars($row['branch']) ?></td>
+                        <td data-cell="Shop Name"><?= htmlspecialchars($row['shop_name']) ?></td>
+                        <td data-cell="Email"><?= htmlspecialchars($row['email']) ?></td>
+                        <td data-cell="Number"><?= htmlspecialchars($row['number']) ?></td>
+                        <td data-cell="Address"><?= htmlspecialchars($row['address']) ?></td>
+                        <td data-cell="Branch"><?= htmlspecialchars($row['branch']) ?></td>
 
                         <td>
                             <button class="manage-button view-link" 
-                                    data-id="<?= htmlspecialchars($row['id']) ?>"
                                     data-shop_name="<?= htmlspecialchars($row['shop_name']) ?>"
                                     data-email="<?= htmlspecialchars($row['email']) ?>"
                                     data-number="<?= htmlspecialchars($row['number']) ?>"

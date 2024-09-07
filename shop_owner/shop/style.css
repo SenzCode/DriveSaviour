@@ -5,7 +5,7 @@
     padding: 20px;
 
 }
-/* form */
+
 
 .form-container {
     display: flex;
@@ -100,7 +100,9 @@ input[type="submit"]:hover {
     margin-bottom: 20px;
 }
 
-
+.title{
+    text-align: center;
+}
 .modal {
     display: none;
     position: fixed;
@@ -158,7 +160,6 @@ th, td {
     border-bottom: 1px solid #ddd;
 }
 th {
-    /* background-color: #0d6efd; */
     color: rgb(0, 0, 0);
     text-transform: uppercase;
 }

@@ -9,7 +9,7 @@ body {
 /* Main content styles */
 .main-content {
     padding: 20px;
-    margin-left: 350px; /* Ensures there's space for the sidebar */
+    margin-left: 350px; 
     transition: all 0.3s ease-in-out;
     background-color: #f7f7f7;
 }
@@ -34,7 +34,7 @@ body {
 
 .card i {
     font-size: 36px;
-    color: #497ddd; /* You can customize the color for the icons */
+    color: #497ddd; 
 }
 
 .card:hover {
@@ -68,7 +68,7 @@ body {
 }
 
 .product-card p {
-    font-size: 18px; /* Slightly larger text for the product name */
+    font-size: 18px; 
     color: #333;
 }
 
