@@ -133,8 +133,8 @@
 </section> <br> 
 
 <?php
-    require '../footer/footer.php';
-    ?>
+    require '../../vehicle_owner/footer/footer.php';
+?>
 
 </body>
 </html>
