@@ -2,10 +2,8 @@
 // Start the session
 session_start();
 
-require '../navbar/nav.php';
+require('../navbar/nav.php');
 include_once('../../connection.php');
-
-$shops = [];
 
 // Fetch all data from the shops table
 $shop_data = [];
@@ -17,30 +15,31 @@ while ($row = mysqli_fetch_assoc($result)) {
 $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Shops</title>
-    <link rel="stylesheet" href="style.css">
+    <title>ABC INSTITUTE</title>
     <link rel="stylesheet" href="../navbar/style.css">
+    <link rel="stylesheet" href="style-studentSearch.css">
 </head>
 
 <body>
 <div class="main_container">
     <?php if ($message == 'insert'): ?>
-        <div class="alert alert-success">The shop was created successfully.</div>
+        <div class="alert alert-success">The Shop was created successfully.</div>
     <?php elseif ($message == 'delete'): ?>
-        <div class="alert alert-danger">The shop was deleted successfully.</div>
+        <div class="alert alert-danger">The Shop was deleted successfully.</div>
     <?php elseif ($message == 'edit'): ?>
-        <div class="alert alert-success">The shop was updated successfully.</div>
+        <div class="alert alert-success">The Shop was updated successfully.</div>
     <?php endif; ?>
 
     <br>
 
-    <form action="shop_create.php" method="POST">
+    <form action="addshop.php" method="POST">
         <div class="form-container">
             <div class="form-row">
                 <div class="form-group">
@@ -56,7 +55,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="number">Contact Number:</label>
+                    <label for="number">Number:</label>
                     <input type="text" id="number" name="number" required>
                 </div>
 
@@ -84,7 +83,9 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             <input type="text" id="search" class="search-select" placeholder="Shop Name">
             <button id="search-icon"><i class="fas fa-search"></i></button>
         </div>
+
         <br>
+
     </div>
 
     <!-- Table -->
@@ -95,26 +96,26 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <th>Shop ID</th>
                     <th>Shop Name</th>
                     <th>Email</th>
-                    <th>Contact Number</th>
+                    <th>Number</th>
                     <th>Address</th>
                     <th>Branch</th>
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody id="shop-tbody">
+            <tbody id="course-tbody">
                 <?php foreach ($shop_data as $row): ?>
                     <tr>
-                        <td data-cell="Shop ID" data-shop-id="<?= htmlspecialchars($row['id']) ?>"><?= htmlspecialchars($row['id']) ?></td>
-                        <td data-cell="Shop Name" data-shop-name="<?= htmlspecialchars($row['shop_name']) ?>"><?= htmlspecialchars($row['shop_name']) ?></td>
-                        <td data-cell="Email" data-email="<?= htmlspecialchars($row['email']) ?>"><?= htmlspecialchars($row['email']) ?></td>
-                        <td data-cell="Contact Number" data-number="<?= htmlspecialchars($row['number']) ?>"><?= htmlspecialchars($row['number']) ?></td>
-                        <td data-cell="Address" data-address="<?= htmlspecialchars($row['address']) ?>"><?= htmlspecialchars($row['address']) ?></td>
-                        <td data-cell="Branch" data-branch="<?= htmlspecialchars($row['branch']) ?>"><?= htmlspecialchars($row['branch']) ?></td>
+                        <td data-cell="id"><?= htmlspecialchars($row['id']) ?></td>
+                        <td><?= htmlspecialchars($row['shop_name']) ?></td>
+                        <td><?= htmlspecialchars($row['email']) ?></td>
+                        <td><?= htmlspecialchars($row['number']) ?></td>
+                        <td><?= htmlspecialchars($row['address']) ?></td>
+                        <td><?= htmlspecialchars($row['branch']) ?></td>
 
-                        <td data-cell="Action">
+                        <td>
                             <button class="manage-button view-link" 
-                                    data-shop-id="<?= htmlspecialchars($row['id']) ?>"
-                                    data-shop-name="<?= htmlspecialchars($row['shop_name']) ?>"
+                                    data-id="<?= htmlspecialchars($row['id']) ?>"
+                                    data-shop_name="<?= htmlspecialchars($row['shop_name']) ?>"
                                     data-email="<?= htmlspecialchars($row['email']) ?>"
                                     data-number="<?= htmlspecialchars($row['number']) ?>"
                                     data-address="<?= htmlspecialchars($row['address']) ?>"
@@ -128,12 +129,12 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         </table>
     </div>
 
-    <!-- Manage modal -->
-    <div id="manageShopModal" class="modal">
+    <!-- manage modal -->
+    <div id="manageBatchModal" class="modal">
         <div class="modal-content">
-            <span id="closeManageShopModal" class="close">&times;</span>
+            <span id="closeManageBatchModal" class="close">&times;</span>
             <h2>Manage Shop</h2>
-            <form id="manageShopForm" action="shop_manage.php" method="POST">
+            <form id="manageBatchForm" action="batch_manage.php" method="POST">
                 <input type="hidden" id="manage_shop_id" name="id">
                 <div class="form-group">
                     <label for="manage_shop_name">Shop Name:</label>
@@ -144,7 +145,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <input type="email" id="manage_email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="manage_number">Contact Number:</label>
+                    <label for="manage_number">Number:</label>
                     <input type="text" id="manage_number" name="number" required>
                 </div>
                 <div class="form-group">
@@ -164,26 +165,26 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 </div>
 
 <script>
-    var manageShopModal = document.getElementById("manageShopModal");
-    var closeManageShopModal = document.getElementById("closeManageShopModal");
+    var manageBatchModal = document.getElementById("manageBatchModal");
+    var closeManageBatchModal = document.getElementById("closeManageBatchModal");
 
     // Close modal when close button is clicked
-    closeManageShopModal.onclick = function() {
-        manageShopModal.style.display = "none";
+    closeManageBatchModal.onclick = function() {
+        manageBatchModal.style.display = "none";
     }
 
     // Close modal when user clicks outside of it
     window.onclick = function(event) {
-        if (event.target == manageShopModal) {
-            manageShopModal.style.display = "none";
+        if (event.target == manageBatchModal) {
+            manageBatchModal.style.display = "none";
         }
     }
 
     // Manage Shop functionality
     document.querySelectorAll('.manage-button').forEach(button => {
         button.addEventListener('click', function() {
-            var shopId = this.dataset.shopId;
-            var shopName = this.dataset.shopName;
+            var shopId = this.dataset.id;
+            var shopName = this.dataset.shop_name;
             var email = this.dataset.email;
             var number = this.dataset.number;
             var address = this.dataset.address;
@@ -196,12 +197,12 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             document.getElementById('manage_address').value = address;
             document.getElementById('manage_branch').value = branch;
 
-            manageShopModal.style.display = "block";
+            manageBatchModal.style.display = "block";
         });
     });
 
     // Confirm deletion for Shop
-    document.getElementById("manageShopForm").addEventListener("submit", function(event) {
+    document.getElementById("manageBatchForm").addEventListener("submit", function(event) {
         var action = document.activeElement.value;
         if (action === 'delete') {
             var confirmDelete = confirm("Are you sure to delete this shop?");
@@ -214,10 +215,10 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     // Search functionality for Shop Name
     document.getElementById("search-icon").addEventListener("click", function() {
         var searchValue = document.getElementById("search").value.toLowerCase();
-        var tableRows = document.querySelectorAll("#shop-tbody tr");
+        var tableRows = document.querySelectorAll("#course-tbody tr");
 
         tableRows.forEach(function(row) {
-            var shopNameCell = row.querySelector("[data-shop-name]").innerText.toLowerCase();
+            var shopNameCell = row.querySelector("td:nth-child(2)").innerText.toLowerCase();
             if (searchValue === "" || shopNameCell.includes(searchValue)) {
                 row.style.display = "";
             } else {
@@ -226,6 +227,5 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         });
     });
 </script>
-
 </body>
 </html>
