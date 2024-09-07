@@ -2,7 +2,7 @@
 // Start the session
 session_start();
 
-require '../navbar/nav.php';
+// Include the database connection
 include_once('../../connection.php');
 
 $shops = [];
@@ -24,8 +24,9 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Shops</title>
+    <link rel="stylesheet" href="../style-template.css">
+    <link rel="stylesheet" href="style-shopSearch.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../navbar/style.css">
 </head>
 
 <body>
