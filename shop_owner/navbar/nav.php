@@ -29,7 +29,7 @@
                         <i class="fas fa-store"></i> Shop
                     </a>
                     <div class="dropdown-content">
-                        <a href="../shop/addLecturer.php"><i class="fas fa-edit"></i> Manage Shop</a>
+                        <a href="../shop/shop.php"><i class="fas fa-edit"></i> Manage Shop</a>
                         <a href="#"><i class="fas fa-boxes"></i> Manage Products</a>
                         <a href="#"><i class="fas fa-receipt"></i> Manage Orders</a>
                         <a href="#"><i class="fas fa-coins"></i> Income Dashboard</a>
