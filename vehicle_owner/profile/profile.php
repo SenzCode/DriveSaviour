@@ -33,6 +33,7 @@ $vehicleResult = $stmt->get_result();
 <body>
  
 <div class="container1">
+    <div class="content">
     <!-- Adding user profile image -->
     <div class="side-container">
         <div class="profilepic">
@@ -43,7 +44,6 @@ $vehicleResult = $stmt->get_result();
             </label>
         </div>
     </div>
-
     <div class="profileTop">
         <h1 class="topname"><b><span><h2>Profile and Vehicle Section</h2></span></b></h1>
         <br>
@@ -51,7 +51,6 @@ $vehicleResult = $stmt->get_result();
         <div class="p_data">
             <div class="personal_details">
                 <h2> Personal Details</h2>
-                <hr>
                 <br>
                 <div class="form-row">
                     <span class="form-label">Name:</span>
@@ -77,7 +76,6 @@ $vehicleResult = $stmt->get_result();
             <br> <br>
             <div class="vehicle_details">
                 <h2>Vehicle Details</h2>
-                <hr>
                 <?php if ($vehicleResult->num_rows > 0) { ?>
                     <div class="vehicle-card-container">
                         <?php while ($vehicle = $vehicleResult->fetch_assoc()) { ?>
@@ -97,6 +95,9 @@ $vehicleResult = $stmt->get_result();
             <button type="button" class="btn" id="openModalBtn">Add</button>
         </div>
     </div>
+    </div>
+
+
 </div> <br> <br> <br>
 
 

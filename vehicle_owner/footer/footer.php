@@ -9,6 +9,10 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
+        body.dark-mode footer{
+            box-shadow: 0 4px 15px rgb(199, 199, 199);
+        } 
+
         .footer-container {
             display: flex;
             justify-content: space-between;
