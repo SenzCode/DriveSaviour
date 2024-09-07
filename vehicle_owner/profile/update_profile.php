@@ -6,7 +6,7 @@ require('../../connection.php');
 $email = $_POST['email'];
 $name = $_POST['name'];
 $phone = $_POST['phone'];
-$city = $_POST['city']; // Add city field if needed
+$city = $_POST['city'];
 
 // Prepare SQL query to update the data in the vehicle_owner table
 $sql = "UPDATE vehicle_owner 

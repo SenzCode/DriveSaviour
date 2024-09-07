@@ -201,8 +201,8 @@ input:checked + label:after {
 
 .profilepic {
     position: fixed;
-    margin-top: 730px;
-    margin-right: 60px;    
+    margin-top: 600px;
+    margin-left: 80rem;
     float: right;
     width: 250px;
     height: 250px;
@@ -218,13 +218,14 @@ input:checked + label:after {
 
 .profileTop {
     overflow: hidden;
-    margin-top: 100px;
+    margin-top: -270px;
     margin-left: 15rem;
 }
 
 .profileTop h1, .profileTop h6 {
     text-align: left;
     font-size: 1.5rem;
+    margin-top: 150px;
 }
 
 .profileTop .personal_details{
@@ -297,12 +298,26 @@ body.dark-mode .vehicle_details h2{
     display: flex;
     flex-direction: column;
     margin-right: 50px;    
+    margin-bottom: -420px;
     margin-top: -30rem;
+}
+
+/*modal dark mode*/
+body.dark-mode .modal {
+    background-color: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(1px); 
+    -webkit-backdrop-filter: blur(1px); 
+}
+
+body.dark-mode .modal-content{
+    background-color: black;
+    color: white;
+    border: 2px solid #0085FF;
 }
 
 /* Modal */
 .modal { 
-    display: none; /* Hidden by default */ 
+    display: none; 
     position: fixed;
     z-index: 1;
     left: 0;
@@ -313,6 +328,10 @@ body.dark-mode .vehicle_details h2{
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.modal-content h2{
+    margin-bottom: 25px;
+}
+
 .modal-content {
     background-color: #fefefe;
     margin: 15% auto;
@@ -320,24 +339,27 @@ body.dark-mode .vehicle_details h2{
     border: 1px solid #888;
     width: 80%;
     max-width: 600px;
+    border-radius: 20px; 
 }
 
 .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
+    transition: all .50s ease;
 }
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: rgb(255, 0, 0);
     text-decoration: none;
     cursor: pointer;
 }
 
 label {
     display: block;
+    margin-top: 20px;
     margin-bottom: 5px;
     font-weight: bold;
 }
