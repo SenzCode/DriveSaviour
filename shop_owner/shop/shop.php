@@ -1,31 +1,35 @@
 <?php
-    require '../navbar/nav.php';
+require '../navbar/nav.php';
+require '../../connection.php';
 
-    
-// Initialize sets
-$courses = [];
-$award_unis = [];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $shop_name = htmlspecialchars($_POST['shop_name']);
+    $email = htmlspecialchars($_POST['email']);
+    $number = htmlspecialchars($_POST['number']);
+    $address = htmlspecialchars($_POST['address']);
+    $branch = htmlspecialchars($_POST['branch']);
 
-// Fetch courses
-$result = mysqli_query($conn, "SELECT DISTINCT course_name FROM course_tbl");
-while ($row = mysqli_fetch_assoc($result)) {
-    $courses[] = $row['course_name'];
+    $sql = "INSERT INTO shops (shop_name, email, number, address, branch) 
+            VALUES (?, ?, ?, ?, ?)";
+
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("sssss", $shop_name, $email, $number, $address, $branch);
+
+        if ($stmt->execute()) {
+            $success_message = "Shop added successfully!";
+        } else {
+            $error_message = "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+    } else {
+        $error_message = "Error: " . $conn->error;
+    }
 }
 
-// Fetch awarding universities
-$result1 = mysqli_query($conn, "SELECT DISTINCT award_uni FROM course_tbl");
-while ($row = mysqli_fetch_assoc($result1)) {
-    $award_unis[] = $row['award_uni'];
-}
-
-// Fetch all data from the course_tbl table
-$course_data = [];
-$result = mysqli_query($conn, "SELECT * FROM lecturers");
-while ($row = mysqli_fetch_assoc($result)) {
-    $course_data[] = $row;
-}
-
-$message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
+// Fetch all shop records
+$sql = "SELECT * FROM shops";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -33,198 +37,129 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <title>Shop Management</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../navbar/style.css">
-    <script src="script.js"></script>
 </head>
 <body>
 <div class="main_container">
-    <?php if ($message == 'insert'): ?>
-        <div class="alert alert-success">The Records were created successfully.</div>
-    <?php elseif ($message == 'delete'): ?>
-        <div class="alert alert-danger">The Records were deleted successfully.</div>
-    <?php elseif ($message == 'edit'): ?>
-        <div class="alert alert-success">The Records were updated successfully.</div>
+
+    <?php if (!empty($success_message)): ?>
+        <div class="alert alert-success"><?= $success_message; ?></div>
+    <?php elseif (!empty($error_message)): ?>
+        <div class="alert alert-danger"><?= $error_message; ?></div>
     <?php endif; ?>
 
     <br>
 
-    <form action="batch_create.php" method="POST">
+    <!-- Shop creation form -->
+    <form action="" method="POST">
         <div class="form-container">
             <div class="form-row">
                 <div class="form-group">
-                    <label for="username">Lecturer ID:</label>
-                    <input type="text" id="username" name="username" required>
+                    <label for="shop_name">Shop Name:</label>
+                    <input type="text" id="shop_name" name="shop_name" required>
                 </div>
 
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required oninput="validatePassword()">
-                    <span id="password-error" class="error-message"></span>
-                </div>
-
-                <div class="form-group">
-                    <label for="department">Department:</label>
-                    <input type="text" id="department" name="department" required>
-                </div>
-
-            </div>
-
-            <div class="form-row">
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>
                 </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="number">Contact Number:</label>
+                    <input type="text" id="number" name="number" required>
+                </div>
 
                 <div class="form-group">
-                    <label for="dob">Date of Birth:</label>
-                    <input type="date" id="dob" name="dob" required>
+                    <label for="branch">Branch:</label>
+                    <input type="text" id="branch" name="branch" required>
                 </div>
 
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="gender">Gender:</label>
-                    <select id="gender" name="gender" required>
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="nic">NIC:</label>
-                    <input type="text" id="nic" name="nic" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="contact">Contact:</label>
-                    <input type="text" id="contact" name="contact" required>
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required>
                 </div>
             </div>
         </div>
         <br>
-        <button type="submit" name="action" value="insert" class="batch view-link">Add Lecturer</button>
+        <button type="submit" class="batch view-link">Add Shop</button>
     </form>
 
-    <div class="searchbars">
-        <!-- Search bar -->
-        <div class="search-bar">
-            <label for="search">Search by ID:</label>
-            <input type="text" id="search" class="search-select" placeholder="Lecturer ID">
-            </input>
-            <button id="search-icon"><i class="fas fa-search"></i></button>
-        </div>
-
-        <br>
-
-    </div>
-
-
-    <!-- Table -->
+    <!-- Shop listing -->
     <div class="table">
         <table>
             <thead>
                 <tr>
-                    <th>Lecturer ID</th>
-                    <th>Name</th>
-                    <th>Department</th>
-                    <th>contact</th>
+                    <th>ID</th>
+                    <th>Shop Name</th>
                     <th>Email</th>
-                    <th>DOB</th>
-                    <th>NIC</th>
-                    <th>Gender</th>
+                    <th>Number</th>
+                    <th>Address</th>
+                    <th>Branch</th>
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody id="course-tbody">
-                <?php foreach ($course_data as $row): ?>
+            <tbody>
+                <?php if ($result->num_rows > 0): ?>
+                    <?php while($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row['id']); ?></td>
+                            <td><?= htmlspecialchars($row['shop_name']); ?></td>
+                            <td><?= htmlspecialchars($row['email']); ?></td>
+                            <td><?= htmlspecialchars($row['number']); ?></td>
+                            <td><?= htmlspecialchars($row['address']); ?></td>
+                            <td><?= htmlspecialchars($row['branch']); ?></td>
+                            <td>
+                                <button class="btn" onclick="window.location.href='edit_shop.php?id=<?= $row['id']; ?>'">Edit</button>
+                                <button class="btn" onclick="window.location.href='delete_shop.php?id=<?= $row['id']; ?>'">Delete</button>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
                     <tr>
-                    <td data-cell="Lecturer ID" data-lecturer-id="<?= htmlspecialchars($row['username']) ?>"><?= htmlspecialchars($row['username']) ?></td>
-                    <td data-cell="Name" data-name="<?= htmlspecialchars($row['name']) ?>"><?= htmlspecialchars($row['name']) ?></td>
-                    <td data-cell="Department" data-department="<?= htmlspecialchars($row['department']) ?>"><?= htmlspecialchars($row['department']) ?></td>
-                    <td data-cell="Contact" data-contact="<?= htmlspecialchars($row['contact']) ?>"><?= htmlspecialchars($row['contact']) ?></td>
-                    <td data-cell="Email" data-email="<?= htmlspecialchars($row['email']) ?>"><?= htmlspecialchars($row['email']) ?></td>
-                    <td data-cell="DOB" data-dob="<?= htmlspecialchars($row['dob']) ?>"><?= htmlspecialchars($row['dob']) ?></td>
-                    <td data-cell="NIC" data-nic="<?= htmlspecialchars($row['nic']) ?>"><?= htmlspecialchars($row['nic']) ?></td>
-                    <td data-cell="Gender" data-gender="<?= htmlspecialchars($row['gender']) ?>"><?= htmlspecialchars($row['gender']) ?></td>
-
-                        <td data-cell="Action">
-                            <button class="manage-button view-link" 
-                                    data-lecturer-id="<?= htmlspecialchars($row['username']) ?>"
-                                    data-name="<?= htmlspecialchars($row['name']) ?>"
-                                    data-password="<?= htmlspecialchars($row['password']) ?>"
-                                    data-department="<?= htmlspecialchars($row['department']) ?>"
-                                    data-email="<?= htmlspecialchars($row['email']) ?>"
-                                    data-dob="<?= htmlspecialchars($row['dob']) ?>"
-                                    data-gender="<?= htmlspecialchars($row['gender']) ?>"
-                                    data-nic="<?= htmlspecialchars($row['nic']) ?>"
-                                    data-contact="<?= htmlspecialchars($row['contact']) ?>">
-                                Manage
-                            </button>
-                        </td>
+                        <td colspan="7">No shops found.</td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
+
+</div>
+
+
 
     <!-- manage modal -->
     <div id="manageBatchModal" class="modal">
         <div class="modal-content">
             <span id="closeManageBatchModal" class="close">&times;</span>
-            <h2>Manage Lecturer</h2>
+            <h2>Manage Shop</h2>
             <form id="manageBatchForm" action="batch_manage.php" method="POST">
-                <input type="hidden" id="manage_lecturer_id" name="username">
+                <input type="hidden" id="manage_id" name="id">
                 <div class="form-group">
-                    <label for="manage_name">Name:</label>
-                    <input type="text" id="manage_name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="manage_password">Password:</label>
-                    <input type="password" id="manage_password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="manage_department">Department:</label>
-                    <input type="text" id="manage_department" name="department" required>
+                    <label for="manage_shop_name">Shop Name:</label>
+                    <input type="text" id="manage_shop_name" name="shop_name" required>
                 </div>
                 <div class="form-group">
                     <label for="manage_email">Email:</label>
                     <input type="email" id="manage_email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="manage_dob">Date of Birth:</label>
-                    <input type="date" id="manage_dob" name="dob" required>
+                    <label for="manage_number">Contact Number:</label>
+                    <input type="text" id="manage_number" name="number" required>
                 </div>
                 <div class="form-group">
-                    <label for="manage_gender">Gender:</label>
-                    <select id="manage_gender" name="gender" required>
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </select>
+                    <label for="manage_branch">Branch:</label>
+                    <input type="text" id="manage_branch" name="branch" required>
                 </div>
                 <div class="form-group">
-                    <label for="manage_nic">NIC:</label>
-                    <input type="text" id="manage_nic" name="nic" required>
-                </div>
-                <div class="form-group">
-                    <label for="manage_contact">Contact:</label>
-                    <input type="text" id="manage_contact" name="contact" required>
+                    <label for="manage_address">Address:</label>
+                    <input type="text" id="manage_address" name="address" required>
                 </div>
                 <br>
                 <button type="submit" name="action" value="edit" class="batch view-link">Edit</button>
@@ -250,62 +185,56 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             }
         }
 
-        // Manage Lecturer functionality
+        // Manage Shop functionality
         document.querySelectorAll('.manage-button').forEach(button => {
             button.addEventListener('click', function() {
-                var lecturerId = this.dataset.lecturerId;
-                var name = this.dataset.name;
-                var password = this.dataset.password;
-                var department = this.dataset.department;
+                var shopId = this.dataset.id;
+                var shopName = this.dataset.shopName;
                 var email = this.dataset.email;
-                var dob = this.dataset.dob;
-                var gender = this.dataset.gender;
-                var nic = this.dataset.nic;
-                var contact = this.dataset.contact;
+                var number = this.dataset.number;
+                var address = this.dataset.address;
+                var branch = this.dataset.branch;
 
-                document.getElementById('manage_lecturer_id').value = lecturerId;
-                document.getElementById('manage_name').value = name;
-                document.getElementById('manage_password').value = password;
-                document.getElementById('manage_department').value = department;
+                document.getElementById('manage_id').value = shopId;
+                document.getElementById('manage_shop_name').value = shopName;
                 document.getElementById('manage_email').value = email;
-                document.getElementById('manage_dob').value = dob;
-                document.getElementById('manage_gender').value = gender;
-                document.getElementById('manage_nic').value = nic;
-                document.getElementById('manage_contact').value = contact;
+                document.getElementById('manage_number').value = number;
+                document.getElementById('manage_address').value = address;
+                document.getElementById('manage_branch').value = branch;
 
                 manageBatchModal.style.display = "block";
             });
         });
 
-        // Confirm deletion for Lecturer
+        // Confirm deletion for Shop
         document.getElementById("manageBatchForm").addEventListener("submit", function(event) {
             var action = document.activeElement.value;
             if (action === 'delete') {
-                var confirmDelete = confirm("Are you sure to delete this lecturer?");
+                var confirmDelete = confirm("Are you sure to delete this shop?");
                 if (!confirmDelete) {
                     event.preventDefault();
                 }
             }
         });
 
-
-        // Search functionality for Lecturer ID
+        // Search functionality for Shop ID
         document.getElementById("search-icon").addEventListener("click", function() {
             var searchValue = document.getElementById("search").value.toLowerCase();
             var tableRows = document.querySelectorAll("#course-tbody tr");
 
             tableRows.forEach(function(row) {
-                var lecturerIdCell = row.querySelector("[data-lecturer-id]").innerText.toLowerCase();
-                if (searchValue === "" || lecturerIdCell.includes(searchValue)) {
+                var shopIdCell = row.querySelector("[data-id]").innerText.toLowerCase();
+                if (searchValue === "" || shopIdCell.includes(searchValue)) {
                     row.style.display = "";
                 } else {
                     row.style.display = "none";
                 }
             });
         });
-
-
 </script>
-
 </body>
 </html>
+
+<?php
+$conn->close();
+?>
