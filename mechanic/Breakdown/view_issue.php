@@ -5,8 +5,11 @@ require '../../connection.php';
 // Get the issue ID from the URL
 $issue_id = intval($_GET['id']);
 
-// Fetch issue details from the database
-$sql = "SELECT * FROM vehicleissues WHERE id = ?";
+// Fetch issue details along with the vehicle owner's city from the database
+$sql = "SELECT vi.*, vo.city 
+from vehicleissues vi JOIN vehicle v ON vi.v_id = v.v_id
+    JOIN vehicle_owner vo ON v.email = vo.email
+    WHERE vi.id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $issue_id);
 $stmt->execute();
@@ -38,18 +41,21 @@ $conn->close();
 
 <div class="issue_container">
     <div class="issue-details">
-        <h3>Issue Details</h3>
+        <h1>Issue Details</h1>
         <!-- <p><strong>Name:</strong> <?= htmlspecialchars($issue['first_name']) . ' ' . htmlspecialchars($issue['last_name']); ?></p> -->
         <p><strong>Email:</strong> <?= htmlspecialchars($issue['email']); ?></p>
         <p><strong>Vehicle Model:</strong> <?= htmlspecialchars($issue['vehicle_model']); ?></p>
         <p><strong>Year:</strong> <?= htmlspecialchars($issue['year']); ?></p>
         <p><strong>Mobile Number:</strong> <?= htmlspecialchars($issue['mobile_number']); ?></p>
-        <p><strong>Location:</strong> <?= htmlspecialchars($issue['location']); ?></p>
         <p><strong>Vehicle Issue:</strong> <?= htmlspecialchars($issue['vehicle_issue']); ?></p>
+        <p><strong>City:</strong> <?= htmlspecialchars($issue['city']); ?></p>
+
+        <button class="btn">Accept</button>
+        <button class="btn">Decline</button>
     </div>
 
     <div class="map-container">
-        <h3>Location Map</h3>
+        <br>
         <div id="map" style="width:100%; height:400px;"></div>
     </div>
 </div>

@@ -90,7 +90,7 @@ $vehicleResult = $stmt->get_result();
 
 
         </div>
-    </div> <br> <br>
+    </div> <br> <br> <br>
 
     <script>
 $(document).ready(function() {
