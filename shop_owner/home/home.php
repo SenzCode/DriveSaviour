@@ -18,17 +18,18 @@
                 <div class="overview-cards">
                     <div class="card">
                         <i class="fas fa-store"></i>
+                        <h2>50+</h2>
                         <h3>Shop</h3>
                     </div>
                     <div class="card">
                         <i class="fas fa-car"></i>
-                        <h3>15</h3>
-                        <p>Cars in Garage</p>
+                        <h2>15+</h2>
+                        <h3>Cars in Garage</h3>
                     </div>
                     <div class="card">
                         <i class="fas fa-chart-line"></i>
-                        <h3>250+</h3>
-                        <p>Today Sales</p>
+                        <h2>250+</h2>
+                        <h3>Today Sales</h3>
                     </div>
                 </div>
 

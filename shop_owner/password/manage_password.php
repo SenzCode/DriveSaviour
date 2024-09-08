@@ -1,19 +1,16 @@
 <?php
+// Ensure no output before this line
+session_start(); // Start session at the very top
+
 require '../navbar/nav.php'; 
 require '../../connection.php'; 
-
-
-session_start();
-
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../Login/login.php?redirect=" . urlencode($_SERVER['REQUEST_URI']));
     exit();
 }
 
-
 $user_id = $_SESSION['user_id'];
-
 
 $error = '';
 $success = '';
@@ -33,14 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_password'])) {
     $stmt->fetch();
     $stmt->close();
 
-    
     if (password_verify($oldPassword, $currentPasswordHash)) {
-        
         if ($newPassword === $confirmNewPassword) {
-            
             $newPasswordHash = password_hash($newPassword, PASSWORD_BCRYPT);
 
-            
             $updateQuery = "UPDATE shop_owner SET password = ? WHERE ownerID = ?";
             $updateStmt = $conn->prepare($updateQuery);
             $updateStmt->bind_param('si', $newPasswordHash, $user_id);

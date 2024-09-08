@@ -18,7 +18,7 @@ h1 {
 } 
 
 
-form {
+.main-content form {
     background: #fff;
     padding: 30px; 
     border-radius: 8px;
@@ -27,33 +27,33 @@ form {
     margin: 40px auto 20px; 
 }
 
-form div {
+.main-content form div {
     margin-bottom: 20px; 
 }
 
-form label {
+.main-content form label {
     display: block;
     font-weight: bold;
     margin-bottom: 10px; 
 }
 
-form input[type="text"],
-form input[type="email"],
-form input[type="date"] {
+.main-content form input[type="text"],
+.main-content form input[type="email"],
+.main-content form input[type="date"] {
     width: 100%;
     padding: 12px; 
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-form input[type="text"]:focus,
-form input[type="email"]:focus,
-form input[type="date"]:focus {
+.main-content form input[type="text"]:focus,
+.main-content form input[type="email"]:focus,
+.main-content form input[type="date"]:focus {
     border-color: #007bff;
     outline: none;
 }
 
-form button {
+.main-content form button {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -63,7 +63,7 @@ form button {
     font-size: 18px; 
 }
 
-form button:hover {
+.main-content form button:hover {
     background-color: #0056b3;
 }
 
