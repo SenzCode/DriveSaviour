@@ -38,10 +38,13 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <?php endif; ?>
 
     <br>
+  
+  
     <div class="title">
         <h1>Shop Manage</h1>
         <br><br>     
     </div>
+
 
     <form action="addshop.php" method="POST">
         <div class="form-container">
@@ -116,6 +119,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
                         <td>
                             <button class="manage-button view-link" 
+                                    data-id="<?= htmlspecialchars($row['id']) ?>"
                                     data-shop_name="<?= htmlspecialchars($row['shop_name']) ?>"
                                     data-email="<?= htmlspecialchars($row['email']) ?>"
                                     data-number="<?= htmlspecialchars($row['number']) ?>"
@@ -219,7 +223,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         var tableRows = document.querySelectorAll("#course-tbody tr");
 
         tableRows.forEach(function(row) {
-            var shopNameCell = row.querySelector("td:nth-child(2)").innerText.toLowerCase();
+            var shopNameCell = row.querySelector("td:nth-child(1)").innerText.toLowerCase();
             if (searchValue === "" || shopNameCell.includes(searchValue)) {
                 row.style.display = "";
             } else {
