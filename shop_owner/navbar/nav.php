@@ -1,23 +1,49 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: ../Login/Login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DriveSaviour - About Us</title>
+    <title>DriveSaviour</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
-    <div class="sidebar">
-        <div class="logo">
-            <img src="../../img/ss.png" alt="Logo">
+    <div class="container">
+        <!-- Toggle Button -->
+        <div class="menu-toggle" id="menu-toggle">
+            <i class='bx bx-menu'></i>
         </div>
-        <nav>
+        <nav id="sidebar">
             <ul>
+                <li>
+                    <a href="../home/home.php" class="logo">
+                        <img src="../../img/ss.png" alt="Logo">
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="../home/home.php" class="dropbtn">
+                        <i class='bx bxs-dashboard'></i>
+                        <span class="nav-item">Dashboard</span>
+                    </a>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropbtn">
-                        <i class="fas fa-user"></i> Profile
+                        <i class='bx bx-add-to-queue'></i>
+                        <span class="nav-item">Profile</span>
                     </a>
                     <div class="dropdown-content">
                         <a href="/shop_owner/ownerprofile/manage_profile.php"><i class="fas fa-edit"></i> Edit Profile</a>
@@ -26,7 +52,8 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropbtn">
-                        <i class="fas fa-store"></i> Shop
+                        <i class='bx bx-list-ul'></i>
+                        <span class="nav-item">Shop</span>
                     </a>
                     <div class="dropdown-content">
                         <a href="../shop/shop.php"><i class="fas fa-edit"></i> Manage Shop</a>
@@ -38,7 +65,8 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropbtn">
-                        <i class="fas fa-warehouse"></i> Garage
+                        <i class='bx bx-show'></i>
+                        <span class="nav-item">Garage</span>
                     </a>
                     <div class="dropdown-content">
                         <a href="#"><i class="fas fa-tools"></i> Edit Garage</a>
@@ -46,22 +74,46 @@
                         <a href="#"><i class="fas fa-plus-circle"></i> Add Services</a>
                     </div>
                 </li>
+                <li>
+                    <form method="POST">
+                        <button class="logout" name="logout">
+                            <i class='bx bx-log-out-circle'></i>
+                            <span class="footer-item">Logout</span>
+                        </button>
+                    </form>
+                    <button class="Contact" name="Contact">
+                            <i class='bx bx-support'></i>
+                            <span class="footer-item">Contact Admin</span>
+                    </button>
+                </li>
             </ul>
         </nav>
-        <div class="bottom-links">
-            <a href="#" class="bottom-link">
-                <i class="fas fa-headset"></i> Contact Admin
-            </a>
-            <a href="#" class="bottom-link">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
-        </div>
     </div>
+
     <script>
-        function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('active');
-        }
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.dropdown').forEach(dropdown => {
+        dropdown.querySelector('.dropbtn').addEventListener('click', () => {
+            // Close any currently open dropdowns
+            document.querySelectorAll('.dropdown-content').forEach(content => {
+                if (content !== dropdown.querySelector('.dropdown-content')) {
+                    content.classList.remove('show');
+                }
+            });
+
+            // Toggle the clicked dropdown
+            dropdown.querySelector('.dropdown-content').classList.toggle('show');
+        });
+    });
+});
+
     </script>
 </body>
 </html>

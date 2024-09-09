@@ -1,20 +1,17 @@
 <?php
+session_start(); 
+
 require '../navbar/nav.php'; 
 require '../../connection.php'; 
-
-session_start();
-
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
 if (!isset($_SESSION['user_id'])) {
-    
+    // Redirect if the user is not logged in
     header("Location: ../Login/login.php?redirect=" . urlencode($_SERVER['REQUEST_URI']));
     exit();
 }
-
 
 $user_id = $_SESSION['user_id'];
 $query = $conn->prepare("SELECT * FROM shop_owner WHERE ownerID = ?");
@@ -22,7 +19,6 @@ $query->bind_param("i", $user_id);
 $query->execute();
 $result = $query->get_result();
 $user = $result->fetch_assoc();
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     // Sanitize and validate input
@@ -35,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $message = "Invalid email format.";
     } else {
-        
         $update_query = $conn->prepare("UPDATE shop_owner SET name = ?, email = ?, phone = ?, dob = ? WHERE ownerID = ?");
         $update_query->bind_param("ssssi", $name, $email, $phone, $dob, $user_id);
 
