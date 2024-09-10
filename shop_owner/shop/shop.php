@@ -2,14 +2,34 @@
 // Start the session
 session_start();
 
+// Check if the session variable is set and not null
+if (!isset($_SESSION['email'])) {
+    echo "User is not logged in.";
+    exit;
+}
+
+$loggedInOwnerEmail = $_SESSION['email'];
+
 require('../navbar/nav.php');
 include_once('../../connection.php');
 
-// Fetch all data from the shops table
+// Fetch all data from the shops table where the ownerEmail matches the logged-in user's email
 $shop_data = [];
-$result = mysqli_query($conn, "SELECT * FROM shops");
-while ($row = mysqli_fetch_assoc($result)) {
-    $shop_data[] = $row;
+if (!empty($loggedInOwnerEmail)) {
+    $stmt = $conn->prepare("SELECT * FROM shops WHERE ownerEmail = ?");
+    $stmt->bind_param("s", $loggedInOwnerEmail);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $shop_data[] = $row;
+        }
+    } else {
+        echo "No results found for the given owner email.";
+    }
+    $stmt->close();
+} else {
+    echo "No logged-in owner email found.";
 }
 
 $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
@@ -35,16 +55,16 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <div class="alert alert-danger">The Shop was deleted successfully.</div>
     <?php elseif ($message == 'edit'): ?>
         <div class="alert alert-success">The Shop was updated successfully.</div>
+    <?php elseif ($message == 'error'): ?>
+        <div class="alert alert-danger">Something went wrong: <?= htmlspecialchars($_GET['error'] ?? '') ?></div>
     <?php endif; ?>
 
     <br>
-  
   
     <div class="title">
         <h1>Shop Manage</h1>
         <br><br>     
     </div>
-
 
     <form action="addshop.php" method="POST">
         <div class="form-container">
@@ -78,10 +98,18 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <input type="text" id="branch" name="branch" required>
                 </div>
             </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="ownerEmail">Owner Email:</label>
+                    <input type="text" id="ownerEmail" name="ownerEmail" value="<?= htmlspecialchars($loggedInOwnerEmail) ?>" required readonly>
+                </div>
+            </div>
         </div>
         <br>
         <button type="submit" name="action" value="insert" class="batch view-link">Add Shop</button>
     </form>
+
 
     <div class="searchbars">
         <!-- Search bar -->
@@ -90,9 +118,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             <input type="text" id="search" class="search-select" placeholder="Shop Name">
             <button id="search-icon"><i class="fas fa-search"></i></button>
         </div>
-
         <br>
-
     </div>
 
     <!-- Table -->
@@ -105,6 +131,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <th>Number</th>
                     <th>Address</th>
                     <th>Branch</th>
+                    <th>Owner </th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -116,7 +143,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <td data-cell="Number"><?= htmlspecialchars($row['number']) ?></td>
                         <td data-cell="Address"><?= htmlspecialchars($row['address']) ?></td>
                         <td data-cell="Branch"><?= htmlspecialchars($row['branch']) ?></td>
-
+                        <td data-cell="Owner Email"><?= htmlspecialchars($row['ownerEmail']) ?></td>
                         <td>
                             <button class="manage-button view-link" 
                                     data-id="<?= htmlspecialchars($row['id']) ?>"
@@ -124,7 +151,8 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                                     data-email="<?= htmlspecialchars($row['email']) ?>"
                                     data-number="<?= htmlspecialchars($row['number']) ?>"
                                     data-address="<?= htmlspecialchars($row['address']) ?>"
-                                    data-branch="<?= htmlspecialchars($row['branch']) ?>">
+                                    data-branch="<?= htmlspecialchars($row['branch']) ?>"
+                                    data-ownerEmail="<?= htmlspecialchars($row['ownerEmail']) ?>">
                                 Manage
                             </button>
                         </td>
@@ -161,6 +189,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <label for="manage_branch">Branch:</label>
                     <input type="text" id="manage_branch" name="branch" required>
                 </div>
+                
                 <br>
                 <button type="submit" name="action" value="edit" class="batch view-link">Edit</button>
                 <button type="submit" name="action" value="delete" class="batch delete-link">Delete</button>
@@ -194,6 +223,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             var number = this.dataset.number;
             var address = this.dataset.address;
             var branch = this.dataset.branch;
+            // var ownerEmail = this.dataset.ownerEmail;
 
             document.getElementById('manage_shop_id').value = shopId;
             document.getElementById('manage_shop_name').value = shopName;
@@ -201,6 +231,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             document.getElementById('manage_number').value = number;
             document.getElementById('manage_address').value = address;
             document.getElementById('manage_branch').value = branch;
+            // document.getElementById('manage_ownerEmail').value = ownerEmail;
 
             manageBatchModal.style.display = "block";
         });
@@ -210,27 +241,13 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     document.getElementById("manageBatchForm").addEventListener("submit", function(event) {
         var action = document.activeElement.value;
         if (action === 'delete') {
-            var confirmDelete = confirm("Are you sure to delete this shop?");
-            if (!confirmDelete) {
+            var confirmed = confirm("Are you sure you want to delete this shop?");
+            if (!confirmed) {
                 event.preventDefault();
             }
         }
     });
-
-    // Search functionality for Shop Name
-    document.getElementById("search-icon").addEventListener("click", function() {
-        var searchValue = document.getElementById("search").value.toLowerCase();
-        var tableRows = document.querySelectorAll("#course-tbody tr");
-
-        tableRows.forEach(function(row) {
-            var shopNameCell = row.querySelector("td:nth-child(1)").innerText.toLowerCase();
-            if (searchValue === "" || shopNameCell.includes(searchValue)) {
-                row.style.display = "";
-            } else {
-                row.style.display = "none";
-            }
-        });
-    });
 </script>
+
 </body>
 </html>

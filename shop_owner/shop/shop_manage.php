@@ -1,64 +1,41 @@
 <?php
-// Start the session
 session_start();
-
-// Include the database connection
 include_once('../../connection.php');
 
-// Check if form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Check if action is edit (Edit Shop)
-    if ($_POST['action'] === 'edit') {
-        // Retrieve values from POST
-        $shop_id = mysqli_real_escape_string($conn, $_POST['id']);
-        $shop_name = mysqli_real_escape_string($conn, $_POST['shop_name']);
-        $email = mysqli_real_escape_string($conn, $_POST['email']);
-        $number = mysqli_real_escape_string($conn, $_POST['number']);
-        $address = mysqli_real_escape_string($conn, $_POST['address']);
-        $branch = mysqli_real_escape_string($conn, $_POST['branch']);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $shop_id = $_POST['id'];
+    $shop_name = $_POST['shop_name'];
+    $email = $_POST['email'];
+    $number = $_POST['number'];
+    $address = $_POST['address'];
+    $branch = $_POST['branch'];
+    $ownerID = $_POST['ownerEmail'];
 
-        // Perform update query
-        $sql = "UPDATE shops SET 
-                shop_name = '$shop_name', 
-                email = '$email', 
-                number = '$number', 
-                address = '$address', 
-                branch = '$branch'
-                WHERE id = '$shop_id'";
-
+    if ($_POST['action'] == 'edit') {
+        // Update query
+        $sql = "UPDATE shops SET shop_name='$shop_name', email='$email', number='$number', address='$address', branch='$branch' WHERE id='$shop_id'";
         if (mysqli_query($conn, $sql)) {
-            // Redirect with success message
             header("Location: shop.php?message=edit");
             exit;
         } else {
-            // Redirect with error message
-            header("Location: shop.php?message=error");
+            $error = mysqli_error($conn);
+            header("Location: shop.php?message=error&error=" . urlencode($error));
             exit;
         }
-    } elseif ($_POST['action'] === 'delete') {
-        // Handle delete action
-        $shop_id = mysqli_real_escape_string($conn, $_POST['id']);
-
-        // Perform delete query
-        $sql = "DELETE FROM shops WHERE id = '$shop_id'";
-
+    } elseif ($_POST['action'] == 'delete') {
+        // Delete query
+        $sql = "DELETE FROM shops WHERE id='$shop_id'";
         if (mysqli_query($conn, $sql)) {
-            // Redirect with success message
             header("Location: shop.php?message=delete");
             exit;
         } else {
-            // Redirect with error message
-            header("Location: shop.php?message=error");
+            $error = mysqli_error($conn);
+            header("Location: shop.php?message=error&error=" . urlencode($error));
             exit;
         }
-    } else {
-        // Invalid action
-        header("Location: shop.php?message=error");
-        exit;
     }
 } else {
-    // Redirect if accessed directly without POST request
+    // Redirect back if the request method is not POST
     header("Location: shop.php");
     exit;
 }
-?>

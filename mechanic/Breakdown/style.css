@@ -96,10 +96,4 @@
     }
 }
 
-@media (max-width: 480px) {
-    .issue_container {
-        display: inline;
-        /* font-size: 10px; */
-        /* align-items: center; */
-    }
-}
+

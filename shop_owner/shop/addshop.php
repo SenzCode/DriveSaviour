@@ -1,42 +1,42 @@
 <?php
-// Start the session
 session_start();
-
-// Include the database connection
 include_once('../../connection.php');
 
-// Check if form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Check if action is insert (Add Shop)
-    if ($_POST['action'] === 'insert') {
-        // Retrieve values from POST
-        $shop_name = mysqli_real_escape_string($conn, $_POST['shop_name']);
-        $email = mysqli_real_escape_string($conn, $_POST['email']);
-        $number = mysqli_real_escape_string($conn, $_POST['number']);
-        $address = mysqli_real_escape_string($conn, $_POST['address']);
-        $branch = mysqli_real_escape_string($conn, $_POST['branch']);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $shop_name = $_POST['shop_name'];
+    $email = $_POST['email'];
+    $number = $_POST['number'];
+    $address = $_POST['address'];
+    $branch = $_POST['branch'];
+    $ownerEmail = $_POST['ownerEmail'];  // Ensure you retrieve the ownerEmail from the form
 
-        // Perform insert query
-        $sql = "INSERT INTO shops (shop_name, email, number, address, branch) 
-                VALUES ('$shop_name', '$email', '$number', '$address', '$branch')";
+    // Check if the ownerEmail exists in the shop_owner table
+    $checkEmailQuery = "SELECT email FROM shop_owner WHERE email = '$ownerEmail'";
+    $emailResult = mysqli_query($conn, $checkEmailQuery);
+
+    if (mysqli_num_rows($emailResult) > 0) {
+        // Proceed with the insertion if the email exists
+        $sql = "INSERT INTO shops (shop_name, email, number, address, branch, ownerEmail) 
+                VALUES ('$shop_name', '$email', '$number', '$address', '$branch', '$ownerEmail')";
 
         if (mysqli_query($conn, $sql)) {
-            // Redirect with success message
+            // Redirect to shop.php with a success message
             header("Location: shop.php?message=insert");
             exit;
         } else {
-            // Redirect with error message and SQL error details
-            header("Location: shop.php?message=error&error=" . urlencode(mysqli_error($conn)));
+            // Redirect to shop.php with an error message
+            $error = mysqli_error($conn);
+            header("Location: shop.php?message=error&error=" . urlencode($error));
             exit;
         }
     } else {
-        // Invalid action
-        header("Location: shop.php?message=error&action=invalid");
+        // Redirect to shop.php with an error message if ownerEmail doesn't exist
+        $error = "Owner email does not exist in the shop_owner table";
+        header("Location: shop.php?message=error&error=" . urlencode($error));
         exit;
     }
 } else {
-    // Redirect if accessed directly without POST request
-    header("Location: shop.php?message=error&access=direct");
+    // Redirect back if the request method is not POST
+    header("Location: shop.php");
     exit;
 }
-?>

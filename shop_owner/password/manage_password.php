@@ -1,16 +1,13 @@
 <?php
 // Ensure no output before this line
-session_start(); // Start session at the very top
+ // Start session at the very top
+ session_start();
 
 require '../navbar/nav.php'; 
 require '../../connection.php'; 
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../Login/login.php?redirect=" . urlencode($_SERVER['REQUEST_URI']));
-    exit();
-}
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['email'];
 
 $error = '';
 $success = '';
