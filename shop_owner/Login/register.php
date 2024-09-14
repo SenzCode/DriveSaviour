@@ -39,14 +39,14 @@ $conn->close();
 ?>
 
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Account Creation</title>
+<title>Account Creation</title> -->
 <!-- <link rel="stylesheet" href="style.css"> -->
-<link rel="stylesheet" href="style-new.css">
+<!-- <link rel="stylesheet" href="style-new.css">
 <script src="script.js"></script>
 </head>
 <body>
@@ -83,4 +83,4 @@ $conn->close();
 </form>
 </div>
 </body>
-</html>
+</html> -->
