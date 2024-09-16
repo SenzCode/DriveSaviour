@@ -21,7 +21,7 @@
         <div class="title">
             <div class="title-text">
                 <p>Explore a wide network of registered automotive shops through our Shop page, where quality and convenience meet. Whether you’re looking for a trusted mechanic, specialized repair services, or parts and accessories, DriveSaviour connects you with top-rated shops in your area. Each shop profile provides detailed information, including services offered, customer reviews, and contact details, helping you make informed decisions about your vehicle’s care.</p>
-                <a href="../home/home.php" class="button browse">Browse</a>
+                <a href="browseshop.php" class="button browse">Browse</a>
                 <a href="modify/modify.php" class="button modify">Modify Car</a>
             </div>
             <div class="title-image">
