@@ -31,6 +31,15 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 </head>
 <body>
 <div class="main_container">
+
+            <?php if ($message == 'delete_success'): ?>
+                <div class="alert alert-danger">Vehicle Owner Profile deleted successfully.</div>
+            <?php elseif ($message == 'edit_success'): ?>
+                <div class="alert alert-success">Vehicle Owner Profile edited successfully.</div>
+            <?php elseif ($message == 'error'): ?>
+                <div class="alert alert-danger">Something went wrong: <?= htmlspecialchars($_GET['error'] ?? '') ?></div>
+            <?php endif; ?>
+            
     <div class="title">
         <h1>Manage Vehicle Owners</h1>
         <br><br>
@@ -66,10 +75,14 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <td data-cell="Address"><?= htmlspecialchars($row['address']) ?></td>
                         <td data-cell="City"><?= htmlspecialchars($row['city']) ?></td>
                         <td>
-                            <button class="manage-button"
-                                    data-email="<?= htmlspecialchars($row['email']) ?>">
-                                <i class='bx bxs-cog'></i>
-                            </button>
+                            <button class="manage-button view-link" 
+                                        data-name="<?= htmlspecialchars($row['name']) ?>"
+                                        data-email="<?= htmlspecialchars($row['email']) ?>"
+                                        data-phone="<?= htmlspecialchars($row['phone']) ?>"
+                                        data-address="<?= htmlspecialchars($row['address']) ?>"
+                                        data-city="<?= htmlspecialchars($row['city']) ?>">
+                                        <i class='bx bxs-cog'></i>
+                                </button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -81,28 +94,33 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <div id="manageBatchModal" class="modal">
         <div class="modal-content">
             <span id="closeManageBatchModal" class="close">&times;</span>
-            <h2>Manage Shop</h2>
-            <form id="manageBatchForm" action="shop_manage.php" method="POST">
-                <input type="hidden" id="manage_shop_id" name="id">
+            <h2>Manage Vehicle Owner</h2>
+            <form id="manageBatchForm" action="owner_manage.php" method="POST">
+                <input type="hidden" id="manage_owner_id" name="id">
+
                 <div class="form-group">
-                    <label for="manage_shop_name">Shop Name:</label>
-                    <input type="text" id="manage_shop_name" name="shop_name" required>
+                    <label for="manage_name">Owner Name:</label>
+                    <input type="text" id="manage_name" name="name" required>
                 </div>
+
                 <div class="form-group">
                     <label for="manage_email">Email:</label>
                     <input type="email" id="manage_email" name="email" required>
                 </div>
+
                 <div class="form-group">
-                    <label for="manage_number">Number:</label>
-                    <input type="text" id="manage_number" name="number" required>
+                    <label for="manage_phone">Phone:</label>
+                    <input type="text" id="manage_phone" name="phone" required>
                 </div>
+
                 <div class="form-group">
                     <label for="manage_address">Address:</label>
                     <input type="text" id="manage_address" name="address" required>
                 </div>
+
                 <div class="form-group">
-                    <label for="manage_branch">Branch:</label>
-                    <input type="text" id="manage_branch" name="branch" required>
+                    <label for="manage_city">City:</label>
+                    <input type="text" id="manage_city" name="city" required>
                 </div>
                 <br>
                 <button type="submit" name="action" value="edit" class="batch view-link">Edit</button>
@@ -115,33 +133,21 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 <script>
 document.querySelectorAll('.manage-button').forEach(button => {
     button.addEventListener('click', function() {
+        var name = this.dataset.name;
         var email = this.dataset.email;
-        fetchShopData(email);
+        var phone = this.dataset.phone;
+        var address = this.dataset.address;
+        var city = this.dataset.city;
+
+        document.getElementById('manage_name').value = name;
+        document.getElementById('manage_email').value = email;
+        document.getElementById('manage_phone').value = phone;
+        document.getElementById('manage_address').value = address;
+        document.getElementById('manage_city').value = city;
+
+        document.getElementById('manageBatchModal').style.display = "block";
     });
 });
-
-function fetchShopData(ownerEmail) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'fetch_shop_data.php?ownerEmail=' + encodeURIComponent(ownerEmail), true);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                var shop = response.shop;
-                document.getElementById('manage_shop_id').value = shop.id;
-                document.getElementById('manage_shop_name').value = shop.shop_name;
-                document.getElementById('manage_email').value = shop.email;
-                document.getElementById('manage_number').value = shop.number;
-                document.getElementById('manage_address').value = shop.address;
-                document.getElementById('manage_branch').value = shop.branch;
-                document.getElementById('manageBatchModal').style.display = "block";
-            } else {
-                alert('No shops found for this owner.');
-            }
-        }
-    };
-    xhr.send();
-}
 
 var manageBatchModal = document.getElementById("manageBatchModal");
 var closeManageBatchModal = document.getElementById("closeManageBatchModal");
@@ -159,7 +165,7 @@ window.onclick = function(event) {
 document.getElementById("manageBatchForm").addEventListener("submit", function(event) {
     var action = document.activeElement.value;
     if (action === 'delete') {
-        var confirmed = confirm("Are you sure you want to delete this shop?");
+        var confirmed = confirm("Are you sure you want to delete this owner?");
         if (!confirmed) {
             event.preventDefault();
         }

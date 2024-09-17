@@ -65,13 +65,6 @@ if (isset($_POST['logout'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="../viewCustomers/viewCustomers.php">
-                       
-                        <i class='bx bx-user-plus'></i>
-                        <span class="nav-item">Add Vehicle Owner</span>
-                    </a>
-                </li>
-                <li>
                     <a href="..//.php">
                     <i class='bx bxs-category-alt'></i>
                         <span class="nav-item">Product Catogories</span>

@@ -18,6 +18,25 @@ body{
     gap: 10px;
 }
 
+
+/* Success and error message styling */
+.alert {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
 /* Search input field */
 #search {
     width: 100%;
