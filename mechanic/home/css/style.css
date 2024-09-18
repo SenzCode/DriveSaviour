@@ -69,6 +69,24 @@ body.dark-mode header {
     display: block; 
 }
 
+/* User Icon Styles */
+.user-icon {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  font-size: 24px;
+  color: #000000;
+  transition: transform 0.3s ease, color 0.3s ease; 
+}
+
+.user-icon:hover {
+  transform: scale(1.1); 
+}
+
+body.dark-mode .user-icon {
+  color: #ffffff; 
+}
+
 
 nav ul {
     list-style-type: none;

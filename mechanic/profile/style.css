@@ -16,8 +16,14 @@ header {
     width: 100%;
     top: 0;
     z-index: 1000;
+    background-color: white;
 }
 
+body.dark-mode header{
+    background-color: black;
+    color: white;
+}
+  
 .container {
     display: flex;
     justify-content: space-between;
@@ -50,6 +56,12 @@ header {
     float: left;
     font-size: 18px;
     text-align: left;
+}
+
+.content{
+    margin-top: 70px;
+    align-items: center;
+    margin-left: -100px;
 }
 
 .profilepic {
@@ -219,6 +231,12 @@ input[type="text"]:focus, select:focus {
 
 .modal::-webkit-scrollbar {
     Display: none
+}
+
+.modal .modal-content .form-row span {
+    display: block;
+    margin-top: 20px;
+    font-weight: bold;
 }
 
 

@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DriveSaviour - About Us</title>
+    <title>DriveSaviour</title>
     <link rel="stylesheet" href="style.css">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" /> -->
+    <link rel="shortcut icon" type="dp" href="../../img/ss.png">
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
-    <link rel="stylesheet" href="../navbar/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 
 </head>
 <body>
     
-
 <section class="wrapper">
         <header>
             <div class="container">
@@ -22,15 +21,19 @@
                 </div>
                 <nav>
                     <ul id="menu">
-                        <li><a href="../home/home.php">Home</a></li>
+                    <li><a href="../home/home.php">Home</a></li>
                         <li><a href="../about/about.php">About Us</a></li>
                         <li><a href="../shop/shop.php">Shop</a></li>
                         <li><a href="../contact/contact.php">Contact Us</a></li>
                         <li><a href="../Breakdown/breakdown.php">Breakdowns</a></li>
+                    <!-- User Icon -->
+                    <div class="user-icon">
+                        <a href="../profile/profile.php"><i class='bx bx-user'></i></a>
+                    </div>
                         <li>
                             <!-- Dark Mode Toggle -->
                             <input type="checkbox" id="darkmode-toggle" style="display: none;">
-                            <label for="darkmode-toggle">
+                            <label for="darkmode-toggle" class="darkmode-toggle-label">
                                 <svg version="1.1" class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 496">
                                     <!-- SVG content for Sun -->
                                     <rect x="152.994" y="58.921" transform="matrix(0.3827 0.9239 -0.9239 0.3827 168.6176 -118.5145)" width="40.001" height="16"/>
@@ -105,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
     </script>
-
 
 
 </body>

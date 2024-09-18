@@ -1,4 +1,6 @@
+/* General */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
 
 /* General Styles */
 * {
@@ -37,19 +39,14 @@ header {
     position: fixed;
     width: 100%;
     top: 0;
-    background-color: #ffffff; 
     z-index: 1000;
-}
-
-body.dark-mode header {
-    background-color: #000000; 
-    color: white;
 }
 
 .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* background-color: white; */
 }
 
 .logo img {
@@ -70,7 +67,6 @@ body.dark-mode header {
 .dark-mode .logo .logo2 {
     display: block; 
 }
-
 
 nav ul {
     list-style-type: none;
@@ -120,6 +116,14 @@ nav ul li a:hover::before {
     z-index: 1001;
 }
 
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+    z-index: 1001;
+}
+
 .menu-toggle .bar {
     height: 3px;
     width: 25px;
@@ -140,7 +144,7 @@ nav ul li a:hover::before {
     margin-left: -800px;
 }
 
-label {
+.darkmode-toggle-label {
     width: 50px;
     height: 25px; 
     position: relative;
@@ -153,7 +157,7 @@ label {
     margin: 0 auto; 
 }
 
-label:after {
+.darkmode-toggle-label:after {
     content: "";
     width: 20px; 
     height: 20px; 
@@ -172,7 +176,7 @@ input:checked + label:after {
     background: linear-gradient(180deg,#777,#3a3a3a);
 }
 
-label svg {
+.darkmode-toggle-label svg {
     position: absolute;
     width: 15px; 
     top: 50%; 
@@ -180,23 +184,46 @@ label svg {
     transition: 0.3s;
 }
 
-label svg.sun {
+.darkmode-toggle-label svg.sun {
     left: 5px;
     fill: #fff;
 }
 
-label svg.moon {
+.darkmode-toggle-label svg.moon {
     right: 5px; 
     fill: #7e7e7e;
 }
 
-body.dark-mode nav ul a{
+
+.dark-mode nav ul li a{
     color: white;
+}
+
+/* User Icon Styles */
+.user-icon {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    font-size: 24px;
+    color: #000000;
+    transition: transform 0.3s ease, color 0.3s ease; 
+}
+
+.user-icon:hover {
+    transform: scale(1.1); 
+}
+
+body.dark-mode .user-icon {
+    color: #ffffff; 
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
     .logo img {
+        margin-left: 5px;
+    }
+
+    .dark-mode .logo .logo2{
         margin-left: 5px;
     }
 
@@ -253,6 +280,12 @@ body.dark-mode nav ul a{
 
     .menu-toggle.show .bar:nth-child(3) {
         transform: rotate(-45deg) translate(5px, -1px);
+    }
+    .user-icon {
+        margin-left: 15px; 
+        font-size: 20px; 
+        margin-top: 20px;
+        margin-bottom: 10px;
     }
 }
 

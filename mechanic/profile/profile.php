@@ -29,16 +29,16 @@ $city = isset($_SESSION['city']) ? $_SESSION['city'] : '';
 </head>
 <body>
  
-<div class="container1">
+<div class="container2">
     <div class="content">
     <!-- Adding user profile image -->
     <div class="side-container">
         <div class="profilepic">
-            <label for="profile-image-input">
+            <div for="profile-image-input">
                 <div id="profile-image-container">
                     <img id="profile-image-preview" src="Images/user.png" alt="User Profile Icon">
                 </div>
-            </label>
+            </div>
         </div>
     </div>
     <div class="profileTop">
@@ -90,22 +90,22 @@ $city = isset($_SESSION['city']) ? $_SESSION['city'] : '';
        
         <form id="updateProfileForm" method="POST" action="update_profile.php">
             <div class="form-row">
-                <label for="name">Name:</label>
+                <span for="name">Name:</span>
                 <input type="text" id="update-name" name="name" value="<?php echo $name; ?>" required>
             </div>
  
             <div class="form-row">
-                <label for="email">Email:</label>
+                <span for="email">Email:</span>
                 <input type="email" id="update-email" name="email" value="<?php echo $email; ?>" readonly>
             </div>
  
             <div class="form-row">
-                <label for="contact">Phone:</label>
+                <span for="contact">Phone:</span>
                 <input type="text" id="update-contact" name="phone" value="<?php echo $contact; ?>" required>
             </div>
  
             <div class="form-row">
-                <label for="city">City:</label>
+                <span for="city">City:</span>
                 <input type="text" id="update-city" name="city" value="<?php echo $city; ?>" required>
             </div>
  

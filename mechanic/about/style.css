@@ -9,6 +9,15 @@
     height: 500px;
 }
 
+header {
+  background-color: #ffffff; 
+}
+
+body.dark-mode header{
+  background-color: black;
+  color: white;
+}
+
 /*home*/
 #home{
     background-color: white;
@@ -22,7 +31,7 @@
   }
   
   .home-content {
-    margin-top: 200px;
+    margin-top: 180px;
   }
   .home-content h1{
     font-size: 3.5rem;

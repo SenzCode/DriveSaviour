@@ -16,6 +16,16 @@
     padding: 20px;
 }
 
+header {
+    background-color: #ffffff; 
+  }
+  
+body.dark-mode header{
+    background-color: black;
+    color: white;
+}
+  
+
 .contact-in h1 {
     font-size: 2rem;
     font-weight: 800;
