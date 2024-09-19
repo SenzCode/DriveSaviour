@@ -52,13 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $user = $result->fetch_assoc();
 
         if (password_verify($password, $user['password'])) {
-            $_SESSION['userID'] = $userID;
+            $_SESSION['userID'] = $user['id']; // Use the correct user ID
             $_SESSION['name'] = $user['name'];
             $_SESSION['email'] = $user['email'];
             $_SESSION['phone'] = $user['phone'];
             $_SESSION['city'] = $user['city'];
-
-            header("Location: ../home/home.php");
+        
+            // Start the session and redirect to the loader
+            header("Location: ../loader.php");
             exit();
         } else {
             echo "Invalid password!";

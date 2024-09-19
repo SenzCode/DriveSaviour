@@ -21,11 +21,11 @@
                 </div>
                 <nav>
                     <ul id="menu">
-                        <li><a href="../home/home.php">Home</a></li>
-                        <li><a href="../about/about.php">About Us</a></li>
-                        <li><a href="../shop/shop.php">Shop</a></li>
-                        <li><a href="../contact/contact.php">Contact Us</a></li>
-                        <li><a href="../mech/mech.php">Find a Mech</a></li>
+                    <li><a href="../home/home.php" onclick="showPreloader(event, '../home/home.php')">Home</a></li> 
+        <li><a href="../about/about.php" onclick="showPreloader(event, '../about/about.php')">About Us</a></li>
+        <li><a href="../shop/shop.php" onclick="showPreloader(event, '../shop/shop.php')">Shop</a></li>
+        <li><a href="../contact/contact.php" onclick="showPreloader(event, '../contact/contact.php')">Contact Us</a></li>
+        <li><a href="../mech/mech.php" onclick="showPreloader(event, '../mech/mech.php')">Find a Mech</a></li>
                     <!-- User Icon -->
                     <div class="user-icon">
                         <a href="../profile/profile.php"><i class='bx bx-user'></i></a>
@@ -107,6 +107,25 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+function showPreloader(event, url) {
+        event.preventDefault(); // Prevent the default link behavior
+        // Show the preloader
+        const preloaderWrap = document.createElement('div');
+        preloaderWrap.classList.add('preloader-wrap');
+        preloaderWrap.innerHTML = `
+            <div class="preloader">
+                <div class="loading-circle loading-circle-one"></div>
+                <div class="loading-circle loading-circle-two"></div>
+                <div class="loading-circle loading-circle-three"></div>
+            </div>
+        `;
+        document.body.appendChild(preloaderWrap);
+
+        // Redirect after a short delay
+        setTimeout(function() {
+            window.location.href = url;
+        }, 1300); // Adjust the time as needed
+    }
     </script>
 
 

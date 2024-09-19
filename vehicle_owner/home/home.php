@@ -103,6 +103,25 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+function showPreloader(event, url) {
+        event.preventDefault(); // Prevent the default link behavior
+        // Show the preloader
+        const preloaderWrap = document.createElement('div');
+        preloaderWrap.classList.add('preloader-wrap');
+        preloaderWrap.innerHTML = `
+            <div class="preloader">
+                <div class="loading-circle loading-circle-one"></div>
+                <div class="loading-circle loading-circle-two"></div>
+                <div class="loading-circle loading-circle-three"></div>
+            </div>
+        `;
+        document.body.appendChild(preloaderWrap);
+
+        // Redirect after a short delay
+        setTimeout(function() {
+            window.location.href = url;
+        }, 1300); // Adjust the time as needed
+    }
     </script>
 </body>
 </html>
