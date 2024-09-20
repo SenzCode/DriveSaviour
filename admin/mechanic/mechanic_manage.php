@@ -3,7 +3,7 @@ session_start();
 include_once('../../connection.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Retrieve and sanitize input data
+  
     $userID = intval($_POST['userID']);
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dob = $_POST['dob'];
 
     if ($_POST['action'] == 'edit') {
-        // Prepare the update query for mechanic table
+        
         $sql = "UPDATE mechanic SET name=?, email=?, phone=?, address=?, dob=? WHERE userID=?";
         $stmt = $conn->prepare($sql);
         if ($stmt) {
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit;
         }
     } elseif ($_POST['action'] == 'delete') {
-        // Delete query for mechanic table
+        
         $sql = "DELETE FROM mechanic WHERE userID=?";
         $stmt = $conn->prepare($sql);
         if ($stmt) {
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 } else {
-    // Redirect back if the request method is not POST
+   
     header("Location: view_mechanic.php");
     exit;
 }

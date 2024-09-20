@@ -3,7 +3,7 @@ session_start();
 require '../navbar/navbar.php';
 include_once('../../connection.php');
 
-// Fetch all data from the mechanic table
+
 $mechanic_data = [];
 $stmt = $conn->prepare("SELECT userID, name, email, phone, address, dob FROM mechanic");
 $stmt->execute();
@@ -45,7 +45,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <br><br>
     </div>
     <div class="searchbars">
-        <!-- Search bar -->
+       
         <div class="search-bar">
             <label for="search">Search</label>
             <input type="text" id="search" class="search-select" placeholder="Mechanic Name">
@@ -53,7 +53,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <br>
     </div>
 
-    <!-- Table -->
+    
     <div class="table">
         <table>
             <thead>
@@ -91,7 +91,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         </table>
     </div>
 
-    <!-- Manage modal -->
+   
     <div id="manageBatchModal" class="modal">
         <div class="modal-content">
             <span id="closeManageBatchModal" class="close">&times;</span>

@@ -2,24 +2,24 @@ body{
     margin-left: 300px;
     margin-top: 100px;
 }
-/* Main container */
+
 .main_container {
     width: 90%;
     margin: auto;
     font-family: Arial, sans-serif;
 }
-/* Search bar container */
+
 .search-bar {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Aligns the search bar to the left */
+    justify-content: flex-start; 
     margin: 20px 0;
-    max-width: 500px; /* You can adjust the width as needed */
+    max-width: 500px; 
     gap: 10px;
 }
 
 
-/* Success and error message styling */
+
 .alert {
     margin-bottom: 20px;
     padding: 10px;
@@ -37,7 +37,7 @@ body{
     color: #721c24;
 }
 
-/* Search input field */
+
 #search {
     width: 100%;
     padding: 10px;
@@ -50,19 +50,19 @@ body{
 
 
 
-/* Search button hover effect */
+
 #search-icon:hover {
     background-color: #0056b3;
     color: #fff;
 }
 
-/* Responsive adjustments */
+
 @media screen and (max-width: 768px) {
     .search-bar {
         width: 90%;
         flex-direction: column;
         gap: 10px;
-        justify-content: center; /* Centering search bar in smaller screens */
+        justify-content: center; 
     }
     
     #search {
@@ -82,7 +82,7 @@ body{
     margin-bottom: 20px;
 }
 
-/* Table styling */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -120,7 +120,7 @@ tbody tr:hover {
     background-color: #f9f9f9;
 }
 
-/* Column data alignment */
+
 td, th {
     text-align: center;
     padding: 10px 15px;
@@ -130,20 +130,20 @@ thead th {
     background-color: #f0f0f0;
 }
 
-/* Row structure */
+
 tr {
     border-radius: 30px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
 }
 
-/* Action column for buttons */
+
 td:last-child {
     width: 50px;
     text-align: center;
 }
 
-/* Manage button */
+
 .manage-button {
     background-color: #333;
     color: white;
@@ -158,7 +158,7 @@ td:last-child {
     background-color: #555;
 }
 
-/* Modal styling */
+
 .modal {
     display: none;
     position: fixed;
@@ -204,7 +204,7 @@ td:last-child {
     color: white;
 }
 
-/* Close button */
+
 .close {
     color: #aaa;
     float: right;
@@ -219,12 +219,12 @@ td:last-child {
     cursor: pointer;
 }
 
-/* Input fields in the modal */
+
 .modal-content input[type="hidden"] {
     display: none;
 }
 
-/* Responsive adjustments */
+
 @media screen and (max-width: 768px) {
 
     .search-bar {
@@ -241,12 +241,12 @@ td:last-child {
         text-align: center;
     }
 
-    /* Make sure modal fits smaller screens */
+   
     .modal-content {
         width: 90%;
     }
 
-    /* Action button should stay circular */
+    
     td:last-child {
         width: auto;
     }
