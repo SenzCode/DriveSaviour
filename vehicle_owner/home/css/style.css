@@ -329,6 +329,7 @@ label svg.moon {
     padding: 80px 20px;
     background-color: #ffffff;
     margin-top: 100px;
+    margin-bottom: 20px;
   }
   
   .text-center {
@@ -451,7 +452,7 @@ body.dark-mode .title-text p {
   line-height: 1.6;
   color: rgb(29, 29, 29);
   background: transparent;
-  font-weight: 600;
+  font-weight: 530;
   text-align: justify; /* Align text to the left */
 }
 
@@ -463,6 +464,93 @@ body.dark-mode .p-box{
 
 body.dark-mode .p-box p{
   color: rgb(209, 209, 209);
+}
+
+/*reviews*/
+.reviews{
+  margin-bottom: 200px;
+  margin-top: -20px;
+}
+
+.slider-wrapper {
+  display: flex; 
+  justify-content: center; 
+  overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card-list .card-item {
+  color: #fff;
+  user-select: none;
+  padding: 35px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #e2e2e2;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.card-list .card-item .user-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 40px;
+  border: 3px solid #fff;
+  padding: 4px;
+}
+
+.card-list .card-item h2{
+  color: #000;
+}
+
+.card-list .card-item .user-profession {
+  font-size: 1.15rem;
+  color: #606060;
+  font-weight: 500;
+  margin: 14px 0 40px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.slider-wrapper .swiper-pagination-bullet{
+  background-color: var(--primary-color);
+}
+
+.swiper-button-prev {
+  margin-left: 100px; 
+  transform: translateY(50px); 
+}
+
+.swiper-button-next {
+  margin-right: 100px; 
+  transform: translateY(50px); 
+}
+
+.rating {
+  font-size: 2rem;
+  margin-top: 10px;
+  background: linear-gradient(to bottom, #ffcc00, #ff6600); /* Gradient background */
+  -webkit-background-clip: text; 
+  -moz-background-clip: text;
+  background-clip: text; 
+  color: transparent; 
+}
+
+body.dark-mode .card-list .card-item{
+  border: 2px solid #0085FF;
+  background-color: black;
+  box-shadow: 0 4px 8px rgba(213, 213, 213, 0.289);
+}
+
+body.dark-mode .card-list .card-item h2{
+  color: #ffffff;
+}
+
+body.dark-mode .text-center h1{
+  color: white;
 }
 
 
@@ -754,6 +842,10 @@ body.dark-mode #services h1{
     .p-box p {
       font-size: 1em; 
       text-align: left;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+        display: none !important; 
     }
 }
 
