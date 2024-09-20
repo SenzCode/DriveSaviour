@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" type="dp" href="img/ss.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 <body>
    
@@ -75,7 +76,85 @@
     </div>
 </section>
 
+<section class="reviews">
+<div class="container swiper">
+       <div class="text-center">
+          <h1 class="services-text reveal">Reviews</h1>
+        </div>
+        <div class="slider-wrapper">
+            <div class="card-list swiper-wrapper">
+                <div class=" swiper-slide card-item">
+                    <img src="../../img/img-1.jpg" alt="User Image" class="user-image">
+                    <h2 class="user-name">Prashid Dilshan</h2>
+                    <div class="rating">
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star'></i>
+                    </div>
+                    <p class="user-profession">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa, sit!</p>
+                </div>
+                <div class=" swiper-slide card-item">
+                    <img src="../../img/img-2.jpg" alt="User Image" class="user-image">
+                    <h2 class="user-name">Shamali Liyanage</h2>
+                    <div class="rating">
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star'></i>
+                    </div>
+                    <p class="user-profession">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa, sit!</p>
+                </div>
+                <div class=" swiper-slide card-item">
+                    <img src="../../img/img-3.jpg" alt="User Image" class="user-image">
+                    <h2 class="user-name">Ramitha Heshan</h2>
+                    <div class="rating">
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star-half' ></i>
+                    </div>
+                    <p class="user-profession">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa, sit!</p>
+                </div>
+                <div class=" swiper-slide card-item">
+                    <img src="../../img/img-4.jpg" alt="User Image" class="user-image">
+                    <h2 class="user-name">Nusrath</h2>
+                    <div class="rating">
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star'></i>
+                    </div>
+                    <p class="user-profession">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa, sit!</p>
+                </div>
+                <div class=" swiper-slide card-item">
+                    <img src="../../img/img-5.jpg" alt="User Image" class="user-image">
+                    <h2 class="user-name">Kasun Buddika</h2>
+                    <div class="rating">
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star-half' ></i>
+                    </div>
+                    <p class="user-profession">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa, sit!</p>
+                </div>
+                <div class=" swiper-slide card-item">
+                    <img src="../../img/img-6.jpg" alt="User Image" class="user-image">
+                    <h2 class="user-name">Brain</h2>
+                    <div class="rating">
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star'></i>
+                       <i class='bx bxs-star-half' ></i>
+                    </div>
+                    <p class="user-profession">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa, sit!</p>
+                </div>
+            </div>
 
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+</section>
+  <!-- Linking Swiper JS CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 
     <?php
@@ -86,6 +165,47 @@
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="js/script.js"></script>
+
+
+    <script>
+        const swiper = new Swiper('.slider-wrapper', {
+    // Optional parameters
+    loop: true,
+    grabCursor: true,
+    spaceBetween: 30,
+  
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      dynamicBullets: true,
+    },
+  
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  
+     // Responssive breakpoint
+
+  breakpoints: {
+    0: {
+        slidesPerView:1
+    },
+    620: {
+        slidesPerview: 2
+    },
+    1024: {
+        slidesPerView: 3
+    }
+      }
+
+  });
+
+
+ 
+    </script>
 
 
     <script>

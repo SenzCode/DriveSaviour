@@ -28,7 +28,7 @@
         <li><a href="../mech/mech.php" onclick="showPreloader(event, '../mech/mech.php')">Find a Mech</a></li>
                     <!-- User Icon -->
                     <div class="user-icon">
-                        <a href="../profile/profile.php"><i class='bx bx-user'></i></a>
+                        <a href="../profile/profile.php" onclick="showPreloader(event, '../profile/profile.php')"><i class='bx bx-user'></i></a>
                     </div>
                         <li>
                             <!-- Dark Mode Toggle -->
@@ -124,7 +124,7 @@ function showPreloader(event, url) {
         // Redirect after a short delay
         setTimeout(function() {
             window.location.href = url;
-        }, 1300); // Adjust the time as needed
+        }, 700); // Adjust the time as needed
     }
     </script>
 
