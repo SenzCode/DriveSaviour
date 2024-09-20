@@ -47,7 +47,7 @@ if (isset($_POST['logout'])) {
                     </a>
                 </li>   
                 <li>
-                    <a href="../addProducts/addProducts.php">
+                    <a href="../shop/view_shop.php">
                        <i class='bx bx-list-ul'></i>
                         <span class="nav-item">View Shop</span>
                     </a>
