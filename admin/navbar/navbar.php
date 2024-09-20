@@ -53,9 +53,9 @@ if (isset($_POST['logout'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="../orders/orders.php">
+                    <a href="../mechanic/view_mechanic.php">
                         <i class='bx bx-show'></i>
-                        <span class="nav-item">View Mechanic</span>
+                        <span class="nav-item">View Mechanics</span>
                     </a>
                 </li>
                 <li>

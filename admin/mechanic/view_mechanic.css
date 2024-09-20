@@ -1,0 +1,253 @@
+body{
+    margin-left: 300px;
+    margin-top: 100px;
+}
+/* Main container */
+.main_container {
+    width: 90%;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
+/* Search bar container */
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Aligns the search bar to the left */
+    margin: 20px 0;
+    max-width: 500px; /* You can adjust the width as needed */
+    gap: 10px;
+}
+
+
+/* Success and error message styling */
+.alert {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Search input field */
+#search {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+
+
+/* Search button hover effect */
+#search-icon:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .search-bar {
+        width: 90%;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center; /* Centering search bar in smaller screens */
+    }
+    
+    #search {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    #search-icon {
+        width: 100%;
+    }
+}
+
+.title h1 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+thead {
+    background-color: #f9f9f9;
+}
+
+thead th {
+    font-size: 14px;
+    padding: 10px;
+    text-align: left;
+    color: #333;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-bottom: 1px solid #ccc;
+}
+
+tbody td {
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #555;
+    text-align: left;
+}
+
+tbody tr {
+    display: table-row;
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Column data alignment */
+td, th {
+    text-align: center;
+    padding: 10px 15px;
+}
+
+thead th {
+    background-color: #f0f0f0;
+}
+
+/* Row structure */
+tr {
+    border-radius: 30px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+/* Action column for buttons */
+td:last-child {
+    width: 50px;
+    text-align: center;
+}
+
+/* Manage button */
+.manage-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.manage-button:hover {
+    background-color: #555;
+}
+
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 50%;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    border: none;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.modal-content button.view-link {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.modal-content button.delete-link {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Close button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Input fields in the modal */
+.modal-content input[type="hidden"] {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+
+    .search-bar {
+        width: 90%;
+        flex-direction: column;
+        gap: 10px;
+    }
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    td, th {
+        text-align: center;
+    }
+
+    /* Make sure modal fits smaller screens */
+    .modal-content {
+        width: 90%;
+    }
+
+    /* Action button should stay circular */
+    td:last-child {
+        width: auto;
+    }
+}
