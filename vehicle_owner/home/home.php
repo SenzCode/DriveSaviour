@@ -58,6 +58,26 @@
         </div>
     </section> <br> 
 
+    <section class="features">
+    <div class="container-shops">
+        <div class="title">
+            <div class="title-image">
+                <img src="../../img/Front car-pana.png" alt="Mechanic and Car">
+            </div>
+            <div class="title-text">
+                <h2>Why Choose Us?</h2>
+                <div class="p-box"><p>24/7 Availability: We're always here when you need us.</p></div>
+                <div class="p-box"><p>Trusted Mechanics: All our mechanics are verified and highly rated.</p></div>
+                <div class="p-box"><p>Competitive Pricing: Get the best rates without any hidden fees.</p></div>
+                <div class="p-box"><p>Customer Support: Friendly and responsive support to assist you.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
     <?php
     require '../footer/footer.php';
     ?>

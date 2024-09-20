@@ -270,7 +270,7 @@ label svg.moon {
     width: 700px;
     height: 600px;
     margin-top: 100px;
-    margin-left: -210px;
+    margin-left: -270px;
     z-index: 2; /* Ensure side image is on top of the gears */
     position: relative; /* Ensure correct stacking with z-index */
 }
@@ -393,6 +393,77 @@ label svg.moon {
     color: #333;
   }
   
+
+/*features*/
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  margin-top: -30px;
+  text-align: left;
+}
+
+.title-image {
+  width: 45%;
+  text-align: center;
+  margin-top: -80px;
+}
+  
+.title-image img {
+  max-width: 100%;
+  margin-left: 20px;
+  height: auto;
+}
+  
+.title-text {
+  width: 45%;
+  margin-top: -40px;
+}
+  
+body.dark-mode .title-text p {
+  color: #a4a4a4;
+}
+.title-text h2 {
+  margin-bottom: 30px;
+  margin-left: -50px;
+  font-size: 2.5rem;
+}
+
+.p-box {
+  width: 550px;
+  height: 70px; 
+  border-radius: 30px;
+  background-color: #e2e2e2;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.289);
+  margin-bottom: 30px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+.p-box p {
+  margin: 0; /* Remove default margin */
+  font-size: 1.2em;
+  line-height: 1.6;
+  color: rgb(29, 29, 29);
+  background: transparent;
+  font-weight: 600;
+  text-align: justify; /* Align text to the left */
+}
+
+body.dark-mode .p-box{
+  border: 2px solid #0085FF;
+  background-color: black;
+  box-shadow: 0 4px 8px rgba(213, 213, 213, 0.289);
+}
+
+body.dark-mode .p-box p{
+  color: rgb(209, 209, 209);
+}
 
 
 /* Dark mode styles */
@@ -593,6 +664,31 @@ body.dark-mode #services h1{
         margin-top: 20px;
         margin-bottom: 10px;
     }
+    .title {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .title-image,
+    .title-text {
+      width: 100%;
+      margin-top: -30px;
+    }
+  
+    .title-image {
+      margin-bottom: 20px;
+    }
+  
+    .title-text h2 {
+      font-size: 2rem;
+      margin-left: 0;
+    }
+  
+    .p-box {
+      width: auto; 
+      height: auto; 
+      padding: 15px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -650,6 +746,14 @@ body.dark-mode #services h1{
         z-index: 1; 
         position: absolute; 
         left: 30%;
+    }
+    .title-text h2 {
+      font-size: 1.5rem;
+    }
+  
+    .p-box p {
+      font-size: 1em; 
+      text-align: left;
     }
 }
 
