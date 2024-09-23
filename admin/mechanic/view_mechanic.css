@@ -1,0 +1,253 @@
+body{
+    margin-left: 300px;
+    margin-top: 100px;
+}
+
+.main_container {
+    width: 90%;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    margin: 20px 0;
+    max-width: 500px; 
+    gap: 10px;
+}
+
+
+
+.alert {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+
+#search {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+
+
+
+#search-icon:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+
+@media screen and (max-width: 768px) {
+    .search-bar {
+        width: 90%;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center; 
+    }
+    
+    #search {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    #search-icon {
+        width: 100%;
+    }
+}
+
+.title h1 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+thead {
+    background-color: #f9f9f9;
+}
+
+thead th {
+    font-size: 14px;
+    padding: 10px;
+    text-align: left;
+    color: #333;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-bottom: 1px solid #ccc;
+}
+
+tbody td {
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #555;
+    text-align: left;
+}
+
+tbody tr {
+    display: table-row;
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+
+td, th {
+    text-align: center;
+    padding: 10px 15px;
+}
+
+thead th {
+    background-color: #f0f0f0;
+}
+
+
+tr {
+    border-radius: 30px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+
+td:last-child {
+    width: 50px;
+    text-align: center;
+}
+
+
+.manage-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.manage-button:hover {
+    background-color: #555;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 50%;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    border: none;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.modal-content button.view-link {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.modal-content button.delete-link {
+    background-color: #f44336;
+    color: white;
+}
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.modal-content input[type="hidden"] {
+    display: none;
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .search-bar {
+        width: 90%;
+        flex-direction: column;
+        gap: 10px;
+    }
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    td, th {
+        text-align: center;
+    }
+
+   
+    .modal-content {
+        width: 90%;
+    }
+
+    
+    td:last-child {
+        width: auto;
+    }
+}
