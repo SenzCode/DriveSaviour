@@ -480,6 +480,37 @@ label svg.moon {
     fill: #7e7e7e;
 }
 
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-250px * 10));
+    }
+}
+
+.slider {
+    height: 100px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.slider .slider-track {
+    display: flex;
+    animation: scroll 40s linear infinite;
+    width: calc(250px * 10);
+    gap: 150px; 
+}
+
+.slider .slide {
+    height: 100px;
+    width: 100px;
+}
+
+
 @media (max-width: 768px) {
     .title {
         flex-direction: column;

@@ -29,6 +29,67 @@
             </div>
         </div>
 
+        <div class="slider">
+             <div class="slider-track">
+                 <div class="slide">
+                    <img src="img/Untitled-2.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-4.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-9.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-1.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-3.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-5.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-6.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-7.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-8.png" height="100px" width="100px">
+                </div>
+
+                <div class="slide">
+                    <img src="img/Untitled-2.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-4.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-9.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-1.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-3.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-5.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-6.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-7.png" height="100px" width="100px">
+                </div>
+                 <div class="slide">
+                    <img src="img/Untitled-8.png" height="100px" width="100px">
+                </div>
+             </div>
+         </div>
+
+
         <div class="carousel">
             <button class="carousel-btn prev">&#10094;</button>
             <div class="carousel-items">
