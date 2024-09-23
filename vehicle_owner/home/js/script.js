@@ -62,3 +62,22 @@ const typeEffect = () => {
 }
 
 typeEffect();
+
+// Initialize ScrollReveal
+const sr = ScrollReveal({
+    origin: 'top',
+    distance: '85px',
+    duration: 2500,
+    reset: true
+});
+
+sr.reveal('.text-center', { delay: 300 });
+sr.reveal('.services-boxes', { delay: 500 });
+sr.reveal('.title-text h2', { delay: 300 });
+
+const pBoxes = document.querySelectorAll('.p-box');
+pBoxes.forEach((box, index) => {
+    sr.reveal(box, { delay: 300 + index * 150 }); 
+});
+
+
