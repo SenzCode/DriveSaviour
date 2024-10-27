@@ -3,6 +3,8 @@
 session_start();
 require '../../connection.php';
 
+$response = '';  // Initialize response message
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $product_id = $_POST['id'];
     $shop_id = $_POST['shop_id'];
@@ -22,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Insert into CartTable
         $cart_query = "INSERT INTO CartTable (shop_id, cat_id, product_name, image_url, quantity, price, username) 
                        VALUES ($shop_id, {$product['cat_id']}, '$product_name', '$image_url', $quantity, $price, '$username')";
-
         $cart_result = mysqli_query($conn, $cart_query);
 
         if ($cart_result) {
@@ -31,18 +32,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $update_product_query = "UPDATE products SET quantity_available = $new_quantity WHERE id = $product_id";
             mysqli_query($conn, $update_product_query);
 
-            // Redirect to the cart page with a success message
-            header("Location: view_cart.php?success=Product added to cart successfully");
-            exit();
+            // Set success response
+            $response = "Product added to cart successfully!";
         } else {
-            // Handle the error during the cart insertion
-            echo "Error adding product to cart: " . mysqli_error($conn);
+            // Set error response for cart insertion failure
+            $response = "Error adding product to cart. Please try again.";
         }
     } else {
-        // If the quantity is invalid or exceeds available stock
-        echo "Invalid quantity or product not available.";
+        // Set error response for invalid quantity or product availability
+        $response = "Invalid quantity or product not available.";
     }
 } else {
-    echo "Invalid request.";
+    $response = "Invalid request.";
 }
+
+// Return the response message
+echo $response;
 ?>
