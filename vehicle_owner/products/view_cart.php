@@ -1,25 +1,38 @@
 <?php
-session_start(); // Ensure session is started at the top
-
+session_start();
 require '../../connection.php';
+require '../navbar/nav.php';
 
-// Check if user is logged in
-if (!isset($_SESSION['userID'])) {
-    header("Location: ../Login/login.php"); // Redirect to login if not logged in
-    exit();
+// Check if the user is logged in
+if (!isset($_SESSION['email'])) {
+    echo "User is not logged in.";
+    exit;
 }
 
-// Use the session variable for userID
-$userID = $_SESSION['userID'];
+// Get the logged-in user's email
+$userEmail = $_SESSION['email'];
 
 // Fetch cart items for the logged-in user
-$stmt = $conn->prepare("SELECT c.id, c.product_name, c.quantity, c.price, c.image_url 
-                         FROM CartTable c 
-                         WHERE c.username = (SELECT email FROM vehicle_owner WHERE id = ?)");
-$stmt->bind_param("i", $userID);
+$query = "SELECT c.*, p.product_name, p.image_url, s.shop_name 
+          FROM cart c 
+          JOIN products p ON c.product_id = p.id 
+          JOIN shops s ON p.shop_id = s.id 
+          WHERE c.email = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $userEmail);
 $stmt->execute();
 $result = $stmt->get_result();
 
+$cart_items = [];
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $cart_items[] = $row;
+    }
+}
+
+// Close the statement
+$stmt->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -27,50 +40,42 @@ $result = $stmt->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="../navbar/style.css">
+    <link rel="stylesheet" href="../shop/product-list.css"><!-- Add your CSS file here -->
     <title>Your Cart</title>
 </head>
 <body>
+<?php if (isset($_GET['success'])): ?>
+    <div class="alert alert-success"><?= htmlspecialchars($_GET['success']) ?></div>
+<?php elseif (isset($_GET['error'])): ?>
+    <div class="alert alert-error"><?= htmlspecialchars($_GET['error']) ?></div>
+<?php endif; ?>
 
-    <h1>Your Shopping Cart</h1>
-
-    <?php if ($result->num_rows > 0): ?>
-        <table>
-            <tr>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Image</th>
-                <th>Action</th>
-            </tr>
-            <?php while ($row = $result->fetch_assoc()): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($row['product_name']); ?></td>
-                    <td><?php echo htmlspecialchars($row['quantity']); ?></td>
-                    <td><?php echo htmlspecialchars($row['price']); ?></td>
-                    <td><img src="<?php echo htmlspecialchars($row['image_url']); ?>" alt="Product Image" width="100"></td>
-                    <td>
-                        <form action="remove_from_cart.php" method="POST">
-                            <input type="hidden" name="cart_id" value="<?php echo $row['id']; ?>">
-                            <button type="submit">Remove</button>
+    <div class="main_container">
+        <h1>Your Cart</h1>
+        <div class="product-card">
+            <?php if (count($cart_items) > 0): ?>
+                <?php foreach ($cart_items as $item): ?>
+                    <div class="cart-item">
+                        <img src="<?= htmlspecialchars($item['image_url']) ?>" alt="<?= htmlspecialchars($item['product_name']) ?>">
+                        <div class="product-details">
+                            <h3><?= htmlspecialchars($item['product_name']) ?></h3>
+                            <div>Price: Rs. <?= htmlspecialchars($item['price']) ?></div>
+                            <div>Quantity: <?= htmlspecialchars($item['quantity']) ?></div>
+                            <div>Shop: <?= htmlspecialchars($item['shop_name']) ?></div>
+                        </div>
+                        <form action="remove_from_cart.php" method="POST"> <!-- Create a remove_from_cart.php for removing items -->
+                            <input type="hidden" name="cart_id" value="<?= $item['id'] ?>">
+                            <button  type="submit" class="go-to-shop-btn">Remove from Cart</button>
                         </form>
-                    </td>
-                </tr>
-            <?php endwhile; ?>
-        </table>
-    <?php else: ?>
-        <p>Your cart is empty.</p>
-    <?php endif; ?>
-
-    <a href="checkout.php">Proceed to Checkout</a>
-    
-    <br>
-    <a href="logout.php">Logout</a>
-
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Your cart is empty.</p>
+            <?php endif; ?>
+        </div>
+        <button class="checkout-btn" onclick="window.location.href='checkout.php'">Proceed to Checkout</button>
+    </div>
 </body>
 </html>
-
-<?php
-$stmt->close();
-$conn->close();
-?>

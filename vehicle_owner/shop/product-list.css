@@ -9,7 +9,7 @@
         .view-cart-btn {
             display: inline-block;
             margin-bottom: 20px;
-            width: 100px;
+            width: auto;
             height: 35px;
             color: #182431;
             font-weight: bold;
