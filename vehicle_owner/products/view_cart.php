@@ -75,7 +75,7 @@ $conn->close();
                 <p>Your cart is empty.</p>
             <?php endif; ?>
         </div>
-        <button class="checkout-btn" onclick="window.location.href='checkout.php'">Proceed to Checkout</button>
+        <button class="checkout-btn" onclick="window.location.href='pay.php'">Proceed to Checkout</button>
     </div>
 </body>
 </html>
