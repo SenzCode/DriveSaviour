@@ -11,11 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'payment_method_types' => ['card'],
         'line_items' => [[
             'price_data' => [
-                'currency' => 'usd',
+                'currency' => 'lkr',
                 'product_data' => [
                     'name' => 'Loyalty Card',
                 ],
-                'unit_amount' => 5000, // $50.00 (in cents)
+                'unit_amount' => 500000, // $50.00 (in cents)
             ],
             'quantity' => 1,
         ]],

@@ -14,9 +14,7 @@ if (isset($_GET['email'])) {
     $stmt->bind_param("sss", $card_no, $expire_date, $email);
 
     if ($stmt->execute()) {
-        echo "Loyalty Card purchased successfully!<br>";
-        echo "Card Number: $card_no<br>";
-        echo "Expiration Date: $expire_date<br>";
+        header('Location: loyalty_card.php');
     } else {
         echo "Error: " . $stmt->error;
     }
