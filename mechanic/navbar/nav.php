@@ -26,6 +26,7 @@
                         <li><a href="../shop/shop.php">Shop</a></li>
                         <li><a href="../contact/contact.php">Contact Us</a></li>
                         <li><a href="../Breakdown/breakdown.php">Breakdowns</a></li>
+                        <li><a href="../Login/login.php" onclick="showPreloader(event, '../Login/login.php')">Log Out</a></li>
                     <!-- User Icon -->
                     <div class="user-icon">
                         <a href="../profile/profile.php"><i class='bx bx-user'></i></a>
