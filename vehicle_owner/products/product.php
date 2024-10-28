@@ -36,6 +36,8 @@ if ($result) {
     <div class="main_container">
         <!-- View Cart Button -->
         <button class="view-cart-btn" onclick="window.location.href='view_cart.php'">View Cart</button>
+
+        <button class="view-cart-btn" onclick="window.location.href='../Loyalty_card/loyalty_card.php'">Loyalty Card</button>
  
         <!-- Search Bar -->
         <form method="GET" action="">
