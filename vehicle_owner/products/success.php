@@ -67,12 +67,21 @@ if ($loyaltyResult->num_rows > 0) {
 $discountAmount = $subtotal * $discountRate;
 $totalAmountToPay = $subtotal - $discountAmount;
 
+// Generate a unique reference number for this order
+$referenceNumber = uniqid('ORD-', true); // Generate a unique reference number
+
 // Insert the order into the `orders` table
-$orderInsertQuery = $conn->prepare("INSERT INTO orders (product_id, quantity, purchase_date, total_price, discount, email, status) VALUES (?, ?, NOW(), ?, ?, ?, 'Pending')");
+$orderInsertQuery = $conn->prepare("INSERT INTO orders (reference_number, product_id, quantity, purchase_date, item_total, total_price, discount, email, status) VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, 'Pending')");
+
 foreach ($cartItems as $item) {
     $productName = $item['product_id'];
     $quantity = $item['quantity'];
-    $orderInsertQuery->bind_param("sidds", $productName, $quantity, $totalAmountToPay, $discountAmount, $userEmail);
+    $itemTotal = $item['price'] * $quantity; // Calculate item total for each product
+
+    // Calculate total price for the order
+    $totalPrice = $totalAmountToPay; // You might want to save the total price in a different way depending on your logic
+
+    $orderInsertQuery->bind_param("ssiidss", $referenceNumber, $productName, $quantity, $itemTotal, $totalPrice, $discountAmount, $userEmail);
     $orderInsertQuery->execute();
 }
 
