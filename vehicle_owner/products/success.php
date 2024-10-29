@@ -12,10 +12,8 @@ if (!isset($_SESSION['email'])) {
     exit;
 }
 
-// Get the logged-in user's email
 $userEmail = $_SESSION['email'];
 
-// Verify the Stripe session ID passed from the payment page
 if (!isset($_GET['session_id'])) {
     echo "Invalid payment session.";
     exit;
@@ -23,7 +21,6 @@ if (!isset($_GET['session_id'])) {
 
 $session_id = $_GET['session_id'];
 
-// Retrieve the Stripe session to confirm payment
 try {
     $session = \Stripe\Checkout\Session::retrieve($session_id);
     if ($session->payment_status !== 'paid') {
@@ -35,7 +32,6 @@ try {
     exit;
 }
 
-// Fetch cart items for the logged-in user
 $query = "SELECT c.*, p.id AS product_id, p.price 
           FROM cart c 
           JOIN products p ON c.product_id = p.id 
@@ -45,7 +41,6 @@ $stmt->bind_param("s", $userEmail);
 $stmt->execute();
 $cartItemsResult = $stmt->get_result();
 
-// Calculate the subtotal and discount if eligible
 $subtotal = 0;
 $cartItems = [];
 while ($item = $cartItemsResult->fetch_assoc()) {
@@ -53,7 +48,6 @@ while ($item = $cartItemsResult->fetch_assoc()) {
     $subtotal += $item['price'] * $item['quantity'];
 }
 
-// Check if user is eligible for a loyalty card discount
 $discountRate = 0;
 $loyaltyCheckQuery = $conn->prepare("SELECT * FROM loyalty_card WHERE email = ?");
 $loyaltyCheckQuery->bind_param("s", $userEmail);
@@ -63,38 +57,36 @@ if ($loyaltyResult->num_rows > 0) {
     $discountRate = 0.03; // 3% discount
 }
 
-// Calculate final totals
 $discountAmount = $subtotal * $discountRate;
 $totalAmountToPay = $subtotal - $discountAmount;
 
-// Generate a unique reference number for this order
-$referenceNumber = uniqid('ORD-', true); // Generate a unique reference number
+$referenceNumber = uniqid('ORD-', true);
 
-// Insert the order into the `orders` table
-$orderInsertQuery = $conn->prepare("INSERT INTO orders (reference_number, product_id, quantity, purchase_date, item_total, total_price, discount, email, status) VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, 'Pending')");
+$orderInsertQuery = $conn->prepare("INSERT INTO orders (reference_number, product_id, quantity, purchase_date, item_total, total_price, discount, seller_income, commission, email, status) VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, 'Pending')");
 
 foreach ($cartItems as $item) {
     $productName = $item['product_id'];
     $quantity = $item['quantity'];
     $itemTotal = $item['price'] * $quantity;
 
+    // Calculate commission and seller income
+    $commission = $itemTotal * 0.03; // 3% commission
+    $sellerIncome = $itemTotal - $commission; // Seller income after deducting commission
+
     $totalPrice = $totalAmountToPay;
 
-    $orderInsertQuery->bind_param("ssiidss", $referenceNumber, $productName, $quantity, $itemTotal, $totalPrice, $discountAmount, $userEmail);
+    $orderInsertQuery->bind_param("ssiidddss", $referenceNumber, $productName, $quantity, $itemTotal, $totalPrice, $discountAmount, $sellerIncome, $commission, $userEmail);
     $orderInsertQuery->execute();
 
-    // Reduce the ordered quantity from the `products` table
     $updateProductQuantityQuery = $conn->prepare("UPDATE products SET quantity_available = quantity_available - ? WHERE id = ?");
     $updateProductQuantityQuery->bind_param("ii", $quantity, $productName);
     $updateProductQuantityQuery->execute();
 }
 
-// Clear cart for the user
 $deleteCartQuery = $conn->prepare("DELETE FROM cart WHERE email = ?");
 $deleteCartQuery->bind_param("s", $userEmail);
 $deleteCartQuery->execute();
 
-// Close connections
 $orderInsertQuery->close();
 $deleteCartQuery->close();
 $loyaltyCheckQuery->close();
