@@ -27,7 +27,7 @@ if ($loyaltyResult->num_rows > 0) {
 }
 
 // Fetch cart items for the logged-in user
-$query = "SELECT c.*, p.product_name, p.price, s.shop_name 
+$query = "SELECT c.*, p.id, p.price, s.shop_name 
           FROM cart c 
           JOIN products p ON c.product_id = p.id 
           JOIN shops s ON p.shop_id = s.id 
@@ -75,9 +75,9 @@ $session = \Stripe\Checkout\Session::create([
 ]);
 
 // Insert the order with discounted total into the orders table
-$orderInsertQuery = $conn->prepare("INSERT INTO orders (product_name, quantity, purchase_date, total_price, discount, email, status) VALUES (?, ?, NOW(), ?, ?, ?, 'Pending')");
+$orderInsertQuery = $conn->prepare("INSERT INTO orders (product_id, quantity, purchase_date, total_price, discount, email, status) VALUES (?, ?, NOW(), ?, ?, ?, 'Pending')");
 foreach ($cart_items as $item) {
-    $orderInsertQuery->bind_param("sidds", $item['product_name'], $item['quantity'], $subtotal, $discountAmount, $userEmail);
+    $orderInsertQuery->bind_param("sidds", $item['product_id'], $item['quantity'], $subtotal, $discountAmount, $userEmail);
     $orderInsertQuery->execute();
 }
 
