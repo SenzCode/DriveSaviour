@@ -41,14 +41,8 @@ if (isset($_POST['logout'])) {
                 </li>
                 <li>
                     <a href="../shop/shop.php">
-                        <i class='bx bx-add-to-queue'></i>
-                        <span class="nav-item">Add Shop</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../products/shoplist.php">
-                        <i class='bx bxs-edit'></i>
-                        <span class="nav-item">Add Products</span>
+                    <i class='bx bxs-store'></i>
+                        <span class="nav-item">Own Shops</span>
                     </a>
                 </li>
                 <li>
@@ -71,11 +65,23 @@ if (isset($_POST['logout'])) {
                 </li>
                 <li>
                     <a href="../categories/category.php">
-                    <i class='bx bxs-category-alt'></i>
+                        <i class='bx bxs-category-alt'></i>
                         <span class="nav-item">Product Catogories</span>
                     </a>
                 </li>
-                
+                <li>
+                    <a href="../categories/category.php">
+                        <i class='bx bx-money-withdraw'></i>
+                        <span class="nav-item">View Commission</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../categories/category.php">
+                        <i class='bx bxl-telegram'></i>
+                        <span class="nav-item">Seller Payments</span>
+                    </a>
+                </li>
+
                 <li>
                     <form method="POST">
                         <button class="logout" name="logout">
