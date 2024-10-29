@@ -76,13 +76,17 @@ $orderInsertQuery = $conn->prepare("INSERT INTO orders (reference_number, produc
 foreach ($cartItems as $item) {
     $productName = $item['product_id'];
     $quantity = $item['quantity'];
-    $itemTotal = $item['price'] * $quantity; // Calculate item total for each product
+    $itemTotal = $item['price'] * $quantity;
 
-    // Calculate total price for the order
-    $totalPrice = $totalAmountToPay; // You might want to save the total price in a different way depending on your logic
+    $totalPrice = $totalAmountToPay;
 
     $orderInsertQuery->bind_param("ssiidss", $referenceNumber, $productName, $quantity, $itemTotal, $totalPrice, $discountAmount, $userEmail);
     $orderInsertQuery->execute();
+
+    // Reduce the ordered quantity from the `products` table
+    $updateProductQuantityQuery = $conn->prepare("UPDATE products SET quantity_available = quantity_available - ? WHERE id = ?");
+    $updateProductQuantityQuery->bind_param("ii", $quantity, $productName);
+    $updateProductQuantityQuery->execute();
 }
 
 // Clear cart for the user
