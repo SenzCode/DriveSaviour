@@ -70,19 +70,12 @@ $session = \Stripe\Checkout\Session::create([
     'payment_method_types' => ['card'],
     'line_items' => $line_items,
     'mode' => 'payment',
-    'success_url' => 'http://localhost:3000/vehicle_owner/products/success.php',  // Replace with your actual success URL
+    'success_url' => 'http://localhost:3000/vehicle_owner/products/success.php?session_id={CHECKOUT_SESSION_ID}',  // Replace with your actual success URL
     'cancel_url' => 'http://localhost:3000/vehicle_owner/products/cancel.php',    // Replace with your actual cancel URL
 ]);
 
-// Insert the order with discounted total into the orders table
-$orderInsertQuery = $conn->prepare("INSERT INTO orders (product_id, quantity, purchase_date, total_price, discount, email, status) VALUES (?, ?, NOW(), ?, ?, ?, 'Pending')");
-foreach ($cart_items as $item) {
-    $orderInsertQuery->bind_param("sidds", $item['product_id'], $item['quantity'], $subtotal, $discountAmount, $userEmail);
-    $orderInsertQuery->execute();
-}
 
 // Close connections
-$orderInsertQuery->close();
 $stmt->close();
 $loyaltyCheckQuery->close();
 $conn->close();
