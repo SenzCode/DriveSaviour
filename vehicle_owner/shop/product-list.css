@@ -197,13 +197,6 @@ h2{
     margin-top: 20px;
 }
 
-.contact-number {
-    display: inline-block; 
-    width: 110px; 
-    white-space: nowrap; 
-    color: red;
-}
-
 .dark-mode .shop-info{
     background-color: black;
     color: white;

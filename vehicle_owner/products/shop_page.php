@@ -71,31 +71,5 @@ if ($product_result) {
         </div>
     </div>
 
-    <script>
-    const dynamicText = document.querySelector(".contact-number");
-    const contactNumber = "<?= htmlspecialchars($shop_data['number']) ?>"; // Use PHP to get the contact number
-
-    let charIndex = 0;
-    let isDeleting = false;
-
-    const typeEffect = () => {
-        const currentChar = contactNumber.substring(0, charIndex);
-        dynamicText.textContent = currentChar;
-
-        if (!isDeleting && charIndex < contactNumber.length) {
-            charIndex++;
-            setTimeout(typeEffect, 200);
-        } else if (isDeleting && charIndex > 0) {
-            charIndex--;
-            setTimeout(typeEffect, 100);
-        } else {
-            isDeleting = !isDeleting;
-            setTimeout(typeEffect, isDeleting ? 500 : 1200);
-        }
-    }
-
-    typeEffect();
-</script>
-
 </body>
 </html>
