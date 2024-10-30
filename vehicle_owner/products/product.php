@@ -29,6 +29,7 @@ if ($result) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product List</title>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../shop/product-list.css">
 </head>
@@ -51,6 +52,9 @@ if ($result) {
     <?php if (count($product_data) > 0): ?>
         <?php foreach ($product_data as $row): ?>
             <div class="product-card">
+            <a class="go-to-shop-icon" onclick="window.location.href='shop_page.php?shop_id=<?= $row['shop_id'] ?>'">
+        <i class='bx bxs-store'></i>
+    </a>
                 <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>">
                 <div class="product-details">
                     <h3><?= htmlspecialchars($row['product_name']) ?></h3>
@@ -63,8 +67,6 @@ if ($result) {
                         <input type="number" name="quantity" value="1" min="1" max="<?= $row['quantity_available'] ?>">
                         <button type="submit">Add to Cart</button>
                     </form>
-                    <!-- Go to Shop Button -->
-                    <button class="go-to-shop-btn" onclick="window.location.href='shop_page.php?shop_id=<?= $row['shop_id'] ?>'">Go to the Shop</button>
                 </div>
             </div>
         <?php endforeach; ?>

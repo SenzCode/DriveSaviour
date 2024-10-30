@@ -37,6 +37,7 @@ body.dark-mode {
 header {
     padding: 10px 20px;
     position: fixed;
+    background-color: rgb(255, 255, 255);;
     width: 100%;
     top: 0;
     z-index: 1000;
@@ -231,7 +232,7 @@ body.dark-mode .user-icon {
         top: 0;
         right: -100%;
         width: 250px;
-        height: 450px;
+        height: 500px;
         background-color: #e6e6e6;
         flex-direction: column;
         align-items: center;

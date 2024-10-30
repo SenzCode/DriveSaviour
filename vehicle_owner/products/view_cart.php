@@ -42,7 +42,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" href="../navbar/style.css">
-    <link rel="stylesheet" href="../shop/product-list.css"><!-- Add your CSS file here -->
+    <link rel="stylesheet" href="../shop/add-to-cart.css"><!-- Add your CSS file here -->
     <title>Your Cart</title>
 </head>
 <body>
@@ -67,7 +67,9 @@ $conn->close();
                         </div>
                         <form action="remove_from_cart.php" method="POST"> <!-- Create a remove_from_cart.php for removing items -->
                             <input type="hidden" name="cart_id" value="<?= $item['id'] ?>">
-                            <button  type="submit" class="go-to-shop-btn">Remove from Cart</button>
+                            <button type="submit" class="remove-btn" >
+                                <i class='bx bx-trash'></i>
+                            </button>
                         </form>
                     </div>
                 <?php endforeach; ?>
