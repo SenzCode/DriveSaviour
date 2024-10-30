@@ -46,8 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($insert_stmt->execute()) {
             echo "Product added to cart successfully.";
-            // Optionally redirect to another page or refresh the cart
-            header("Location: view_cart.php");
+            header("Location: product.php?message=insert");
             exit;
         } else {
             echo "Error adding product to cart: " . $conn->error;

@@ -19,11 +19,11 @@ if (isset($_POST['cart_id'])) {
 
     if ($stmt->execute()) {
         // Successfully removed the itema
-        header("Location: view_cart.php?success=Item removed from cart.");
+        header("Location: view_cart.php?message=removed");
         exit();
     } else {
         // Error handling
-        header("Location: view_cart.php?error=Failed to remove item.");
+        header("Location: view_cart.php?message=err");
         exit();
     }
 

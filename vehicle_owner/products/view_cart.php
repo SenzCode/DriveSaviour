@@ -30,9 +30,7 @@ if ($result) {
     }
 }
 
-// Close the statement
-$stmt->close();
-$conn->close();
+$message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 ?>
 
 <!DOCTYPE html>
@@ -42,17 +40,16 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" href="../navbar/style.css">
-    <link rel="stylesheet" href="../shop/add-to-cart.css"><!-- Add your CSS file here -->
+    <link rel="stylesheet" href="../shop/add-to-cart.css">
     <title>Your Cart</title>
 </head>
 <body>
-<?php if (isset($_GET['success'])): ?>
-    <div class="alert alert-success"><?= htmlspecialchars($_GET['success']) ?></div>
-<?php elseif (isset($_GET['error'])): ?>
-    <div class="alert alert-error"><?= htmlspecialchars($_GET['error']) ?></div>
-<?php endif; ?>
-
     <div class="main_container">
+        <?php if ($message == 'removed'): ?>
+            <div class="alert alert-success" id="success-alert">The Item was removed from the cart successfully.</div>
+        <?php elseif ($message == 'err'): ?>
+            <div class="alert alert-success" id="success-alert">Something went wrong.</div>
+        <?php endif; ?>
         <h1>Your Cart</h1>
         <div class="product-card">
             <?php if (count($cart_items) > 0): ?>
@@ -80,4 +77,15 @@ $conn->close();
         <button class="checkout-btn" onclick="window.location.href='pay.php'">Proceed to Checkout</button>
     </div>
 </body>
+
+<script>
+    // Hide the alert message after 10 seconds
+    setTimeout(function() {
+        var alert = document.getElementById('success-alert');
+        if (alert) {
+            alert.style.display = 'none';
+        }
+    }, 10000); // 10 seconds
+</script>
+
 </html>

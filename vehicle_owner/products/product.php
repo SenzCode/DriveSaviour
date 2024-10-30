@@ -19,6 +19,8 @@ if ($result) {
         $product_data[] = $row;
     }
 }
+
+$message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 ?>
 
  
@@ -32,9 +34,13 @@ if ($result) {
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../shop/product-list.css">
+
 </head>
 <body>
     <div class="main_container">
+    <?php if ($message == 'insert'): ?>
+        <div class="alert alert-success" id="success-alert">The Item was added to the cart successfully.</div>
+    <?php endif; ?>
         <!-- View Cart Button -->
         <button class="view-cart-btn" onclick="window.location.href='view_cart.php'">View Cart</button>
 
@@ -49,32 +55,43 @@ if ($result) {
         </form>
  
         <div class="product-card-container">
-    <?php if (count($product_data) > 0): ?>
-        <?php foreach ($product_data as $row): ?>
-            <div class="product-card">
-            <a class="go-to-shop-icon" onclick="window.location.href='shop_page.php?shop_id=<?= $row['shop_id'] ?>'">
-        <i class='bx bxs-store'></i>
-    </a>
-                <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>">
-                <div class="product-details">
-                    <h3><?= htmlspecialchars($row['product_name']) ?></h3>
-                    <div class="price">Rs.<?= htmlspecialchars($row['price']) ?></div>
-                    <div>Available: <?= htmlspecialchars($row['quantity_available']) ?></div>
-                    <div>Shop: <?= htmlspecialchars($row['shop_name']) ?></div> <!-- Display shop name -->
-                    <form action="add_to_cart.php" method="POST">
-                        <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                        <input type="hidden" name="shop_id" value="<?= $row['shop_id'] ?>">
-                        <input type="number" name="quantity" value="1" min="1" max="<?= $row['quantity_available'] ?>">
-                        <button type="submit">Add to Cart</button>
-                    </form>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>No products found.</p>
-    <?php endif; ?>
-</div>
+            <?php if (count($product_data) > 0): ?>
+                <?php foreach ($product_data as $row): ?>
+                    <div class="product-card">
+                        <a class="go-to-shop-icon" onclick="window.location.href='shop_page.php?shop_id=<?= $row['shop_id'] ?>'">
+                            <i class='bx bxs-store'></i>
+                        </a>
+                        <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>">
+                        <div class="product-details">
+                            <h3><?= htmlspecialchars($row['product_name']) ?></h3>
+                            <div class="price">Rs.<?= htmlspecialchars($row['price']) ?></div>
+                            <div>Available: <?= htmlspecialchars($row['quantity_available']) ?></div>
+                            <div>Shop: <?= htmlspecialchars($row['shop_name']) ?></div> <!-- Display shop name -->
+                            <form action="add_to_cart.php" method="POST">
+                                <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                <input type="hidden" name="shop_id" value="<?= $row['shop_id'] ?>">
+                                <input type="number" name="quantity" value="1" min="1" max="<?= $row['quantity_available'] ?>">
+                                <button type="submit">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No products found.</p>
+            <?php endif; ?>
+        </div>
 
     </div>
 </body>
+
+<script>
+    // Hide the alert message after 10 seconds
+    setTimeout(function() {
+        var alert = document.getElementById('success-alert');
+        if (alert) {
+            alert.style.display = 'none';
+        }
+    }, 10000); // 10 seconds
+</script>
+
 </html>
