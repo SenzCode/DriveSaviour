@@ -22,6 +22,10 @@
     border: 1px solid #2B5AC2;
 }
 
+.dark-mode .go-to-shop-icon {
+    color: rgba(255, 255, 255, 0.804);
+}
+
 .view-cart-btn {
     display: inline-block;
     margin-bottom: 20px;
