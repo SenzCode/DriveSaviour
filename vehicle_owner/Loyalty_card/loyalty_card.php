@@ -39,18 +39,18 @@ if ($result->num_rows > 0) {
     <body>
 
     <div class="container-card">
-      <header>
+      <div class="up-1">
         <span class="logo-card">
-          <img src="images/logo.png" alt="" />
+          <img src="images/customer-loyalty.png" alt="" />
           <h5>Loyalty Card</h5>
         </span>
         <img src="images/chip.png" alt="" class="chip" />
-      </header>
+      </div>
 
       <div class="card-details">
         <div class="name-number">
           <h6>Card Number</h6>
-          <h5 class="number"><?= $cardNo ?></h5>
+          <h5 class="number"><?= $cardNo ?></h5><br><br><br><br>
           <h5 class="name"><?= htmlspecialchars($name) ?></h5>
         </div>
         <div class="valid-date">
@@ -73,29 +73,31 @@ if ($result->num_rows > 0) {
 } else {
     // User is not registered; show the purchase option
     ?>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Loyalty Card</title>
-        <link rel="stylesheet" href="../navbar/style.css">
-    </head>
-    <body>
-        <div class="loyalty-card-details">
-            <h2>Your Details</h2>
-            <p><strong>Name:</strong> <?= htmlspecialchars($name) ?></p>
-            <p><strong>Phone:</strong> <?= htmlspecialchars($phone) ?></p>
-            <p><strong>Email:</strong> <?= htmlspecialchars($loggedInOwnerEmail) ?></p>
-            <p><strong>City:</strong> <?= htmlspecialchars($city) ?></p>
-            
-            <form action="stripe_payment.php" method="POST">
-                <input type="hidden" name="email" value="<?= htmlspecialchars($loggedInOwnerEmail) ?>">
-                <button type="submit">Purchase Card</button>
-            </form>
-        </div>
-    </body>
-    </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loyalty Card</title>
+    <link rel="stylesheet" href="../navbar/style.css">
+    <link rel="stylesheet" href="style.css"> <!-- Link to your new CSS file -->
+</head>
+<body>
+    <div class="loyalty-card-details">
+        <h2>Your Details</h2>
+        <p><strong>Name:</strong> <?= htmlspecialchars($name) ?></p>
+        <p><strong>Phone:</strong> <?= htmlspecialchars($phone) ?></p>
+        <p><strong>Email:</strong> <?= htmlspecialchars($loggedInOwnerEmail) ?></p>
+        <p><strong>City:</strong> <?= htmlspecialchars($city) ?></p>
+        
+        <form action="stripe_payment.php" method="POST">
+            <input type="hidden" name="email" value="<?= htmlspecialchars($loggedInOwnerEmail) ?>">
+            <button type="submit">Purchase Card</button>
+        </form>
+    </div>
+</body>
+</html>
+
     <?php
 }
 
