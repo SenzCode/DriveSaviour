@@ -21,12 +21,12 @@
                 </div>
                 <nav>
                     <ul id="menu">
-                    <li><a href="../home/home.php" onclick="showPreloader(event, '../home/home.php')">Home</a></li> 
-                    <li><a href="../about/about.php" onclick="showPreloader(event, '../about/about.php')">About Us</a></li>
-                    <li><a href="../shop/shop.php" onclick="showPreloader(event, '../products/product.php')">Products</a></li>
-                    <li><a href="../contact/contact.php" onclick="showPreloader(event, '../contact/contact.php')">Contact Us</a></li>
-                    <li><a href="../mech/mech.php" onclick="showPreloader(event, '../mech/mech.php')">Find a Mech</a></li>
-                    <li><a href="../Login/login.php" onclick="showPreloader(event, '../Login/login.php')">Log Out</a></li>
+                    <li><a href="../home/home.php">Home</a></li> 
+                    <li><a href="../about/about.php">About Us</a></li>
+                    <li><a href="../products/product.php">Products</a></li>
+                    <li><a href="../contact/contact.php">Contact Us</a></li>
+                    <li><a href="../mech/mech.php">Find a Mech</a></li>
+                    <li><a href="../Login/login.php">Log Out</a></li>
                     <!-- User Icon -->
                     <div class="user-icon">
                         <a href="../profile/profile.php" onclick="showPreloader(event, '../profile/profile.php')"><i class='bx bx-user'></i></a>

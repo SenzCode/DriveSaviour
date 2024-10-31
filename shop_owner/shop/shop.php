@@ -50,13 +50,13 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 <body>
 <div class="main_container">
     <?php if ($message == 'insert'): ?>
-        <div class="alert alert-success">The Shop was created successfully.</div>
+        <div class="alert alert-success" id="alert">The Shop was created successfully.</div>
     <?php elseif ($message == 'delete'): ?>
-        <div class="alert alert-danger">The Shop was deleted successfully.</div>
+        <div class="alert alert-danger" id="alert">The Shop was deleted successfully.</div>
     <?php elseif ($message == 'edit'): ?>
-        <div class="alert alert-success">The Shop was updated successfully.</div>
+        <div class="alert alert-success" id="alert">The Shop was updated successfully.</div>
     <?php elseif ($message == 'error'): ?>
-        <div class="alert alert-danger">Something went wrong: <?= htmlspecialchars($_GET['error'] ?? '') ?></div>
+        <div class="alert alert-danger" id="alert">Something went wrong: <?= htmlspecialchars($_GET['error'] ?? '') ?></div>
     <?php endif; ?>
 
     <br>
@@ -247,6 +247,14 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             }
         }
     });
+
+    // Hide the alert message after 10 seconds
+    setTimeout(function() {
+        var alert = document.getElementById('alert');
+        if (alert) {
+            alert.style.display = 'none';
+        }
+    }, 10000); // 10 seconds
 </script>
 
 </body>

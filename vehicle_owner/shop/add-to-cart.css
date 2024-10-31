@@ -41,9 +41,10 @@ h1 {
 }
 
 .alert {
-    padding: 15px;
     margin-bottom: 20px;
+    padding: 10px;
     border-radius: 5px;
+    text-align: center;
 }
 
 .alert-success {
@@ -134,4 +135,9 @@ h1 {
 
 .remove-btn:hover {
     color: #c82333; 
+}
+
+.remove-success{
+    background-color: #f2a6a6;
+    color: #a01a1a;
 }
