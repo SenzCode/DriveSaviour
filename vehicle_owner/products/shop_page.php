@@ -39,15 +39,15 @@ if ($product_result) {
 </head>
 <body>
     <div class="main_container">
-        <!-- Shop Information -->
+    <div class="shop-info">
         <h1><?= htmlspecialchars($shop_data['shop_name']) ?></h1>
         <p>Location: <?= htmlspecialchars($shop_data['branch']) ?></p>
-        <p>Contact: <?= htmlspecialchars($shop_data['number']) ?></p>
+        <p>Contact: <span class="contact-number"><?= htmlspecialchars($shop_data['number']) ?></span></p>
+    </div>
 
         <!-- Products List -->
         <br>
         <h2>Products Available</h2>
-        <hr>
         <div class="product-card-container" style="margin-top: 20px;">
             <?php if (count($product_data) > 0): ?>
                 <?php foreach ($product_data as $product): ?>
@@ -70,5 +70,6 @@ if ($product_result) {
             <?php endif; ?>
         </div>
     </div>
+
 </body>
 </html>
