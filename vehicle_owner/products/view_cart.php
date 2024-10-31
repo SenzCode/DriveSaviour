@@ -46,7 +46,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 <body>
     <div class="main_container">
         <?php if ($message == 'removed'): ?>
-            <div class="alert alert-success" id="success-alert">The Item was removed from the cart successfully.</div>
+            <div class="alert remove-success" id="success-alert">The Item removed successfully.</div>
         <?php elseif ($message == 'err'): ?>
             <div class="alert alert-success" id="success-alert">Something went wrong.</div>
         <?php endif; ?>

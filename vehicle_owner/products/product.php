@@ -39,7 +39,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 <body>
     <div class="main_container">
     <?php if ($message == 'insert'): ?>
-        <div class="alert alert-success" id="success-alert">The Item was added to the cart successfully.</div>
+        <div class="alert alert-success" id="success-alert">The Item added to the cart successfully.</div>
     <?php endif; ?>
         <!-- View Cart Button -->
         <button class="view-cart-btn" onclick="window.location.href='view_cart.php'">View Cart</button>

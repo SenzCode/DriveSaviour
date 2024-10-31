@@ -136,3 +136,8 @@ h1 {
 .remove-btn:hover {
     color: #c82333; 
 }
+
+.remove-success{
+    background-color: #f2a6a6;
+    color: #a01a1a;
+}
