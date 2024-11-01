@@ -152,6 +152,7 @@ a:hover {
   nav {
     width: 250px;
     transform: translateX(-100%); 
+    z-index: 1000; 
   }
 
   main {

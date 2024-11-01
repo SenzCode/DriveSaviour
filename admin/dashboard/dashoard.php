@@ -61,40 +61,6 @@ try {
     <link rel="stylesheet" type="text/css" href="../navbar/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <style>
-        .product-card {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px;
-            width: 250px;
-            display: inline-block;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-        .product-card img {
-            width: 150px;
-            height: 150px;
-            object-fit: contain;
-        }
-        .product-card .product-name {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .product-card .product-quantity, .product-card .shop-name {
-            margin: 5px 0;
-        }
-        .wrappers {
-            margin-left: 300px;
-            display: flex;
-            flex-wrap: wrap;
-            
-        }
-    </style>
-
 </head>
 <body>
     <div class="profile">
@@ -125,7 +91,7 @@ try {
 
     <div class="content">
         <div class="text">
-            <h2>Goods to be restocked</h2>
+            <h2>Goods to be restocked <i class='bx bxs-bell-ring'></i> </h2>
 
         </div>
 
