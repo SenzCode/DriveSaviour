@@ -1,6 +1,13 @@
 <?php
+session_start();
+ob_start(); // header is already used in the navbar.
 require '../navbar/nav.php';
 require '../../connection.php';
+
+if (!isset($_SESSION['email'])) {
+    header("Location: ../Login/login.php");
+    exit;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $first_name = htmlspecialchars($_POST['first_name']);
@@ -34,6 +41,8 @@ $sql = "SELECT vi.*, vo.name
 from vehicleissues vi
     JOIN vehicle_owner vo ON vi.email = vo.email WHERE mech_id IS NULL";
 $result = $conn->query($sql);
+
+ob_end_flush();
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +79,6 @@ $result = $conn->query($sql);
                         <!-- <p><span class="issue-title">Location: </span><?= htmlspecialchars($row['location']); ?></p> -->
                         <p><span class="issue-title">Vehicle Issue: </span><?= htmlspecialchars($row['vehicle_issue']); ?></p>
                         <button class="btn" onclick="window.location.href='view_issue.php?id=<?= $row['id']; ?>'">Check</button>
-
                     </div>
                 </div>
             <?php endwhile; ?>
@@ -80,30 +88,29 @@ $result = $conn->query($sql);
     </div>
 </div>
 
+<script>
+    // JavaScript for dark mode toggle
+    const toggleSwitch = document.querySelector('.dark-mode-checkbox');
+    const currentTheme = localStorage.getItem('theme');
 
-    <script>
-        // JavaScript for dark mode toggle
-        const toggleSwitch = document.querySelector('.dark-mode-checkbox');
-        const currentTheme = localStorage.getItem('theme');
+    if (currentTheme) {
+        document.documentElement.setAttribute('data-theme', currentTheme);
 
-        if (currentTheme) {
-            document.documentElement.setAttribute('data-theme', currentTheme);
-
-            if (currentTheme === 'dark') {
-                toggleSwitch.checked = true;
-            }
+        if (currentTheme === 'dark') {
+            toggleSwitch.checked = true;
         }
+    }
 
-        toggleSwitch.addEventListener('change', function() {
-            if (this.checked) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-            }
-        });
-    </script>
+    toggleSwitch.addEventListener('change', function() {
+        if (this.checked) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+</script>
 </body>
 </html>
 
