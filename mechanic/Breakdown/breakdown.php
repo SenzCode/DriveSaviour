@@ -148,6 +148,9 @@ ob_end_flush();
     });
 </script>
 
+<?php
+    require '../../vehicle_owner/footer/footer.php';
+?>
 </body>
 </html>
 

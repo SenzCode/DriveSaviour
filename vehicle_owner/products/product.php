@@ -148,6 +148,8 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         }
     }, 10000); // 10 seconds
 </script>
-
+<?php
+    require '../footer/footer.php';
+    ?>
 </body>
 </html>

@@ -84,6 +84,10 @@ ob_end_flush();
         </div>
 
     </div>
+
+    <?php
+    require '../../vehicle_owner/footer/footer.php';
+?>
 </body>
 
 <script>

@@ -121,6 +121,9 @@ ob_end_flush();
     </div>
 </div>
 
+<?php
+    require '../../vehicle_owner/footer/footer.php';
+?>
 <script>
 
     // Get modal elements
@@ -149,8 +152,5 @@ window.onclick = function(event) {
 </script>
 
 
-<!-- <?php
-    require '../footer/footer.php';
-?> -->
 </body>
 </html>
