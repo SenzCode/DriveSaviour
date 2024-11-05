@@ -17,7 +17,7 @@ $userEmail = $_SESSION['email'];
 
 // Check if the user is eligible for a loyalty card discount
 $discountRate = 0;
-$loyaltyCheckQuery = $conn->prepare("SELECT * FROM loyalty_card WHERE email = ?");
+$loyaltyCheckQuery = $conn->prepare("SELECT * FROM mech_loyalty_card WHERE email = ?");
 $loyaltyCheckQuery->bind_param("s", $userEmail);
 $loyaltyCheckQuery->execute();
 $loyaltyResult = $loyaltyCheckQuery->get_result();
@@ -94,7 +94,7 @@ $conn->close();
     <div class="total-amount">
         <h3>Subtotal: Rs. <?= htmlspecialchars($subtotal) ?></h3>
         <?php if ($discountRate > 0): ?>
-            <p>Discount: Rs. <?= htmlspecialchars($discountAmount) ?> (3%)</p>
+            <p>Discount: Rs. <?= htmlspecialchars($discountAmount) ?> (5%)</p>
         <?php endif; ?>
         <h3>Total Amount to Pay: Rs. <?= htmlspecialchars($totalAmountToPay) ?></h3>
     </div>

@@ -49,7 +49,7 @@ while ($item = $cartItemsResult->fetch_assoc()) {
 }
 
 $discountRate = 0;
-$loyaltyCheckQuery = $conn->prepare("SELECT * FROM loyalty_card WHERE email = ?");
+$loyaltyCheckQuery = $conn->prepare("SELECT * FROM mech_loyalty_card WHERE email = ?");
 $loyaltyCheckQuery->bind_param("s", $userEmail);
 $loyaltyCheckQuery->execute();
 $loyaltyResult = $loyaltyCheckQuery->get_result();
