@@ -4,7 +4,7 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    margin-top: 140px;
+    margin-top: 30px;
 }
 
 header {
@@ -21,9 +21,10 @@ body.dark-mode header{
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: calc(33.333% - 20px); /* Adjust the width as needed */
+    width: calc(33.333% - 20px);
     padding: 20px;
     transition: box-shadow 0.3s ease-in-out;
+    margin-bottom: 20px;
 }
 
 .issue-card:hover {
@@ -80,6 +81,39 @@ body.dark-mode .card-body{
 .map-container {
     width: 800px;
     margin-right: 50px;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 10px;
+    width: 100px;
+    color: #182431;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #2B5AC2;
+    border-radius: 88px;
+    background-color: #f0f8ff;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color .50s ease, color .50s ease;
+}
+
+.btn:hover {
+    background-color: #2B5AC2;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.alert {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
 }
 
 @media screen and (max-width: 736px) {

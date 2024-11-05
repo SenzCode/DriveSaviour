@@ -234,8 +234,16 @@
         </div>
         <div class="footer-right">
             <div class="contact-info">
-                <p><img src="../../img/telephone.png" alt="Phone"> +94704633566</p> 
-                <p><img src="../../img/gmail.png" alt="Email"> drivesaviour.lk@gmail.com</p> 
+                <p>
+                     <a href="tel:+94704633566">
+                        <img src="../../img/telephone.png" alt="Phone"> +94704633566
+                    </a>
+                </p> 
+                <p>
+                    <a href="mailto:drivesaviour.lk@gmail.com">
+                        <img src="../../img/gmail.png" alt="Email"> drivesaviour.lk@gmail.com
+                     </a>
+                </p> 
             </div>
         </div>
     </div>

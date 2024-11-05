@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['logged_in'] = true;
 
                 // Redirect to a protected page
-                header('Location: ../home/home.php');
+                header('Location: ../products/product.php');
                 exit();
             } else {
                 echo "Invalid email or password.";
