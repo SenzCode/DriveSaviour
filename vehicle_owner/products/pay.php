@@ -116,11 +116,7 @@ $conn->close();
             <p>Discount: Rs. <?= htmlspecialchars($discountAmount) ?> (3%)</p>
         <?php endif; ?>
         <h3>Total Amount to Pay: Rs. <?= htmlspecialchars($totalAmountToPay) ?></h3>
-        </div>
-    
-    
-       
-   
+    </div>
 
     <!-- Redirect to Stripe Checkout -->
     <button id="checkout-button">Proceed to Payment</button>

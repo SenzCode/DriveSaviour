@@ -116,6 +116,11 @@ body.dark-mode .card-body{
     color: #155724;
 }
 
+.vihead{
+    margin-top: 100px ;
+    margin-left: 100px;
+}
+
 @media screen and (max-width: 736px) {
     .issue-card {
         width: calc(100% - 20px);

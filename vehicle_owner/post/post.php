@@ -39,7 +39,7 @@ $vehicleResult = $stmt->get_result();
                             <p><strong>Fuel Type:</strong> <?php echo $vehicle['fuel_type']; ?></p>
                             <p><strong>Engine Type:</strong> <?php echo $vehicle['engine_type']; ?></p>
                             <p><strong>Tire Size:</strong> <?php echo $vehicle['tire_size']; ?></p>
-                            
+
                             <!-- Choose button triggers modal -->
                             <button type="button" class="btn openModal" 
                                 data-model="<?php echo $vehicle['model']; ?>" 
@@ -63,7 +63,7 @@ $vehicleResult = $stmt->get_result();
     <div id="vehicleModal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Confirm Vehicle Details</h2>
+            <h2 class="topic">Confirm Vehicle Details</h2>
             <form id="issueForm" method="POST" action="submit_vehicleissue.php">
                 <!-- Hidden fields for vehicle details -->
                 <input type="hidden" id="year" name="year">
@@ -75,12 +75,17 @@ $vehicleResult = $stmt->get_result();
 
                 <div class="form-row">
                     <label for="model">Model:</label>
-                    <input type="text" id="model" name="model" readonly> <!-- Ensure the name matches -->
+                    <input type="text" id="model" name="model" readonly>
                 </div>
 
                 <div class="form-row">
                     <label for="vehicle_issue">Describe the Issue:</label>
                     <textarea id="vehicle_issue" name="vehicle_issue" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <label for="city">Near City:</label>
+                    <input type="text" id="city" name="city">
                 </div>
 
                 <div class="form-row">

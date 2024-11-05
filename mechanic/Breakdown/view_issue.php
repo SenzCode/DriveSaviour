@@ -183,5 +183,8 @@ document.getElementById('confirmYes').addEventListener('click', function() {
 });
 </script>
 
+<?php
+    require '../../vehicle_owner/footer/footer.php';
+?>
 </body>
 </html>

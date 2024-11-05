@@ -104,5 +104,6 @@ $conn->close();
 <body>
     <h1>Payment Successful</h1>
     <p>Thank you for your purchase! Your order has been successfully placed.</p>
+    <button onclick="window.location.href='product.php'">Back to the product page</button>
 </body>
 </html>
