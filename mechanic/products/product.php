@@ -1,31 +1,65 @@
 <?php
-session_start(); // Start the session at the beginning
-ob_start();
+session_start();
 require '../../connection.php';
 require '../navbar/nav.php';
 
 if (!isset($_SESSION['email'])) {
-    header("Location: ../Login/login.php");
+    echo "User is not logged in.";
     exit;
 }
 
 $loggedInOwnerEmail = $_SESSION['email'];
 
-// Fetch products
-$product_data = [];
-$query = "SELECT p.*, s.shop_name FROM products p JOIN shops s ON p.shop_id = s.id";
+
+$search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
+$category = isset($_GET['category']) ? (int)$_GET['category'] : 0;
+$sort = isset($_GET['sort']) ? $_GET['sort'] : '';
+
+
+$query = "SELECT p.*, s.shop_name, c.category_name 
+          FROM products p 
+          JOIN shops s ON p.shop_id = s.id 
+          LEFT JOIN category c ON p.cat_id = c.id 
+          WHERE 1";
+
+
+if ($search) {
+    $query .= " AND p.product_name LIKE '%$search%'";
+}
+
+
+if ($category > 0) {
+    $query .= " AND p.cat_id = $category";
+}
+
+
+if ($sort === 'price_asc') {
+    $query .= " ORDER BY p.price ASC";
+} elseif ($sort === 'price_desc') {
+    $query .= " ORDER BY p.price DESC";
+}
+
 $result = mysqli_query($conn, $query);
+$product_data = [];
 if ($result) {
     while ($row = mysqli_fetch_assoc($result)) {
         $product_data[] = $row;
     }
 }
 
+
+$category_query = "SELECT * FROM category";
+$category_result = mysqli_query($conn, $category_query);
+$categories = [];
+if ($category_result) {
+    while ($cat = mysqli_fetch_assoc($category_result)) {
+        $categories[] = $cat;
+    }
+}
+
 $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
-ob_end_flush();
 ?>
 
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,60 +70,79 @@ ob_end_flush();
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="product-list.css">
-
 </head>
 <body>
-    <div class="main_container">
+<div class="main_container">
     <?php if ($message == 'insert'): ?>
         <div class="alert alert-success" id="success-alert">The Item added to the cart successfully.</div>
     <?php elseif ($message == 'update'): ?>
         <div class="alert alert-success" id="success-alert">Another Item added to the cart successfully.</div>
     <?php endif; ?>
-        <!-- View Cart Button -->
-        <button class="view-cart-btn" onclick="window.location.href='view_cart.php'">View Cart</button>
 
-        <button class="view-cart-btn" onclick="window.location.href='../Loyalty_card/loyalty_card.php'">Loyalty Card</button>
- 
-        <!-- Search Bar -->
-        <form method="GET" action="">
-            <div class="search-bar">
-                <input type="text" name="search" placeholder="Search by Product Name">
-                <button type="submit" class="search-btn"><i class="fas fa-search"></i> Search</button>
-            </div>
-        </form>
- 
-        <div class="product-card-container">
-            <?php if (count($product_data) > 0): ?>
-                <?php foreach ($product_data as $row): ?>
-                    <div class="product-card">
-                        <a class="go-to-shop-icon" onclick="window.location.href='shop_page.php?shop_id=<?= $row['shop_id'] ?>'">
-                            <i class='bx bxs-store'></i>
-                        </a>
-                        <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>">
-                        <div class="product-details">
-                            <h3><?= htmlspecialchars($row['product_name']) ?></h3>
-                            <div class="price">Rs.<?= htmlspecialchars($row['price']) ?></div>
-                            <div>Available: <?= htmlspecialchars($row['quantity_available']) ?></div>
-                            <div>Shop: <?= htmlspecialchars($row['shop_name']) ?></div> <!-- Display shop name -->
-                            <form action="add_to_cart.php" method="POST">
-                                <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                                <input type="hidden" name="shop_id" value="<?= $row['shop_id'] ?>">
-                                <input type="number" name="quantity" value="1" min="1" max="<?= $row['quantity_available'] ?>">
-                                <button type="submit">Add to Cart</button>
-                            </form>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>No products found.</p>
-            <?php endif; ?>
+    <button class="view-cart-btn" onclick="window.location.href='view_cart.php'">View Cart</button>
+    <button class="view-cart-btn" onclick="window.location.href='../Loyalty_card/loyalty_card.php'">Loyalty Card</button>
+
+    <!-- Search and Filter Form -->
+    <form method="GET" action="">
+        <div class="search-bar">
+            <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Search by Product Name">
+            <button type="submit" class="search-btn"><i class="fas fa-search"></i> Search</button>
         </div>
 
+        <!-- Category Filter -->
+        <div class="category-filter">
+            <select name="category">
+                <option value="0">All Categories</option>
+                <?php foreach ($categories as $cat): ?>
+                    <option value="<?= $cat['id'] ?>" <?= ($category == $cat['id']) ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($cat['category_name']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <!-- Sorting Options -->
+        <div class="sort-options">
+            <select name="sort">
+                <option value="">Sort by Price</option>
+                <option value="price_asc" <?= ($sort == 'price_asc') ? 'selected' : '' ?>>Price: Low to High</option>
+                <option value="price_desc" <?= ($sort == 'price_desc') ? 'selected' : '' ?>>Price: High to Low</option>
+            </select>
+        </div>
+    </form>
+
+    <!-- Product Display -->
+    <div class="product-card-container">
+        <?php if (count($product_data) > 0): ?>
+            <?php foreach ($product_data as $row): ?>
+                <div class="product-card">
+                    <a class="go-to-shop-icon" onclick="window.location.href='shop_page.php?shop_id=<?= $row['shop_id'] ?>'">
+                        <i class='bx bxs-store'></i>
+                    </a>
+                    <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>">
+                    <div class="product-details">
+                        <h3><?= htmlspecialchars($row['product_name']) ?></h3>
+                        <div class="price">Rs.<?= htmlspecialchars($row['price']) ?></div>
+                        <div>Available: <?= htmlspecialchars($row['quantity_available']) ?></div>
+                        <div>Category: <?= htmlspecialchars($row['category_name']) ?></div>
+                        <div>Shop: <?= htmlspecialchars($row['shop_name']) ?></div>
+                        <form action="add_to_cart.php" method="POST">
+                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                            <input type="hidden" name="shop_id" value="<?= $row['shop_id'] ?>">
+                            <input type="number" name="quantity" value="1" min="1" max="<?= $row['quantity_available'] ?>">
+                            <button type="submit">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No products found.</p>
+        <?php endif; ?>
     </div>
-</body>
+
+</div>
 
 <script>
-    // Hide the alert message after 10 seconds
     setTimeout(function() {
         var alert = document.getElementById('success-alert');
         if (alert) {
@@ -98,4 +151,5 @@ ob_end_flush();
     }, 10000); // 10 seconds
 </script>
 
+</body>
 </html>
