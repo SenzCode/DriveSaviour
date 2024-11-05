@@ -32,5 +32,10 @@
         </div>
 
     </div>
+    
+<?php
+    require '../../vehicle_owner/footer/footer.php';
+?>
+
 </body>
 </html>
