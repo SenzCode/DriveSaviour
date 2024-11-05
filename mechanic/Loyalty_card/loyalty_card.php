@@ -67,6 +67,9 @@ if ($result->num_rows > 0) {
             <p><strong>Card Number:</strong> <?= $cardNo ?></p>
             <p><strong>Expiration Date:</strong> <?= $expireDate ?></p>
         </div> -->
+        <?php
+    require '../../vehicle_owner/footer/footer.php';
+?>
     </body>
     </html>
     <?php
@@ -95,6 +98,9 @@ if ($result->num_rows > 0) {
             <button type="submit">Purchase Card</button>
         </form>
     </div>
+    <?php
+    require '../../vehicle_owner/footer/footer.php';
+?>
 </body>
 </html>
 

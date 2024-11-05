@@ -82,8 +82,10 @@ if (isset($_POST['logout'])) {
                         </button>
                     </form>
                     <button class="Contact" name="Contact">
+                        <a href="../contact/contact.php">
                             <i class='bx bx-support'></i>
                             <span class="footer-item">Contact Admin</span>
+                        </a>
                     </button>
                 </li>
             </ul>

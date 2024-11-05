@@ -178,5 +178,8 @@
             }
         }
     </script>
+        <?php
+    require '../footer/footer.php';
+    ?>
 </body>
 </html>

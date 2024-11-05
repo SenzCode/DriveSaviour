@@ -140,8 +140,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <?php endif; ?>
     </div>
 
-</div>
-
 <script>
     setTimeout(function() {
         var alert = document.getElementById('success-alert');
