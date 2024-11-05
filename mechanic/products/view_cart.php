@@ -76,9 +76,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         </div>
         <button class="checkout-btn" onclick="window.location.href='pay.php'">Proceed to Checkout</button>
     </div>
-    <?php
-    require '../../vehicle_owner/footer/footer.php';
-?>
+    
 </body>
 
 <script>
