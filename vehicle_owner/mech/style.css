@@ -221,7 +221,7 @@ body.dark-mode nav ul li a::before {
     display: inline-block;
     margin-bottom: 10px;
     margin-top: 20px;
-    width: 120px;
+    width: auto;
     color: #182431;
     font-weight: bold;
     padding: 10px;

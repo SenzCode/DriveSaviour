@@ -9,7 +9,6 @@ if ($tableExistsResult->num_rows == 1) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
         $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
-        $dob = filter_input(INPUT_POST, 'dob', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
         $checkEmailQuery = "SELECT * FROM shop_owner WHERE email = ?";
@@ -23,9 +22,9 @@ if ($tableExistsResult->num_rows == 1) {
         } else {
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
  
-            $insertQuery = "INSERT INTO shop_owner (name, phone, dob, email, password) VALUES (?, ?, ?, ?, ?)";
+            $insertQuery = "INSERT INTO shop_owner (name, phone,  email, password) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($insertQuery);
-            $stmt->bind_param('sssss', $name, $phone, $dob, $email, $hashedPassword);
+            $stmt->bind_param('sssss', $name, $phone, $email, $hashedPassword);
             if ($stmt->execute()) {
                 echo "New Account added successfully.";
             } else {

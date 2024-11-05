@@ -42,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Handle registration
         $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $dob = filter_input(INPUT_POST, 'dob', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $password = filter_input(INPUT_POST, 'password', FILTER_DEFAULT); // No sanitization for passwords
 
@@ -57,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-            $insertQuery = "INSERT INTO shop_owner (name, phone, dob, email, password) VALUES (?, ?, ?, ?, ?)";
+            $insertQuery = "INSERT INTO shop_owner (name, phone, email, password) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($insertQuery);
-            $stmt->bind_param('sssss', $name, $phone, $dob, $email, $hashedPassword);
+            $stmt->bind_param('ssss', $name, $phone, $email, $hashedPassword);
             if ($stmt->execute()) {
                 echo "New Account added successfully.";
             } else {
@@ -100,7 +99,6 @@ $conn->close();
             <input type="text" name="name" placeholder="Name" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="number" name="phone" placeholder="Phone" required>
-            <input type="text" name="dob" placeholder="Date of Birth" required>
             <button type="submit" name="register">Sign Up</button>
         </form>
     </div>

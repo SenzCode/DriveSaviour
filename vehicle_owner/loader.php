@@ -104,7 +104,7 @@ body.dark-mode .preloader-wrap{
 </div>
     <script>
         setTimeout(function() {
-            window.location.href = "home/home.php"; //Load Home.php
+            window.location.href = "products/product.php"; //Load Home.php
         }, 1000);
     </script>
 </body>
