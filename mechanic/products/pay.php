@@ -27,7 +27,7 @@ if ($loyaltyResult->num_rows > 0) {
 }
 
 // Fetch cart items for the logged-in user
-$query = "SELECT c.*, p.id, p.price, s.shop_name 
+$query = "SELECT c.*, p.product_name, p.id, p.price, s.shop_name 
           FROM mech_cart c 
           JOIN products p ON c.product_id = p.id 
           JOIN shops s ON p.shop_id = s.id 
@@ -92,6 +92,23 @@ $conn->close();
 <body>
     <h1>Payment</h1>
     <div class="total-amount">
+        <h3>Product Details:</h3>
+        <table>
+            <tr>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            <?php foreach ($cart_items as $item): ?>
+                <tr>
+                    <td><?= htmlspecialchars($item['product_name']) ?></td>
+                    <td>Rs. <?= htmlspecialchars($item['price']) ?></td>
+                    <td><?= htmlspecialchars($item['quantity']) ?></td>
+                    <td>Rs. <?= htmlspecialchars($item['price'] * $item['quantity']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
         <h3>Subtotal: Rs. <?= htmlspecialchars($subtotal) ?></h3>
         <?php if ($discountRate > 0): ?>
             <p>Discount: Rs. <?= htmlspecialchars($discountAmount) ?> (5%)</p>
