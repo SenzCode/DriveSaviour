@@ -1,9 +1,8 @@
 <?php
 session_start();
 require '../../connection.php';
-require '../navbar/nav.php';
-require 'vendor/autoload.php'; // Stripe PHP library
 
+require 'vendor/autoload.php'; // Stripe PHP library
 
 // Stripe API configuration
 \Stripe\Stripe::setApiKey('sk_test_51PfklnDFvPyG4fvuUh6ZfPSa5LBwdmWSlgABfkzEjUZeJH5YHDpHoHzWRKDrjYt325wJZSXY4ip4TY4tYfZ9cYnZ00AkL5f2Zd');
@@ -29,7 +28,7 @@ if ($loyaltyResult->num_rows > 0) {
 }
 
 // Fetch cart items for the logged-in user
-$query = "SELECT c.*, p.id, p.price, s.shop_name 
+$query = "SELECT c.*, p.product_name, p.price, s.shop_name 
           FROM cart c 
           JOIN products p ON c.product_id = p.id 
           JOIN shops s ON p.shop_id = s.id 
@@ -76,7 +75,6 @@ $session = \Stripe\Checkout\Session::create([
     'cancel_url' => 'http://localhost:3000/vehicle_owner/products/cancel.php',    // Replace with your actual cancel URL
 ]);
 
-
 // Close connections
 $stmt->close();
 $loyaltyCheckQuery->close();
@@ -94,13 +92,35 @@ $conn->close();
 </head>
 <body>
     <h1>Payment</h1>
+    
     <div class="total-amount">
+        <h3>Product Details:</h3>
+        <table>
+            <tr>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            <?php foreach ($cart_items as $item): ?>
+                <tr>
+                    <td><?= htmlspecialchars($item['product_name']) ?></td>
+                    <td>Rs. <?= htmlspecialchars($item['price']) ?></td>
+                    <td><?= htmlspecialchars($item['quantity']) ?></td>
+                    <td>Rs. <?= htmlspecialchars($item['price'] * $item['quantity']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
         <h3>Subtotal: Rs. <?= htmlspecialchars($subtotal) ?></h3>
         <?php if ($discountRate > 0): ?>
             <p>Discount: Rs. <?= htmlspecialchars($discountAmount) ?> (3%)</p>
         <?php endif; ?>
         <h3>Total Amount to Pay: Rs. <?= htmlspecialchars($totalAmountToPay) ?></h3>
-    </div>
+        </div>
+    
+    
+       
+   
 
     <!-- Redirect to Stripe Checkout -->
     <button id="checkout-button">Proceed to Payment</button>
