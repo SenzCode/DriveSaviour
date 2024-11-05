@@ -1,7 +1,9 @@
 <?php
 session_start();
 require '../../connection.php';
+require '../navbar/nav.php';
 require 'vendor/autoload.php'; // Stripe PHP library
+
 
 // Stripe API configuration
 \Stripe\Stripe::setApiKey('sk_test_51PfklnDFvPyG4fvuUh6ZfPSa5LBwdmWSlgABfkzEjUZeJH5YHDpHoHzWRKDrjYt325wJZSXY4ip4TY4tYfZ9cYnZ00AkL5f2Zd');
@@ -87,6 +89,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
+    <link rel="stylesheet" href="../navbar/style.css">
     <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
