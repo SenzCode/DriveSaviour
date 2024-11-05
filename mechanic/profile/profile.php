@@ -1,11 +1,14 @@
 <?php
 // Start session to access session variables
 session_start();
-
+ob_start();
 require('../../connection.php');
 require '../navbar/nav.php';
 
-
+if (!isset($_SESSION['email'])) {
+    header("Location: ../Login/login.php");
+    exit;
+}
 
 // Retrieve user information from session variables
 $userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : '';
@@ -14,6 +17,7 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 $contact = isset($_SESSION['phone']) ? $_SESSION['phone'] : '';
 $city = isset($_SESSION['city']) ? $_SESSION['city'] : '';
 
+ob_end_flush();
 ?>
 
 <!DOCTYPE html>
