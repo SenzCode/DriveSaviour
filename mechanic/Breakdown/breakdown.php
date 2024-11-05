@@ -9,20 +9,21 @@ if (!isset($_SESSION['email'])) {
     exit;
 }
 
-$mechanic_id = $_SESSION['userID']; // Assume mechanic ID is stored in session
+$mechanic_id = $_SESSION['userID'];
+$mechanic_address = $_SESSION['address'];
 
-// Query for unassigned vehicle issues
+// Query for unassigned vehicle issues where the city matches the mechanic's address
 $sql_unassigned = "SELECT vi.*, vo.name 
                    FROM vehicleissues vi
                    JOIN vehicle_owner vo ON vi.email = vo.email 
-                   WHERE vi.mech_id IS NULL";
+                   WHERE vi.mech_id IS NULL AND vi.city = '$mechanic_address'";
 $result_unassigned = $conn->query($sql_unassigned);
 
-// Query for accepted vehicle issues assigned to this mechanic
+// Query for accepted vehicle issues assigned to this mechanic and city matches
 $sql_accepted = "SELECT vi.*, vo.name 
                  FROM vehicleissues vi
                  JOIN vehicle_owner vo ON vi.email = vo.email 
-                 WHERE vi.mech_id = '$mechanic_id'";
+                 WHERE vi.mech_id = '$mechanic_id' AND vi.city = '$mechanic_address'";
 $result_accepted = $conn->query($sql_accepted);
 
 $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
@@ -38,13 +39,6 @@ ob_end_flush();
     <title>Find a Mech</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../navbar/style.css">
-
-    <style>
-        .vihead{
-            margin-top: 100px ;
-            margin-left: 100px;
-        }
-    </style>
 </head>
 <body>
 
