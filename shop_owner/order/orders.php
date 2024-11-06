@@ -40,22 +40,26 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Income</title>
+    <title>Order</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="../navbar/style.css">
 </head>
 <body>
     <div class="main_container">
         <h2 class="title">Order Data</h2>
+
         <table class="table">
             <thead>
                 <tr>
                     <th>Reference Number</th>
                     <th>Product Name</th>
-                    <th>Purchase Date</th>
                     <th>Quantity</th>
+                    <th>Purchase Date</th>
+                    <th>Item Total</th>
+                    <th>Total Price</th>
+                    <th>Discount</th>
                     <th>Seller Income</th>
-                    <th>Order Status</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,8 +68,11 @@ try {
                         <tr>
                             <td data-cell="Reference Number"><?php echo $order['reference_number']; ?></td>
                             <td data-cell="Product Name"><?php echo $order['product_name']; ?></td>
-                            <td data-cell="Purchase Date"><?php echo $order['purchase_date']; ?></td>
                             <td data-cell="Quantity"><?php echo $order['quantity']; ?></td>
+                            <td data-cell="Purchase Date"><?php echo $order['purchase_date']; ?></td>
+                            <td data-cell="Item Total"><?php echo $order['item_total']; ?></td>
+                            <td data-cell="Total Price"><?php echo $order['total_price']; ?></td>
+                            <td data-cell="Discount"><?php echo $order['discount']; ?></td>
                             <td data-cell="Seller Income"><?php echo $order['seller_income']; ?></td>
                             <td data-cell="Status"><?php echo $order['status']; ?></td>
                         </tr>
