@@ -70,9 +70,9 @@ if (isset($_POST['logout'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="../categories/category.php">
+                    <a href="../Finance/finance.php">
                         <i class='bx bx-money-withdraw'></i>
-                        <span class="nav-item">View Commission</span>
+                        <span class="nav-item">Finance</span>
                     </a>
                 </li>
                 <li>
