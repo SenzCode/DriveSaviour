@@ -9,11 +9,12 @@ if (!isset($_SESSION['email'])) {
 }
 
 try {
-    // Prepare and execute the SQL statement to fetch orders for the specific shop
+    // Prepare and execute the SQL statement to fetch only orders with 'paid' status
     $stmt = $conn->prepare("SELECT o.*, p.product_name, p.shop_id, s.shop_name 
                             FROM orders o 
                             JOIN products p ON o.product_id = p.id 
-                            JOIN shops s ON p.shop_id = s.id");
+                            JOIN shops s ON p.shop_id = s.id
+                            WHERE o.payment_status = 'Pending'"); // Filter by paid status
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -69,7 +70,7 @@ try {
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="10" class="alert alert-danger">No orders found for your shop.</td>
+                        <td colspan="10" class="alert alert-danger">No Pending orders found for your shop.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

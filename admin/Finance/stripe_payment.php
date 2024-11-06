@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php'; // Include Stripe PHP library
 
-\Stripe\Stripe::setApiKey('sk_test_51PfklnDFvPyG4fvuUh6ZfPSa5LBwdmWSlgABfkzEjUZeJH5YHDpHoHzWRKDrjYt325wJZSXY4ip4TY4tYfZ9cYnZ00AkL5f2Zd'); // Replace with your secret key
+\Stripe\Stripe::setApiKey('sk_test_51PIMdPDwJDfpiSSr04muva7l4XmHisSOvB1AKimDn25sT7tkMB5TRWvAt7we5h3xMMpL6zjAAas2J7ktFAoERJ4600kydtwfzm'); // Replace with your secret key
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]],
         'mode' => 'payment',
         'success_url' => 'http://localhost:3000/admin/Finance/success.php?email=' . urlencode($email),
-        'cancel_url' => 'http://localhost:3000/admin/Finance/cancel.php',
+        'cancel_url' => 'http://localhost:3000/admin/Finance/Loyalty_card/cancel.php',
     ]);
 
     // Redirect to the Stripe Checkout page
