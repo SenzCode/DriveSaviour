@@ -81,6 +81,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
     <button class="view-cart-btn" onclick="window.location.href='view_cart.php'">View Cart</button>
     <button class="view-cart-btn" onclick="window.location.href='../Loyalty_card/loyalty_card.php'">Loyalty Card</button>
+    <button class="view-cart-btn" onclick="window.location.href='../orders/orders.php'">Orders</button>
 
     <!-- Search and Filter Form -->
     <form method="GET" action="">
@@ -124,7 +125,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <h3><?= htmlspecialchars($row['product_name']) ?></h3>
                         <div class="price">Rs.<?= htmlspecialchars($row['price']) ?></div>
                         <div>Available: <?= htmlspecialchars($row['quantity_available']) ?></div>
-                        <div>Category: <?= htmlspecialchars($row['category_name']) ?></div>
+                        <div>Category: <?= htmlspecialchars($row['category_name'] ?? '') ?></div>
                         <div>Shop: <?= htmlspecialchars($row['shop_name']) ?></div>
                         <form action="add_to_cart.php" method="POST">
                             <input type="hidden" name="id" value="<?= $row['id'] ?>">
