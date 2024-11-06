@@ -46,6 +46,7 @@ try {
 </head>
 <body>
     <div class="main_container">
+        <marquee behavior="scroll" direction="right" scrollamount="5" style="color: red; font-size: 20px; font-weight: bold;">All seller payments are paid every Friday.</marquee>
         <h2 class="title">Payment Data</h2>
         <table class="table">
             <thead>
@@ -67,7 +68,7 @@ try {
                             <td data-cell="Purchase Date"><?php echo $order['purchase_date']; ?></td>
                             <td data-cell="Quantity"><?php echo $order['quantity']; ?></td>
                             <td data-cell="Seller Income"><?php echo $order['seller_income']; ?></td>
-                            <td data-cell="Status"><?php echo $order['status']; ?></td>
+                            <td data-cell="Status"><?php echo $order['payment_status']; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
