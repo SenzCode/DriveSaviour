@@ -33,6 +33,15 @@ if (isset($_POST['logout'])) {
                         <img src="../../img/ss.png">
                     </a>
                 </li>
+                <li><a href="../dashboard/dashoard.php"><i class='bx bxs-dashboard'></i><span class="nav-item">Dashboard</span></a></li>
+                <li><a href="../shop/shop.php"><i class='bx bxs-store'></i><span class="nav-item">Own Shops</span></a></li>
+                <li><a href="../shop/view_shop.php"><i class='bx bx-list-ul'></i><span class="nav-item">View Shop</span></a></li>
+                <li><a href="../mechanic/view_mechanic.php"><i class='bx bx-show'></i><span class="nav-item">View Mechanics</span></a></li>
+                <li><a href="../Vehicle Owners/veiw_owners.php"><i class='bx bxs-file-find'></i><span class="nav-item">View Vehicle Owner</span></a></li>
+                <li><a href="../categories/category.php"><i class='bx bxs-category-alt'></i><span class="nav-item">Product Catogories</span></a></li>
+                <li><a href="../commission/commission.php"><i class='bx bx-money-withdraw'></i><span class="nav-item">Commission</span></a></li>
+                <li><a href="../finance/finance.php"><i class='bx bx-money-withdraw'></i><span class="nav-item">Finance</span></a></li>
+                <li><a href="../categories/category.php"><i class='bx bxl-telegram'></i><span class="nav-item">Seller Payments</span></a></li>
                 <li>
                     <a href="../dashboard/dashoard.php">
                         <i class='bx bxs-dashboard'></i>
