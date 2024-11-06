@@ -46,7 +46,7 @@ try {
 </head>
 <body>
     <div class="main_container">
-        <h2 class="title">Order Data</h2>
+        <h2 class="title">Payment Data</h2>
         <table class="table">
             <thead>
                 <tr>
@@ -55,7 +55,7 @@ try {
                     <th>Purchase Date</th>
                     <th>Quantity</th>
                     <th>Seller Income</th>
-                    <th>Order Status</th>
+                    <th>Income Status</th>
                 </tr>
             </thead>
             <tbody>
