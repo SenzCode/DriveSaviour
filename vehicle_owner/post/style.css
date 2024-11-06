@@ -4,6 +4,10 @@ body {
   color: #333;
 }
 
+.topic {
+  margin-bottom: 20px;
+}
+
 .top {
   padding: 50px 0;
   border-radius: 10px;
@@ -171,7 +175,6 @@ body.dark-mode .vehicle-card p{
 
 label {
   display: block;
-  margin-bottom: 5px;
   font-weight: bold;
 }
 
@@ -179,6 +182,7 @@ input[type="text"], input[type="email"], select {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
+  margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;

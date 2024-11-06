@@ -2,12 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
 
-*{
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
-body{
+
+body {
     font-family: "Poppins", sans-serif, "Pangolin";
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure footer is pushed down */
 }
 
 header {
@@ -19,61 +24,50 @@ header {
     background-color: white;
 }
 
-body.dark-mode header{
+body.dark-mode header {
     background-color: black;
     color: white;
 }
-  
-.container {
+
+.container2 {
+    flex: 1;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.content {
     align-items: center;
-    /* background-color: white; */
 }
 
-
-
-.container1 {
-    margin: 0;
-    display: flex;
-    margin-left: -100px;
-    margin-top: 50px;
-}
-
-.form-row{
+.form-row {
     clear: both;
 }
-.form-label{
+
+.form-label {
     font-weight: bold;
     font-size: 18px;
     width: 200px;
     float: left;
     text-align: left;
-    /* padding-left: 50px; */
 }
 
-.form-value{
+.form-value {
     float: left;
     font-size: 18px;
     text-align: left;
 }
 
-.content{
-    margin-top: 70px;
-    align-items: center;
-    margin-left: -100px;
-}
-
 .profilepic {
-    position: fixed;
-    margin-top: 600px;
-    margin-left: 80rem;
-    float: right;
-    width: 250px;
-    height: 250px;
-    position: relative;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .profilepic img {
@@ -82,91 +76,42 @@ body.dark-mode header{
 }
 
 .profileTop {
-    overflow: hidden;
-    margin-top: -270px;
-    margin-left: 15rem;
-}
-
-.profileTop h1, .profileTop h6 {
-    text-align: left;
-    font-size: 1.5rem;
-    margin-top: 150px;
-}
-
-.profileTop .personal_details{
+    text-align: center;
     margin-top: 20px;
 }
 
-.profileTop .personal_details h2{
+.profileTop h1, .profileTop h6 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+}
+
+.profileTop .personal_details {
+    margin-top: 20px;
+}
+
+.profileTop .personal_details h2 {
     color: rgb(0, 0, 0);
     font-weight: 500;
     margin-bottom: 5px;
 }
 
-.profileTop .personal_details .form-row span{
-    margin-top: 15px;
-}
-
-body.dark-mode .profileTop .personal_details h2{
-    color: #b9b9b9;
-}
-
-body.dark-mode nav .menu-toggle .bar,
-body.dark-mode nav .menu-toggle .bar2{
-    background-color: rgb(255, 255, 255);
-}
-
 .btn {
     display: inline-block;
-    margin-bottom: 10px;
     margin-top: 20px;
-    width: 100px;
+    width: 120px;
     color: #182431;
     font-weight: bold;
     padding: 10px;
     border: 1px solid #2B5AC2;
-    border-radius: 88px;
+    border-radius: 8px;
     background-color: #f0f8ff;
     text-decoration: none;
     text-align: center;
-    transition: background-color .50s ease, color .50s ease;
+    transition: background-color .5s ease, color .5s ease;
+    margin: 0 auto;
 }
 
-.modal-content .btn {
-    margin-top: 20px;
-    
-}
-
-.btn:hover {
-    background-color: #2B5AC2;
-    color: #ffffff;
-    cursor: pointer;
-}
-
-.side-container{
-    order: 2;
-    display: flex;
-    flex-direction: column;
-    margin-right: 50px;    
-    margin-bottom: -420px;
-    margin-top: -30rem;
-}
-
-/*modal dark mode*/
-body.dark-mode .modal {
-    background-color: rgba(0, 0, 0, 0.4); 
-    backdrop-filter: blur(1px); 
-    -webkit-backdrop-filter: blur(1px); 
-}
-
-body.dark-mode .modal-content{
-    background-color: black;
-    color: white;
-    border: 2px solid #0085FF;
-}
-
-/* Modal */
-.modal { 
+.modal {
     display: none; 
     position: fixed;
     z-index: 1;
@@ -176,10 +121,6 @@ body.dark-mode .modal-content{
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content h2{
-    margin-bottom: 25px;
 }
 
 .modal-content {
@@ -197,21 +138,14 @@ body.dark-mode .modal-content{
     float: right;
     font-size: 32px;
     font-weight: bold;
-    transition: all .50s ease;
+    transition: all .5s ease;
 }
 
 .close:hover,
 .close:focus {
-    color: rgb(255, 0, 0);
+    color: red;
     text-decoration: none;
     cursor: pointer;
-}
-
-label {
-    display: block;
-    margin-top: 20px;
-    margin-bottom: 5px;
-    font-weight: bold;
 }
 
 input[type="text"], input[type="email"], select {
@@ -220,95 +154,77 @@ input[type="text"], input[type="email"], select {
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box;
 }
 
-input[type="text"]:focus, select:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-.modal::-webkit-scrollbar {
-    Display: none
-}
-
-.modal .modal-content .form-row span {
-    display: block;
-    margin-top: 20px;
-    font-weight: bold;
-}
-
-
-
-/* Responsive */
-@media (max-width: 875px) {
-    .form-value {
-        font-size: 16px;
-        text-align: center; 
-    }
-
-    .container1 {
-        width: 100%;
-        padding: 0 10px;
-        display: flex;
-        flex-direction: column;
+/* Desktop styles */
+@media (min-width: 1024px) {
+    .container2 {
         align-items: center;
-        margin: 100px auto; 
+        padding: 0 30px;
     }
 
-    .side-container {
-        order: 1;
-        margin: 20px 0; 
-        width: 100%; 
-        display: flex;
-        justify-content: center; 
-    }
-    
     .profilepic {
-        margin-top: 20px;
+        width: 250px;
+        height: 250px;
+    }
+
+    .form-label, .form-value {
+        font-size: 20px;
+    }
+
+    .btn {
+        width: 140px;
+    }
+
+    .profileTop h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Tablet adjustments */
+@media (max-width: 875px) {
+    .container2 {
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .profilepic {
         width: 150px;
         height: 150px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 20px auto; 
+        margin: 20px auto;
     }
 
-    .profileTop {
-        order: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        margin: 20px auto; 
-        width: 100%; 
+    .btn {
+        width: 100px;
     }
 
-    .profileTop h1, .profileTop h6 {
+    .profileTop h1 {
+        font-size: 1.2rem;
         text-align: center;
     }
 }
 
+/* Mobile-specific adjustments */
 @media (max-width: 480px) {
-    .profileTop h1 {
-        display: none;
-    }
-
-    .personal_details {
-        margin: 0; 
-        text-align: center; 
-    }
-
-    .modal-content {
-        margin-top: 100px;
-        width: 90%; 
-        max-width: 500px; 
-    }
-
     .profilepic {
         width: 120px;
         height: 120px;
+    }
+
+    .btn {
+        width: 80px;
+    }
+}
+
+
+/* Center the modal on mobile screens */
+@media (max-width: 480px) {
+    .modal-content {
+        width: 90%; /* Adjusts width to fit smaller screens */
+        margin: auto; /* Center horizontally */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Offset to vertically center */
+        position: relative;
+        padding: 20px; /* Keep padding to ensure readability */
     }
 }

@@ -8,6 +8,7 @@ $contact = isset($_SESSION['phone']) ? $_SESSION['phone'] : '';
 
 // Retrieve data from POST request
 $model = $_POST['model'];
+$city = $_POST['city'];
 $year = $_POST['year'];
 $number_plate = $_POST['number_plate'];
 $fuel_type = $_POST['fuel_type'];
@@ -30,20 +31,18 @@ if ($result_vehicle->num_rows > 0) {
     $v_id = $row_vehicle['v_id'];
 
     // Insert data into vehicleissues table
-    $sql = "INSERT INTO vehicleissues (v_id, email, vehicle_model, year, mobile_number, vehicle_issue, status, location, mech_id) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO vehicleissues (v_id, email, vehicle_model, year, mobile_number, vehicle_issue, status, location, mech_id, city) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("issssssss", $v_id, $email, $model, $year, $contact, $vehicle_issue, $status, $location, $mech_id);
+    $stmt->bind_param("isssssssss", $v_id, $email, $model, $year, $contact, $vehicle_issue, $status, $location, $mech_id, $city); // Added city to the bind_param
 
     if ($stmt->execute()) {
-        echo "Vehicle issue reported successfully!";
-        header('Location: ../mech/breakdown_details.php');
-        exit();
+    header('Location: ../mech/breakdown_details.php');
+    exit();
     } else {
-        echo "Error: " . $stmt->error;
+    echo "Error: " . $stmt->error;
     }
 
-    // Close statement and connection
     $stmt->close();
 } else {
     echo "Error: Vehicle not found in the database.";

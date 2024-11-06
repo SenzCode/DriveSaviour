@@ -1,10 +1,9 @@
 <?php
 session_start();
-
 require '../../connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
-    $userID = $_POST['email'];
+    $userID   = $_POST['email'];
     $password = $_POST['password'];
 
     // Fetch admin data from the database
@@ -15,11 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
 
     if ($result->num_rows > 0) {
         $admin = $result->fetch_assoc();
-
         if ($password === $admin['password']) {
             // Set session variable with admin email
             $_SESSION['email'] = $admin['email'];
-
             // Redirect to the dashboard
             header("Location: ../dashboard/dashoard.php");
             exit();
@@ -29,13 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
     } else {
         echo "No admin found with this email.";
     }
-
     $stmt->close();
 }
-
 $conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +42,6 @@ $conn->close();
     <link rel="icon" type="image/png" href="../../img/logo.jpg">
 </head>
 <body>
-
     <div class="container" id="container">
         <div class="form-container sign-in">
             <form action="login.php" method="POST">
@@ -76,7 +69,6 @@ $conn->close();
             </div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
