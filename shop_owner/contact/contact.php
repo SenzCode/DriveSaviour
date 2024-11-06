@@ -27,8 +27,5 @@
         </div>
     </div> <br> <br> <br>
 
-    <?php
-    require '../footer/footer.php';
-    ?>
 </body>
 </html>

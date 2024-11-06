@@ -62,8 +62,8 @@ body.dark-mode .card-body{
 
 .issue_container {
     display: flex;
-    margin-top: 100px;
     gap: 50px;
+    margin-bottom: 30px;
 }
 
 .issue-details {
@@ -102,6 +102,10 @@ body.dark-mode .card-body{
     background-color: #2B5AC2;
     color: #ffffff;
     cursor: pointer;
+}
+
+.alert_container{
+    margin-top: 100px;
 }
 
 .alert {
