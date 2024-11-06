@@ -22,6 +22,8 @@ $longitude = trim($location[1]);
 
 $stmt->close();
 $conn->close();
+
+$message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +38,11 @@ $conn->close();
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4WKu5raw64v4-CB8bYSq7SMtFikfu5lg"></script>
 </head>
 <body>
-
+<div class="alert_container">
+    <?php if ($message == 'insert'): ?>
+        <div class="alert alert-success" id="success-alert">The issue is submitted successfully.</div>
+    <?php endif; ?>
+</div>
 <div class="issue_container">
     <div class="issue-details">
         <h1>Issue Details</h1>
@@ -62,8 +68,11 @@ $conn->close();
     <div class="modal-content">
         <h4>Confirmation</h4>
         <p>Are you sure you want to accept this issue?</p>
-        <button id="confirmYes" class="btn">Yes</button>
-        <button id="confirmNo" class="btn">No</button>
+        <form action="accept_issue.php" method="POST">
+            <input type="hidden" name="issue_id" value="<?= $issue_id; ?>">
+            <button type="submit" class="btn accept-btn">Yes</button>
+            <button type="submit" class="btn accept-btn">No</button>
+        </form>
     </div>
 </div>
 
@@ -162,25 +171,7 @@ document.getElementById('confirmNo').addEventListener('click', function() {
     document.getElementById('confirmModal').style.display = 'none';
 });
 
-document.getElementById('confirmYes').addEventListener('click', function() {
-    // Get the issue ID
-    var issueId = <?= $issue_id ?>;
 
-    // Make an AJAX request to update the database
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'accept_issue.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            alert('Issue accepted successfully!');
-            document.getElementById('confirmModal').style.display = 'none';
-            // Optionally, you can redirect the user after success
-        } else {
-            alert('Error: Could not accept the issue.');
-        }
-    };
-    xhr.send('issue_id=' + issueId); // Only sending the issue ID
-});
 </script>
 
 <?php

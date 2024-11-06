@@ -12,9 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("ii", $userID, $issue_id);
 
     if ($stmt->execute()) {
-        echo 'Success';
+        header("Location: view_issue.php?id=$issue_id&message=insert");
     } else {
-        echo 'Error';
+        echo 'Error updating issue assignment.';
     }
 
     // Close connection
