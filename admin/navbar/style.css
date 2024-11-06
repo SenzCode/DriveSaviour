@@ -27,12 +27,12 @@ nav {
   width: 280px;
   overflow: hidden;
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-  transform: translateX(0); 
+  transform: translateX(0);
   transition: transform 0.3s ease;
 }
 
 nav.hidden {
-  transform: translateX(-100%); 
+  transform: translateX(-100%);
 }
 
 main {
@@ -42,15 +42,21 @@ main {
 }
 
 .menu-toggle {
-  display: none; 
+  display: none;
   position: fixed;
   top: 15px;
   left: 15px;
-
-  font-size: 18px;
-
   font-size: 24px;
+  cursor: pointer;
+  z-index: 1000;
+}
 
+.close-sidebar {
+  display: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 30px;
   cursor: pointer;
   z-index: 1000;
 }
@@ -151,19 +157,23 @@ a:hover {
 @media (max-width: 768px) {
   nav {
     width: 250px;
-    transform: translateX(-100%); 
-    z-index: 1000; 
+    transform: translateX(-100%);
+    z-index: 1000;
   }
 
   main {
-    margin-left: 0; 
+    margin-left: 0;
   }
 
   .menu-toggle {
-    display: block; 
+    display: block;
   }
 
   nav.active {
-    transform: translateX(0); 
+    transform: translateX(0);
+  }
+
+  .close-sidebar {
+    display: block;
   }
 }
