@@ -44,7 +44,6 @@ if (!empty($productIds)) {
     $stmt->close();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,6 +52,17 @@ if (!empty($productIds)) {
     <title>Product Ratings</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../navbar/style.css">
+    <style>
+        /* Style for the star rating */
+        .star {
+            font-size: 1.5rem;
+            color: lightgray;
+        }
+
+        .star.filled {
+            color: gold;
+        }
+    </style>
 </head>
 <body>
     <div class="main_container">
@@ -72,7 +82,12 @@ if (!empty($productIds)) {
                     <?php foreach ($ratings_data as $rating): ?>
                         <tr>
                             <td><?= htmlspecialchars($rating['product_id']) ?></td>
-                            <td><?= htmlspecialchars($rating['rating']) ?></td>
+                            <td>
+                                <!-- Display stars based on rating value -->
+                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                    <span class="star<?= $i <= $rating['rating'] ? ' filled' : '' ?>">&starf;</span>
+                                <?php endfor; ?>
+                            </td>
                             <td><?= htmlspecialchars($rating['feedback']) ?></td>
                             <td><?= htmlspecialchars($rating['rating_date']) ?></td>
                         </tr>
@@ -85,3 +100,4 @@ if (!empty($productIds)) {
     </div>
 </body>
 </html>
+
