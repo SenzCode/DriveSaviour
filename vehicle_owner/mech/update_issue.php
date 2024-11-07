@@ -15,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->execute();
 
             if ($stmt->affected_rows > 0) {
-                header('Location: breakdown_Details.php?success=Issue updated');
+                header('Location: breakdown_Details.php?message=update');
             } else {
-                header('Location: breakdown_Details.php?error=Failed to update issue');
+                header('Location: breakdown_Details.php?message=err');
             }
         } else {
             die("Error preparing statement: " . $conn->error);

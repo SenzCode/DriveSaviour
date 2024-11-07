@@ -1,26 +1,41 @@
 <?php
-    session_start();
-    require '../../connection.php';
-    require '../navbar/nav.php';
+session_start();
+require '../../connection.php';
+require '../navbar/nav.php';
 
-    $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 
-    // Query to fetch vehicle issues and related mechanic info
-    $breakdown = "SELECT vi.*, mech.name AS mech_name, mech.*, v.* FROM vehicleissuesdone vi
-                  LEFT JOIN mechanic mech ON mech.userID = vi.mech_id
-                  LEFT JOIN vehicle v ON v.v_id = vi.v_id
-                  WHERE vi.email = ?
-                  ORDER BY vi.job_done_at DESC";
+// Query to fetch ongoing vehicle issues with 'Pending' status from vehicleissues table
+$ongoingQuery = "SELECT vi.*, mech.name AS mech_name, mech.*, v.* FROM vehicleissues vi
+                 LEFT JOIN mechanic mech ON mech.userID = vi.mech_id
+                 LEFT JOIN vehicle v ON v.v_id = vi.v_id
+                 WHERE vi.email = ? AND vi.status = 'Pending'
+                 ORDER BY vi.created_at DESC";
 
-    $stmt = $conn->prepare($breakdown);
-    if (!$stmt) {
-        die("Error preparing statement: " . $conn->error);
-    }
+$ongoingStmt = $conn->prepare($ongoingQuery);
+if (!$ongoingStmt) {
+    die("Error preparing statement: " . $conn->error);
+}
+$ongoingStmt->bind_param("s", $email);
+$ongoingStmt->execute();
+$ongoingIssues = $ongoingStmt->get_result();
 
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    
-    $breakdown = $stmt->get_result();
+// Query to fetch completed vehicle issues from vehicleissuesdone table
+$completedQuery = "SELECT vi.*, mech.name AS mech_name, mech.*, v.* FROM vehicleissuesdone vi
+                   LEFT JOIN mechanic mech ON mech.userID = vi.mech_id
+                   LEFT JOIN vehicle v ON v.v_id = vi.v_id
+                   WHERE vi.email = ?
+                   ORDER BY vi.job_done_at DESC";
+
+$completedStmt = $conn->prepare($completedQuery);
+if (!$completedStmt) {
+    die("Error preparing statement: " . $conn->error);
+}
+$completedStmt->bind_param("s", $email);
+$completedStmt->execute();
+$completedIssues = $completedStmt->get_result();
+
+$message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 ?>
 
 <!DOCTYPE html>
@@ -36,60 +51,55 @@
 <body>
     <div class="body">
         <!-- Ongoing Breakdowns Section -->
-        <div id="ongoing-breakdowns" style="display:none;">
+        <div id="ongoing-breakdowns" style="display:<?php echo $ongoingIssues->num_rows > 0 ? 'block' : 'none'; ?>;">
             <h1>Ongoing Breakdowns</h1>
+            <?php if ($message == 'delete'): ?>
+                <div class="alert alert-success" id="success-alert">The issue is deleted successfully.</div>
+            <?php elseif ($message == 'update'): ?>
+                <div class="alert alert-success" id="success-alert">The issue is updated successfully.</div>
+            <?php endif; ?>
             <div class="vehicle-card-container">
-                <!-- Cards with status 'Pending' will be injected here -->
+                <?php 
+                while ($vehicle = $ongoingIssues->fetch_assoc()) { ?>
+                    <div class="vehicle-card" id="card-<?php echo $vehicle['id']; ?>" data-status="pending">
+                        <h3><?php echo $vehicle['model']; ?> (<?php echo $vehicle['year']; ?>)</h3>
+                        <p><strong>Breakdown Issue:</strong> <?php echo $vehicle['vehicle_issue']; ?></p>
+                        <p><strong>Date and Time:</strong> <?php echo $vehicle['created_at']; ?></p>
+                        <p><strong>Breakdown Status:</strong> <?php echo $vehicle['status']; ?></p>
+                        <p><strong>Mechanic's Name:</strong> <?php echo $vehicle['mech_name']; ?></p>
+                        <p><strong>Mechanic's Contact:</strong> <?php echo $vehicle['phone']; ?></p>
+
+                        <button class="btn" onclick="openUpdateModal(<?php echo $vehicle['id']; ?>, '<?php echo addslashes($vehicle['model']); ?>', '<?php echo addslashes($vehicle['created_at']); ?>', '<?php echo addslashes($vehicle['vehicle_issue']); ?>')">Update</button>
+                        <button class="btn" onclick="confirmDelete(<?php echo $vehicle['id']; ?>)">Delete</button>
+                        <button class="btn" onclick="openRateModal(<?php echo $vehicle['userID']; ?>, '<?php echo $vehicle['mech_name']; ?>')">Rate</button>
+                    </div>
+                <?php } ?>
             </div>
         </div>
 
         <!-- Breakdown List Section -->
         <div id="breakdown-list">
-            <h1>Breakdown List</h1>
+            <h1>Breakdown History</h1>
             <div class="vehicle-card-container">
-                <!-- All other cards will be injected here -->
-            </div>
-        </div>
+                <?php 
+                if ($completedIssues->num_rows > 0) { 
+                    while ($vehicle = $completedIssues->fetch_assoc()) { ?>
+                        <div class="vehicle-card" id="card-<?php echo $vehicle['id']; ?>" data-status="resolved">
+                            <h3><?php echo $vehicle['model']; ?> (<?php echo $vehicle['year']; ?>)</h3>
+                            <p><strong>Breakdown Issue:</strong> <?php echo $vehicle['vehicle_issue']; ?></p>
+                            <p><strong>Date and Time:</strong> <?php echo $vehicle['job_done_at']; ?></p>
+                            <p><strong>Breakdown Status:</strong> <?php echo $vehicle['status']; ?></p>
+                            <p><strong>Mechanic's Name:</strong> <?php echo $vehicle['mech_name']; ?></p>
+                            <p><strong>Mechanic's Contact:</strong> <?php echo $vehicle['phone']; ?></p>
 
-        <div class="vehicle_details">
-            <?php 
-            $hasPending = false; // Track if there's any pending issue
-
-            if ($breakdown->num_rows > 0) { 
-                while ($vehicle = $breakdown->fetch_assoc()) {
-                    // Check if the issue is pending or not
-                    $isPending = $vehicle['status'] === 'Pending';
-
-                    if ($isPending) {
-                        $hasPending = true; // Set flag if any issue is pending
-                    }
-
-                    // Use the appropriate container based on the status
-                    ?>
-                    <div class="vehicle-card" id="card-<?php echo $vehicle['id']; ?>" data-status="<?php echo $isPending ? 'pending' : 'resolved'; ?>">
-                        <h3><?php echo $vehicle['model']; ?> (<?php echo $vehicle['year']; ?>)</h3>
-                        <p><strong>Breakdown Issue:</strong> <?php echo $vehicle['vehicle_issue']; ?></p>
-                        <p><strong>Date and Time:</strong> <?php echo $vehicle['job_done_at']; ?></p>
-                        <p><strong>Breakdown Status:</strong> <?php echo $vehicle['status']; ?></p>
-                        <p><strong>Mechanic's Name:</strong> <?php echo $vehicle['mech_name']; ?></p>
-                        <p><strong>Mechanic's Contact:</strong> <?php echo $vehicle['phone']; ?></p>
-
-                        <button class="btn" 
-                            onclick="openUpdateModal(
-                                <?php echo $vehicle['id']; ?>,
-                                '<?php echo addslashes($vehicle['model']); ?>', 
-                                '<?php echo addslashes($vehicle['job_done_at']); ?>',
-                                '<?php echo addslashes($vehicle['vehicle_issue']); ?>')">Update
-                        </button>
-
-                        <button class="btn" onclick="confirmDelete(<?php echo $vehicle['id']; ?>)">Delete</button>
-                        <button class="btn" onclick="openRateModal(<?php echo $vehicle['userID']; ?>, '<?php echo $vehicle['name']; ?>')">Rate</button>
-                    </div>
+                            <button class="btn" onclick="openRateModal(<?php echo $vehicle['userID']; ?>, '<?php echo $vehicle['mech_name']; ?>')">Rate</button>
+                        </div>
                     <?php 
-                } 
-            } else { ?>
-                <p>No vehicle issues for this user.</p>
-            <?php } ?>
+                    }
+                } else { ?>
+                    <p>No breakdowns found.</p>
+                <?php } ?>
+            </div>
         </div>
     </div>
 
@@ -179,8 +189,20 @@
             }
         }
     </script>
-        <?php
-    require '../footer/footer.php';
+
+    <?php
+        require '../footer/footer.php';
     ?>
+    
 </body>
+
+<script>
+    setTimeout(function() {
+        var alert = document.getElementById('success-alert');
+        if (alert) {
+            alert.style.display = 'none';
+        }
+    }, 10000); // 10 seconds
+</script>
+
 </html>
