@@ -78,7 +78,8 @@ $result = $stmt->get_result();
                 <textarea name="feedback" id="feedback" rows="4" required></textarea>
                 
                 <button type="submit">Submit Rating</button>
-                <button class="checkout-btn" onclick="window.location.href='../orders/orders.php?product_id=<?= $order['product_id'] ?>'">Rate Product</button>
+
+                <button class="view-cart-btn" onclick="window.location.href='../orders/orders.php'">Orders</button>
             </form>
 
             <h3>Your Previous Ratings for This Product</h3>
