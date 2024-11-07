@@ -1,7 +1,7 @@
 <?php
 session_start();
-require '../navbar/navbar.php';
 include_once('../../connection.php');
+require '../navbar/navbar.php';
 
 // Fetch all data from the vehicle_owner table
 $owner_data = [];
@@ -31,21 +31,20 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 </head>
 <body>
 <div class="main_container">
+    <?php if ($message == 'delete_success'): ?>
+        <div class="alert alert-danger">Vehicle Owner Profile deleted successfully.</div>
+    <?php elseif ($message == 'edit_success'): ?>
+        <div class="alert alert-success">Vehicle Owner Profile edited successfully.</div>
+    <?php elseif ($message == 'error'): ?>
+        <div class="alert alert-danger">Something went wrong: <?= htmlspecialchars($_GET['error'] ?? '') ?></div>
+    <?php endif; ?>
 
-            <?php if ($message == 'delete_success'): ?>
-                <div class="alert alert-danger">Vehicle Owner Profile deleted successfully.</div>
-            <?php elseif ($message == 'edit_success'): ?>
-                <div class="alert alert-success">Vehicle Owner Profile edited successfully.</div>
-            <?php elseif ($message == 'error'): ?>
-                <div class="alert alert-danger">Something went wrong: <?= htmlspecialchars($_GET['error'] ?? '') ?></div>
-            <?php endif; ?>
-            
     <div class="title">
         <h1>Manage Vehicle Owners</h1>
         <br><br>
     </div>
+
     <div class="searchbars">
-        <!-- Search bar -->
         <div class="search-bar">
             <label for="search">Search</label>
             <input type="text" id="search" class="search-select" placeholder="Owner Name">
@@ -53,7 +52,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <br>
     </div>
 
-    <!-- Table -->
     <div class="table">
         <table>
             <thead>
@@ -76,13 +74,13 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <td data-cell="City"><?= htmlspecialchars($row['city']) ?></td>
                         <td>
                             <button class="manage-button view-link" 
-                                        data-name="<?= htmlspecialchars($row['name']) ?>"
-                                        data-email="<?= htmlspecialchars($row['email']) ?>"
-                                        data-phone="<?= htmlspecialchars($row['phone']) ?>"
-                                        data-address="<?= htmlspecialchars($row['address']) ?>"
-                                        data-city="<?= htmlspecialchars($row['city']) ?>">
-                                        <i class='bx bxs-cog'></i>
-                                </button>
+                                    data-name="<?= htmlspecialchars($row['name']) ?>"
+                                    data-email="<?= htmlspecialchars($row['email']) ?>"
+                                    data-phone="<?= htmlspecialchars($row['phone']) ?>"
+                                    data-address="<?= htmlspecialchars($row['address']) ?>"
+                                    data-city="<?= htmlspecialchars($row['city']) ?>">
+                                <i class='bx bxs-cog'></i>
+                            </button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -90,34 +88,28 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         </table>
     </div>
 
-    <!-- Manage modal -->
     <div id="manageBatchModal" class="modal">
         <div class="modal-content">
             <span id="closeManageBatchModal" class="close">&times;</span>
             <h2>Manage Vehicle Owner</h2>
             <form id="manageBatchForm" action="owner_manage.php" method="POST">
                 <input type="hidden" id="manage_owner_id" name="id">
-
                 <div class="form-group">
                     <label for="manage_name">Owner Name:</label>
                     <input type="text" id="manage_name" name="name" required>
                 </div>
-
                 <div class="form-group">
                     <label for="manage_email">Email:</label>
                     <input type="email" id="manage_email" name="email" required>
                 </div>
-
                 <div class="form-group">
                     <label for="manage_phone">Phone:</label>
                     <input type="text" id="manage_phone" name="phone" required>
                 </div>
-
                 <div class="form-group">
                     <label for="manage_address">Address:</label>
                     <input type="text" id="manage_address" name="address" required>
                 </div>
-
                 <div class="form-group">
                     <label for="manage_city">City:</label>
                     <input type="text" id="manage_city" name="city" required>
