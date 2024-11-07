@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 require '../../connection.php';
 require '../navbar/nav.php';
@@ -35,14 +35,15 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <title>Your Cart</title>
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../shop/add-to-cart.css">
-    <title>Your Cart</title>
 </head>
+
 <body>
     <div class="main_container">
         <?php if ($message == 'removed'): ?>
@@ -50,7 +51,13 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <?php elseif ($message == 'err'): ?>
             <div class="alert alert-success" id="success-alert">Something went wrong.</div>
         <?php endif; ?>
-        <h1>Your Cart</h1>
+        
+        <!-- Cart Header and Back Button -->
+        <div class="cart-header">
+            <button class="back-btn" onclick="window.location.href='product.php'">&larr; Back</button>
+            <h1>Your Cart</h1>
+        </div>
+
         <div class="product-card">
             <?php if (count($cart_items) > 0): ?>
                 <?php foreach ($cart_items as $item): ?>
@@ -62,9 +69,9 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                             <div>Quantity: <?= htmlspecialchars($item['quantity']) ?></div>
                             <div>Shop: <?= htmlspecialchars($item['shop_name']) ?></div>
                         </div>
-                        <form action="remove_from_cart.php" method="POST"> <!-- Create a remove_from_cart.php for removing items -->
+                        <form action="remove_from_cart.php" method="POST">
                             <input type="hidden" name="cart_id" value="<?= $item['id'] ?>">
-                            <button type="submit" class="remove-btn" >
+                            <button type="submit" class="remove-btn">
                                 <i class='bx bx-trash'></i>
                             </button>
                         </form>
@@ -74,21 +81,21 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 <p>Your cart is empty.</p>
             <?php endif; ?>
         </div>
+
         <button class="checkout-btn" onclick="window.location.href='pay.php'">Proceed to Checkout</button>
     </div>
-    <?php
-    require '../footer/footer.php';
-    ?>
-</body>
 
-<script>
-    // Hide the alert message after 10 seconds
-    setTimeout(function() {
-        var alert = document.getElementById('success-alert');
-        if (alert) {
-            alert.style.display = 'none';
-        }
-    }, 10000); // 10 seconds
-</script>
+    <?php require '../footer/footer.php'; ?>
+
+    <script>
+        // Hide the alert message after 10 seconds
+        setTimeout(function() {
+            var alert = document.getElementById('success-alert');
+            if (alert) {
+                alert.style.display = 'none';
+            }
+        }, 10000); // 10 seconds
+    </script>
+</body>
 
 </html>

@@ -79,9 +79,19 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <div class="alert alert-success" id="success-alert">Another Item added to the cart successfully.</div>
     <?php endif; ?>
 
-    <button class="view-cart-btn" onclick="window.location.href='view_cart.php'">View Cart</button>
-    <button class="view-cart-btn" onclick="window.location.href='../Loyalty_card/loyalty_card.php'">Loyalty Card</button>
-    <button class="view-cart-btn" onclick="window.location.href='../orders/orders.php'">Orders</button>
+<div class="image-buttons-container">
+    <a href="view_cart.php" class="image-link">
+        <i class='bx bx-cart' ></i>
+    </a>
+    <a href="../Loyalty_card/loyalty_card.php" class="image-link">
+        <i class='bx bxs-discount'></i> <!-- Loyalty Card Icon -->
+    </a>
+    <a href="../orders/orders.php" class="image-link">
+        <i class='bx bx-list-check'></i> <!-- Orders Icon -->
+    </a>
+</div>
+
+
 
     <!-- Search and Filter Form -->
     <form method="GET" action="">

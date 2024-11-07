@@ -9,12 +9,17 @@ if (!isset($_SESSION['email'])) {
 }
 
 try {
-    // Prepare and execute the SQL statement to fetch only orders with 'paid' status
-    $stmt = $conn->prepare("SELECT o.*, p.product_name, p.shop_id, s.shop_name 
-                            FROM orders o 
-                            JOIN products p ON o.product_id = p.id 
-                            JOIN shops s ON p.shop_id = s.id
-                            WHERE o.payment_status = 'Pending'"); // Filter by paid status
+    // Prepare and execute the SQL statement to fetch orders with 'Pending' payment status from both tables
+    $stmt = $conn->prepare("
+        SELECT o.*, p.product_name, p.shop_id, s.shop_name 
+        FROM (
+            SELECT * FROM orders WHERE payment_status = 'Pending'
+            UNION ALL
+            SELECT * FROM mech_orders WHERE payment_status = 'Pending'
+        ) o
+        JOIN products p ON o.product_id = p.id 
+        JOIN shops s ON p.shop_id = s.id
+    ");
     $stmt->execute();
     $result = $stmt->get_result();
 

@@ -112,7 +112,7 @@ try {
 
                 <div class="content">
                     <div class="text">
-                        <h2>Goods to be restocked</h2>
+                        <h2>Goods to be restocked <i class='bx bxs-bell-ring'></i></h2>
 
                     </div>
 
