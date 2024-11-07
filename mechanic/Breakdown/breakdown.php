@@ -72,6 +72,7 @@ ob_end_flush();
     </div>
 
     <h2 class="vihead">Accepted Vehicle Issues</h2>
+    <button class="btn" onclick="window.location.href='donelist.php'">Job Done</button>
     <div class="issues-container">
         <?php if ($result_accepted->num_rows > 0): ?>
             <?php while($row = $result_accepted->fetch_assoc()): ?>
@@ -131,14 +132,6 @@ ob_end_flush();
                 localStorage.setItem('theme', 'light');
             }
         });
-
-        // Hide the alert message after 10 seconds
-        setTimeout(function() {
-            const alert = document.getElementById('success-alert');
-            if (alert) {
-                alert.style.display = 'none';
-            }
-        }, 10000); // 10 seconds
     });
 </script>
 
@@ -146,6 +139,16 @@ ob_end_flush();
     require '../../vehicle_owner/footer/footer.php';
 ?>
 </body>
+
+<script>
+    setTimeout(function() {
+        const alert = document.getElementById('success-alert');
+        if (alert) {
+            alert.style.display = 'none';
+        }
+    }, 10000); // 10 seconds
+</script>
+
 </html>
 
 <?php

@@ -18,10 +18,8 @@ $sql = "INSERT INTO vehicle (email, name, contact, number_plate, model, year, fu
         VALUES ('$email', '$name', '$phone', '$number_plate', '$model', '$year', '$fuel_type', '$engine_type', '$tire_size')";
 
 if (mysqli_query($conn, $sql)) {
-    // Redirect or display a success message
-    echo "Vehicle details added successfully!";
-    header('Location: profile.php'); // Adjust this to your actual profile page
-    exit(); // Add exit after the header to ensure no further script execution
+    header('Location: profile.php?message=addvehicle');
+    exit();
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }

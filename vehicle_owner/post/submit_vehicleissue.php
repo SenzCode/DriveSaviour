@@ -34,13 +34,20 @@ if ($result_vehicle->num_rows > 0) {
     $sql = "INSERT INTO vehicleissues (v_id, email, vehicle_model, year, mobile_number, vehicle_issue, status, location, mech_id, city) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isssssssss", $v_id, $email, $model, $year, $contact, $vehicle_issue, $status, $location, $mech_id, $city); // Added city to the bind_param
+
+    // Check if the prepare() call was successful
+    if ($stmt === false) {
+        echo "Error preparing statement: " . $conn->error;
+        exit();
+    }
+
+    $stmt->bind_param("isssssssss", $v_id, $email, $model, $year, $contact, $vehicle_issue, $status, $location, $mech_id, $city);
 
     if ($stmt->execute()) {
-    header('Location: ../mech/breakdown_details.php');
-    exit();
+        header('Location: ../mech/breakdown_details.php');
+        exit();
     } else {
-    echo "Error: " . $stmt->error;
+        echo "Error executing statement: " . $stmt->error;
     }
 
     $stmt->close();
@@ -52,3 +59,4 @@ if ($result_vehicle->num_rows > 0) {
 $stmt_vehicle->close();
 $conn->close();
 ?>
+

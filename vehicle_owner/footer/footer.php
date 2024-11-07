@@ -1,17 +1,41 @@
-<footer>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer at Bottom of Page</title>
     <style>
+        /* Full height for body and html to keep footer at bottom */
+        body, html {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Container for content and footer */
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        /* Footer styles */
         footer {
             background-color: #ffffff; 
             padding: 20px 0;
-            /* border-top: 1px solid #eaeaea; */
             font-family: Arial, sans-serif;
             color: #333;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            margin-top: auto; /* Pushes footer to the bottom */
         }
 
-        body.dark-mode footer{
+        body.dark-mode footer {
             box-shadow: 0 4px 15px rgb(199, 199, 199);
-        } 
+            color: white;
+            background-color: black;
+        }
 
         .footer-container {
             display: flex;
@@ -71,8 +95,7 @@
 
         .social-icons a {
             margin-right: 10px;
-            transition: all .50s ease;
-            transition: transform 0.5s ease; 
+            transition: transform 0.5s ease;
             display: inline-block;
         }
 
@@ -84,6 +107,7 @@
            font-size: 28px;
            color: black;
         }
+
         .footer-right {
             text-align: right;
             flex: 1;
@@ -112,52 +136,19 @@
             font-size: 13px;
             color: #aaa;
         }
-        body.dark-mode footer{
-            color: white;
-            background-color: black;
-        }
-        body.dark-mode .footer-left-text p{
+
+        body.dark-mode .footer-left-text p,
+        body.dark-mode .contact-info p {
             color: #a5a5a5;
         }
 
-        body.dark-mode .footer-bottom{
+        body.dark-mode .footer-bottom {
             border-top: 1px solid #3e3e3e;
         }
 
-        body.dark-mode .social-icons i{
+        body.dark-mode .social-icons i {
             color: #c4c4c4;
         }
-
-        body.dark-mode .contact-info p{
-            color: #c4c4c4;
-        }
-
-        /* body.dark-mode .social-icons {
-            width: 200px;
-            height: 50px;
-            border-radius: 30px;
-            background-color: #cccccc;
-            display: flex;
-            align-items: center; 
-            justify-content: center; 
-            padding: 10px;
-            gap: 20px; 
-            box-sizing: border-box; 
-        }
-
-        body.dark-mode .social-icons a {
-            display: flex;
-            align-items: center; 
-            justify-content: center; 
-            margin: 0; 
-        } */
-
-        body.dark-mode .social-icons img {
-            width: 24px; 
-            height: 24px; 
-            display: block; 
-        }
-
 
         /*Media Queries*/
         @media (max-width: 768px) {
@@ -209,45 +200,55 @@
             .social-icons {
                 margin-top: 20px;
             }
-            .contact-info{
+            .contact-info {
                 margin-top: 10px;
             }
-            .footer-bottom{
+            .footer-bottom {
                 margin-top: -10px;
             }
         }
     </style>
+</head>
+<body>
 
-    <div class="footer-container">
-        <div class="footer-left">
-            <img src="../../img/ss.png" alt="Drive Saviour Logo" class="footer-logo"> 
-            <img class="footer-logo2" src="../../img/1s.png" alt="Logo">
-            <div class="footer-left-text">
-                <p>The centre of Sri Lankan auto repair. We spearhead Sri Lanka's auto care industry's digital transformation.</p>
-                <div class="social-icons">
-                    <a href="#"><i class='bx bxl-facebook-circle'></i></a> 
-                    <a href="#"><i class='bx bxl-whatsapp' ></i></a>
-                    <a href="#"><i class='bx bxl-instagram' ></i></a>
-                    <a href="#"><i class='bx bxl-youtube' ></i></a>
+    <div class="page-container">
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-container">
+                <div class="footer-left">
+                    <img src="../../img/ss.png" alt="Drive Saviour Logo" class="footer-logo"> 
+                    <img class="footer-logo2" src="../../img/1s.png" alt="Logo">
+                    <div class="footer-left-text">
+                        <p>The centre of Sri Lankan auto repair. We spearhead Sri Lanka's auto care industry's digital transformation.</p>
+                        <div class="social-icons">
+                            <a href="#"><i class='bx bxl-facebook-circle'></i></a> 
+                            <a href="#"><i class='bx bxl-whatsapp'></i></a>
+                            <a href="#"><i class='bx bxl-instagram'></i></a>
+                            <a href="#"><i class='bx bxl-youtube'></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <div class="contact-info">
+                        <p>
+                            <a href="tel:+94704633566">
+                                <img src="../../img/telephone.png" alt="Phone"> +94704633566
+                            </a>
+                        </p> 
+                        <p>
+                            <a href="mailto:drivesaviour.lk@gmail.com">
+                                <img src="../../img/gmail.png" alt="Email"> drivesaviour.lk@gmail.com
+                            </a>
+                        </p> 
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="footer-right">
-            <div class="contact-info">
-                <p>
-                     <a href="tel:+94704633566">
-                        <img src="../../img/telephone.png" alt="Phone"> +94704633566
-                    </a>
-                </p> 
-                <p>
-                    <a href="mailto:drivesaviour.lk@gmail.com">
-                        <img src="../../img/gmail.png" alt="Email"> drivesaviour.lk@gmail.com
-                     </a>
-                </p> 
+            <div class="footer-bottom">
+                <p>Copyright @2024 SenzCode</p>
             </div>
-        </div>
+        </footer>
     </div>
-    <div class="footer-bottom">
-        <p>Copyright @2024 SenzCode</p>
-    </div>
-</footer>
+
+</body>
+</html>
