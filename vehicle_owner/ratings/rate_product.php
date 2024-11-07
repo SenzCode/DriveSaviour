@@ -81,6 +81,17 @@ $result = $stmt->get_result();
         .stars input:checked ~ label {
             color: gold;
         }
+
+        /* Style for the star rating */
+.star {
+    font-size: 1.5rem;
+    color: lightgray;
+}
+
+.star.filled {
+    color: gold;
+}
+
     </style>
 </head>
 <body>
@@ -107,27 +118,33 @@ $result = $stmt->get_result();
         </form>
 
         <h3>Your Previous Ratings for This Product</h3>
-        <?php if ($result->num_rows > 0): ?>
-            <table>
-                <tr>
-                    <th>Rating</th>
-                    <th>Feedback</th>
-                    <th>Actions</th>
-                </tr>
-                <?php while ($row = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($row['rating']) ?> / 5</td>
-                        <td><?= htmlspecialchars($row['feedback']) ?></td>
-                        <td>
-                            <button onclick="editRating(<?= $row['id'] ?>, <?= $row['rating'] ?>, '<?= addslashes($row['feedback']) ?>')">Edit</button>
-                            <a href="?product_id=<?= $product_id ?>&delete_id=<?= $row['id'] ?>" onclick="return confirm('Are you sure you want to delete this rating?')">Delete</a>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            </table>
-        <?php else: ?>
-            <p>No previous ratings found for this product.</p>
-        <?php endif; ?>
+<?php if ($result->num_rows > 0): ?>
+    <table>
+        <tr>
+            <th>Rating</th>
+            <th>Feedback</th>
+            <th>Actions</th>
+        </tr>
+        <?php while ($row = $result->fetch_assoc()): ?>
+            <tr>
+                <td>
+                    <!-- Display stars based on rating value -->
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <span class="star<?= $i <= $row['rating'] ? ' filled' : '' ?>">&starf;</span>
+                    <?php endfor; ?>
+                </td>
+                <td><?= htmlspecialchars($row['feedback']) ?></td>
+                <td>
+                    <button onclick="editRating(<?= $row['id'] ?>, <?= $row['rating'] ?>, '<?= addslashes($row['feedback']) ?>')">Edit</button>
+                    <a href="?product_id=<?= $product_id ?>&delete_id=<?= $row['id'] ?>" onclick="return confirm('Are you sure you want to delete this rating?')">Delete</a>
+                </td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+<?php else: ?>
+    <p>No previous ratings found for this product.</p>
+<?php endif; ?>
+
 
         <script>
             // Function to populate form for editing
