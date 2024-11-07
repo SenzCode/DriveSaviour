@@ -3,7 +3,7 @@ body {
 }
 
 .main_container {
-    max-width: 800px;
+    width: 800px;
     margin: 150px auto;
     background: #ffffff;
     border-radius: 20px;

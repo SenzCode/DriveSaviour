@@ -11,14 +11,11 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $v_id);
 
 if ($stmt->execute()) {
-    header('Location: profile.php?status=delete_success');
+    header('Location: profile.php?message=delete_success');
     exit();
 } else {
-    header('Location: profile.php?status=delete_error');
+    header('Location: profile.php?message=delete_fail');
     exit();
 }
 
-// Close statement and connection
-$stmt->close();
-$conn->close();
 ?>

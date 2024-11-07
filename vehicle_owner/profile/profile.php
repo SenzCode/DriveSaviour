@@ -19,6 +19,8 @@ $stmt = $conn->prepare($vehicleQuery);
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $vehicleResult = $stmt->get_result();
+
+$message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 ?>
 
 <!DOCTYPE html>
@@ -35,16 +37,9 @@ $vehicleResult = $stmt->get_result();
 <body>
 
     <div class="container1">
-        <?php if (isset($_GET['status'])): ?>
-            <?php if ($_GET['status'] == 'delete_success'): ?>
-                <p style="color:green;">Vehicle deleted successfully.</p>
-            <?php elseif ($_GET['status'] == 'delete_error'): ?>
-                <p style="color:red;">Error deleting vehicle.</p>
-            <?php endif; ?>
-        <?php endif; ?>
+        
 
         <div class="content">
-            <!-- Adding user profile image -->
             <div class="side-container">
                 <div class="profilepic">
                     <label for="profile-image-input">
@@ -55,9 +50,9 @@ $vehicleResult = $stmt->get_result();
                 </div>
             </div>
             <div class="profileTop">
-                <h1 class="topname"><b><span>
-                            <h2>Profile and Vehicle Section</h2>
-                        </span></b></h1>
+                <h1 class="topname">
+                    <b><span> <h2>Profile and Vehicle Section</h2></span></b>
+                </h1>
                 <br>
 
                 <div class="p_data">
@@ -89,6 +84,15 @@ $vehicleResult = $stmt->get_result();
                     <!-- Vehicle Details -->
                     <div class="vehicle_details">
                         <h2>Vehicle Details</h2>
+
+                        <?php if ($message == 'delete_success'): ?>
+                            <div class="alert alert-success" id="success-alert">The vehicle is deleted successfully.</div>
+                        <?php elseif ($message == 'delete_fail'): ?>
+                            <div class="alert alert-danger" id="success-alert">Can't delete this vehicle because there is an ongoing issue that you submitted for this vehicle</div>
+                        <?php elseif ($message == 'addvehicle'): ?>
+                            <div class="alert alert-success" id="success-alert">Added new vehicle successfully.</div>
+                        <?php endif; ?>
+
                         <?php if ($vehicleResult->num_rows > 0) { ?>
                             <div class="vehicle-card-container">
                                 <?php while ($vehicle = $vehicleResult->fetch_assoc()) { ?>
@@ -189,37 +193,37 @@ $vehicleResult = $stmt->get_result();
                 <!-- Number Plate field -->
                 <div class="form-row">
                     <label for="number_plate">Number Plate:</label>
-                    <input type="text" id="number_plate" name="number_plate" required>
+                    <input type="text" id="number_plate" name="number_plate">
                 </div>
 
                 <!-- Model field -->
                 <div class="form-row">
                     <label for="model">Model:</label>
-                    <input type="text" id="model" name="model" required>
+                    <input type="text" id="model" name="model">
                 </div>
 
                 <!-- Year field -->
                 <div class="form-row">
                     <label for="year">Year:</label>
-                    <input type="text" id="year" name="year" required>
+                    <input type="text" id="year" name="year">
                 </div>
 
                 <!-- Fuel Type field -->
                 <div class="form-row">
                     <label for="fuel_type">Fuel Type:</label>
-                    <input type="text" id="fuel_type" name="fuel_type" required>
+                    <input type="text" id="fuel_type" name="fuel_type">
                 </div>
 
                 <!-- Engine Type field -->
                 <div class="form-row">
                     <label for="engine_type">Engine Type:</label>
-                    <input type="text" id="engine_type" name="engine_type" required>
+                    <input type="text" id="engine_type" name="engine_type">
                 </div>
 
                 <!-- Tire Size field -->
                 <div class="form-row">
                     <label for="tire_size">Tire Size:</label>
-                    <input type="text" id="tire_size" name="tire_size" required>
+                    <input type="text" id="tire_size" name="tire_size">
                 </div>
 
                 <!-- Submit Button -->
@@ -334,5 +338,14 @@ $vehicleResult = $stmt->get_result();
     require '../footer/footer.php';
     ?>
 </body>
+
+    <script>
+        setTimeout(function() {
+            var alert = document.getElementById('success-alert');
+            if (alert) {
+                alert.style.display = 'none';
+            }
+        }, 10000);
+    </script>
 
 </html>

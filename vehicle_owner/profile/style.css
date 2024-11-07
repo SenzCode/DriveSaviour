@@ -446,6 +446,23 @@ header {
     color: white;
 }
 
+.alert {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #edd4d4;
+    color: #571515;
+}
+
 
 /* Responsive */
 @media (max-width: 875px) {

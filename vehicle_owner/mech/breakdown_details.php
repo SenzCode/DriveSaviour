@@ -6,10 +6,11 @@
     $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 
     // Query to fetch vehicle issues and related mechanic info
-    $breakdown = "SELECT vi.*, mech.* FROM vehicleissues vi
+    $breakdown = "SELECT vi.*, mech.name AS mech_name, mech.*, v.* FROM vehicleissuesdone vi
                   LEFT JOIN mechanic mech ON mech.userID = vi.mech_id
+                  LEFT JOIN vehicle v ON v.v_id = vi.v_id
                   WHERE vi.email = ?
-                  ORDER BY vi.created_at DESC";
+                  ORDER BY vi.job_done_at DESC";
 
     $stmt = $conn->prepare($breakdown);
     if (!$stmt) {
@@ -66,18 +67,18 @@
                     // Use the appropriate container based on the status
                     ?>
                     <div class="vehicle-card" id="card-<?php echo $vehicle['id']; ?>" data-status="<?php echo $isPending ? 'pending' : 'resolved'; ?>">
-                        <h3><?php echo $vehicle['vehicle_model']; ?> (<?php echo $vehicle['year']; ?>)</h3>
+                        <h3><?php echo $vehicle['model']; ?> (<?php echo $vehicle['year']; ?>)</h3>
                         <p><strong>Breakdown Issue:</strong> <?php echo $vehicle['vehicle_issue']; ?></p>
-                        <p><strong>Date and Time:</strong> <?php echo $vehicle['created_at']; ?></p>
+                        <p><strong>Date and Time:</strong> <?php echo $vehicle['job_done_at']; ?></p>
                         <p><strong>Breakdown Status:</strong> <?php echo $vehicle['status']; ?></p>
-                        <p><strong>Mechanic's Name:</strong> <?php echo $vehicle['name']; ?></p>
+                        <p><strong>Mechanic's Name:</strong> <?php echo $vehicle['mech_name']; ?></p>
                         <p><strong>Mechanic's Contact:</strong> <?php echo $vehicle['phone']; ?></p>
 
                         <button class="btn" 
                             onclick="openUpdateModal(
                                 <?php echo $vehicle['id']; ?>,
-                                '<?php echo addslashes($vehicle['vehicle_model']); ?>', 
-                                '<?php echo addslashes($vehicle['created_at']); ?>',
+                                '<?php echo addslashes($vehicle['model']); ?>', 
+                                '<?php echo addslashes($vehicle['job_done_at']); ?>',
                                 '<?php echo addslashes($vehicle['vehicle_issue']); ?>')">Update
                         </button>
 
