@@ -9,6 +9,7 @@ if (!isset($_SESSION['email'])) {
 $loggedInOwnerEmail = $_SESSION['email'];
 
 include_once('../../connection.php');
+require('../navbar/nav.php');
 
 // Retrieve product IDs for shops owned by the logged-in user
 $productIds = [];
@@ -51,6 +52,7 @@ if (!empty($productIds)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Ratings</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../navbar/style.css">
 </head>
 <body>
     <div class="main_container">
