@@ -1,6 +1,7 @@
 .body {
     margin-top: 100px;
     margin-left: 50px;
+    margin-right: 50px;
 }
 
 .vehicle-card-container {
@@ -136,6 +137,18 @@ input[type="text"]:focus, select:focus {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
+}
+
+.alert {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
 }
 
 
