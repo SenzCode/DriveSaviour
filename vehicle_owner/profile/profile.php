@@ -178,7 +178,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <input type="email" id="email" name="email" value="<?php echo $email; ?>" readonly>
                 </div>
 
-                <!-- Name field (if it's required) -->
                 <div class="form-row">
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" value="<?php echo $name; ?>" readonly>
@@ -271,68 +270,60 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     </div>
 
     <script>
-        // Get modal elements
-        var modal = document.getElementById('addVehicleModal');
-        var btn = document.getElementById('openModalBtn');
-        var span = document.getElementsByClassName('close')[0];
+        // Get the modal elements
+        const addVehicleModal = document.getElementById("addVehicleModal");
+        const updateVehicleModal = document.getElementById("updateVehicleModal");
+        const updateProfileModal = document.getElementById("updateProfileModal");
 
-        // Open the modal when the button is clicked
-        btn.onclick = function() {
-            modal.style.display = 'block';
+        // Get the button elements to open the modals
+        const openAddModalBtn = document.getElementById("openModalBtn");
+        const openUpdateModalBtn = document.getElementById("openUpdateModalBtn");
+
+        // Get the close button elements
+        const closeButtons = document.querySelectorAll(".modal .close");
+
+        // Function to open a modal
+        function openModal(modal) {
+            modal.style.display = "block";
         }
 
-        // Close the modal when the 'x' is clicked
-        span.onclick = function() {
-            modal.style.display = 'none';
+        // Function to close a modal
+        function closeModal(modal) {
+            modal.style.display = "none";
         }
 
-        // Close the modal if the user clicks outside the modal
+        // Open Add Vehicle Modal
+        openAddModalBtn.onclick = function() {
+            openModal(addVehicleModal);
+        };
+
+        // Open Update Profile Modal
+        openUpdateModalBtn.onclick = function() {
+            openModal(updateProfileModal);
+        };
+
+        // Open Update Vehicle Modal and set the vehicle ID (this can be called with the specific vehicle ID to update)
+        function openUpdateVehicleModal(vehicleId) {
+            document.getElementById("v-id").value = vehicleId; // Set the vehicle ID for the update form
+            openModal(updateVehicleModal);
+        }
+
+        // Add event listeners to close buttons
+        closeButtons.forEach(button => {
+            button.onclick = function() {
+                const modal = button.closest(".modal");
+                closeModal(modal);
+            };
+        });
+
+        // Close modal when clicking outside the modal content
         window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
+            if (event.target.classList.contains("modal")) {
+                closeModal(event.target);
             }
-        }
+        };
 
-        // Get modal elements
-        var updateModal = document.getElementById('updateProfileModal');
-        var updateBtn = document.getElementById('openUpdateModalBtn');
-        var closeBtn = document.getElementsByClassName('close')[1];
-
-        // Open the modal when the button is clicked
-        updateBtn.onclick = function() {
-            updateModal.style.display = 'block';
-        }
-
-        // Close the modal when the 'x' is clicked
-        closeBtn.onclick = function() {
-            updateModal.style.display = 'none';
-        }
-
-        // Close the modal if the user clicks outside the modal
-        window.onclick = function(event) {
-            if (event.target == updateModal) {
-                updateModal.style.display = 'none';
-            }
-        }
-
-        function openUpdateVehicleModal(vId) {
-            document.getElementById('v-id').value = vId; // Set the hidden input field with v_id
-            document.getElementById('updateVehicleModal').style.display = 'block';
-        }
-
-        function closeUpdateVehicleModal() {
-            document.getElementById('updateVehicleModal').style.display = 'none';
-        }
-
-        // Close the modal if the user clicks outside it
-        window.onclick = function(event) {
-            var modal = document.getElementById('updateVehicleModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
     </script>
-
 
     <?php
     require '../footer/footer.php';
