@@ -10,10 +10,22 @@
 header {
     background-color: #ffffff; 
   }
-  
-body.dark-mode header{
-    background-color: black;
+
+.dark-mode header{
+    background-color: rgb(0, 0, 0);;
+}
+ 
+.dark-mode nav ul li a{
     color: white;
+}
+ 
+.dark-mode  .menu-toggle .bar,
+.dark-mode  .menu-toggle .bar2{
+    background-color: white;
+}
+
+.dark-mode .issue-details{
+    color: black;
 }
   
 .issue-card {
@@ -70,7 +82,7 @@ body.dark-mode .card-body{
     margin-top: 30px;
     margin-left: 100px;
     width: 500px;
-
+    line-height: 2;
     background-color: #f8f8f8;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -85,24 +97,79 @@ body.dark-mode .card-body{
 
 .btn {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 20px;
     width: 100px;
     color: #182431;
     font-weight: bold;
     padding: 10px;
-    border: 1px solid #2B5AC2;
     border-radius: 88px;
-    background-color: #f0f8ff;
     text-decoration: none;
     text-align: center;
     transition: background-color .50s ease, color .50s ease;
+    border: 1px solid; 
 }
 
-.btn:hover {
-    background-color: #2B5AC2;
+.btn1 {
+    display: inline-block;
+    margin-top: 30px;
+    margin-left: 100px;
+    width: 100px;
+    color: #182431;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 88px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color .50s ease, color .50s ease;
+    border: 1px solid; 
+}
+
+form select {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    margin-bottom: 15px;
+    width: 150px; 
+    transition: all 0.3s ease;
+}
+
+form select:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+}
+
+form select option {
+    padding: 8px;
+    font-size: 14px;
+}
+
+
+.accept-btn {
+    background-color: #d4f4dc; 
+    border-color: #4caf50;      
+}
+
+.accept-btn:hover {
+    background-color: #4caf50;  
     color: #ffffff;
     cursor: pointer;
 }
+
+.decline-btn {
+    background-color: #f8d7da; 
+    border-color: #f44336;      
+}
+
+.decline-btn:hover {
+    background-color: #f44336;  
+    color: #ffffff;
+    cursor: pointer;
+}
+
 
 .alert_container{
     margin-top: 100px;

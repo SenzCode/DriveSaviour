@@ -12,14 +12,12 @@ if (!isset($_SESSION['email'])) {
 $mechanic_id = $_SESSION['userID'];
 $mechanic_address = $_SESSION['address'];
 
-// Query for unassigned vehicle issues where the city matches the mechanic's address
 $sql_unassigned = "SELECT vi.*, vo.name 
                    FROM vehicleissues vi
                    JOIN vehicle_owner vo ON vi.email = vo.email 
                    WHERE vi.mech_id IS NULL AND vi.city = '$mechanic_address'";
 $result_unassigned = $conn->query($sql_unassigned);
 
-// Query for accepted vehicle issues assigned to this mechanic and city matches
 $sql_accepted = "SELECT vi.*, vo.name 
                  FROM vehicleissues vi
                  JOIN vehicle_owner vo ON vi.email = vo.email 
@@ -42,7 +40,7 @@ ob_end_flush();
 </head>
 <body>
 
-<div class="container-post">
+<div class="container-post"> <br><br>
     <h2 class="vihead">Vehicle Issues</h2>
     <div class="main_container">
         <?php if ($message == 'updated'): ?>
@@ -72,7 +70,7 @@ ob_end_flush();
     </div>
 
     <h2 class="vihead">Accepted Vehicle Issues</h2>
-    <button class="btn" onclick="window.location.href='donelist.php'">Job Done</button>
+    <button class="btn1" onclick="window.location.href='donelist.php'">Job Done</button>
     <div class="issues-container">
         <?php if ($result_accepted->num_rows > 0): ?>
             <?php while($row = $result_accepted->fetch_assoc()): ?>

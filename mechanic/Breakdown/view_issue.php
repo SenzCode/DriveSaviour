@@ -33,7 +33,57 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Issue Details</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../../vehicle_owner/profile/style.css">
+    <link rel="stylesheet" href="../../vehicle_owner/navbar/style.css">
+    <style>
+/* Modal Overlay */
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    z-index: 1000; /* Ensure the modal is on top */
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: modalFadeIn 0.3s ease;
+}
+
+/* Modal Buttons */
+.modal-buttons {
+    margin-top: 20px;
+}
+
+.modal-buttons .btn {
+    margin: 10px;
+    width: 100px;
+}
+
+/* Modal fade-in effect */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+    </style>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4WKu5raw64v4-CB8bYSq7SMtFikfu5lg"></script>
 </head>
@@ -63,15 +113,16 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     </div>
 </div>
 
-<!-- Modal Structure -->
-<div id="confirmModal" class="modal" style="display:none;">
+<div id="confirmModal" class="modal-overlay" style="display:none;">
     <div class="modal-content">
         <h4>Confirmation</h4>
         <p>Are you sure you want to accept this issue?</p>
         <form action="accept_issue.php" method="POST">
             <input type="hidden" name="issue_id" value="<?= $issue_id; ?>">
-            <button type="submit" class="btn accept-btn">Yes</button>
-            <button type="submit" class="btn accept-btn">No</button>
+            <div class="modal-buttons">
+                <button type="submit" class="btn accept-btn">Yes</button>
+                <button type="button" id="confirmNo" class="btn decline-btn">No</button>
+            </div>
         </form>
     </div>
 </div>
@@ -114,6 +165,20 @@ function initMap() {
             strokeWeight: 2
         }
     });
+
+    // Modal Logic
+document.querySelector('.accept-btn').addEventListener('click', function() {
+    // Show the modal when Accept button is clicked
+    document.getElementById('confirmModal').style.display = 'flex';
+    document.querySelector('.modal-overlay').style.opacity = '1';  // Modal fade-in effect
+});
+
+document.getElementById('confirmNo').addEventListener('click', function() {
+    // Hide the modal when No is clicked
+    document.getElementById('confirmModal').style.display = 'none';
+    document.querySelector('.modal-overlay').style.opacity = '0';  // Modal fade-out effect
+});
+
 
     // Watch the user's current location
     if (navigator.geolocation) {

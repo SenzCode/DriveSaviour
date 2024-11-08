@@ -16,7 +16,7 @@ $userID = $_SESSION['userID'] ?? '';
 $name = $_SESSION['name'] ?? '';
 $email = $_SESSION['email'] ?? '';
 $contact = $_SESSION['phone'] ?? '';
-$city = $_SESSION['city'] ?? '';
+$city = $_SESSION['address'] ?? '';
 
 // End output buffering
 ob_end_flush();
