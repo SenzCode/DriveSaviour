@@ -26,7 +26,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop List</title>
     <link rel="stylesheet" href="../navbar/style.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+.shop-container {
+    padding: 20px;
+    text-align: center;
+    margin-left: 300px; 
+}
+
+.shop-container h1 {
+    margin-top: 80px; 
+}
+
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+    margin: 20px auto;
+}
+
+.shop-card {
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.shop-card:hover {
+    transform: translateY(-10px);
+}
+
+.shop-card h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.shop-card p {
+    font-size: 16px;
+    color: #555;
+    margin: 10px 0;
+}
+
+.view-products-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.view-products-btn:hover {
+    background-color: #0056b3;
+}
+
+@media screen and (max-width: 1199px) {
+    .shop-container {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .shop-grid {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+
+    .shop-card {
+        padding: 15px; 
+    }
+
+    .view-products-btn {
+        padding: 8px 16px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .shop-container {
+        margin-left: 0;
+        padding: 15px; 
+    }
+
+    .shop-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .shop-card {
+        padding: 10px; 
+    }
+
+    .view-products-btn {
+        width: 50%; 
+        padding: 8px 16px; 
+    }
+}
+
+    </style>
 </head>
 <body>
     <!-- Content Section -->
