@@ -11,23 +11,38 @@ if (!isset($_SESSION['email'])) {
 // Get logged-in user's email
 $loggedInOwnerEmail = $_SESSION['email'];
 
-try {
-    // Prepare and execute the SQL statement to fetch orders for the specific shop
-    $stmt = $conn->prepare("SELECT o.*, p.product_name, p.shop_id, s.shop_name 
-                            FROM orders o 
-                            JOIN products p ON o.product_id = p.id 
-                            JOIN shops s ON p.shop_id = s.id 
-                            WHERE s.ownerEmail = ?");
-    $stmt->bind_param("s", $loggedInOwnerEmail);
-    $stmt->execute();
-    $result = $stmt->get_result();
+$orders_data = [];
 
-    // Fetch order data
-    $orders_data = [];
-    while ($row = $result->fetch_assoc()) {
+try {
+    // Fetch orders from the orders table
+    $stmt_orders = $conn->prepare("SELECT o.*, p.product_name, p.shop_id, s.shop_name 
+                                   FROM orders o 
+                                   JOIN products p ON o.product_id = p.id 
+                                   JOIN shops s ON p.shop_id = s.id 
+                                   WHERE s.ownerEmail = ?");
+    $stmt_orders->bind_param("s", $loggedInOwnerEmail);
+    $stmt_orders->execute();
+    $result_orders = $stmt_orders->get_result();
+
+    while ($row = $result_orders->fetch_assoc()) {
         $orders_data[] = $row;
     }
-    $stmt->close();
+    $stmt_orders->close();
+
+    // Fetch orders from the mech_orders table
+    $stmt_mech_orders = $conn->prepare("SELECT mo.*, p.product_name, p.shop_id, s.shop_name 
+                                        FROM mech_orders mo 
+                                        JOIN products p ON mo.product_id = p.id 
+                                        JOIN shops s ON p.shop_id = s.id 
+                                        WHERE s.ownerEmail = ?");
+    $stmt_mech_orders->bind_param("s", $loggedInOwnerEmail);
+    $stmt_mech_orders->execute();
+    $result_mech_orders = $stmt_mech_orders->get_result();
+
+    while ($row = $result_mech_orders->fetch_assoc()) {
+        $orders_data[] = $row;
+    }
+    $stmt_mech_orders->close();
 
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
@@ -41,7 +56,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Income</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../shop/style.css">
     <link rel="stylesheet" href="../navbar/style.css">
 </head>
 <body>
@@ -63,12 +78,12 @@ try {
                 <?php if (!empty($orders_data)): ?>
                     <?php foreach ($orders_data as $order): ?>
                         <tr>
-                            <td data-cell="Reference Number"><?php echo $order['reference_number']; ?></td>
-                            <td data-cell="Product Name"><?php echo $order['product_name']; ?></td>
-                            <td data-cell="Purchase Date"><?php echo $order['purchase_date']; ?></td>
-                            <td data-cell="Quantity"><?php echo $order['quantity']; ?></td>
-                            <td data-cell="Seller Income"><?php echo $order['seller_income']; ?></td>
-                            <td data-cell="Status"><?php echo $order['payment_status']; ?></td>
+                            <td data-cell="Reference Number"><?php echo htmlspecialchars($order['reference_number']); ?></td>
+                            <td data-cell="Product Name"><?php echo htmlspecialchars($order['product_name']); ?></td>
+                            <td data-cell="Purchase Date"><?php echo htmlspecialchars($order['purchase_date']); ?></td>
+                            <td data-cell="Quantity"><?php echo htmlspecialchars($order['quantity']); ?></td>
+                            <td data-cell="Seller Income"><?php echo htmlspecialchars($order['seller_income']); ?></td>
+                            <td data-cell="Status"><?php echo htmlspecialchars($order['payment_status']); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

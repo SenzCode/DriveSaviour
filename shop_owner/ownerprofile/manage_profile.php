@@ -27,15 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     $name = htmlspecialchars(trim($_POST['name']));
     $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
     $phone = htmlspecialchars(trim($_POST['phone']));
-    $dob = htmlspecialchars(trim($_POST['dob']));
  
     // Validate email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $message = "Invalid email format.";
     } else {
         // Update profile based on email
-        $update_query = $conn->prepare("UPDATE shop_owner SET name = ?, email = ?, phone = ?, dob = ? WHERE email = ?");
-        $update_query->bind_param("sssss", $name, $email, $phone, $dob, $user_email);
+        $update_query = $conn->prepare("UPDATE shop_owner SET name = ?, email = ?, phone = ? WHERE email = ?");
+        $update_query->bind_param("ssss", $name, $email, $phone, $user_email);
  
         if ($update_query->execute()) {
             // Update the session email if it changes
@@ -81,10 +80,6 @@ $conn->close();
 <div>
 <label for="phone">Phone:</label>
 <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone']); ?>" required>
-</div>
-<div>
-<label for="dob">Date of Birth:</label>
-<input type="date" id="dob" name="dob" value="<?php echo htmlspecialchars($user['dob']); ?>" required>
 </div>
 <button type="submit" name="update_profile">Update Profile</button>
 </form>

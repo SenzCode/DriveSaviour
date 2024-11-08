@@ -57,36 +57,28 @@ if (isset($_POST['logout'])) {
                         <li><a href="../shop/shoplist.php"><i class="fas fa-boxes"></i> Manage Products</a></li>
                         <li><a href="../order/orders.php"><i class="fas fa-receipt"></i> Manage Orders</a></li>
                         <li><a href="../Income/income.php"><i class="fas fa-coins"></i> Income Dashboard</a></li>
-                        <li><a href="#"><i class="fas fa-star"></i> Customer Ratings & Reviews</a></li>
+                        <li><a href="../ratings/ratings.php"><i class="fas fa-star"></i> Customer Ratings</a></li>
                     </ul>
 
-                </li>
-                <li class="dropdown">
-                    <a href="#">
-                        <i class='bx bxs-car-garage'></i>
-                        <span class="nav-item">Garage</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><i class="fas fa-tools"></i> Edit Garage</a></li>
-                        <li><a href="#"><i class="fas fa-calendar-check"></i> View Bookings</a></li>
-                        <li><a href="#"><i class="fas fa-plus-circle"></i> Add Services</a></li>
-                    </ul>
                 </li>
             </ul>
 
             <div class="sidebar-footer">
-                <form action="../contact/contact.php">
-                    <button class="contact" name="Contact">
-                        <i class="bx bx-support"></i>
-                        <span class="footer-item">Contact Admin</span>
-                    </button>
-                </for>
-                <form method="POST">
-                    <button class="logout" name="logout">
-                        <i class="bx bx-log-out-circle"></i>
-                        <span class="footer-item">Logout</span>
-                    </button>
-                </form>
+                <ul class="list-unstyled components">
+                    <li>
+                        <a href="../contact/contact.php">
+                            <i class="bx bx-support"></i>
+                            <span class="footer-item">Contact Admin</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="../Login/login.php">
+                            <i class="bx bx-log-out-circle"></i>
+                            <span class="footer-item">Logout</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </nav>
 

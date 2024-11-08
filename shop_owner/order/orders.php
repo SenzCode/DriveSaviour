@@ -10,24 +10,39 @@ if (!isset($_SESSION['email'])) {
 
 // Get logged-in user's email
 $loggedInOwnerEmail = $_SESSION['email'];
+$orders_data = [];
 
+// Fetch data from orders and mech_orders tables
 try {
-    // Prepare and execute the SQL statement to fetch orders for the specific shop
-    $stmt = $conn->prepare("SELECT o.*, p.product_name, p.shop_id, s.shop_name 
-                            FROM orders o 
-                            JOIN products p ON o.product_id = p.id 
-                            JOIN shops s ON p.shop_id = s.id 
-                            WHERE s.ownerEmail = ?");
-    $stmt->bind_param("s", $loggedInOwnerEmail);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Fetch orders from the orders table
+    $stmt_orders = $conn->prepare("SELECT o.*, p.product_name, p.shop_id, s.shop_name, 'orders' AS source 
+                                   FROM orders o 
+                                   JOIN products p ON o.product_id = p.id 
+                                   JOIN shops s ON p.shop_id = s.id 
+                                   WHERE s.ownerEmail = ?");
+    $stmt_orders->bind_param("s", $loggedInOwnerEmail);
+    $stmt_orders->execute();
+    $result_orders = $stmt_orders->get_result();
 
-    // Fetch order data
-    $orders_data = [];
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result_orders->fetch_assoc()) {
         $orders_data[] = $row;
     }
-    $stmt->close();
+    $stmt_orders->close();
+
+    // Fetch orders from the mech_orders table
+    $stmt_mech_orders = $conn->prepare("SELECT mo.*, p.product_name, p.shop_id, s.shop_name, 'mech_orders' AS source 
+                                        FROM mech_orders mo 
+                                        JOIN products p ON mo.product_id = p.id 
+                                        JOIN shops s ON p.shop_id = s.id 
+                                        WHERE s.ownerEmail = ?");
+    $stmt_mech_orders->bind_param("s", $loggedInOwnerEmail);
+    $stmt_mech_orders->execute();
+    $result_mech_orders = $stmt_mech_orders->get_result();
+
+    while ($row = $result_mech_orders->fetch_assoc()) {
+        $orders_data[] = $row;
+    }
+    $stmt_mech_orders->close();
 
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
@@ -38,13 +53,17 @@ try {
 $successMessage = '';
 
 // Update order status if form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['status'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['status'], $_POST['source'])) {
     $order_id = $_POST['order_id'];
     $status = $_POST['status'];
-    
-    $update_stmt = $conn->prepare("UPDATE orders SET status = ? WHERE id = ?");
+    $source = $_POST['source'];
+
+    // Determine the correct table for updating
+    $table = ($source === 'orders') ? 'orders' : 'mech_orders';
+
+    $update_stmt = $conn->prepare("UPDATE $table SET status = ? WHERE id = ?");
     $update_stmt->bind_param("si", $status, $order_id);
-    
+
     if ($update_stmt->execute()) {
         $successMessage = "Order status updated successfully.";
     } else {
@@ -60,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['st
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../navbar/style.css">
 </head>
 <body>
@@ -89,16 +108,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['st
                 <?php if (!empty($orders_data)): ?>
                     <?php foreach ($orders_data as $order): ?>
                         <tr>
-                            <td data-cell="Reference Number"><?php echo $order['reference_number']; ?></td>
-                            <td data-cell="Product Name"><?php echo $order['product_name']; ?></td>
-                            <td data-cell="Quantity"><?php echo $order['quantity']; ?></td>
-                            <td data-cell="Purchase Date"><?php echo $order['purchase_date']; ?></td>
-                            <td data-cell="Item Total"><?php echo $order['item_total']; ?></td>
-                            <td data-cell="Seller Income"><?php echo $order['seller_income']; ?></td>
-                            <td data-cell="Status"><?php echo $order['status']; ?></td>
+                            <td data-cell="Reference Number"><?php echo htmlspecialchars($order['reference_number']); ?></td>
+                            <td data-cell="Product Name"><?php echo htmlspecialchars($order['product_name']); ?></td>
+                            <td data-cell="Quantity"><?php echo htmlspecialchars($order['quantity']); ?></td>
+                            <td data-cell="Purchase Date"><?php echo htmlspecialchars($order['purchase_date']); ?></td>
+                            <td data-cell="Item Total"><?php echo htmlspecialchars($order['item_total']); ?></td>
+                            <td data-cell="Seller Income"><?php echo htmlspecialchars($order['seller_income']); ?></td>
+                            <td data-cell="Status"><?php echo htmlspecialchars($order['status']); ?></td>
                             <td>
                                 <form action="" method="POST">
                                     <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                                    <input type="hidden" name="source" value="<?php echo $order['source']; ?>">
                                     <select name="status">
                                         <option value="Pending" <?php echo $order['status'] == 'Pending' ? 'selected' : ''; ?>>Pending</option>
                                         <option value="Completed" <?php echo $order['status'] == 'Completed' ? 'selected' : ''; ?>>Completed</option>

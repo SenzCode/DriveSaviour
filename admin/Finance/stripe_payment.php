@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]],
         'mode' => 'payment',
         'success_url' => 'http://localhost:3000/admin/Finance/success.php?email=' . urlencode($email),
-        'cancel_url' => 'http://localhost:3000/admin/Finance/Loyalty_card/cancel.php',
+        'cancel_url' => 'http://localhost:3000/admin/Finance/finance.php',
     ]);
 
     // Redirect to the Stripe Checkout page

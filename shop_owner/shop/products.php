@@ -124,10 +124,10 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <?php if (count($product_data) > 0): ?>
                             <?php foreach ($product_data as $row): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($row['product_name']) ?></td>
-                                    <td><img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>" width="50"></td>
-                                    <td><?= htmlspecialchars($row['quantity_available']) ?></td>
-                                    <td>Rs.<?= htmlspecialchars($row['price']) ?></td>
+                                    <td data-cell="Product Name"><?= htmlspecialchars($row['product_name']) ?></td>
+                                    <td data-cell="Image"><img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>" width="50"></td>
+                                    <td data-cell="Quantity Available"><?= htmlspecialchars($row['quantity_available']) ?></td>
+                                    <td data-cell="Price">Rs.<?= htmlspecialchars($row['price']) ?></td>
                                     <td>
                                         <button class="manage-button view-link" 
                                                 data-id="<?= htmlspecialchars($row['id']) ?>"

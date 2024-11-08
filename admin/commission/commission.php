@@ -4,20 +4,32 @@ require '../navbar/navbar.php';
 include_once('../../connection.php');
 
 $orders_data = [];
-$stmt = $conn->prepare("SELECT * FROM orders");
-$stmt->execute();
-$result = $stmt->get_result();
-if ($result) {
-    while ($row = $result->fetch_assoc()) {
+
+// Fetch data from orders table
+$stmt_orders = $conn->prepare("SELECT * FROM orders");
+$stmt_orders->execute();
+$result_orders = $stmt_orders->get_result();
+if ($result_orders) {
+    while ($row = $result_orders->fetch_assoc()) {
         $orders_data[] = $row;
     }
-} else {
-    echo "No results found.";
 }
-$stmt->close();
+$stmt_orders->close();
+
+// Fetch data from mech_orders table
+$stmt_mech_orders = $conn->prepare("SELECT * FROM mech_orders");
+$stmt_mech_orders->execute();
+$result_mech_orders = $stmt_mech_orders->get_result();
+if ($result_mech_orders) {
+    while ($row = $result_mech_orders->fetch_assoc()) {
+        $orders_data[] = $row;
+    }
+}
+$stmt_mech_orders->close();
 
 $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,22 +73,28 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 </tr>
             </thead>
             <tbody id="orders-tbody">
-                <?php foreach ($orders_data as $row): ?>
+                <?php if (!empty($orders_data)): ?>
+                    <?php foreach ($orders_data as $row): ?>
+                        <tr>
+                            <td data-cell="Reference Number"><?= htmlspecialchars($row['reference_number']) ?></td>
+                            <td data-cell="Product ID"><?= htmlspecialchars($row['product_id']) ?></td>
+                            <td data-cell="Quantity"><?= htmlspecialchars($row['quantity']) ?></td>
+                            <td data-cell="Purchase Date"><?= htmlspecialchars($row['purchase_date']) ?></td>
+                            <td data-cell="Item Total"><?= htmlspecialchars($row['item_total']) ?></td>
+                            <td data-cell="Total Price"><?= htmlspecialchars($row['total_price']) ?></td>
+                            <td data-cell="Discount"><?= htmlspecialchars($row['discount']) ?></td>
+                            <td data-cell="Seller Income"><?= htmlspecialchars($row['seller_income']) ?></td>
+                            <td data-cell="Commission"><?= htmlspecialchars($row['commission']) ?></td>
+                            <td data-cell="Email"><?= htmlspecialchars($row['email']) ?></td>
+                            <td data-cell="Status"><?= htmlspecialchars($row['status']) ?></td>
+                            <td data-cell="Payment Status"><?= htmlspecialchars($row['payment_status']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
                     <tr>
-                        <td data-cell="Reference Number"><?= htmlspecialchars($row['reference_number']) ?></td>
-                        <td data-cell="Product ID"><?= htmlspecialchars($row['product_id']) ?></td>
-                        <td data-cell="Quantity"><?= htmlspecialchars($row['quantity']) ?></td>
-                        <td data-cell="Purchase Date"><?= htmlspecialchars($row['purchase_date']) ?></td>
-                        <td data-cell="Item Total"><?= htmlspecialchars($row['item_total']) ?></td>
-                        <td data-cell="Total Price"><?= htmlspecialchars($row['total_price']) ?></td>
-                        <td data-cell="Discount"><?= htmlspecialchars($row['discount']) ?></td>
-                        <td data-cell="Seller Income"><?= htmlspecialchars($row['seller_income']) ?></td>
-                        <td data-cell="Commission"><?= htmlspecialchars($row['commission']) ?></td>
-                        <td data-cell="Email"><?= htmlspecialchars($row['email']) ?></td>
-                        <td data-cell="Status"><?= htmlspecialchars($row['status']) ?></td>
-                        <td data-cell="Payment Status"><?= htmlspecialchars($row['payment_status']) ?></td>
+                        <td colspan="12">No results found.</td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
