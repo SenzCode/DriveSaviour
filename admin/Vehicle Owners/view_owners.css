@@ -67,10 +67,11 @@ body {
 
 /* Table styling */
 table {
-    width: 100%;
+    width: 95%;
     border-collapse: collapse;
     margin-top: 20px;
     table-layout: auto;
+    margin-left: 170px;
 }
 
 thead {
@@ -202,23 +203,34 @@ tbody td {
 
 /* Responsive adjustments */
 @media screen and (max-width: 768px) {
-    /* Main container adjustments */
     .main_container {
         margin-top: 10px;
         padding: 10px;
+        width: 100%;  
+        max-width: 100%; 
     }
 
-    /* Table styling for mobile */
-    table, thead, tbody, th, td, tr {
-        display: block;
-        width: 100%;
+    .title{
+        margin-top: 50px;
+    }
+
+    table {
+        width: 100%; 
+        margin-left: 0; 
     }
 
     thead {
-        display: none;
+        display: none; 
+    }
+
+    tbody {
+        display: block; 
+        width: 100%;
     }
 
     tr {
+        display: block;  
+        width: 100%;
         margin-bottom: 10px;
         padding: 10px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -227,12 +239,12 @@ tbody td {
     }
 
     td {
-        padding: 10px;
-        border: none;
-        display: flex;
+        display: flex;  
         justify-content: space-between;
         align-items: center;
+        padding: 10px;
         font-size: 14px;
+        border: none;
     }
 
     td::before {
@@ -242,13 +254,16 @@ tbody td {
         text-align: left;
     }
 
-    /* Adjust search bar on smaller screens */
     .search-bar {
         width: 100%;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
     }
 
     #search {
+        width: 100%; 
         margin-bottom: 10px;
     }
 }
