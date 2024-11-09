@@ -81,6 +81,9 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
     <button class="view-cart-btn" onclick="window.location.href='view_cart.php'">View Cart</button>
     <button class="view-cart-btn" onclick="window.location.href='../Loyalty_card/loyalty_card.php'">Loyalty Card</button>
+    <a href="../orders/orders.php" class="image-link">
+        <i class='bx bx-list-check'></i> <!-- Orders Icon -->
+    </a>
 
     <!-- Search and Filter Form -->
     <form method="GET" action="">
