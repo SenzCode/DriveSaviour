@@ -6,31 +6,30 @@ require('../../connection.php');
 $email = $_POST['email'];
 $name = $_POST['name'];
 $phone = $_POST['phone'];
-$city = $_POST['city'];
+$address = $_POST['address'];
 
-// Prepare SQL query to update profile data
-$sql = "UPDATE vehicle_owner 
-        SET name = ?, phone = ?, city = ? 
+// Prepare SQL query to update the data in the vehicle_owner table
+$sql = "UPDATE mechanic 
+        SET name = ?, phone = ?, address = ? 
         WHERE email = ?";
 
 // Prepare statement
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssss", $name, $phone, $city, $email);
+$stmt->bind_param("ssss", $name, $phone, $address, $email);
 
-// Execute query and check if successful
 if ($stmt->execute()) {
-    // Update session variables
+    // Update session variables with new profile data
     $_SESSION['name'] = $name;
     $_SESSION['phone'] = $phone;
-    $_SESSION['city'] = $city;
+    $_SESSION['address'] = $address;
 
-    // Redirect with success message
+    // Redirect to the profile page with success message
     header('Location: profile.php?status=success');
-    exit();
+    exit(); // Add exit after the header to ensure no further script execution
 } else {
-    // Redirect with error message
+    // Redirect to the profile page with error message
     header('Location: profile.php?status=error');
-    exit();
+    exit(); // Add exit after the header to ensure no further script execution
 }
 
 // Close statement and connection
