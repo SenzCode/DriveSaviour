@@ -98,7 +98,7 @@ if ($result->num_rows > 0) {
 </body>
 </html>
 
-    <?php
+    <?php require '../footer/footer.php';
 }
 
 // Close the database connection

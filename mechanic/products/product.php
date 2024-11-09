@@ -69,7 +69,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <title>Product List</title>
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../navbar/style.css">
-    <link rel="stylesheet" href="product-list.css">
+    <link rel="stylesheet" href="../../vehicle_owner/shop/product-list.css">
 </head>
 <body>
 <div class="main_container">
@@ -79,8 +79,16 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <div class="alert alert-success" id="success-alert">Another Item added to the cart successfully.</div>
     <?php endif; ?>
 
-    <button class="view-cart-btn" onclick="window.location.href='view_cart.php'">View Cart</button>
-    <button class="view-cart-btn" onclick="window.location.href='../Loyalty_card/loyalty_card.php'">Loyalty Card</button>
+<div class="image-buttons-container">
+    <a href="view_cart.php" class="image-link">
+        <i class='bx bx-cart' ></i>
+    </a>
+    <a href="../Loyalty_card/loyalty_card.php" class="image-link">
+        <i class='bx bxs-discount'></i> <!-- Loyalty Card Icon -->
+    </a>
+</div>
+
+
 
     <!-- Search and Filter Form -->
     <form method="GET" action="">
@@ -140,6 +148,8 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <?php endif; ?>
     </div>
 
+</div>
+
 <script>
     setTimeout(function() {
         var alert = document.getElementById('success-alert');
@@ -148,6 +158,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         }
     }, 10000); // 10 seconds
 </script>
-
+<?php require '../../vehicle_owner/footer/footer.php';?>
 </body>
 </html>

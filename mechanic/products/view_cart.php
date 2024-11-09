@@ -50,7 +50,13 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <?php elseif ($message == 'err'): ?>
             <div class="alert alert-success" id="success-alert">Something went wrong.</div>
         <?php endif; ?>
-        <h1>Your Cart</h1>
+
+        <!-- Cart Header and Back Button -->
+            <div class="cart-header">
+            <button class="back-btn" onclick="window.location.href='product.php'">&larr; Back</button>
+            <h1>Your Cart</h1>
+        </div>
+
         <div class="product-card">
             <?php if (count($cart_items) > 0): ?>
                 <?php foreach ($cart_items as $item): ?>
@@ -76,7 +82,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         </div>
         <button class="checkout-btn" onclick="window.location.href='pay.php'">Proceed to Checkout</button>
     </div>
-    
+    <?php require '../../vehicle_owner/footer/footer.php';?>
 </body>
 
 <script>

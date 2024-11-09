@@ -37,7 +37,10 @@ if ($result->num_rows > 0) {
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-
+        <!-- Cart Header and Back Button -->
+        <div class="cart-header">
+            <button class="back-btn" onclick="window.location.href='../products/product.php'">&larr; Back</button>
+        </div>
     <div class="container-card">
       <div class="up-1">
         <span class="logo-card">
@@ -67,9 +70,6 @@ if ($result->num_rows > 0) {
             <p><strong>Card Number:</strong> <?= $cardNo ?></p>
             <p><strong>Expiration Date:</strong> <?= $expireDate ?></p>
         </div> -->
-        <?php
-    require '../../vehicle_owner/footer/footer.php';
-?>
     </body>
     </html>
     <?php
@@ -97,14 +97,11 @@ if ($result->num_rows > 0) {
             <input type="hidden" name="email" value="<?= htmlspecialchars($loggedInOwnerEmail) ?>">
             <button type="submit">Purchase Card</button>
         </form>
-    </div>
-    <?php
-    require '../../vehicle_owner/footer/footer.php';
-?>
+    </div> <br> <br>
 </body>
 </html>
 
-    <?php
+    <?php require '../../vehicle_owner/footer/footer.php';
 }
 
 // Close the database connection
