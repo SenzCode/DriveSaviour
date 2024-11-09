@@ -1,52 +1,23 @@
 <?php
-session_start(); 
+session_start();
 include_once('../../connection.php');
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+function sanitizeInput($input) {
+    return filter_var($input, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+}
+
+// Registration Logic
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['login'])) {
+    if (isset($_POST['register'])) {
+        $name = sanitizeInput($_POST['name']);
+        $phone = sanitizeInput($_POST['phone']);
+        $address = sanitizeInput($_POST['address']);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $password = filter_input(INPUT_POST, 'password', FILTER_DEFAULT); 
-
-        $query = "SELECT * FROM mechanic WHERE email = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows == 1) {
-            $user = $result->fetch_assoc();
-            // Verify the password
-            if (password_verify($password, $user['password'])) {
-                // Store user information in session variables
-                $_SESSION['userID'] = $user['userID'];
-                $_SESSION['name'] = $user['name'];
-                $_SESSION['email'] = $user['email'];
-                $_SESSION['address'] = $user['address'];
-                $_SESSION['phone'] = $user['phone'];
-                $_SESSION['logged_in'] = true;
-
-                // Redirect to a protected page
-                header('Location: ../products/product.php');
-                exit();
-            } else {
-                echo "Invalid email or password.";
-            }
-        } else {
-            echo "Invalid email or password.";
-        }
-
-        $stmt->close();
-    } elseif (isset($_POST['register'])) {
-        // Handle registration
-        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $password = filter_input(INPUT_POST, 'password', FILTER_DEFAULT);
+        $password = $_POST['password'];
 
         $checkEmailQuery = "SELECT * FROM mechanic WHERE email = ?";
         $stmt = $conn->prepare($checkEmailQuery);
@@ -58,19 +29,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Email already in use. Please choose a different email.";
         } else {
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
             $insertQuery = "INSERT INTO mechanic (name, phone, address, email, password) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($insertQuery);
             $stmt->bind_param('sssss', $name, $phone, $address, $email, $hashedPassword);
             if ($stmt->execute()) {
-                // Store user information in session variables
                 $_SESSION['userID'] = $conn->insert_id;
                 $_SESSION['name'] = $name;
                 $_SESSION['email'] = $email;
                 $_SESSION['address'] = $address;
                 $_SESSION['phone'] = $phone;
                 $_SESSION['logged_in'] = true;
-
                 echo "New Account added successfully.";
             } else {
                 echo "Error: " . $stmt->error;
@@ -78,73 +46,79 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         $stmt->close();
     }
+
+    // Login Logic
+    elseif (isset($_POST['login'])) {
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        $password = $_POST['password'];
+
+        $query = "SELECT * FROM mechanic WHERE email = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows == 1) {
+            $user = $result->fetch_assoc();
+            if (password_verify($password, $user['password'])) {
+                $_SESSION['userID'] = $user['userID'];
+                $_SESSION['name'] = $user['name'];
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['address'] = $user['address'];
+                $_SESSION['phone'] = $user['phone'];
+                $_SESSION['logged_in'] = true;
+                header('Location: ../products/product.php');
+                exit();
+            } else {
+                echo "Invalid email or password.";
+            }
+        } else {
+            echo "Invalid email or password.";
+        }
+        $stmt->close();
+    }
 }
 
-// Close the database connection
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<title>Login</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container" id="container">
-    <div class="form-container sign-up">
-        <form action="login.php" method="POST">
-            <h1>Create Account</h1>
-            <div class="social-icons">
-                <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
-                <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+    <div class="container">
+        <!-- Sign In Section -->
+        <div class="sign-in">
+    <h2>Sign In</h2>
+    <div class="social-buttons">
+                <a href="#"><img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google"></a>
+                <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/mac-os.png" alt="Apple"></a>
+                <a href="#"><img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="Facebook"></a>
             </div>
-            <span>or use your email for registration</span>
+    <p>Sign in with google or email and password</p>
+    
+    <form action="login.php" method="POST">
+        <div class="input-group">
             <input type="email" name="email" placeholder="Email" required>
-            <input type="text" name="name" placeholder="Name" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="number" name="phone" placeholder="Phone" required>
-            <input type="text" name="address" placeholder="Address" required>
-            <button type="submit" name="register">Sign Up</button>
-        </form>
-    </div>
-    <div class="form-container sign-in">
-        <form action="login.php" method="POST">
-            <h1>Sign In</h1>
-            <div class="social-icons">
-                <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
-                <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
-            </div>
-            <span>or use your email password</span>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <a href="#">Forget Your Password?</a>
-            <button type="submit" name="login">Sign In</button>
-        </form>
-    </div>
-    <div class="toggle-container">
-        <div class="toggle">
-            <div class="toggle-panel toggle-left">
-                <h1>Welcome Back!</h1>
-                <p>Enter your personal details to use all of site features</p>
-                <button class="hidden" id="login">Sign In</button>
-            </div>
-            <div class="toggle-panel toggle-right">
-                <h1>Hello, Customer!</h1>
-                <p>Register with your personal details to use all of site features</p>
-                <button class="hidden" id="register">Sign Up</button>
-            </div>
         </div>
-    </div>
+        <div class="input-group">
+            <input type="password" name="password" placeholder="Password" required>
+        </div>
+        <p><a href="forget_password.php">Forget Your Password?</a></p>
+        <button type="submit" name="login">SIGN IN</button>
+    </form>
+    <p>Don’t have an account? <a href="signup.php">Sign up here</a></p>
 </div>
 
-<script src="script.js"></script>
+
+        <!-- Sign Up Section -->
+        
+    </div>
 </body>
 </html>
