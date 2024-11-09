@@ -64,9 +64,8 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <title>Product List</title>
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../navbar/style.css">
-<<<<<<< HEAD
     <link rel="stylesheet" href="../../vehicle_owner/shop/product-list.css">
-=======
+
     <link rel="stylesheet" href="product-list.css">
     <style>
         .star-rating .star {
@@ -77,7 +76,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             color: gold;
         }
     </style>
->>>>>>> 54a40df024dddf051203ad7bde29dcff0a68698d
+
 </head>
 <body>
 <div class="main_container">
@@ -87,7 +86,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <div class="alert alert-success" id="success-alert">Another Item added to the cart successfully.</div>
     <?php endif; ?>
 
-<<<<<<< HEAD
+
 <div class="image-buttons-container">
     <a href="view_cart.php" class="image-link">
         <i class='bx bx-cart' ></i>
@@ -97,14 +96,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     </a>
 </div>
 
-
-=======
-    <button class="view-cart-btn" onclick="window.location.href='view_cart.php'">View Cart</button>
-    <button class="view-cart-btn" onclick="window.location.href='../Loyalty_card/loyalty_card.php'">Loyalty Card</button>
-    <a href="../orders/orders.php" class="image-link">
-        <i class='bx bx-list-check'></i> <!-- Orders Icon -->
-    </a>
->>>>>>> 54a40df024dddf051203ad7bde29dcff0a68698d
 
     <!-- Search and Filter Form -->
     <form method="GET" action="">
@@ -137,7 +128,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
     <!-- Product Display -->
     <div class="product-card-container">
-        <?php if (count($product_data) > 0): ?>7
+        <?php if (count($product_data) > 0): ?>
             <?php foreach ($product_data as $row): ?>
                 <div class="product-card">
                 <a class="go-to-shop-icon" onclick="window.location.href='shop_page.php?shop_id=<?= $row['shop_id'] ?>'">
