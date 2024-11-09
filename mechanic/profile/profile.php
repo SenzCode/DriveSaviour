@@ -16,7 +16,7 @@ $userID = $_SESSION['userID'] ?? '';
 $name = $_SESSION['name'] ?? '';
 $email = $_SESSION['email'] ?? '';
 $contact = $_SESSION['phone'] ?? '';
-$city = $_SESSION['address'] ?? '';
+$address = $_SESSION['address'] ?? '';
 
 // End output buffering
 ob_end_flush();
@@ -68,8 +68,8 @@ ob_end_flush();
                             <span class="form-value"><?php echo $contact; ?></span>
                         </div>
                         <div class="form-row">
-                            <span class="form-label">City:</span>
-                            <span class="form-value"><?php echo $city; ?></span>
+                            <span class="form-label">address:</span>
+                            <span class="form-value"><?php echo $address; ?></span>
                         </div>
                     </div>
                     <br><br>
@@ -101,8 +101,8 @@ ob_end_flush();
                 </div>
 
                 <div class="form-row">
-                    <span for="city">City:</span>
-                    <input type="text" id="update-city" name="city" value="<?php echo $city; ?>" required>
+                    <span for="address">address:</span>
+                    <input type="text" id="update-city" name="address" value="<?php echo $address; ?>" required>
                 </div>
 
                 <div class="form-row">

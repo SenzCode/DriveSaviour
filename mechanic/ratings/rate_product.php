@@ -20,14 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($rating_id) {
         // Update an existing rating
-        $query = "UPDATE ratings SET rating = ?, feedback = ? WHERE id = ? AND user_email = ?";
+        $query = "UPDATE mech_ratings SET rating = ?, feedback = ? WHERE id = ? AND user_email = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("isis", $rating, $feedback, $rating_id, $userEmail);
         $stmt->execute();
         echo "Rating updated successfully!";
     } else {
         // Insert a new rating
-        $query = "INSERT INTO ratings (product_id, user_email, rating, feedback) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO mech_ratings (product_id, user_email, rating, feedback) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("isis", $product_id, $userEmail, $rating, $feedback);
         $stmt->execute();
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Handle delete request
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
-    $query = "DELETE FROM ratings WHERE id = ? AND user_email = ?";
+    $query = "DELETE FROM mech_ratings WHERE id = ? AND user_email = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("is", $delete_id, $userEmail);
     $stmt->execute();
@@ -46,7 +46,7 @@ if (isset($_GET['delete_id'])) {
 }
 
 // Retrieve existing ratings for the same product and user
-$query = "SELECT id, rating, feedback FROM ratings WHERE product_id = ? AND user_email = ?";
+$query = "SELECT id, rating, feedback FROM mech_ratings WHERE product_id = ? AND user_email = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("is", $product_id, $userEmail);
 $stmt->execute();
