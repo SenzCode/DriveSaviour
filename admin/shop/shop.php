@@ -45,31 +45,71 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <link rel="stylesheet" href="view_shop.css">
     
     <style>
+    .shop-cards {
+        margin-top: 30px;
+        margin-left: 150px;
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: center; 
+        gap: 20px;
+    }
+
+    .card {
+        width: 400px; 
+        border: 1px solid #ccc;
+        background-color: white;
+        padding: 15px;
+        margin: 10px;
+        border-radius: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        line-height: 1.7;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card h3 {
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+    }
+
+    .card p {
+        margin: 5px 0;
+    }
+
+    @media (max-width: 768px) {
         .shop-cards {
-            margin-top: 30px;
-            display: flex;
+            margin-left: 0; 
+            padding: 0 20px; 
         }
+
         .card {
-            width: auto;
-            border: 1px solid #ccc;
-            background-color: white;
-            padding: 15px;
-            margin: 10px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
+            width: 100%; 
+            margin: 10px 0; 
         }
-        .card:hover {
-          transform: scale(1.05);
+    }
+
+    @media (max-width: 480px) {
+        .card {
+            padding: 10px; 
         }
+
         .card h3 {
-            margin-bottom: 10px;
-            font-size: 1.5rem;
+            font-size: 1.2rem; 
         }
+
         .card p {
-            margin: 5px 0;
+            font-size: 0.9rem; 
         }
-    </style>
+        .shop-cards{
+            gap: 10px;
+            margin-top: 50px;
+        }
+    }
+</style>
+
 </head>
 
 <body>
