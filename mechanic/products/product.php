@@ -120,7 +120,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
     <!-- Product Display -->
     <div class="product-card-container">
-        <?php if (count($product_data) > 0): ?>7
+        <?php if (count($product_data) > 0): ?>
             <?php foreach ($product_data as $row): ?>
                 <div class="product-card">
                 <a class="go-to-shop-icon" onclick="window.location.href='shop_page.php?shop_id=<?= $row['shop_id'] ?>'">
