@@ -6,7 +6,7 @@ if (isset($_GET['email'])) {
     $email = $_GET['email'];
     
     // Generate a card number and expiration date
-    $card_no = uniqid('LC-'); // Unique Card Number
+    $card_no = str_pad(mt_rand(0, 9999999999999999), 16, '0', STR_PAD_LEFT);
     $expire_date = date('Y-m-d', strtotime('+1 year')); // Set expiration to 1 year from now
     
     // Insert into loyalty_card table
