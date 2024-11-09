@@ -22,6 +22,25 @@ if (!isset($_SESSION['email'])) {
 $loggedInOwnerEmail = $_SESSION['email'];
 
 try {
+    // Query to get the count of mechanics
+    $stmt = $conn->prepare("SELECT COUNT(*) as mechanic_count FROM mechanic");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $mechanic_count = $result->fetch_assoc()['mechanic_count'];
+
+    // Query to get the count of users
+    $stmt = $conn->prepare("SELECT COUNT(*) as user_count FROM vehicle_owner");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user_count = $result->fetch_assoc()['user_count'];
+
+    // Query to get the count of products
+    $stmt = $conn->prepare("SELECT COUNT(*) as products_count FROM products");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $products_count = $result->fetch_assoc()['products_count'];
+
+    // Query to get products that need restocking
     $stmt = $conn->prepare("SELECT p.*, s.* 
                             FROM products p 
                             JOIN shops s ON p.shop_id = s.id 
@@ -34,7 +53,6 @@ try {
 
     $product_data = [];
 
-    // Fetch all products that need to be restocked
     while ($row = $result->fetch_assoc()) {
         $product_data[] = $row;
     }
@@ -45,9 +63,6 @@ try {
     exit();
 }
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +75,6 @@ try {
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="../navbar/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
 <body>
     <div class="profile">
@@ -72,19 +86,19 @@ try {
     <div class="wrapper">
         <div class="container1">
             <img src="../../img/mechanic.png">
-            <span class="num plus-sign">100</span>
+            <span class="num plus-sign" data-val="<?php echo $mechanic_count; ?>">0</span>
             <span class="text">Total Mechanics</span>
         </div>
 
         <div class="container1">
             <img src="../../img/team.png">
-            <span class="num plus-sign">500+</span>
+            <span class="num plus-sign" data-val="<?php echo $user_count; ?>">0</span>
             <span class="text">Total Users</span>
         </div>
 
         <div class="container1">
             <img src="../../img/checklist.png">
-            <span class="num">200+</span>
+            <span class="num" data-val="<?php echo $products_count; ?>">0</span>
             <span class="text">Total Shop Items</span>
         </div>
     </div>
@@ -92,7 +106,6 @@ try {
     <div class="content">
         <div class="text">
             <h2>Goods to be restocked <i class='bx bxs-bell-ring'></i> </h2>
-
         </div>
 
         <div class="wrappers">
@@ -112,12 +125,24 @@ try {
     </div>
 
     <script>
-        const menuToggle = document.getElementById('menu-toggle');
-        const sidebar = document.getElementById('sidebar');
-        
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
+        let valueDisplays = document.querySelectorAll(".num");
+        let interval = 1000;
+
+        valueDisplays.forEach((valueDisplay) => {
+            let startValue = 0;
+            let endValue = parseInt(valueDisplay.getAttribute("data-val"));
+            let duration = Math.floor(interval / endValue);
+            let counter = setInterval(function () {
+                startValue += 1;
+                valueDisplay.textContent = startValue;
+                if (startValue === endValue) {
+                    clearInterval(counter);
+                    if (valueDisplay.classList.contains('plus-sign')) {
+                        valueDisplay.textContent += '';
+                    }
+                }
+            }, duration);
         });
-    </script>    
+    </script>
 </body>
 </html>
