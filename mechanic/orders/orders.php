@@ -14,7 +14,7 @@ $userEmail = $_SESSION['email'];
 
 // Fetch orders for the logged-in user
 $query = "SELECT o.*, p.product_name, p.image_url 
-          FROM orders o 
+          FROM mech_orders o 
           JOIN products p ON o.product_id = p.id 
           WHERE o.email = ?";
 $stmt = $conn->prepare($query);
@@ -66,8 +66,5 @@ if ($result) {
             <?php endif; ?>
         </div>
     </div>
-    <?php
-    require '../footer/footer.php';
-    ?>
 </body>
 </html>
