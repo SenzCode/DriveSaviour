@@ -94,6 +94,9 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <a href="../Loyalty_card/loyalty_card.php" class="image-link">
         <i class='bx bxs-discount'></i> <!-- Loyalty Card Icon -->
     </a>
+    <a href="../orders/orders.php" class="image-link">
+        <i class='bx bx-list-check'></i> <!-- Orders Icon -->
+    </a>
 </div>
 
 

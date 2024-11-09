@@ -110,6 +110,7 @@ $conn->close();
             <input type="text" name="name" placeholder="Name" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="number" name="phone" placeholder="Phone" required>
+            <input type="text" name="address" placeholder="City" required>
             <button type="submit" name="register" class="btn">Sign Up</button>
             <button class="reslogin" id="reslogin" class="btn">Sign In</button>
         </form>
