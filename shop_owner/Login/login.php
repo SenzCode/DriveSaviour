@@ -94,12 +94,14 @@ $conn->close();
                 <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
+            <!-- sign-up -->
             <span>or use your email for registration</span>
             <input type="email" name="email" placeholder="Email" required>
             <input type="text" name="name" placeholder="Name" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="number" name="phone" placeholder="Phone" required>
-            <button type="submit" name="register">Sign Up</button>
+            <button type="submit" name="register" class="btn">Sign Up</button>
+            <button class="reslogin" id="reslogin" class="btn">Sign In</button>
         </form>
     </div>
     <div class="form-container sign-in">
@@ -111,11 +113,13 @@ $conn->close();
                 <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
+            <!-- sign-in -->
             <span>or use your email password</span>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <a href="#">Forget Your Password?</a>
-            <button type="submit" name="login">Sign In</button>
+            <button type="submit" name="login" class="btn">Sign In</button>
+            <button class="reslogin" id="resregister">Sign Up</button>
         </form>
     </div>
     <div class="toggle-container">
@@ -128,7 +132,7 @@ $conn->close();
             <div class="toggle-panel toggle-right">
                 <h1>Hello, Customer!</h1>
                 <p>Register with your personal details to use all of site features</p>
-                <button class="hidden" id="register">Sign Up</button>
+                <button class="hidden" id="register" class="btn">Sign Up</button>
             </div>
         </div>
     </div>
