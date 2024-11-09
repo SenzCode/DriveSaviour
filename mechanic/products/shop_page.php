@@ -9,6 +9,7 @@ $product_data = [];
 // Fetch shop information
 $shop_query = "SELECT * FROM shops WHERE id = $shop_id";
 $shop_result = mysqli_query($conn, $shop_query);
+
 if ($shop_result && mysqli_num_rows($shop_result) > 0) {
     $shop_data = mysqli_fetch_assoc($shop_result);
 } else {
@@ -16,9 +17,14 @@ if ($shop_result && mysqli_num_rows($shop_result) > 0) {
     exit;
 }
 
-// Fetch products for the shop
-$product_query = "SELECT * FROM products WHERE shop_id = $shop_id";
+// Fetch products with average rating for the shop
+$product_query = "
+    SELECT p.*, 
+           (SELECT AVG(r.rating) FROM ratings r WHERE r.product_id = p.id) AS avg_rating 
+    FROM products p 
+    WHERE p.shop_id = $shop_id";
 $product_result = mysqli_query($conn, $product_query);
+
 if ($product_result) {
     while ($row = mysqli_fetch_assoc($product_result)) {
         $product_data[] = $row;
@@ -35,15 +41,23 @@ if ($product_result) {
     <title><?= htmlspecialchars($shop_data['shop_name']) ?></title>
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../shop/product-list.css">
-    
+    <style>
+        .star-rating .star {
+            font-size: 1.2rem;
+            color: lightgray;
+        }
+        .star-rating .star.filled {
+            color: gold;
+        }
+    </style>
 </head>
 <body>
     <div class="main_container">
-    <div class="shop-info">
-        <h1><?= htmlspecialchars($shop_data['shop_name']) ?></h1>
-        <p>Location: <?= htmlspecialchars($shop_data['branch']) ?></p>
-        <p>Contact: <span class="contact-number"><?= htmlspecialchars($shop_data['number']) ?></span></p>
-    </div>
+        <div class="shop-info">
+            <h1><?= htmlspecialchars($shop_data['shop_name']) ?></h1>
+            <p>Location: <?= htmlspecialchars($shop_data['branch']) ?></p>
+            <p>Contact: <span class="contact-number"><?= htmlspecialchars($shop_data['number']) ?></span></p>
+        </div>
 
         <!-- Products List -->
         <br>
@@ -57,6 +71,17 @@ if ($product_result) {
                             <h3><?= htmlspecialchars($product['product_name']) ?></h3>
                             <div class="price">Rs.<?= htmlspecialchars($product['price']) ?></div>
                             <div>Available: <?= htmlspecialchars($product['quantity_available']) ?></div>
+
+                            <!-- Star Rating Display -->
+                            <div class="star-rating">
+                                <?php
+                                $averageRating = round($product['avg_rating'] ?? 0); // Get the average rating, default to 0
+                                for ($i = 1; $i <= 5; $i++): ?>
+                                    <span class="star<?= $i <= $averageRating ? ' filled' : '' ?>">&#9733;</span>
+                                <?php endfor; ?>
+                                <span>(<?= number_format($product['avg_rating'] ?? 0, 1) ?>)</span> <!-- Display average rating -->
+                            </div>
+
                             <form action="add_to_cart.php" method="POST">
                                 <input type="hidden" name="id" value="<?= $product['id'] ?>">
                                 <input type="number" name="quantity" value="1" min="1" max="<?= $product['quantity_available'] ?>">
@@ -70,6 +95,5 @@ if ($product_result) {
             <?php endif; ?>
         </div>
     </div>
-
 </body>
 </html>
