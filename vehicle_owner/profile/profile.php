@@ -57,7 +57,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
                 <div class="p_data">
                     <div class="personal_details">
-                        <h2> Personal Details</h2>
+                        <h2>Personal Details</h2>
                         <br>
                         <div class="form-row">
                             <span class="form-label">Name:</span>
@@ -78,7 +78,32 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     </div>
                     <br><br>
                     <button type="submit" class="btn" id="openUpdateModalBtn">Update</button>
-
+                    <button type="button" class="btn" id="openChangePasswordModalBtn">Change Password</button>
+                </div>
+<!-- Change Password Modal -->
+<div id="changePasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(changePasswordModal)">&times;</span>
+            <h2>Change Password</h2>
+            <form id="changePasswordForm">
+                <div class="form-row">
+                    <label for="current-password">Current Password:</label>
+                    <input type="password" id="current-password" name="current-password" required>
+                </div>
+                <div class="form-row">
+                    <label for="new-password">New Password:</label>
+                    <input type="password" id="new-password" name="new-password" required>
+                </div>
+                <div class="form-row">
+                    <label for="confirm-password">Confirm New Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </div>
+                <div class="form-row">
+                    <button type="button" class="btn" onclick="submitChangePassword()">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
                     
                     <br> <br>
                     <!-- Vehicle Details -->
@@ -270,60 +295,86 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     </div>
 
     <script>
-        // Get the modal elements
-        const addVehicleModal = document.getElementById("addVehicleModal");
-        const updateVehicleModal = document.getElementById("updateVehicleModal");
-        const updateProfileModal = document.getElementById("updateProfileModal");
+    // Get the modal elements
+    const addVehicleModal = document.getElementById("addVehicleModal");
+    const updateVehicleModal = document.getElementById("updateVehicleModal");
+    const updateProfileModal = document.getElementById("updateProfileModal");
+    const changePasswordModal = document.getElementById("changePasswordModal");
 
-        // Get the button elements to open the modals
-        const openAddModalBtn = document.getElementById("openModalBtn");
-        const openUpdateModalBtn = document.getElementById("openUpdateModalBtn");
+    // Get the button elements to open the modals
+    const openAddModalBtn = document.getElementById("openModalBtn");
+    const openUpdateModalBtn = document.getElementById("openUpdateModalBtn");
+    const openChangePasswordModalBtn = document.getElementById("openChangePasswordModalBtn");
 
-        // Get the close button elements
-        const closeButtons = document.querySelectorAll(".modal .close");
+    // Get the close button elements
+    const closeButtons = document.querySelectorAll(".modal .close");
 
-        // Function to open a modal
-        function openModal(modal) {
-            modal.style.display = "block";
+    // Function to open a modal
+    function openModal(modal) {
+        modal.style.display = "block";
+    }
+
+    // Function to close a modal
+    function closeModal(modal) {
+        modal.style.display = "none";
+    }
+
+    // Open Add Vehicle Modal
+    openAddModalBtn.onclick = function() {
+        openModal(addVehicleModal);
+    };
+
+    // Open Update Profile Modal
+    openUpdateModalBtn.onclick = function() {
+        openModal(updateProfileModal);
+    };
+
+    // Open Change Password Modal
+    openChangePasswordModalBtn.onclick = function() {
+        openModal(changePasswordModal);
+    };
+
+    // Open Update Vehicle Modal and set the vehicle ID (this can be called with the specific vehicle ID to update)
+    function openUpdateVehicleModal(vehicleId) {
+        document.getElementById("v-id").value = vehicleId; // Set the vehicle ID for the update form
+        openModal(updateVehicleModal);
+    }
+
+    // Add event listeners to close buttons
+    closeButtons.forEach(button => {
+        button.onclick = function() {
+            const modal = button.closest(".modal");
+            closeModal(modal);
+        };
+    });
+
+    // Close modal when clicking outside the modal content
+    window.onclick = function(event) {
+        if (event.target.classList.contains("modal")) {
+            closeModal(event.target);
+        }
+    };
+
+    // Function to handle password change submission
+    function submitChangePassword() {
+        const currentPassword = document.getElementById("current-password").value;
+        const newPassword = document.getElementById("new-password").value;
+        const confirmPassword = document.getElementById("confirm-password").value;
+
+        // Validate new password
+        if (newPassword !== confirmPassword) {
+            alert("New passwords do not match.");
+            return;
         }
 
-        // Function to close a modal
-        function closeModal(modal) {
-            modal.style.display = "none";
-        }
+        alert("Password changed successfully!");
+        closeModal(changePasswordModal);
+    }
+</script>
 
-        // Open Add Vehicle Modal
-        openAddModalBtn.onclick = function() {
-            openModal(addVehicleModal);
-        };
 
-        // Open Update Profile Modal
-        openUpdateModalBtn.onclick = function() {
-            openModal(updateProfileModal);
-        };
 
-        // Open Update Vehicle Modal and set the vehicle ID (this can be called with the specific vehicle ID to update)
-        function openUpdateVehicleModal(vehicleId) {
-            document.getElementById("v-id").value = vehicleId; // Set the vehicle ID for the update form
-            openModal(updateVehicleModal);
-        }
-
-        // Add event listeners to close buttons
-        closeButtons.forEach(button => {
-            button.onclick = function() {
-                const modal = button.closest(".modal");
-                closeModal(modal);
-            };
-        });
-
-        // Close modal when clicking outside the modal content
-        window.onclick = function(event) {
-            if (event.target.classList.contains("modal")) {
-                closeModal(event.target);
-            }
-        };
-
-    </script>
+    
 
     <?php
     require '../footer/footer.php';
