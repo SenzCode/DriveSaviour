@@ -435,6 +435,30 @@ label svg.moon {
 }
 
 @media (max-width: 480px) {
+    .contact-in {
+        margin: 15px;
+        margin-top: 50px;
+        flex-direction: column-reverse; 
+        align-items: center;
+    }
+
+    .contact-form {
+        width: 100%;
+        max-width: 100%;
+        margin-top: -200px;
+        margin-bottom: 50px;
+    }
+
+    .contact-pic {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .contact-pic img {
+        margin-top: 20px; 
+    }
+
     .contact-form h1 {
         font-size: 1.8rem;
     }
@@ -445,8 +469,5 @@ label svg.moon {
 
     .contact-form-btn {
         font-size: 0.9rem;
-    }
-    .contact-pic img{
-        margin-top: -200px;
     }
 }

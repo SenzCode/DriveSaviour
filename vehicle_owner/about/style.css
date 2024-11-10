@@ -373,23 +373,30 @@ body.dark-mode nav .menu-toggle .bar2{
 }
 
 @media (max-width: 480px) {
-    #home{
-        margin-top: -100px;
-    }
-    .home-content h1 {
-        font-size: 1.8rem;
-        margin-top: 250px;
-    }
-    .right img{
-        width: 200px;
-        height: 200px;
-        margin-bottom: 20px;
-    }
-    .right{
-        margin-left: -30px;
-        align-items: center;
-        margin-top: -150px;
-    }
+  #home {
+      margin-top: -100px;
+  }
+  .home-content h1 {
+      font-size: 1.8rem;
+      margin-top: 250px;
+  }
+  .right img {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 20px;
+  }
+  .right {
+      margin-left: 0; 
+      align-items: center; 
+      margin-top: -150px; 
+      display: flex;
+      justify-content: center; 
+      width: 100%; 
+  }
+  #services{
+    margin-top: -20px;
+  }
 }
+
 
   
