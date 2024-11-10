@@ -80,30 +80,30 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <button type="submit" class="btn" id="openUpdateModalBtn">Update</button>
                     <button type="button" class="btn" id="openChangePasswordModalBtn">Change Password</button>
                 </div>
-<!-- Change Password Modal -->
-<div id="changePasswordModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal(changePasswordModal)">&times;</span>
-            <h2>Change Password</h2>
-            <form id="changePasswordForm">
-                <div class="form-row">
-                    <label for="current-password">Current Password:</label>
-                    <input type="password" id="current-password" name="current-password" required>
+                <!-- Change Password Modal -->
+                <div id="changePasswordModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal(changePasswordModal)">&times;</span>
+                        <h2>Change Password</h2>
+                        <form id="changePasswordForm">
+                            <div class="form-row">
+                                <label for="current-password">Current Password:</label>
+                                <input type="password" id="current-password" name="current-password" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="new-password">New Password:</label>
+                                <input type="password" id="new-password" name="new-password" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="confirm-password">Confirm New Password:</label>
+                                <input type="password" id="confirm-password" name="confirm-password" required>
+                            </div>
+                            <div class="form-row">
+                                <button type="button" class="btn" onclick="submitChangePassword()">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="form-row">
-                    <label for="new-password">New Password:</label>
-                    <input type="password" id="new-password" name="new-password" required>
-                </div>
-                <div class="form-row">
-                    <label for="confirm-password">Confirm New Password:</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required>
-                </div>
-                <div class="form-row">
-                    <button type="button" class="btn" onclick="submitChangePassword()">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
                     
                     <br> <br>
                     <!-- Vehicle Details -->
@@ -142,12 +142,12 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <?php } ?>
                     </div>
                     <button type="button" class="btn" id="openModalBtn">Add</button>
-                </div>
             </div>
         </div>
+    </div>
 
 
-    </div> <br> <br> <br>
+     <br> <br> <br>
 
     <!-- Update Vehicle Modal -->
     <div id="updateVehicleModal" class="modal">
@@ -336,8 +336,32 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
     // Open Update Vehicle Modal and set the vehicle ID (this can be called with the specific vehicle ID to update)
     function openUpdateVehicleModal(vehicleId) {
-        document.getElementById("v-id").value = vehicleId; // Set the vehicle ID for the update form
+        // Set vehicle ID in hidden input
+        document.getElementById("v-id").value = vehicleId;
+
+        // Fetch vehicle details via AJAX
+        loadVehicleDetails(vehicleId);
+
+        // Open the modal
         openModal(updateVehicleModal);
+    }
+
+    // Function to load vehicle details using AJAX
+    function loadVehicleDetails(vehicleId) {
+        fetch(`get_vehicle.php?v_id=${vehicleId}`)
+            .then(response => response.json())
+            .then(data => {
+                // Populate modal fields with vehicle data
+                document.getElementById("update-model").value = data.model;
+                document.getElementById("update-year").value = data.year;
+                document.getElementById("update-fuel_type").value = data.fuel_type;
+                document.getElementById("update-engine_type").value = data.engine_type;
+                document.getElementById("update-tire_size").value = data.tire_size;
+            })
+            .catch(error => {
+                console.error("Error fetching vehicle details:", error);
+                alert("Failed to load vehicle details.");
+            });
     }
 
     // Add event listeners to close buttons
