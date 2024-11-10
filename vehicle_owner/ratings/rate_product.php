@@ -51,14 +51,6 @@ $stmt->bind_param("is", $product_id, $userEmail);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// All users ratings
-// $query = "SELECT id, rating, feedback FROM ratings WHERE product_id = ?";
-// $stmt = $conn->prepare($query);
-// $stmt->bind_param("i", $product_id);
-// $stmt->execute();
-// $result = $stmt->get_result();
-// $stmt->close();
-
 // Prepare the second query
 $query = "SELECT * FROM products WHERE id = ?";
 $stmt = $conn->prepare($query);
@@ -101,32 +93,30 @@ $stmt->close();
             color: gold;
         }
 
-        /* Style for the star rating */
-.star {
-    font-size: 1.5rem;
-    color: lightgray;
-}
+        .star {
+            font-size: 1.5rem;
+            color: lightgray;
+        }
 
-.star.filled {
-    color: gold;
-}
-
+        .star.filled {
+            color: gold;
+        }
     </style>
 </head>
 <body>
     <div class="rate-body">
         <div class="rate-card">
-            <h2>Rate this Product</h2>
-            <form method="POST">
-                <input type="hidden" name="rating_id" id="rating_id">
-                <div class="img">
-                    <?php if ($product_result->num_rows > 0): ?>
-                        <?php $product = $product_result->fetch_assoc(); ?>
-                        <img src="<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" style="width:150px;height:auto;">
-                    <?php endif; ?>
-                </div>
+            <div class="img">
+                <?php if ($product_result->num_rows > 0): ?>
+                    <?php $product = $product_result->fetch_assoc(); ?>
+                    <img src="<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" style="width:150px;height:auto;">
+                <?php endif; ?>
+            </div>
 
-                <div class="rate">
+            <div class="rate">
+                <h2>Rate this Product</h2>
+                <form method="POST">
+                    <input type="hidden" name="rating_id" id="rating_id">
                     <label for="rating">Rating:</label>
                     <div class="stars">
                         <!-- Star radio buttons -->
@@ -142,11 +132,10 @@ $stmt->close();
                     
                     <button type="submit">Submit Rating</button>
                     <button class="view-cart-btn" onclick="window.location.href='../orders/orders.php'">Orders</button>
-                </div>
-            </form>
-
+                </form>
+            </div>
         </div>
-        
+
         <h3>Your Previous Ratings for This Product</h3>
         <?php if ($result->num_rows > 0): ?>
             <table>

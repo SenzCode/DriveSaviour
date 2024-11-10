@@ -1,16 +1,78 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin-top:150px ;
+    margin-top: 50px;
 }
 
 .rate-body {
-    margin-top: 50px;
     margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dark-mode .rate h2{
+    color: white;
+}
+
+.dark-mode .stars label{
+    color: rgb(196, 196, 196);
+}
+
+.dark-mode .rate-card{
+    border: 1px solid #2B5AC2;
+    background-color: black;
+    color: white;
+}
+
+.dark-mode form{
+    background-color: black;
+    color: white;
+}
+
+.dark-mode header{
+    background-color: rgb(0, 0, 0);;
+}
+ 
+.dark-mode nav ul li a{
+    color: white;
+}
+ 
+.dark-mode  .menu-toggle .bar,
+.dark-mode  .menu-toggle .bar2{
+    background-color: white;
+}
+
+.dark-mode table th{
+    background-color: #333;
+    color: white;
+}
+
+.rate-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1000px;
+    margin-bottom: 20px;
+}
+
+.rate-card .img {
+    width: 150px;
+    height: auto;
     margin-right: 20px;
 }
 
-h2, h3 {
+.rate-card .rate {
+    flex: 1;
+}
+
+.rate-card h2 {
     color: #333;
 }
 
@@ -19,7 +81,6 @@ form {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
     margin-bottom: 20px;
 }
 
@@ -38,24 +99,24 @@ form select, form textarea, form input {
     border: 1px solid #ccc;
 }
 
-button, .button {
+button {
     background-color: #007bff;
     color: #fff;
     border: none;
     padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
-    text-decoration: none;
 }
 
-button:hover, .button:hover {
+button:hover {
     background-color: #0056b3;
 }
 
 table {
-    width: 100%;
+    width: 80%;
     border-collapse: collapse;
     margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 table, th, td {
@@ -71,4 +132,28 @@ th {
 
 td button {
     margin-right: 5px;
+}
+
+
+/* Responsive layout */
+@media (max-width: 768px) {
+    .rate-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .rate-card .img {
+        width: 100px;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    .rate-body {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 }

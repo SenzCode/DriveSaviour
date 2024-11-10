@@ -77,6 +77,31 @@ button:hover {
   background-color: #0056b3;
 }
 
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 400px; 
+  margin-left: 50px; 
+  position: absolute;
+  z-index: 10;
+}
+
+.cart-header .back-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.cart-header .back-btn:hover {
+  color: #0056b3;
+}
+
 @media (max-width: 500px) {
   .loyalty-card-details {
     padding: 15px;         

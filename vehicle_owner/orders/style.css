@@ -153,6 +153,27 @@ h1 {
     color: #666;
 }
 
+
+.rate-btn {
+    margin-top: 20px;
+    background-color: rgb(190, 0, 0);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.rate-btn:hover {
+    background-color: red;
+}
+
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .main_container {
