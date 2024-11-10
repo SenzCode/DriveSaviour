@@ -1,5 +1,24 @@
 <?php
-    require '../navbar/nav.php';
+require '../navbar/nav.php';
+require '../../connection.php';
+
+// Fetch the top four mechanics based on the number of jobs done
+$query = "
+    SELECT mech_id, COUNT(*) AS job_count, name
+    FROM vehicleissuesdone
+    JOIN mechanic ON vehicleissuesdone.mech_id = mechanic.userID
+    WHERE job_done_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+    GROUP BY mech_id
+    ORDER BY job_count DESC
+    LIMIT 4
+";
+
+$result = mysqli_query($conn, $query);
+
+$top_mechanics = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $top_mechanics[] = $row;
+}
 ?>
 
 <!DOCTYPE html>
@@ -63,31 +82,19 @@
                 <div class="carousel">
                     <button class="carousel-btn prev">&#10094;</button>
                     <div class="carousel-items">
-                        <div class="carousel-item">
-                            <h3>Franklin Rodriguez</h3>
-                            <img src="../../img/mechanic.png" alt="best mechanincs" class="img-best-mechanic">
-                            <p>Frank is a master mechanic with over 30 years of experience. Known for his precision and expertise in engine rebuilding, Frank's workshop is the go-to place for classic car enthusiasts.</p>
-                        </div>
-                        <div class="carousel-item">
-                            <h3>Migual Sanchez</h3>
-                            <img src="../../img/mechanic.png" alt="best mechanincs" class="img-best-mechanic">
-                            <p>With a passion for performance tuning, Mike specializes in high-performance modifications. His knowledge of turbochargers and custom exhaust systems has made him a favorite among speed lovers.</p>
-                        </div>
-                        <div class="carousel-item">
-                            <h3>Vincent Romano</h3>
-                            <img src="../../img/mechanic.png" alt="best mechanincs" class="img-best-mechanic">
-                            <p>Vince brings a touch of old-school craftsmanship to the modern auto repair world. His meticulous attention to detail and commitment to quality work are evident in every car he services.</p>
-                        </div>
-                        <div class="carousel-item">
-                            <h3>Sophia Davis</h3>
-                            <img src="../../img/mechanic.png" alt="best mechanincs" class="img-best-mechanic">
-                            <p>Sophia is a rising star in the automotive repair industry. With a knack for diagnostics and electrical systems, she’s quickly earned a reputation for solving the toughest car problems.</p>
-                        </div>
+                        <?php foreach ($top_mechanics as $mechanic): ?>
+                            <div class="carousel-item">
+                                <h3><?php echo htmlspecialchars($mechanic['name']); ?></h3>
+                                <img src="../../img/mechanic.png" alt="best mechanics" class="img-best-mechanic">
+                                <p><?php echo htmlspecialchars($mechanic['name']); ?> has completed <?php echo $mechanic['job_count']; ?> jobs this week, providing excellent repair services and customer satisfaction.</p>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                     <button class="carousel-btn next">&#10095;</button>
                 </div>
             </div>
         </div>
+
     </div> <br> <br>
 
     <?php

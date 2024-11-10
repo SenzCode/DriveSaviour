@@ -1,8 +1,13 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
-    margin: 20px;
     margin-top:150px ;
+}
+
+.rate-body {
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 h2, h3 {

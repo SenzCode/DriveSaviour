@@ -1,9 +1,13 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
-    margin: 20px;
     margin-top:150px ;
 }
+
+.rate-body {
+    margin: 20px;
+}
+
 
 h2, h3 {
     color: #333;

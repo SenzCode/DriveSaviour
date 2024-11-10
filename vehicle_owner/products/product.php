@@ -16,7 +16,8 @@ $category = isset($_GET['category']) ? (int)$_GET['category'] : 0;
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 
 // Build the SQL query with search and sorting filters
-$query = "SELECT p.*, s.shop_name, c.category_name 
+$query = "SELECT p.*, s.shop_name, c.category_name, 
+                 (SELECT AVG(r.rating) FROM ratings r WHERE r.product_id = p.id) AS avg_rating
           FROM products p 
           JOIN shops s ON p.shop_id = s.id 
           LEFT JOIN category c ON p.cat_id = c.id 
@@ -70,6 +71,16 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../shop/product-list.css">
+
+    <style>
+        .star-rating .star {
+            font-size: 1.2rem;
+            color: lightgray;
+        }
+        .star-rating .star.filled {
+            color: gold;
+        }
+    </style>
 </head>
 <body>
 <div class="main_container">
@@ -127,7 +138,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <?php if (count($product_data) > 0): ?>
             <?php foreach ($product_data as $row): ?>
                 <div class="product-card">
-                    <a class="go-to-shop-icon" onclick="window.location.href='shop_page.php?shop_id=<?= $row['shop_id'] ?>'">
+                <a class="go-to-shop-icon" onclick="window.location.href='shop_page.php?shop_id=<?= $row['shop_id'] ?>'">
                         <i class='bx bxs-store'></i>
                     </a>
                     <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>">
@@ -137,9 +148,18 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <div>Available: <?= htmlspecialchars($row['quantity_available']) ?></div>
                         <div>Category: <?= htmlspecialchars($row['category_name'] ?? '') ?></div>
                         <div>Shop: <?= htmlspecialchars($row['shop_name']) ?></div>
+                        <!-- Star Rating Display -->
+                        <div class="star-rating">
+                            <?php
+                            $averageRating = round($row['avg_rating'] ?? 0); // Get the average rating, default to 0
+                            for ($i = 1; $i <= 5; $i++): ?>
+                                <span class="star<?= $i <= $averageRating ? ' filled' : '' ?>">&#9733;</span>
+                            <?php endfor; ?>
+                            <span>(<?= number_format($row['avg_rating'] ?? 0, 1) ?>)</span> <!-- Display average rating -->
+                        </div>
+                        
                         <form action="add_to_cart.php" method="POST">
                             <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                            <input type="hidden" name="shop_id" value="<?= $row['shop_id'] ?>">
                             <input type="number" name="quantity" value="1" min="1" max="<?= $row['quantity_available'] ?>">
                             <button type="submit">Add to Cart</button>
                         </form>

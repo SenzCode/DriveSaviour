@@ -15,7 +15,7 @@ $category = isset($_GET['category']) ? (int)$_GET['category'] : 0;
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 
 $query = "SELECT p.*, s.shop_name, c.category_name, 
-                 (SELECT AVG(r.rating) FROM ratings r WHERE r.product_id = p.id) AS avg_rating
+                 (SELECT AVG(r.rating) FROM mech_ratings r WHERE r.product_id = p.id) AS avg_rating
           FROM products p 
           JOIN shops s ON p.shop_id = s.id 
           LEFT JOIN category c ON p.cat_id = c.id 
@@ -93,6 +93,9 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     </a>
     <a href="../Loyalty_card/loyalty_card.php" class="image-link">
         <i class='bx bxs-discount'></i> <!-- Loyalty Card Icon -->
+    </a>
+    <a href="../orders/orders.php" class="image-link">
+        <i class='bx bx-list-check'></i> <!-- Orders Icon -->
     </a>
 </div>
 
