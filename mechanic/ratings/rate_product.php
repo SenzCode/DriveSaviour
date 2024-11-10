@@ -14,31 +14,35 @@ $product_id = $_GET['product_id'] ?? 0;
 
 // Handle form submission for adding or updating a rating
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $rating = $_POST['rating'];
+    $rating = $_POST['rating'] ?? null;
     $feedback = $_POST['feedback'];
     $rating_id = $_POST['rating_id'] ?? null;
 
-    if ($rating_id) {
-        // Update an existing rating
-        $query = "UPDATE ratings SET rating = ?, feedback = ? WHERE id = ? AND user_email = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("isis", $rating, $feedback, $rating_id, $userEmail);
-        $stmt->execute();
-        echo "Rating updated successfully!";
+    if (!$rating) {
+        echo "<script>alert('Please select at least one star for the rating.');</script>";
     } else {
-        // Insert a new rating
-        $query = "INSERT INTO mech_ratings (product_id, user_email, rating, feedback) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("isis", $product_id, $userEmail, $rating, $feedback);
-        $stmt->execute();
-        echo "Thank you for your feedback!";
+        if ($rating_id) {
+            // Update an existing rating
+            $query = "UPDATE mech_ratings SET rating = ?, feedback = ? WHERE id = ? AND user_email = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("isis", $rating, $feedback, $rating_id, $userEmail);
+            $stmt->execute();
+            echo "Rating updated successfully!";
+        } else {
+            // Insert a new rating
+            $query = "INSERT INTO mech_ratings (product_id, user_email, rating, feedback, rating_date) VALUES (?, ?, ?, ?, CURDATE())";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("isis", $product_id, $userEmail, $rating, $feedback);
+            $stmt->execute();
+            echo "Thank you for your feedback!";
+        }
     }
 }
 
 // Handle delete request
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
-    $query = "DELETE FROM ratings WHERE id = ? AND user_email = ?";
+    $query = "DELETE FROM mech_ratings WHERE id = ? AND user_email = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("is", $delete_id, $userEmail);
     $stmt->execute();
@@ -46,7 +50,7 @@ if (isset($_GET['delete_id'])) {
 }
 
 // Retrieve existing ratings for the same product and user
-$query = "SELECT id, rating, feedback FROM mech_ratings WHERE product_id = ?";
+$query = "SELECT id, rating, feedback, rating_date FROM mech_ratings WHERE product_id = ? AND user_email = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("is", $product_id, $userEmail);
 $stmt->execute();
@@ -83,21 +87,20 @@ $result = $stmt->get_result();
         }
 
         /* Style for the star rating */
-.star {
-    font-size: 1.5rem;
-    color: lightgray;
-}
+        .star {
+            font-size: 1.5rem;
+            color: lightgray;
+        }
 
-.star.filled {
-    color: gold;
-}
-
+        .star.filled {
+            color: gold;
+        }
     </style>
 </head>
 <body>
     <div class="rate-body">
         <h2>Rate this Product</h2>
-        <form method="POST">
+        <form method="POST" onsubmit="return validateForm()">
             <input type="hidden" name="rating_id" id="rating_id">
             
             <label for="rating">Rating:</label>
@@ -157,6 +160,16 @@ $result = $stmt->get_result();
                 stars.forEach(star => {
                     star.checked = (star.value == rating);
                 });
+            }
+
+            // Function to validate the form
+            function validateForm() {
+                const ratingSelected = document.querySelector('input[name="rating"]:checked');
+                if (!ratingSelected) {
+                    alert("Please select at least one star for the rating.");
+                    return false;
+                }
+                return true;
             }
         </script>
     </div>
