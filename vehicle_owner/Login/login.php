@@ -2,6 +2,8 @@
 session_start();
 require '../../connection.php';
 
+$message = ""; // Initialize the message variable
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
@@ -16,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
     $result = $checkEmail->get_result();
 
     if ($result->num_rows > 0) {
-        echo "Email already registered. Please use a different email.";
+        $message = "Email already registered. Please use a different email.";
     } else {
         $stmt = $conn->prepare("INSERT INTO vehicle_owner (name, email, password, phone, city) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $name, $email, $password, $phone, $city);
@@ -27,9 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
             $_SESSION['phone'] = $phone;
             $_SESSION['city'] = $city;
 
-            echo "Registration successful!";
+            $message = "Registration successful!";
         } else {
-            echo "Error: " . $stmt->error;
+            $message = "Error: " . $stmt->error;
         }
 
         $stmt->close();
@@ -37,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
 
     $checkEmail->close();
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
     $email = $_POST['email'];
@@ -57,15 +58,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
             $_SESSION['email'] = $user['email'];
             $_SESSION['phone'] = $user['phone'];
             $_SESSION['city'] = $user['city'];
-        
+
             // Start the session and redirect to the loader
             header("Location: ../loader.php");
             exit();
         } else {
-            echo "Invalid password!";
+            $message = "Invalid password!";
         }
     } else {
-        echo "No user found with this email.";
+        $message = "No user found with this email.";
     }
 
     $stmt->close();
@@ -73,7 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
 
 $conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -89,82 +89,87 @@ $conn->close();
 <body>
 
 <div class="container">
+    <div class="form-box login">
+        <form action="login.php" method="POST">
+            <h1>Login</h1>
 
-<div class="form-box login">
-            <form action="login.php" method="POST">
-                <h1>Login</h1>
-                <div class="input-box">
-                    <input type="email"  name="email" placeholder="Email" required>
-                    <i class='bx bx-envelope' ></i>
-                </div>
-                <div class="input-box">
-                    <input type="password" name="password" placeholder="Password" required>
-                    <i class='bx bxs-lock-alt'></i>
-                </div>
-                <div class="forgot-link">
-                    <a href="" Forgot Password?></a>
-                </div>
-                <button type="submit" class="btn" name="login">Login</button>
-                <p>or login with social platforms</p>
-                <div class="social-icon">
-                    <a href=""><i class='bx bxl-google' ></i></a>
-                    <a href=""><i class='bx bxl-facebook' ></i></a>
-                    <a href=""><i class='bx bxl-github' ></i></a>
-                    <a href=""><i class='bx bxl-linkedin' ></i></a>
-                </div>
-            </form>
-        </div>
+            <!-- Display the message here -->
+            <?php if (!empty($message)) : ?>
+                <p style="color: red;" class="message"><?php echo $message; ?></p>
+            <?php endif; ?>
 
-        <div class="form-box register">
-            <form action="login.php" method="POST">
-                <h1>Register</h1>
-                <div class="input-box">
-                    <input type="email" name="email" placeholder="Email" required>
-                    <i class='bx bx-envelope' ></i>
-                </div>
-                <div class="input-box">
-                    <input type="text" name="name" placeholder="Name" required>
-                    <i class='bx bxs-user'></i>
-                </div>
-                <div class="input-box">
-                    <input type="password" name="password" placeholder="Password" required>
-                    <i class='bx bxs-lock-alt'></i>
-                </div>
-                <div class="input-box">
-                    <input type="number" name="phone" placeholder="Phone" required>
-                    <i class='bx bxs-phone' ></i>
-                </div>
-                <div class="input-box">
-                    <input type="text" name="city" placeholder="City" required>
-                    <i class='bx bx-map-pin'></i>
-                </div>
-                <div class="forgot-link">
-                    <a href="" Forgot Password?></a>
-                </div>
-                <button type="submit" name="register" class="btn">Register</button>
-                <p>or register with social platforms</p>
-                <div class="social-icon">
-                    <a href=""><i class='bx bxl-google' ></i></a>
-                    <a href=""><i class='bx bxl-facebook' ></i></a>
-                    <a href=""><i class='bx bxl-github' ></i></a>
-                    <a href=""><i class='bx bxl-linkedin' ></i></a>
-                </div>
-            </form>
-        </div>
-
-        <div class="toggle-box">
-            <div class="toggle-panel toggle-left">
-                 <h1>Hello, Welcome</h1><br>
-                 <p>Register with your personal details to use all of site features</p>
-                 <button class="btn register-btn" id="login">Sign Up</button>
-             </div>
-             <div class="toggle-panel toggle-right">
-                <h1>Welcome Back!</h1><br>
-                <p>Enter your personal details to use all of site features</p>
-                <button class="btn login-btn" id="register">Sign In</button>
+            <div class="input-box">
+                <input type="email" name="email" placeholder="Email" required>
+                <i class='bx bx-envelope'></i>
             </div>
+            <div class="input-box">
+                <input type="password" name="password" placeholder="Password" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+            <div class="forgot-link">
+                <a href="">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn" name="login">Login</button>
+            <p>our social platforms</p>
+            <div class="social-icon">
+                <a href=""><i class='bx bxl-google'></i></a>
+                <a href=""><i class='bx bxl-facebook'></i></a>
+                <a href=""><i class='bx bxl-github'></i></a>
+                <a href=""><i class='bx bxl-linkedin'></i></a>
+            </div>
+        </form>
+    </div>
+
+    <div class="form-box register">
+        <form action="login.php" method="POST">
+            <h1>Register</h1>
+            <div class="input-box">
+                <input type="email" name="email" placeholder="Email" required>
+                <i class='bx bx-envelope'></i>
+            </div>
+            <div class="input-box">
+                <input type="text" name="name" placeholder="Name" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="password" name="password" placeholder="Password" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+            <div class="input-box">
+                <input type="number" name="phone" placeholder="Phone" required>
+                <i class='bx bxs-phone'></i>
+            </div>
+            <div class="input-box">
+                <input type="text" name="city" placeholder="City" required>
+                <i class='bx bx-map-pin'></i>
+            </div>
+            <div class="forgot-link">
+                <a href="">Forgot Password?</a>
+            </div>
+            <button type="submit" name="register" class="btn">Register</button>
+            <p>or register with social platforms</p>
+            <div class="social-icon">
+                <a href=""><i class='bx bxl-google'></i></a>
+                <a href=""><i class='bx bxl-facebook'></i></a>
+                <a href=""><i class='bx bxl-github'></i></a>
+                <a href=""><i class='bx bxl-linkedin'></i></a>
+            </div>
+        </form>
+    </div>
+
+    <div class="toggle-box">
+        <div class="toggle-panel toggle-left">
+            <h1>Hello, Welcome</h1><br>
+            <p>Register with your personal details to use all of site features</p>
+            <button class="btn register-btn" id="login">Sign Up</button>
+        </div>
+        <div class="toggle-panel toggle-right">
+            <h1>Welcome Back!</h1><br>
+            <p>Enter your personal details to use all of site features</p>
+            <button class="btn login-btn" id="register">Sign In</button>
         </div>
     </div>
-    <script src="script.js"></script>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

@@ -1,10 +1,11 @@
 <?php
 session_start();
+ob_start();
 require '../../connection.php';
 require '../navbar/nav.php';
 
 if (!isset($_SESSION['email'])) {
-    echo "User is not logged in.";
+    header("Location: ../Login/login.php");
     exit;
 }
 
@@ -53,6 +54,7 @@ if ($category_result) {
 }
 
 $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
+ob_end_flush();
 ?>
 
 <!DOCTYPE html>
