@@ -44,9 +44,9 @@ if ($result) {
     <div class="main_container">
     <div class="order-header">
             <button class="back-btn" onclick="window.location.href='../products/product.php'">&larr; Back</button>
-                <h1>Your Orders</h1>
+            <h1>Your Orders</h1>
         </div>
-        <h1>Your Orders</h1>
+        
         <div class="order-card">
             <?php if (count($orders) > 0): ?>
                 <?php foreach ($orders as $order): ?>
