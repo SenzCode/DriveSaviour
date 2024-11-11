@@ -1,0 +1,149 @@
+.modal {
+    padding: 50px 20px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 50px;
+}
+
+/* Center the content */
+.modal  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Dropdown */
+.dropdown-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.dropdown-container h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#carSelect {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+}
+
+model-viewer {
+    width: 100%;
+    margin: 10px auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+model-viewer[src*="scene.gltf"] {
+    width: 70%; 
+    height: 700px;
+}
+
+
+.color-boxes h2{
+    margin-right: 10px;
+}
+
+.color-boxes-container {
+    margin-top: 15px;
+}
+
+.color-box {
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    display: inline-block;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.color-boxes {
+    display: flex;
+    gap: 2px;
+}
+
+
+.color-box:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+
+.back-btn {
+    margin-top: 40px;
+}
+
+.back-btn .button.modify {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.back-btn .button.modify:hover {
+    background-color: #0056b3;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    model-viewer {
+        max-width: 100%;
+        height: 300px;
+    }
+
+    #carSelect {
+        max-width: 280px;
+    }
+    .color-boxes-container {
+        flex-direction: column;  
+        align-items: center;  
+        margin-top: 20px;
+    }
+
+    .color-boxes {
+        display: flex;
+        flex-wrap: wrap;  
+        justify-content: center; 
+        gap: 10px;  
+    }
+}
+
+@media (max-width: 480px) {
+    #carSelect {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+    .color-boxes-container {
+        margin-top: 15px;
+    }
+
+    .color-box {
+        width: 25px; 
+        height: 25px;
+    }
+
+    .color-boxes {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;  
+    }
+    model-viewer[src*="scene.gltf"]{
+        height: 300px;
+        width: 300px;
+    }
+}

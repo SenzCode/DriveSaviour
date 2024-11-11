@@ -9,8 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="modal.css">
     <link rel="shortcut icon" type="dp" href="img/ss.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <style>
+    </style>
 </head>
 <body>
    
@@ -58,6 +61,42 @@
             </div>
         </div>
     </section> <br> 
+
+    <section class="modal">
+        <!-- Dropdown Car Selection-->
+    <div class="dropdown-container">
+        <h2>Choose Your Car Model:</h2>
+        <select id="carSelect">
+            <option value="../shop/modify/benz/scene.gltf">Benz</option>
+            <option value="../shop/modify/BMW/scene.gltf">BMW</option>
+            <option value="../shop/modify/scene.gltf">Honda</option>
+            <option value="../shop/modify/mitshubishi/scene.gltf">Mitshubishi</option>
+        </select>
+    </div>
+
+    <!-- 3D content -->
+    <model-viewer id="carModel" src="../shop/modify/benz/scene.gltf" alt="A 3D model of a car" shadow-intensity="1" camera-controls auto-rotate ar>
+    </model-viewer>
+
+    <div class="color-boxes-container">
+    <div class="color-boxes">
+        <div class="text">
+            <h2>Choose Your Car's New Look!</h2>
+        </div>
+        <div class="box-border">
+            <div class="color-box" style="background-color: #ff0000;" data-color="#ff0000" data-material="body"></div>
+            <div class="color-box" style="background-color: #ffffff;" data-color="#ffffff" data-material="body"></div>
+            <div class="color-box" style="background-color: #4b4b4b;" data-color="#4b4b4b" data-material="body"></div>
+            <div class="color-box" style="background-color: #000000;" data-color="#000000" data-material="body"></div>
+            <div class="color-box" style="background-color: #006400;" data-color="#006400" data-material="body"></div>
+            <div class="color-box" style="background-color: #00008b;" data-color="#00008b" data-material="body"></div>
+            <div class="color-box" style="background-color: #d68400;" data-color="#d68400" data-material="body"></div>
+        </div>
+    </div>
+</div>
+
+    </section>
+    
 
     <section class="features">
     <div class="container-shops">
@@ -262,6 +301,45 @@ function showPreloader(event, url) {
             window.location.href = url;
         }, 1300); // Adjust the time as needed
     }
+    </script>
+
+    
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+
+    <script>
+        const carModel = document.querySelector('#carModel');
+        const colorBoxes = document.querySelectorAll('.color-box');
+        const carSelect = document.querySelector('#carSelect');
+
+        carSelect.addEventListener('change', (event) => {
+            const selectedCar = event.target.value;
+            carModel.src = selectedCar;
+        });
+
+        colorBoxes.forEach(box => {
+    box.addEventListener('click', () => {
+        const color = box.getAttribute('data-color');
+        if (carModel.src.includes('BMW')) {
+            carModel.model.materials[2].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
+        } else if (carModel.src.includes('benz')) {
+            carModel.model.materials[7].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
+        } else if (carModel.src.includes('mitshubishi')) {
+            carModel.model.materials[0].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
+        } else {
+            carModel.model.materials[1].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
+        }
+    });
+});
+
+
+        function hexToRgb(hex) {
+            const bigint = parseInt(hex.slice(1), 16);
+            const r = (bigint >> 16) & 255;
+            const g = (bigint >> 8) & 255;
+            const b = bigint & 255;
+            return [r / 255, g / 255, b / 255, 1];
+        }
     </script>
 </body>
 </html>
