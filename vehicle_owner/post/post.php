@@ -27,6 +27,9 @@ $vehicleResult = $stmt->get_result();
 
 <body>
     <div class="post-container">
+        <div class="order-header">
+                <button class="back-btn" onclick="window.location.href='../mech/mech.php'">&larr; Back</button>
+            </div>
         <h1>Select Your Vehicle</h1>
         <br> <br>
         <div class="vehicle_details">

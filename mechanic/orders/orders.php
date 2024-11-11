@@ -42,7 +42,11 @@ if ($result) {
 </head>
 <body>
     <div class="main_container">
-        <h1>Your Orders</h1>
+    <div class="order-header">
+            <button class="back-btn" onclick="window.location.href='../products/product.php'">&larr; Back</button>
+            <h1>Your Orders</h1>
+        </div>
+        
         <div class="order-card">
             <?php if (count($orders) > 0): ?>
                 <?php foreach ($orders as $order): ?>

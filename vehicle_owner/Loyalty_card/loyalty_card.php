@@ -88,6 +88,9 @@ if ($result->num_rows > 0) {
 </head>
 <body>
     <div class="loyalty-card-details">
+    <div class="cart-header">
+            <button class="back-btn" onclick="window.location.href='../products/product.php'">&larr; Back</button>
+        </div>
         <h2>Your Details</h2>
         <p><strong>Name:</strong> <?= htmlspecialchars($name) ?></p>
         <p><strong>Phone:</strong> <?= htmlspecialchars($phone) ?></p>

@@ -42,6 +42,32 @@ h1 {
 .dark-mode h1 {
     color: white;
 }
+/* Cart Header with Back Button */
+.order-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+    padding-top: 20px; /* Add padding to prevent overlapping */
+}
+
+.back-btn {
+    position: absolute;
+    left: 0;
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+}
+
+.back-btn:hover {
+    color: #0056b3;
+}
 
 .order-card {
     display: flex;
@@ -180,10 +206,20 @@ h1 {
         width: 90%;
         padding: 20px;
     }
+    .order-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 15px; /* Add extra padding on mobile */
+    }
 
     .order-item {
         flex-direction: column;
         align-items: center;
+    }
+    
+    .back-btn {
+        display: block; /* Ensures the back button is visible on mobile */
     }
 
     .order-item img {
