@@ -24,7 +24,7 @@ if ($stmt->execute()) {
     $_SESSION['city'] = $city;
 
     // Redirect to the profile page with success message
-    header('Location: profile.php?status=success');
+    header('Location: profile.php?message=update_prof');
     exit(); // Add exit after the header to ensure no further script execution
 } else {
     // Redirect to the profile page with error message

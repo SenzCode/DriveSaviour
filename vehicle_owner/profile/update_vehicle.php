@@ -16,7 +16,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("sssssi", $model, $year, $fuel_type, $engine_type, $tire_size, $v_id);
 
 if ($stmt->execute()) {
-    header('Location: profile.php?status=update_success');
+    header('Location: profile.php?message=update_success');
     exit();
 } else {
     header('Location: profile.php?status=update_error');

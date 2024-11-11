@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $updateStmt->bind_param("ss", $hashedPassword, $email);
         
         if ($updateStmt->execute()) {
-            header("Location: profile.php?message=Password+Updated");
+            header("Location: profile.php?message=update_pass");
         } else {
             header("Location: profile.php?message=Update+Failed");
         }
