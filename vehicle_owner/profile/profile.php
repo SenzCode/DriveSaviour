@@ -78,33 +78,33 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     </div>
                     <br><br>
                     <button type="submit" class="btn" id="openUpdateModalBtn">Update</button>
-                    <button type="button" class="btn" id="openChangePasswordModalBtn">Change Password</button>
+                    <button type="button" class="btn" id="changePasswordBtn">Change Password</button>
                 </div>
-                <!-- Change Password Modal -->
-                <div id="changePasswordModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeModal(changePasswordModal)">&times;</span>
-                        <h2>Change Password</h2>
-                        <form id="changePasswordForm">
-                            <div class="form-row">
-                                <label for="current-password">Current Password:</label>
-                                <input type="password" id="current-password" name="current-password" required>
-                            </div>
-                            <div class="form-row">
-                                <label for="new-password">New Password:</label>
-                                <input type="password" id="new-password" name="new-password" required>
-                            </div>
-                            <div class="form-row">
-                                <label for="confirm-password">Confirm New Password:</label>
-                                <input type="password" id="confirm-password" name="confirm-password" required>
-                            </div>
-                            <div class="form-row">
-                                <button type="button" class="btn" onclick="submitChangePassword()">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                    
+                
+                    <!-- Change Password Modal -->
+<div id="changePasswordModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeChangePasswordModal()">&times;</span>
+        <h2>Change Password</h2>
+        <form id="changePasswordForm" method="POST" action="change_password.php">
+            <div class="form-row">
+                <label for="current-password">Current Password:</label>
+                <input type="password" id="current-password" name="current_password" required>
+            </div>
+            <div class="form-row">
+                <label for="new-password">New Password:</label>
+                <input type="password" id="new-password" name="new_password" required>
+            </div>
+            <div class="form-row">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm_password" required>
+            </div>
+            <div class="form-row">
+                <button type="submit" class="btn">Change Password</button>
+            </div>
+        </form>
+    </div>
+</div>
                     <br> <br>
                     <!-- Vehicle Details -->
                     <div class="vehicle_details">
@@ -299,12 +299,12 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     const addVehicleModal = document.getElementById("addVehicleModal");
     const updateVehicleModal = document.getElementById("updateVehicleModal");
     const updateProfileModal = document.getElementById("updateProfileModal");
-    const changePasswordModal = document.getElementById("changePasswordModal");
+    
 
     // Get the button elements to open the modals
     const openAddModalBtn = document.getElementById("openModalBtn");
     const openUpdateModalBtn = document.getElementById("openUpdateModalBtn");
-    const openChangePasswordModalBtn = document.getElementById("openChangePasswordModalBtn");
+    
 
     // Get the close button elements
     const closeButtons = document.querySelectorAll(".modal .close");
@@ -324,15 +324,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         openModal(addVehicleModal);
     };
 
-    // Open Update Profile Modal
-    openUpdateModalBtn.onclick = function() {
-        openModal(updateProfileModal);
-    };
-
-    // Open Change Password Modal
-    openChangePasswordModalBtn.onclick = function() {
-        openModal(changePasswordModal);
-    };
+    
 
     // Open Update Vehicle Modal and set the vehicle ID (this can be called with the specific vehicle ID to update)
     function openUpdateVehicleModal(vehicleId) {
@@ -379,21 +371,31 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         }
     };
 
-    // Function to handle password change submission
-    function submitChangePassword() {
-        const currentPassword = document.getElementById("current-password").value;
-        const newPassword = document.getElementById("new-password").value;
-        const confirmPassword = document.getElementById("confirm-password").value;
+    // Get the Change Password modal
+const changePasswordModal = document.getElementById("changePasswordModal");
 
-        // Validate new password
-        if (newPassword !== confirmPassword) {
-            alert("New passwords do not match.");
-            return;
-        }
+// Get the button to open the Change Password modal
+const changePasswordBtn = document.getElementById("changePasswordBtn");
 
-        alert("Password changed successfully!");
-        closeModal(changePasswordModal);
+// Open Change Password Modal
+changePasswordBtn.onclick = function() {
+    changePasswordModal.style.display = "block";
+};
+
+// Close Change Password Modal
+function closeChangePasswordModal() {
+    changePasswordModal.style.display = "none";
+}
+
+// Close the modal if the user clicks outside of it
+window.onclick = function(event) {
+    if (event.target === changePasswordModal) {
+        closeChangePasswordModal();
     }
+};
+
+
+    
 </script>
 
 
