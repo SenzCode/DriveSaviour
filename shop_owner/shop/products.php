@@ -128,7 +128,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                                     <td data-cell="Image"><img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>" width="50"></td>
                                     <td data-cell="Quantity Available"><?= htmlspecialchars($row['quantity_available']) ?></td>
                                     <td data-cell="Price">Rs.<?= htmlspecialchars($row['price']) ?></td>
-                                    <td>
+                                    <td class="manage-btn">
                                         <button class="manage-button view-link" 
                                                 data-id="<?= htmlspecialchars($row['id']) ?>"
                                                 data-product_name="<?= htmlspecialchars($row['product_name']) ?>"

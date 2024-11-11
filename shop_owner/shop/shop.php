@@ -144,7 +144,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <td data-cell="Address"><?= htmlspecialchars($row['address']) ?></td>
                         <td data-cell="Branch"><?= htmlspecialchars($row['branch']) ?></td>
                         <td data-cell="Owner Email"><?= htmlspecialchars($row['ownerEmail']) ?></td>
-                        <td>
+                        <td class="manage-btn">
                             <button class="manage-button view-link" 
                                     data-id="<?= htmlspecialchars($row['id']) ?>"
                                     data-shop_name="<?= htmlspecialchars($row['shop_name']) ?>"

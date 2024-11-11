@@ -81,15 +81,15 @@ if (!empty($productIds)) {
                 <tbody>
                     <?php foreach ($ratings_data as $rating): ?>
                         <tr>
-                            <td><?= htmlspecialchars($rating['product_id']) ?></td>
-                            <td>
+                            <td data-cell="Product Id"><?= htmlspecialchars($rating['product_id']) ?></td>
+                            <td data-cell="Star">
                                 <!-- Display stars based on rating value -->
                                 <?php for ($i = 1; $i <= 5; $i++): ?>
                                     <span class="star<?= $i <= $rating['rating'] ? ' filled' : '' ?>">&starf;</span>
                                 <?php endfor; ?>
                             </td>
-                            <td><?= htmlspecialchars($rating['feedback']) ?></td>
-                            <td><?= htmlspecialchars($rating['rating_date']) ?></td>
+                            <td data-cell="Feedback"><?= htmlspecialchars($rating['feedback']) ?></td>
+                            <td data-cell="Rating Date"><?= htmlspecialchars($rating['rating_date']) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

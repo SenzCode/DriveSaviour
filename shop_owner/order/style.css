@@ -321,6 +321,12 @@ th {
         font-weight: 700;
         text-transform: capitalize;
     }
+    .manage-btn::before{
+        content:attr(data-cell) "";
+    }    
+    .manage-btn::before{
+        content:attr(data-cell) "";
+    }
  }
  @media screen and (max-width: 650px){
  .form-row {

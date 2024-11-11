@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['st
                             <td data-cell="Item Total"><?php echo htmlspecialchars($order['item_total']); ?></td>
                             <td data-cell="Seller Income"><?php echo htmlspecialchars($order['seller_income']); ?></td>
                             <td data-cell="Status"><?php echo htmlspecialchars($order['status']); ?></td>
-                            <td>
+                            <td class="manage-btn">
                                 <form action="" method="POST">
                                     <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
                                     <input type="hidden" name="source" value="<?php echo $order['source']; ?>">
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['st
                                         <option value="Completed" <?php echo $order['status'] == 'Completed' ? 'selected' : ''; ?>>Completed</option>
                                         <option value="Cancelled" <?php echo $order['status'] == 'Cancelled' ? 'selected' : ''; ?>>Cancelled</option>
                                     </select>
-                                    <button type="submit">Update</button>
+                                    <button class="view-link" type="submit">Update</button>
                                 </form>
                             </td>
                         </tr>

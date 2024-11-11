@@ -58,6 +58,14 @@ try {
     <title>Income</title>
     <link rel="stylesheet" href="../shop/style.css">
     <link rel="stylesheet" href="../navbar/style.css">
+    <style>
+        .title{
+            margin-top: 20px;
+        }
+        marquee{
+            margin-top: -50px;
+        }
+    </style>
 </head>
 <body>
     <div class="main_container">

@@ -27,7 +27,7 @@ label {
     margin-bottom: 5px;
     font-weight: bold;
 }
-select, input[type="text"], input[type="date"], input[type="time"], input[type="number"], input[type="password"], input[type="email"],textarea {
+select, input[type="text"], input[type="date"], input[type="time"], input[type="number"], input[type="password"], input[type="email"],input[type="file"],textarea {
     padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -314,6 +314,9 @@ th {
         content:attr(data-cell) ": ";
         font-weight: 700;
         text-transform: capitalize;
+    }
+    .manage-btn::before{
+        content:attr(data-cell) "";
     }
  }
  @media screen and (max-width: 650px){
