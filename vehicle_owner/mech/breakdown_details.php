@@ -50,6 +50,12 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 </head>
 <body>
     <div class="body">
+
+    <div class="order-header">
+            <button class="back-btn" onclick="window.location.href='mech.php'">&larr; Back</button>
+        </div>
+
+
         <!-- Ongoing Breakdowns Section -->
         <div id="ongoing-breakdowns" style="display:<?php echo $ongoingIssues->num_rows > 0 ? 'block' : 'none'; ?>;">
             <h1>Ongoing Breakdowns</h1>

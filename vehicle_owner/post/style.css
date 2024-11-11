@@ -21,6 +21,33 @@ body {
   margin-top: 50px;
 }
 
+/* Cart Header with Back Button */
+.order-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+  padding-top: 20px; /* Add padding to prevent overlapping */
+}
+
+.back-btn {
+  position: absolute;
+  left: 0;
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.back-btn:hover {
+  color: #0056b3;
+}
+
 body.dark-mode ul li a{
   color: white;
 }
@@ -209,6 +236,9 @@ input[type="text"]:focus, select:focus {
     align-items: center;
     margin-bottom: 20px;
 
+  } 
+  .back-btn {
+      display: block; /* Ensures the back button is visible on mobile */
   }
 
   .vehicle-card-container {
