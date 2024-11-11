@@ -221,6 +221,9 @@ form{
         width: 100%;
         height: 70%;
     }
+    .back-btn {
+        display: block; /* Ensures the back button is visible on mobile */
+    }
 
     .container.active .form-box{
         right: 0;
