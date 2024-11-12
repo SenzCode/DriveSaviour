@@ -69,7 +69,9 @@
         <select id="carSelect">
             <option value="../shop/modify/benz/scene.gltf">Benz</option>
             <option value="../shop/modify/BMW/scene.gltf">BMW</option>
+            <option value="../shop/modify/toyota_prius/scene.gltf">Toyota Prius</option>
             <option value="../shop/modify/scene.gltf">Honda</option>
+            <option value="../shop/modify/suzuki_wagonr/scene.gltf">Suzuki Wagonr</option>
             <option value="../shop/modify/mitshubishi/scene.gltf">Mitshubishi</option>
         </select>
     </div>
@@ -326,6 +328,10 @@ function showPreloader(event, url) {
             carModel.model.materials[7].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
         } else if (carModel.src.includes('mitshubishi')) {
             carModel.model.materials[0].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
+        }else if (carModel.src.includes('toyota_prius')) {
+                carModel.model.materials[4].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
+        }else if (carModel.src.includes('suzuki_wagonr')) {
+                carModel.model.materials[3].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
         } else {
             carModel.model.materials[1].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
         }

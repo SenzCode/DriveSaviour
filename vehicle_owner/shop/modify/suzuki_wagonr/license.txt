@@ -1,0 +1,11 @@
+Model Information:
+* title:	2013_suzuki_wagonr-car
+* source:	https://sketchfab.com/3d-models/2013-suzuki-wagonr-car-97547c978b7c42039ec93a322c86ee64
+* author:	ShaheerHashmi (https://sketchfab.com/ShaheerHashmi)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "2013_suzuki_wagonr-car" (https://sketchfab.com/3d-models/2013-suzuki-wagonr-car-97547c978b7c42039ec93a322c86ee64) by ShaheerHashmi (https://sketchfab.com/ShaheerHashmi) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
