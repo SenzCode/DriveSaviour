@@ -8,18 +8,39 @@ if (!isset($_SESSION['email'])) {
 }
 
 $loggedInOwnerEmail = $_SESSION['email'];
-
-
 require('../navbar/nav.php');
 include_once('../../connection.php');
 
 // Get the shop_id from the URL query string
 $shop_id = isset($_GET['shop_id']) ? intval($_GET['shop_id']) : 0;
 
+// Fetch the shop name for the specified shop_id
+$shop_name = '';
+$branch = '';
+if ($shop_id > 0) {
+    $shop_stmt = $conn->prepare("SELECT shop_name, branch FROM shops WHERE id = ?");
+    if (!$shop_stmt) {
+        echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+        exit;
+    }
+    $shop_stmt->bind_param("i", $shop_id);
+    $shop_stmt->execute();
+    $shop_result = $shop_stmt->get_result();
+    if ($shop_row = $shop_result->fetch_assoc()) {
+        $shop_name = $shop_row['shop_name'];
+        $branch = $shop_row['branch'];
+    }
+    $shop_stmt->close();
+}
+
 // Fetch products only for the specified shop
 $product_data = [];
 if ($shop_id > 0) {
     $stmt = $conn->prepare("SELECT * FROM products WHERE shop_id = ?");
+    if (!$stmt) {
+        echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+        exit;
+    }
     $stmt->bind_param("i", $shop_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -102,52 +123,51 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             <div class="search-bar">
                 <label for="search">Search by Product Name:</label>
                 <input type="text" id="search" class="search-select" placeholder="Product Name">
-                <button id="search-icon"><i class="fas fa-search"></i></button>
             </div>
             <br>
         </div>
 
         <!-- Products Table -->
-        <h2>Product List for Shop ID: <?= htmlspecialchars($shop_id) ?></h2>
-            <div class="table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Image</th>
-                            <th>Quantity Available</th>
-                            <th>Price</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="product-tbody">
-                        <?php if (count($product_data) > 0): ?>
-                            <?php foreach ($product_data as $row): ?>
-                                <tr>
-                                    <td data-cell="Product Name"><?= htmlspecialchars($row['product_name']) ?></td>
-                                    <td data-cell="Image"><img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>" width="50"></td>
-                                    <td data-cell="Quantity Available"><?= htmlspecialchars($row['quantity_available']) ?></td>
-                                    <td data-cell="Price">Rs.<?= htmlspecialchars($row['price']) ?></td>
-                                    <td class="manage-btn">
-                                        <button class="manage-button view-link" 
-                                                data-id="<?= htmlspecialchars($row['id']) ?>"
-                                                data-product_name="<?= htmlspecialchars($row['product_name']) ?>"
-                                                data-image_url="<?= htmlspecialchars($row['image_url']) ?>"
-                                                data-quantity_available="<?= htmlspecialchars($row['quantity_available']) ?>"
-                                                data-price="<?= htmlspecialchars($row['price']) ?>">
-                                            Manage
-                                        </button>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
+        <h2>Product List for Shop: <?= htmlspecialchars($shop_name) ?> <?= htmlspecialchars($branch) ?> Branch</h2>
+        <div class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Image</th>
+                        <th>Quantity Available</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="product-tbody">
+                    <?php if (count($product_data) > 0): ?>
+                        <?php foreach ($product_data as $row): ?>
                             <tr>
-                                <td colspan="5">No products found for this shop.</td>
+                                <td data-cell="Product Name"><?= htmlspecialchars($row['product_name']) ?></td>
+                                <td data-cell="Image"><img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>" width="50"></td>
+                                <td data-cell="Quantity Available"><?= htmlspecialchars($row['quantity_available']) ?></td>
+                                <td data-cell="Price">Rs.<?= htmlspecialchars($row['price']) ?></td>
+                                <td class="manage-btn">
+                                    <button class="manage-button view-link" 
+                                            data-id="<?= htmlspecialchars($row['id']) ?>"
+                                            data-product_name="<?= htmlspecialchars($row['product_name']) ?>"
+                                            data-image_url="<?= htmlspecialchars($row['image_url']) ?>"
+                                            data-quantity_available="<?= htmlspecialchars($row['quantity_available']) ?>"
+                                            data-price="<?= htmlspecialchars($row['price']) ?>">
+                                        Manage
+                                    </button>
+                                </td>
                             </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="5">No products found for this shop.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
 
         <!-- Manage Product Modal -->
         <div id="manageProductModal" class="modal">
@@ -229,6 +249,22 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 }
             }
         });
+
+                // JavaScript for Search Functionality
+        document.getElementById('search').addEventListener('input', function() {
+            var searchQuery = this.value.toLowerCase();
+            var rows = document.querySelectorAll('#product-tbody tr');
+            
+            rows.forEach(function(row) {
+                var productName = row.querySelector('td[data-cell="Product Name"]').textContent.toLowerCase();
+                if (productName.includes(searchQuery)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
     </script>
 </body>
 

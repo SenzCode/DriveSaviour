@@ -137,7 +137,7 @@
                         <p>Address: {$row['address']}</p>
                         <p>Phone: {$row['number']}</p>
                         <!-- Hardcoded Ratings and Reviews -->
-                        <p><strong>Ratings:</strong> 4.5 ★★★★☆ (120 reviews)</p>
+                        <!--<p><strong>Ratings:</strong> 4.5 ★★★★☆ (120 reviews)</p>-->
                         <button class='view-products-btn' onclick='viewProducts({$row['id']})'>View Products</button>
                     </div>
                     ";

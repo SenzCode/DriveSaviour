@@ -65,24 +65,24 @@ $conn->close();
 <h1>Manage Profile</h1>
  
         <?php if (isset($message)): ?>
-<p><?php echo htmlspecialchars($message); ?></p>
-<?php endif; ?>
+            <p><?php echo htmlspecialchars($message); ?></p>
+        <?php endif; ?>
  
         <form action="manage_profile.php" method="POST">
-<div>
-<label for="name">Name:</label>
-<input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
-</div>
-<div>
-<label for="email">Email:</label>
-<input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
-</div>
-<div>
-<label for="phone">Phone:</label>
-<input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone']); ?>" required>
-</div>
-<button type="submit" name="update_profile">Update Profile</button>
-</form>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+            </div>
+            <div>
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone']); ?>" required>
+            </div>
+        <button type="submit" name="update_profile">Update Profile</button>
+        </form>
 </div>
 </body>
 </html>

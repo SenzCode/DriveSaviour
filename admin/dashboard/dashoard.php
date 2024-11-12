@@ -35,10 +35,10 @@ try {
     $user_count = $result->fetch_assoc()['user_count'];
 
     // Query to get the count of products
-    $stmt = $conn->prepare("SELECT COUNT(*) as products_count FROM products");
+    $stmt = $conn->prepare("SELECT COUNT(*) as shop_count FROM shops");
     $stmt->execute();
     $result = $stmt->get_result();
-    $products_count = $result->fetch_assoc()['products_count'];
+    $products_count = $result->fetch_assoc()['shop_count'];
 
     // Query to get products that need restocking
     $stmt = $conn->prepare("SELECT p.*, s.* 

@@ -73,7 +73,7 @@ $session = \Stripe\Checkout\Session::create([
     'line_items' => $line_items,
     'mode' => 'payment',
     'success_url' => 'http://localhost:3000/vehicle_owner/products/success.php?session_id={CHECKOUT_SESSION_ID}',  // Replace with your actual success URL
-    'cancel_url' => 'http://localhost:3000/vehicle_owner/products/cancel.php',    // Replace with your actual cancel URL
+    'cancel_url' => 'http://localhost:3000/vehicle_owner/products/view_cart.php',    // Replace with your actual cancel URL
 ]);
 
 // Close connections

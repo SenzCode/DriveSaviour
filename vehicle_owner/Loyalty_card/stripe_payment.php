@@ -15,13 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'product_data' => [
                     'name' => 'Loyalty Card',
                 ],
-                'unit_amount' => 500000, // $50.00 (in cents)
+                'unit_amount' => 500000,
             ],
             'quantity' => 1,
         ]],
         'mode' => 'payment',
         'success_url' => 'http://localhost:3000/vehicle_owner/Loyalty_card/success.php?email=' . urlencode($email),
-        'cancel_url' => 'http://localhost:3000/vehicle_owner/Loyalty_card/cancel.php',
+        'cancel_url' => 'http://localhost:3000/vehicle_owner/Loyalty_card/loyalty_card.php',
     ]);
 
     // Redirect to the Stripe Checkout page

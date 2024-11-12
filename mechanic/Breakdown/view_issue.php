@@ -6,7 +6,7 @@ require '../../connection.php';
 $issue_id = intval($_GET['id']);
 
 // Fetch issue details along with the vehicle owner's city from the database
-$sql = "SELECT vi.*, vo.city 
+$sql = "SELECT vi.*
 from vehicleissues vi JOIN vehicle v ON vi.v_id = v.v_id
     JOIN vehicle_owner vo ON v.email = vo.email
     WHERE vi.id = ?";
@@ -37,14 +37,14 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <style>
 /* Modal Overlay */
 .modal-overlay {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-    z-index: 1000; /* Ensure the modal is on top */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
     align-items: center;
     justify-content: center;
     overflow: hidden;
@@ -101,10 +101,10 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <p><strong>Year:</strong> <?= htmlspecialchars($issue['year']); ?></p>
         <p><strong>Mobile Number:</strong> <?= htmlspecialchars($issue['mobile_number']); ?></p>
         <p><strong>Vehicle Issue:</strong> <?= htmlspecialchars($issue['vehicle_issue']); ?></p>
-        <p><strong>City:</strong> <?= htmlspecialchars($issue['city']); ?></p>
+        <p><strong>Near City:</strong> <?= htmlspecialchars($issue['city']); ?></p>
 
         <button class="btn accept-btn">Accept</button>
-        <button class="btn decline-btn">Decline</button>
+        <button class="btn decline-btn" onclick="window.location.href='breakdown.php'">Cancel</button>
     </div>
 
     <div class="map-container">
