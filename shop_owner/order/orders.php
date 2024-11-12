@@ -51,6 +51,7 @@ try {
 
 // Initialize a success message variable
 $successMessage = '';
+$redirect = false; // Flag to handle redirect
 
 // Update order status if form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['status'], $_POST['source'])) {
@@ -66,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['st
 
     if ($update_stmt->execute()) {
         $successMessage = "Order status updated successfully.";
+        $redirect = true; // Set flag to trigger JavaScript redirect
     } else {
         echo "Error updating status: " . $conn->error;
     }
@@ -89,6 +91,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['st
         <!-- Success Message Alert -->
         <?php if ($successMessage): ?>
             <div class="alert alert-success"><?php echo $successMessage; ?></div>
+        <?php endif; ?>
+
+        <!-- JavaScript Redirect after Success Message -->
+        <?php if ($redirect): ?>
+            <script>
+                // Redirect to orders.php after 2 seconds
+                setTimeout(function() {
+                    window.location.href = 'orders.php';
+                }, 2000);
+            </script>
         <?php endif; ?>
 
         <table class="table">

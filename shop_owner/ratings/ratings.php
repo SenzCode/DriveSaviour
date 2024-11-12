@@ -14,7 +14,7 @@ require('../navbar/nav.php');
 // Retrieve product IDs for shops owned by the logged-in user
 $productIds = [];
 $stmt = $conn->prepare("
-    SELECT products.id 
+    SELECT products.id
     FROM products
     JOIN shops ON products.shop_id = shops.id
     JOIN shop_owner ON shops.ownerEmail = shop_owner.email
@@ -27,14 +27,30 @@ while ($row = $result->fetch_assoc()) {
 }
 $stmt->close();
 
-// Retrieve ratings for user's products
+// Check if we have product IDs to avoid empty queries
 $ratings_data = [];
 if (!empty($productIds)) {
+    // Retrieve ratings from `ratings` table
     $placeholders = implode(',', array_fill(0, count($productIds), '?'));
     $stmt = $conn->prepare("
-        SELECT ratings.product_id, ratings.rating, ratings.feedback, ratings.rating_date
+        SELECT products.product_name, ratings.rating, ratings.feedback, ratings.rating_date
         FROM ratings
+        JOIN products ON ratings.product_id = products.id
         WHERE ratings.product_id IN ($placeholders)");
+    $stmt->bind_param(str_repeat("i", count($productIds)), ...$productIds);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $ratings_data[] = $row;
+    }
+    $stmt->close();
+
+    // Retrieve ratings from `mech_ratings` table
+    $stmt = $conn->prepare("
+        SELECT products.product_name, mech_ratings.rating, mech_ratings.feedback, mech_ratings.rating_date
+        FROM mech_ratings
+        JOIN products ON mech_ratings.product_id = products.id
+        WHERE mech_ratings.product_id IN ($placeholders)");
     $stmt->bind_param(str_repeat("i", count($productIds)), ...$productIds);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -44,6 +60,7 @@ if (!empty($productIds)) {
     $stmt->close();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,12 +70,10 @@ if (!empty($productIds)) {
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../navbar/style.css">
     <style>
-        /* Style for the star rating */
         .star {
             font-size: 1.5rem;
             color: lightgray;
         }
-
         .star.filled {
             color: gold;
         }
@@ -72,7 +87,7 @@ if (!empty($productIds)) {
             <table>
                 <thead>
                     <tr>
-                        <th>Product ID</th>
+                        <th>Product Name</th>
                         <th>Rating</th>
                         <th>Feedback</th>
                         <th>Date</th>
@@ -81,15 +96,14 @@ if (!empty($productIds)) {
                 <tbody>
                     <?php foreach ($ratings_data as $rating): ?>
                         <tr>
-                            <td data-cell="Product Id"><?= htmlspecialchars($rating['product_id']) ?></td>
-                            <td data-cell="Star">
-                                <!-- Display stars based on rating value -->
+                            <td><?= htmlspecialchars($rating['product_name']) ?></td>
+                            <td>
                                 <?php for ($i = 1; $i <= 5; $i++): ?>
                                     <span class="star<?= $i <= $rating['rating'] ? ' filled' : '' ?>">&starf;</span>
                                 <?php endfor; ?>
                             </td>
-                            <td data-cell="Feedback"><?= htmlspecialchars($rating['feedback']) ?></td>
-                            <td data-cell="Rating Date"><?= htmlspecialchars($rating['rating_date']) ?></td>
+                            <td><?= htmlspecialchars($rating['feedback']) ?></td>
+                            <td><?= htmlspecialchars($rating['rating_date']) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -100,4 +114,3 @@ if (!empty($productIds)) {
     </div>
 </body>
 </html>
-
