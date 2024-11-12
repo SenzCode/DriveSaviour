@@ -1,0 +1,11 @@
+Model Information:
+* title:	NISSAN_VAN
+* source:	https://sketchfab.com/3d-models/nissan-van-bfddc35e8b40441cbaa291ef0b120935
+* author:	sherif shawky (https://sketchfab.com/shawky.sherif1)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "NISSAN_VAN" (https://sketchfab.com/3d-models/nissan-van-bfddc35e8b40441cbaa291ef0b120935) by sherif shawky (https://sketchfab.com/shawky.sherif1) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
