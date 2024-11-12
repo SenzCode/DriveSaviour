@@ -6,7 +6,7 @@ include_once('../../connection.php');
 $orders_data = [];
 
 // Fetch data from orders table
-$stmt_orders = $conn->prepare("SELECT * FROM orders");
+$stmt_orders = $conn->prepare("SELECT o.*, p.* FROM orders o JOIN products p ON o.product_id = p.id");
 $stmt_orders->execute();
 $result_orders = $stmt_orders->get_result();
 if ($result_orders) {
@@ -17,7 +17,7 @@ if ($result_orders) {
 $stmt_orders->close();
 
 // Fetch data from mech_orders table
-$stmt_mech_orders = $conn->prepare("SELECT * FROM mech_orders");
+$stmt_mech_orders = $conn->prepare("SELECT mo.*, p.* FROM mech_orders mo JOIN products p ON mo.product_id = p.id");
 $stmt_mech_orders->execute();
 $result_mech_orders = $stmt_mech_orders->get_result();
 if ($result_mech_orders) {
@@ -49,7 +49,12 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <div class="searchbars">
         <div class="search-bar">
             <label for="search">Search</label>
-            <input type="text" id="search" class="search-select" placeholder="Reference Number">
+            <input type="text" id="search" class="search-select" placeholder="Product Name">
+        </div>
+        <br>
+        <div class="search-bar">
+            <label for="date-filter">Select Date</label>
+            <input type="date" id="date-filter">
         </div>
         <br>
     </div>
@@ -58,35 +63,31 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <table>
             <thead>
                 <tr>
-                    <th>Reference Number</th>
+                    <th>Product Name</th>
                     <th>Product ID</th>
                     <th>Quantity</th>
                     <th>Purchase Date</th>
                     <th>Item Total</th>
-                    <th>Total Price</th>
                     <th>Discount</th>
                     <th>Seller Income</th>
                     <th>Commission</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                    <th>Payment Status</th>
+                    <!-- <th>Email</th> -->
+                    <th>Seller Payment Status</th>
                 </tr>
             </thead>
             <tbody id="orders-tbody">
                 <?php if (!empty($orders_data)): ?>
                     <?php foreach ($orders_data as $row): ?>
                         <tr>
-                            <td data-cell="Reference Number"><?= htmlspecialchars($row['reference_number']) ?></td>
+                            <td data-cell="Product Name"><?= htmlspecialchars($row['product_name']) ?></td>
                             <td data-cell="Product ID"><?= htmlspecialchars($row['product_id']) ?></td>
                             <td data-cell="Quantity"><?= htmlspecialchars($row['quantity']) ?></td>
                             <td data-cell="Purchase Date"><?= htmlspecialchars($row['purchase_date']) ?></td>
                             <td data-cell="Item Total"><?= htmlspecialchars($row['item_total']) ?></td>
-                            <td data-cell="Total Price"><?= htmlspecialchars($row['total_price']) ?></td>
                             <td data-cell="Discount"><?= htmlspecialchars($row['discount']) ?></td>
                             <td data-cell="Seller Income"><?= htmlspecialchars($row['seller_income']) ?></td>
                             <td data-cell="Commission"><?= htmlspecialchars($row['commission']) ?></td>
-                            <td data-cell="Email"><?= htmlspecialchars($row['email']) ?></td>
-                            <td data-cell="Status"><?= htmlspecialchars($row['status']) ?></td>
+                            <!-- <td data-cell="Email"><?= htmlspecialchars($row['email']) ?></td> -->
                             <td data-cell="Payment Status"><?= htmlspecialchars($row['payment_status']) ?></td>
                         </tr>
                     <?php endforeach; ?>
@@ -105,8 +106,21 @@ document.getElementById("search").addEventListener("input", function() {
     var searchQuery = this.value.toLowerCase();
     var rows = document.querySelectorAll("#orders-tbody tr");
     rows.forEach(function(row) {
-        var referenceNumber = row.querySelector("td[data-cell='Reference Number']").textContent.toLowerCase();
-        if (referenceNumber.includes(searchQuery)) {
+        var productName = row.querySelector("td[data-cell='Product Name']").textContent.toLowerCase();
+        if (productName.includes(searchQuery)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+});
+
+document.getElementById("date-filter").addEventListener("input", function() {
+    var selectedDate = this.value;
+    var rows = document.querySelectorAll("#orders-tbody tr");
+    rows.forEach(function(row) {
+        var purchaseDate = row.querySelector("td[data-cell='Purchase Date']").textContent;
+        if (purchaseDate === selectedDate) {
             row.style.display = "";
         } else {
             row.style.display = "none";

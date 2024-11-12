@@ -58,7 +58,7 @@ try {
                     <th>Purchase Date</th>
                     <th>Quantity</th>
                     <th>Seller Income</th>
-                    <th>Payment Status</th>
+                    <th>Seller Payment Status</th>
                 </tr>
             </thead>
             <tbody>

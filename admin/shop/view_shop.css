@@ -1,12 +1,6 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center; /* Center the entire page */
-    align-items: flex-start; /* Align content at the top */
-    height: 100vh;
-    background-color: #f4f4f4;
+body{
+    margin-left: 300px;
+    margin-top: 50px;
 }
 
 .main_container {
@@ -142,6 +136,23 @@ body {
 
 .modal-content button:hover {
     background-color: #0056b3;
+}
+
+.alert {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #edd4d4;
+    color: #571515;
 }
 
 /* Responsive Design */

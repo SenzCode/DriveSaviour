@@ -31,15 +31,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 </head>
 <body>
 <div class="main_container">
-
-    <?php if ($message == 'delete_success'): ?>
-        <div class="alert alert-danger">Shop Profile deleted successfully.</div>
-    <?php elseif ($message == 'edit_success'): ?>
-        <div class="alert alert-success">Shop Profile edited successfully.</div>
-    <?php elseif ($message == 'error'): ?>
-        <div class="alert alert-danger">Something went wrong: <?= htmlspecialchars($_GET['error'] ?? '') ?></div>
-    <?php endif; ?>
-
     <div class="title">
         <h1>Manage Shops</h1>
     </div>
@@ -48,6 +39,14 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <input type="text" id="search" class="search-select" placeholder="Search Shops">
         <i class="bx bx-search"></i> <!-- Search Icon -->
     </div>
+
+    <?php if ($message == 'delete_success'): ?>
+        <div class="alert alert-danger" id="success-alert">Shop Profile deleted successfully.</div>
+    <?php elseif ($message == 'edit_success'): ?>
+        <div class="alert alert-success" id="success-alert">Shop Profile edited successfully.</div>
+    <?php elseif ($message == 'error'): ?>
+        <div class="alert alert-danger">Something went wrong: <?= htmlspecialchars($_GET['error'] ?? '') ?></div>
+    <?php endif; ?>
 
     <div class="shop-list">
         <?php foreach ($shop_data as $row): ?>
@@ -221,4 +220,13 @@ document.getElementById("search").addEventListener("input", function() {
 });
 </script>
 </body>
+
+<script>
+    setTimeout(function() {
+        var alert = document.getElementById('success-alert');
+        if (alert) {
+            alert.style.display = 'none';
+        }
+    }, 10000); // 10 seconds
+</script>
 </html>
