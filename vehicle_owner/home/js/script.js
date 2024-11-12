@@ -72,6 +72,7 @@ const sr = ScrollReveal({
 });
 
 sr.reveal('.text-center', { delay: 300 });
+sr.reveal('.modal', { delay: 300 });
 sr.reveal('.services-boxes', { delay: 500 });
 sr.reveal('.title-text h2', { delay: 300 });
 
