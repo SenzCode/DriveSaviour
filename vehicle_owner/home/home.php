@@ -334,10 +334,12 @@ function showPreloader(event, url) {
                 carModel.model.materials[4].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
         }else if (carModel.src.includes('suzuki_wagonr')) {
                 carModel.model.materials[3].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
+
         }else if (carModel.src.includes('nissan_van')) {
                 carModel.model.materials[0].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
         }else if (carModel.src.includes('nissan_navara')) {
                 carModel.model.materials[6].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
+
         } else {
             carModel.model.materials[1].pbrMetallicRoughness.setBaseColorFactor(hexToRgb(color));
         }
