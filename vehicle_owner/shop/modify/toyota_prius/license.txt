@@ -1,0 +1,11 @@
+Model Information:
+* title:	Toyota Prius 2012
+* source:	https://sketchfab.com/3d-models/toyota-prius-2012-04eaf6b288cc466785365b7d985e3b29
+* author:	Doz3 (https://sketchfab.com/Doz3)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Toyota Prius 2012" (https://sketchfab.com/3d-models/toyota-prius-2012-04eaf6b288cc466785365b7d985e3b29) by Doz3 (https://sketchfab.com/Doz3) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
