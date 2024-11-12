@@ -68,40 +68,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="index.php" method="post">
-        <label for="userType">Login as:</label>
-        <select id="userType" name="userType" onchange="toggleInput()">
-            <option value="admin">Admin</option>
-            <option value="mechanic">Mechanic</option>
-            <option value="shop_owner">Shop Owner</option>
-            <option value="vehicle_owner">Vehicle Owner</option>
-        </select><br><br>
-
-        <div id="emailInput">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
+    <div class="container">
+        <!-- Left side panel for blue background -->
+        <div class="left-panel">
+            <h2>Welcome Back!</h2>
+            <p>Login to continue to your dashboard</p>
         </div>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
+        <!-- Right side form box -->
+        <div class="form-box">
+            <form action="index.php" method="post">
+                <h1>Login</h1>
 
-        <input type="submit" value="Login">
-    </form>
+                <div class="input-box">
+                    <label for="userType">Login as:</label>
+                    <select id="userType" name="userType" onchange="toggleInput()">
+                        <option value="admin">Admin</option>
+                        <option value="mechanic">Mechanic</option>
+                        <option value="shop_owner">Shop Owner</option>
+                        <option value="vehicle_owner">Vehicle Owner</option>
+                    </select>
+                </div>
+
+                <div class="input-box" id="emailInput">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <input type="submit" value="Login" class="btn">
+            </form>
+        </div>
+    </div>
 
     <script>
         function toggleInput() {
             var userType = document.getElementById("userType").value;
             var emailInput = document.getElementById("emailInput");
-
             emailInput.style.display = "block";
         }
 
