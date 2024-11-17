@@ -2,7 +2,6 @@
 session_start();
 include_once('../../connection.php');
 
-// Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name    = mysqli_real_escape_string($conn, $_POST['name']);
     $email   = $_POST['email'];
@@ -10,9 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $address = $_POST['address'];
     $city    = $_POST['city'];
 
-    // Handle action for edit and delete
     if ($_POST['action'] == 'edit') {
-        // Update query for the vehicle_owner table
         $sql = "UPDATE vehicle_owner SET name=?, phone=?, address=?, city=? WHERE email=?";
         $stmt = $conn->prepare($sql);
 
@@ -35,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
     } elseif ($_POST['action'] == 'delete') {
-        // Delete query for vehicle_owner table
         $sql = "DELETE FROM vehicle_owner WHERE email=?";
         $stmt = $conn->prepare($sql);
 
@@ -58,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 } else {
-    // Redirect to the view page if the request method is not POST
     header("Location: veiw_owners.php");
     exit;
 }

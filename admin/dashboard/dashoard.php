@@ -22,25 +22,25 @@ if (!isset($_SESSION['email'])) {
 $loggedInOwnerEmail = $_SESSION['email'];
 
 try {
-    // Query to get the count of mechanics
+    // count of mechanics
     $stmt = $conn->prepare("SELECT COUNT(*) as mechanic_count FROM mechanic");
     $stmt->execute();
     $result = $stmt->get_result();
     $mechanic_count = $result->fetch_assoc()['mechanic_count'];
 
-    // Query to get the count of users
+    // count of users
     $stmt = $conn->prepare("SELECT COUNT(*) as user_count FROM vehicle_owner");
     $stmt->execute();
     $result = $stmt->get_result();
     $user_count = $result->fetch_assoc()['user_count'];
 
-    // Query to get the count of products
+    // count of products
     $stmt = $conn->prepare("SELECT COUNT(*) as shop_count FROM shops");
     $stmt->execute();
     $result = $stmt->get_result();
     $products_count = $result->fetch_assoc()['shop_count'];
 
-    // Query to get products that need restocking
+    // products that need restocking
     $stmt = $conn->prepare("SELECT p.*, s.* 
                             FROM products p 
                             JOIN shops s ON p.shop_id = s.id 

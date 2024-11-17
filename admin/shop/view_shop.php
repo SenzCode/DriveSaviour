@@ -85,7 +85,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <?php endforeach; ?>
     </div>
 
-    <!-- Modal for Editing or Deleting Shop -->
+    <!-- Modal -->
     <div id="manageBatchModal" class="modal">
         <div class="modal-content">
             <span id="closeManageBatchModal" class="close">&times;</span>
@@ -125,7 +125,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 </div>
 
 <script>
-// Handle modal pop-up for edit/delete
 function attachManageButtonEventListeners() {
     document.querySelectorAll('.manage-button').forEach(button => {
         button.addEventListener('click', function() {
@@ -150,10 +149,8 @@ function attachManageButtonEventListeners() {
     });
 }
 
-// Attach event listeners initially
 attachManageButtonEventListeners();
 
-// Close modal on clicking close or outside the modal
 var manageBatchModal = document.getElementById("manageBatchModal");
 var closeManageBatchModal = document.getElementById("closeManageBatchModal");
 
@@ -185,7 +182,7 @@ document.getElementById("search").addEventListener("input", function() {
         }
     });
     
-    // If no shop name matches and search is not empty, show "No results found."
+    // If no shop"
     if (noMatchFound && searchQuery !== "") {
         document.querySelector('.shop-list').innerHTML = "<p>No results found.</p>";
     } else if (searchQuery === "") {

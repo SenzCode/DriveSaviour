@@ -1,16 +1,13 @@
 <?php
-require '../../connection.php'; // Include the database connection file
+require '../../connection.php';
 
-// Initialize variables
 $message = "";
-$imageSrc = "../../vehicle_owner/shop/img/success.png"; // Default to success image
+$imageSrc = "../../vehicle_owner/shop/img/success.png";
 
 try {
-    // Prepare the SQL queries to update payment_status to 'paid' and set paid_date to the current date for all unpaid orders and mech_orders
     $stmt1 = $conn->prepare("UPDATE orders SET payment_status = 'paid', paid_date = NOW() WHERE payment_status != 'paid'");
     $stmt2 = $conn->prepare("UPDATE mech_orders SET payment_status = 'paid', paid_date = NOW() WHERE payment_status != 'paid'");
 
-    // Execute both queries
     $success1 = $stmt1->execute();
     $success2 = $stmt2->execute();
 
@@ -21,7 +18,6 @@ try {
         $imageSrc = "../../vehicle_owner/shop/img/error.png"; 
     }
 
-    // Close the prepared statements
     $stmt1->close();
     $stmt2->close();
 

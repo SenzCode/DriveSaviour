@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     $description = htmlspecialchars(trim($_POST['description']));
     $created_date = $_POST['cdate'];
 
-    // Insert category into the database
     $query = "INSERT INTO category (category_name, description, created_date) VALUES ('$cat_name', '$description', '$created_date')";
 
     if (mysqli_query($conn, $query)) {

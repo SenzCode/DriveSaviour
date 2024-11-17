@@ -3,7 +3,6 @@ session_start();
 include_once('../../connection.php');
 require '../navbar/navbar.php';
 
-// Fetch all data from the vehicle_owner table
 $owner_data = [];
 $stmt = $conn->prepare("SELECT name, email, phone, address, city FROM vehicle_owner");
 $stmt->execute();

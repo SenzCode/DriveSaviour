@@ -2,14 +2,12 @@
 require '../navbar/navbar.php';
 require '../../connection.php';
 
-// Check if the user is logged in
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit();
 }
 
 try {
-    // Prepare and execute the SQL statement to fetch orders with 'Pending' payment status from both tables
     $stmt = $conn->prepare("
         SELECT o.*, p.product_name, p.shop_id, s.shop_name 
         FROM (
@@ -28,7 +26,7 @@ try {
     $total_seller_income = 0;
     while ($row = $result->fetch_assoc()) {
         $orders_data[] = $row;
-        $total_seller_income += $row['seller_income']; // Sum up the seller income
+        $total_seller_income += $row['seller_income'];
     }
     $stmt->close();
 
@@ -81,16 +79,14 @@ try {
             </tbody>
         </table>
 
-        <!-- Display total seller income -->
         <div class="total-income">
             <h3>Total Seller Income: LKR <?php echo number_format($total_seller_income, 2); ?></h3>
         </div>
 
-        <!-- Stripe payment button -->
         <form action="stripe_payment.php" method="POST">
             <input type="hidden" name="total_amount" value="<?php echo $total_seller_income; ?>">
             <input type="hidden" name="email" value="<?php echo $_SESSION['email']; ?>">
-            <button type="submit" class="pay-button">Pay with Stripe</button>
+            <button type="submit" class="btn">Pay Commission</button>
         </form>
     </div>
 </body>

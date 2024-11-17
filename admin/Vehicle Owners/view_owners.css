@@ -1,9 +1,7 @@
-/* Reset body margins for mobile */
 body {
     margin: 0;
 }
 
-/* Main container */
 .main_container {
     margin: auto;
     padding: 20px;
@@ -13,7 +11,6 @@ body {
     max-width: 1200px;
 }
 
-/* Title styling */
 .title h1 {
     text-align: center;
     font-size: 24px;
@@ -21,7 +18,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* Search bar container */
+
 .search-bar {
     display: flex;
     justify-content: center;
@@ -32,7 +29,7 @@ body {
     margin: auto;
 }
 
-/* Search input field */
+
 #search {
     width: 100%;
     padding: 10px;
@@ -47,7 +44,7 @@ body {
     border-color: #007bff;
 }
 
-/* Success and error message styling */
+
 .alert {
     margin-bottom: 20px;
     padding: 10px;
@@ -65,7 +62,7 @@ body {
     color: #721c24;
 }
 
-/* Table styling */
+
 table {
     width: 95%;
     border-collapse: collapse;
@@ -94,7 +91,7 @@ tbody td {
     font-size: 14px;
 }
 
-/* Action button styling */
+
 .manage-button {
     background-color: #007bff;
     color: white;
@@ -122,7 +119,7 @@ tbody td {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Center modal on both PC and mobile */
+
 .modal-content {
     background-color: #fff;
     padding: 20px;
@@ -141,7 +138,7 @@ tbody td {
     margin-bottom: 10px;
 }
 
-/* Close button styling */
+
 .close {
     color: #aaa;
     float: right;
@@ -171,7 +168,7 @@ tbody td {
     border-radius: 5px;
 }
 
-/* Button styles in modal */
+
 .batch {
     display: inline-block;
     padding: 10px 20px;

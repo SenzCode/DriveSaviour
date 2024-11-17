@@ -71,7 +71,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <th>Discount</th>
                     <th>Seller Income</th>
                     <th>Commission</th>
-                    <!-- <th>Email</th> -->
                     <th>Seller Payment Status</th>
                 </tr>
             </thead>
@@ -87,7 +86,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                             <td data-cell="Discount"><?= htmlspecialchars($row['discount']) ?></td>
                             <td data-cell="Seller Income"><?= htmlspecialchars($row['seller_income']) ?></td>
                             <td data-cell="Commission"><?= htmlspecialchars($row['commission']) ?></td>
-                            <!-- <td data-cell="Email"><?= htmlspecialchars($row['email']) ?></td> -->
                             <td data-cell="Payment Status"><?= htmlspecialchars($row['payment_status']) ?></td>
                         </tr>
                     <?php endforeach; ?>

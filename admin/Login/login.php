@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
     $userID   = $_POST['email'];
     $password = $_POST['password'];
 
-    // Fetch admin data from the database
+    // fetching admin data
     $stmt = $conn->prepare("SELECT * FROM admin WHERE email = ?");
     $stmt->bind_param("s", $userID);
     $stmt->execute();
@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         if ($password === $admin['password']) {
             // Set session variable with admin email
             $_SESSION['email'] = $admin['email'];
-            // Redirect to the dashboard
             header("Location: ../dashboard/dashoard.php");
             exit();
         } else {

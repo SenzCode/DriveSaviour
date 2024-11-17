@@ -1,5 +1,4 @@
 <?php
-// Start the session
 session_start();
 
 require('../navbar/navbar.php');
@@ -142,7 +141,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     }, 10000);
 
     function viewProducts(shopId) {
-        // Redirect to products.php with shop ID as query parameter
         window.location.href = "products.php?shop_id=" + shopId;
     }
 </script>
