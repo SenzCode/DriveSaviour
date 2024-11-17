@@ -8,7 +8,6 @@ if (!$conn) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['register'])) {
-        // Handle registration
         $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -30,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt = $conn->prepare($insertQuery);
             $stmt->bind_param('sssss', $name, $phone, $address, $email, $hashedPassword);
             if ($stmt->execute()) {
-                // Store user information in session variables
                 $_SESSION['userID'] = $conn->insert_id;
                 $_SESSION['name'] = $name;
                 $_SESSION['email'] = $email;
@@ -47,6 +45,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Close the database connection
 $conn->close();
 ?>

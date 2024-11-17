@@ -10,7 +10,6 @@ function sanitizeInput($input) {
     return filter_var($input, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 }
 
-// Password Update Logic
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['update_password'])) {
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -22,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['message'] = "New password and confirm password do not match.";
             $_SESSION['msg_type'] = "error";
         } else {
-            // Check if the email exists
             $checkUserQuery = "SELECT * FROM mechanic WHERE email = ?";
             $stmt = $conn->prepare($checkUserQuery);
             $stmt->bind_param('s', $email);
@@ -32,9 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($result->num_rows == 1) {
                 $user = $result->fetch_assoc();
 
-                // Verify the old password
                 if (password_verify($old_password, $user['password'])) {
-                    // Hash the new password
                     $hashedPassword = password_hash($new_password, PASSWORD_BCRYPT);
 
                     // Update the password
@@ -63,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Close the database connection
 $conn->close();
 ?>
 
@@ -135,26 +130,19 @@ $conn->close();
     }
 </style>
 
-<!-- JavaScript for Popup and Redirect -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Check if there's a message set in the session
+        
         <?php if (isset($_SESSION['message'])): ?>
-            // Show popup with message
             document.getElementById("popup-message").textContent = "<?php echo $_SESSION['message']; ?>";
             document.getElementById("popup").style.display = "flex";
-
-            // Clear session message after displaying
             <?php unset($_SESSION['message']); unset($_SESSION['msg_type']); ?>
         <?php endif; ?>
     });
 
     function closePopup() {
         document.getElementById("popup").style.display = "none";
-
-        // Check if the message is a success message to trigger redirect
         <?php if (isset($_SESSION['msg_type']) && $_SESSION['msg_type'] === 'success'): ?>
-            // Redirect to login page on successful password update
             window.location.href = "login.php";
         <?php endif; ?>
     }

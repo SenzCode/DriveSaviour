@@ -2,21 +2,18 @@
 session_start();
 require '../../connection.php';
 require '../navbar/nav.php';
-require 'vendor/autoload.php'; // Stripe PHP library
+require 'vendor/autoload.php';
 
 // Stripe API configuration
 \Stripe\Stripe::setApiKey('sk_test_51PfklnDFvPyG4fvuUh6ZfPSa5LBwdmWSlgABfkzEjUZeJH5YHDpHoHzWRKDrjYt325wJZSXY4ip4TY4tYfZ9cYnZ00AkL5f2Zd');
 
-// Check if the user is logged in
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit;
 }
 
-// Get the logged-in user's email
 $userEmail = $_SESSION['email'];
 
-// Check if the user is eligible for a loyalty card discount
 $discountRate = 0;
 $loyaltyCheckQuery = $conn->prepare("SELECT * FROM mech_loyalty_card WHERE email = ?");
 $loyaltyCheckQuery->bind_param("s", $userEmail);
@@ -27,7 +24,6 @@ if ($loyaltyResult->num_rows > 0) {
     $discountRate = 0.05; // 5% discount
 }
 
-// Fetch cart items for the logged-in user
 $query = "SELECT c.*, p.product_name, p.id, p.price, s.shop_name 
           FROM mech_cart c 
           JOIN products p ON c.product_id = p.id 
@@ -48,11 +44,9 @@ if ($result) {
     }
 }
 
-// Calculate discount amount and final total to pay
 $discountAmount = $subtotal * $discountRate;
 $totalAmountToPay = $subtotal - $discountAmount;
 
-// Prepare data for Stripe Checkout
 $line_items = [
     [
         'price_data' => [
@@ -60,23 +54,21 @@ $line_items = [
             'product_data' => [
                 'name' => 'Total Amount after Discount',
             ],
-            'unit_amount' => $totalAmountToPay * 100, // Stripe uses cents
+            'unit_amount' => $totalAmountToPay * 100,
         ],
         'quantity' => 1,
     ]
 ];
 
-// Create Stripe checkout session
 $session = \Stripe\Checkout\Session::create([
     'payment_method_types' => ['card'],
     'line_items' => $line_items,
     'mode' => 'payment',
-    'success_url' => 'http://localhost:3000/mechanic/products/success.php?session_id={CHECKOUT_SESSION_ID}',  // Replace with your actual success URL
-    'cancel_url' => 'http://localhost:3000/mechanic/products/cancel.php',    // Replace with your actual cancel URL
+    'success_url' => 'http://localhost:3000/mechanic/products/success.php?session_id={CHECKOUT_SESSION_ID}',
+    'cancel_url' => 'http://localhost:3000/mechanic/products/pay.php',
 ]);
 
 
-// Close connections
 $stmt->close();
 $loyaltyCheckQuery->close();
 $conn->close();
@@ -293,10 +285,8 @@ tr:nth-child(even) td {
             <span>Rs. <?= htmlspecialchars($totalAmountToPay) ?></span>
         </div>
 
-        <!-- Checkout button -->
         <button id="checkout-button">Proceed to Payment</button>
 
-        <!-- Footer with Thank You and Barcode -->
         <div class="footer">
             <div class="thank-you">*** Thank You! ***</div>
             <div class="barcode">|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</div>

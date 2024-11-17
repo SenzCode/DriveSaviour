@@ -3,7 +3,6 @@ session_start();
 require '../../connection.php';
 require '../navbar/nav.php';
 
-// Check if the user is logged in
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit;
@@ -12,7 +11,6 @@ if (!isset($_SESSION['email'])) {
 $userEmail = $_SESSION['email'];
 $product_id = $_GET['product_id'] ?? 0;
 
-// Handle form submission for adding or updating a rating
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rating = $_POST['rating'] ?? null;
     $feedback = $_POST['feedback'];
@@ -22,14 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<script>alert('Please select at least one star for the rating.');</script>";
     } else {
         if ($rating_id) {
-            // Update an existing rating
             $query = "UPDATE mech_ratings SET rating = ?, feedback = ? WHERE id = ? AND user_email = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("isis", $rating, $feedback, $rating_id, $userEmail);
             $stmt->execute();
             echo "Rating updated successfully!";
         } else {
-            // Insert a new rating
             $query = "INSERT INTO mech_ratings (product_id, user_email, rating, feedback, rating_date) VALUES (?, ?, ?, ?, CURDATE())";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("isis", $product_id, $userEmail, $rating, $feedback);
@@ -39,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Handle delete request
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
     $query = "DELETE FROM mech_ratings WHERE id = ? AND user_email = ?";
@@ -49,7 +44,6 @@ if (isset($_GET['delete_id'])) {
     echo "Rating deleted successfully!";
 }
 
-// Retrieve existing ratings for the same product and user
 $query = "SELECT id, rating, feedback, rating_date FROM mech_ratings WHERE product_id = ? AND user_email = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("is", $product_id, $userEmail);
@@ -66,7 +60,6 @@ $result = $stmt->get_result();
     <link rel="stylesheet" href="style.css">
     <title>Rate Product</title>
     <style>
-        /* Star rating styles */
         .stars {
             display: flex;
             direction: row-reverse;
@@ -131,7 +124,6 @@ $result = $stmt->get_result();
         <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
                 <td>
-                    <!-- Display stars based on rating value -->
                     <?php for ($i = 1; $i <= 5; $i++): ?>
                         <span class="star<?= $i <= $row['rating'] ? ' filled' : '' ?>">&starf;</span>
                     <?php endfor; ?>
@@ -150,19 +142,16 @@ $result = $stmt->get_result();
 
 
         <script>
-            // Function to populate form for editing
             function editRating(id, rating, feedback) {
                 document.getElementById('rating_id').value = id;
                 document.getElementById('feedback').value = feedback;
                 
-                // Set the star rating
                 const stars = document.getElementsByName('rating');
                 stars.forEach(star => {
                     star.checked = (star.value == rating);
                 });
             }
 
-            // Function to validate the form
             function validateForm() {
                 const ratingSelected = document.querySelector('input[name="rating"]:checked');
                 if (!ratingSelected) {

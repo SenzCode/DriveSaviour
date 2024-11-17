@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $password = filter_input(INPUT_POST, 'password', FILTER_DEFAULT);
 
-    // Phone number validation
     if (!preg_match('/^\d{10,11}$/', $phone)) {
         $_SESSION['message'] = "Phone number must be 10-11 digits.";
         $_SESSION['msg_type'] = "error";
@@ -132,20 +131,16 @@ $conn->close();
     </style>
 
     <script>
-        // Declare isSuccess globally
         let isSuccess = false;
 
         document.addEventListener("DOMContentLoaded", function () {
             <?php if (isset($_SESSION['message'])): ?>
-                // Display the popup with the session message
                 document.getElementById("popup-message").textContent = "<?php echo $_SESSION['message']; ?>";
                 document.getElementById("popup").style.display = "flex";
 
-                // Set isSuccess based on the message type
                 isSuccess = <?php echo $_SESSION['msg_type'] === 'success' ? 'true' : 'false'; ?>;
 
                 <?php
-                // Clear session message and type after loading
                 unset($_SESSION['message']);
                 unset($_SESSION['msg_type']);
                 ?>
@@ -155,7 +150,6 @@ $conn->close();
         function closePopup() {
             document.getElementById("popup").style.display = "none";
 
-            // Redirect if the registration was successful
             if (isSuccess) {
                 window.location.href = "login.php";
             }

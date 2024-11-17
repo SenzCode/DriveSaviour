@@ -6,7 +6,6 @@ $shop_id = isset($_GET['shop_id']) ? intval($_GET['shop_id']) : 0;
 $shop_data = [];
 $product_data = [];
 
-// Fetch shop information
 $shop_query = "SELECT * FROM shops WHERE id = $shop_id";
 $shop_result = mysqli_query($conn, $shop_query);
 
@@ -17,7 +16,6 @@ if ($shop_result && mysqli_num_rows($shop_result) > 0) {
     exit;
 }
 
-// Fetch products with average rating for the shop
 $product_query = "
     SELECT p.*, 
            (SELECT AVG(r.rating) FROM ratings r WHERE r.product_id = p.id) AS avg_rating 

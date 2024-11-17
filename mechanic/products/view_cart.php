@@ -3,16 +3,12 @@ session_start();
 require '../../connection.php';
 require '../navbar/nav.php';
 
-// Check if the user is logged in
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit;
 }
 
-// Get the logged-in user's email
 $userEmail = $_SESSION['email'];
-
-// Fetch cart items for the logged-in user
 $query = "SELECT c.*, p.product_name, p.image_url, s.shop_name 
           FROM mech_cart c 
           JOIN products p ON c.product_id = p.id 

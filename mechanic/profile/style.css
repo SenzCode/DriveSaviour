@@ -1,4 +1,3 @@
-/* General */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
 
@@ -12,7 +11,7 @@ body {
     font-family: "Poppins", sans-serif, "Pangolin";
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ensure footer is pushed down */
+    min-height: 100vh;
 }
 
 header {
@@ -217,14 +216,13 @@ input[type="text"], input[type="email"], select {
 }
 
 
-/* Center the modal on mobile screens */
 @media (max-width: 480px) {
     .modal-content {
-        width: 90%; /* Adjusts width to fit smaller screens */
-        margin: auto; /* Center horizontally */
-        top: 50%; /* Center vertically */
-        transform: translateY(-50%); /* Offset to vertically center */
+        width: 90%;
+        margin: auto;
+        top: 50%;
+        transform: translateY(-50%);
         position: relative;
-        padding: 20px; /* Keep padding to ensure readability */
+        padding: 20px;
     }
 }

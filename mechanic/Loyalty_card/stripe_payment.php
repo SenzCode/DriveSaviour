@@ -1,7 +1,7 @@
 <?php
-require '../products/vendor/autoload.php'; // Include Stripe PHP library
+require '../products/vendor/autoload.php';
 
-\Stripe\Stripe::setApiKey('sk_test_51PfklnDFvPyG4fvuUh6ZfPSa5LBwdmWSlgABfkzEjUZeJH5YHDpHoHzWRKDrjYt325wJZSXY4ip4TY4tYfZ9cYnZ00AkL5f2Zd'); // Replace with your secret key
+\Stripe\Stripe::setApiKey('sk_test_51PfklnDFvPyG4fvuUh6ZfPSa5LBwdmWSlgABfkzEjUZeJH5YHDpHoHzWRKDrjYt325wJZSXY4ip4TY4tYfZ9cYnZ00AkL5f2Zd');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'product_data' => [
                     'name' => 'Loyalty Card',
                 ],
-                'unit_amount' => 500000, // $50.00 (in cents)
+                'unit_amount' => 500000,
             ],
             'quantity' => 1,
         ]],

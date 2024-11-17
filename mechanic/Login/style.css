@@ -222,7 +222,7 @@ form{
         height: 70%;
     }
     .back-btn {
-        display: block; /* Ensures the back button is visible on mobile */
+        display: block;
     }
 
     .container.active .form-box{

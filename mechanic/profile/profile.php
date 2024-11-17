@@ -1,24 +1,20 @@
 <?php
-// Start session and initialize output buffering
 session_start();
 ob_start();
 require('../../connection.php');
 require '../navbar/nav.php';
 
-// Check if the user is logged in, redirect if not
 if (!isset($_SESSION['email'])) {
     header("Location: ../Login/login.php");
     exit;
 }
 
-// Get user details from session variables
 $userID = $_SESSION['userID'] ?? '';
 $name = $_SESSION['name'] ?? '';
 $email = $_SESSION['email'] ?? '';
 $contact = $_SESSION['phone'] ?? '';
 $address = $_SESSION['address'] ?? '';
 
-// End output buffering
 ob_end_flush();
 ?>
 

@@ -3,15 +3,12 @@ session_start();
 require '../navbar/nav.php';
 require '../../connection.php';
 
-// Ensure the user is logged in
 if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit;
 }
 
 $jobdonelist_data = [];
-
-// Retrieve only records for the logged-in user
 $user_id = $_SESSION['userID'];
 $stmt = $conn->prepare("SELECT * FROM vehicleissuesdone WHERE mech_id = ?");
 $stmt->bind_param("s", $user_id);

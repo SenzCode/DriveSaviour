@@ -92,7 +92,6 @@ body.dark-mode nav .menu-toggle .bar2{
     background-color: rgb(255, 255, 255);
 }
 
-/* Media Queries for Responsiveness */
 
 @media (max-width: 768px) {
     .contact-in {

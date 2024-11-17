@@ -3,16 +3,12 @@ session_start();
 require '../../connection.php';
 require '../navbar/nav.php';
 
-// Check if the user is logged in
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit;
 }
 
-// Get the logged-in user's email
 $userEmail = $_SESSION['email'];
-
-// Fetch orders for the logged-in user
 $query = "SELECT o.*, p.product_name, p.image_url 
           FROM mech_orders o 
           JOIN products p ON o.product_id = p.id 

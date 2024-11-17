@@ -2,10 +2,7 @@
 require '../navbar/nav.php';
 require '../../connection.php';
 
-// Get the issue ID from the URL
 $issue_id = intval($_GET['id']);
-
-// Fetch issue details along with the vehicle owner's city from the database
 $sql = "SELECT vi.*
 from vehicleissues vi JOIN vehicle v ON vi.v_id = v.v_id
     JOIN vehicle_owner vo ON v.email = vo.email
@@ -170,13 +167,13 @@ function initMap() {
 document.querySelector('.accept-btn').addEventListener('click', function() {
     // Show the modal when Accept button is clicked
     document.getElementById('confirmModal').style.display = 'flex';
-    document.querySelector('.modal-overlay').style.opacity = '1';  // Modal fade-in effect
+    document.querySelector('.modal-overlay').style.opacity = '1';
 });
 
 document.getElementById('confirmNo').addEventListener('click', function() {
     // Hide the modal when No is clicked
     document.getElementById('confirmModal').style.display = 'none';
-    document.querySelector('.modal-overlay').style.opacity = '0';  // Modal fade-out effect
+    document.querySelector('.modal-overlay').style.opacity = '0';
 });
 
 

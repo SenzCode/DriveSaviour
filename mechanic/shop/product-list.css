@@ -43,7 +43,6 @@
     color: #ffffff;
 }
  
-/* Search, Category, and Sort Bar Container */
 .search-bar, .category-filter, .sort-options {
     display: inline-block;
     vertical-align: top;

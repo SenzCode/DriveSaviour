@@ -7,9 +7,9 @@ let scrollAmount = 0;
 function scrollToNext() {
     const itemWidth = carouselItems.querySelector('.carousel-item').clientWidth;
     if (scrollAmount <= carouselItems.scrollWidth - carouselItems.clientWidth - itemWidth) {
-        scrollAmount += itemWidth + 10;  // Adjusted to include margin
+        scrollAmount += itemWidth + 10;
     } else {
-        scrollAmount = 0; // Loop back to the start if at the end
+        scrollAmount = 0;
     }
     carouselItems.scrollTo({
         top: 0,
@@ -21,9 +21,9 @@ function scrollToNext() {
 function scrollToPrev() {
     const itemWidth = carouselItems.querySelector('.carousel-item').clientWidth;
     if (scrollAmount > 0) {
-        scrollAmount -= itemWidth + 10;  // Adjusted to include margin
+        scrollAmount -= itemWidth + 10;
     } else {
-        scrollAmount = carouselItems.scrollWidth - carouselItems.clientWidth; // Loop to the end if at the start
+        scrollAmount = carouselItems.scrollWidth - carouselItems.clientWidth;
     }
     carouselItems.scrollTo({
         top: 0,

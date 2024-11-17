@@ -94,10 +94,10 @@ ob_end_flush();
         <i class='bx bx-cart' ></i>
     </a>
     <a href="../Loyalty_card/loyalty_card.php" class="image-link">
-        <i class='bx bxs-discount'></i> <!-- Loyalty Card Icon -->
+        <i class='bx bxs-discount'></i>
     </a>
     <a href="../orders/orders.php" class="image-link">
-        <i class='bx bx-list-check'></i> <!-- Orders Icon -->
+        <i class='bx bx-list-check'></i>
     </a>
 </div>
 
@@ -149,11 +149,11 @@ ob_end_flush();
                         <!-- Star Rating Display -->
                         <div class="star-rating">
                             <?php
-                            $averageRating = round($row['avg_rating'] ?? 0); // Get the average rating, default to 0
+                            $averageRating = round($row['avg_rating'] ?? 0);
                             for ($i = 1; $i <= 5; $i++): ?>
                                 <span class="star<?= $i <= $averageRating ? ' filled' : '' ?>">&#9733;</span>
                             <?php endfor; ?>
-                            <span>(<?= number_format($row['avg_rating'] ?? 0, 1) ?>)</span> <!-- Display average rating -->
+                            <span>(<?= number_format($row['avg_rating'] ?? 0, 1) ?>)</span>
                         </div>
                         
                         <form action="add_to_cart.php" method="POST">

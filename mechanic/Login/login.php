@@ -96,7 +96,6 @@ $conn->close();
     <div class="form-box login">
         <form action="login.php" method="POST">
             <h1>Login</h1>
-            <!-- Display login or registration messages -->
             <?php if (!empty($message)): ?>
                 <div class="message">
                 <p style="color: red;"><?php echo $message; ?></p>
