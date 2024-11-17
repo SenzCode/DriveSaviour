@@ -16,7 +16,6 @@ if ($tableExistsResult->num_rows == 1) {
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
-        // see whether email is available or not
         if ($result->num_rows > 0) {
             echo "Email already in use. Please choose a different email.";
         } else {

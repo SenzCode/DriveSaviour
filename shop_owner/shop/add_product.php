@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Check if the user is logged in
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit;
@@ -11,13 +10,11 @@ require('../../connection.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Get form data and sanitize it
     $shop_id = filter_var($_POST['shop_id'], FILTER_SANITIZE_NUMBER_INT);  // Corrected to $_POST
     $product_name = filter_var($_POST['product_name'], FILTER_SANITIZE_STRING);
     $quantity_available = (int) $_POST['quantity_available'];
     $price = filter_var($_POST['price'], FILTER_SANITIZE_STRING);
 
-    // Image upload handling
     if (isset($_FILES['image'])) {
         $image = $_FILES['image']['name'];
         $image = filter_var($image, FILTER_SANITIZE_STRING);
@@ -37,24 +34,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: products.php?shop_id=$shop_id&message=error&error=" . urlencode($error));
             exit;
         } else {
-            // Check if image size is too large
             if ($image_size > 2000000) { // 2MB limit
                 $error = "Image size is too large!";
                 header("Location: products.php?message=error&error=" . urlencode($error));
                 exit;
             } else {
-                // Debugging: Check if the uploads directory is writable
                 if (!is_writable('../../uploads/')) {
                     $error = "Upload directory is not writable.";
                     header("Location: products.php?message=error&error=" . urlencode($error));
                     exit;
                 }
 
-                // Move the uploaded image to the target folder
                 if (move_uploaded_file($image_tmp_name, $image_folder)) {
                     $image_url = '../../uploads/' . $image;
-
-                    // Insert product into the database
                     $insert_product = mysqli_prepare($conn, "INSERT INTO products (shop_id, product_name, image_url, quantity_available, price) VALUES (?, ?, ?, ?, ?)");
                     mysqli_stmt_bind_param($insert_product, "issdi", $shop_id, $product_name, $image_url, $quantity_available, $price);
 
@@ -67,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         exit;
                     }
                 } else {
-                    // Debugging: Show error if move_uploaded_file fails
                     $error = "Failed to upload image. Error: " . print_r(error_get_last(), true);
                     header("Location: products.php?message=error&error=" . urlencode($error));
                     exit;
@@ -80,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 } else {
-    // Redirect back if the request method is not POST
     header("Location: products.php");
     exit;
 }

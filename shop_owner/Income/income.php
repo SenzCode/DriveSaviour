@@ -2,19 +2,16 @@
 require '../navbar/nav.php';
 require '../../connection.php';
 
-// Check if the user is logged in
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit();
 }
 
-// Get logged-in user's email
 $loggedInOwnerEmail = $_SESSION['email'];
 
 $orders_data = [];
 
 try {
-    // Fetch orders from the orders table
     $stmt_orders = $conn->prepare("SELECT o.*, p.product_name, p.shop_id, s.shop_name 
                                    FROM orders o 
                                    JOIN products p ON o.product_id = p.id 
@@ -29,7 +26,6 @@ try {
     }
     $stmt_orders->close();
 
-    // Fetch orders from the mech_orders table
     $stmt_mech_orders = $conn->prepare("SELECT mo.*, p.product_name, p.shop_id, s.shop_name 
                                         FROM mech_orders mo 
                                         JOIN products p ON mo.product_id = p.id 

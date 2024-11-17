@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// Check if the session variable is set and not null
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit;
@@ -11,10 +9,8 @@ $loggedInOwnerEmail = $_SESSION['email'];
 require('../navbar/nav.php');
 include_once('../../connection.php');
 
-// Get the shop_id from the URL query string
 $shop_id = isset($_GET['shop_id']) ? intval($_GET['shop_id']) : 0;
 
-// Fetch the shop name for the specified shop_id
 $shop_name = '';
 $branch = '';
 if ($shop_id > 0) {
@@ -84,7 +80,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
         <!-- Add Product Form -->
         <form action="add_product.php" method="POST" enctype="multipart/form-data">
-            <!-- Hidden field for shop_id -->
             <input type="hidden" name="shop_id" value="<?php echo htmlspecialchars($shop_id); ?>">
             
             <div class="form-container">
@@ -250,7 +245,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             }
         });
 
-                // JavaScript for Search Functionality
+        // JavaScript for Search Functionality
         document.getElementById('search').addEventListener('input', function() {
             var searchQuery = this.value.toLowerCase();
             var rows = document.querySelectorAll('#product-tbody tr');

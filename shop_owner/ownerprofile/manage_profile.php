@@ -1,16 +1,12 @@
 <?php
 session_start();
- 
-// Ensure no output before this line
 require '../navbar/nav.php'; 
 require '../../connection.php';
  
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
- 
-// Retrieve user email from session or other source
+
 if (!isset($_SESSION['email'])) {
-    // Redirect if the user is not logged in
     header("Location: ../Login/login.php?redirect=" . urlencode($_SERVER['REQUEST_URI']));
     exit();
 }
@@ -23,21 +19,17 @@ $result = $query->get_result();
 $user = $result->fetch_assoc();
  
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
-    // Sanitize and validate input
     $name = htmlspecialchars(trim($_POST['name']));
     $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
     $phone = htmlspecialchars(trim($_POST['phone']));
- 
-    // Validate email
+
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $message = "Invalid email format.";
     } else {
-        // Update profile based on email
         $update_query = $conn->prepare("UPDATE shop_owner SET name = ?, email = ?, phone = ? WHERE email = ?");
         $update_query->bind_param("ssss", $name, $email, $phone, $user_email);
  
         if ($update_query->execute()) {
-            // Update the session email if it changes
             $_SESSION['user_email'] = $email;
             $message = "Profile updated successfully!";
         } else {

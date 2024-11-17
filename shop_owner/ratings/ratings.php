@@ -11,7 +11,6 @@ $loggedInOwnerEmail = $_SESSION['email'];
 include_once('../../connection.php');
 require('../navbar/nav.php');
 
-// Retrieve product IDs for shops owned by the logged-in user
 $productIds = [];
 $stmt = $conn->prepare("
     SELECT products.id
@@ -27,10 +26,9 @@ while ($row = $result->fetch_assoc()) {
 }
 $stmt->close();
 
-// Check if we have product IDs to avoid empty queries
 $ratings_data = [];
 if (!empty($productIds)) {
-    // Retrieve ratings from `ratings` table
+    // Retrieve ratings from ratings table
     $placeholders = implode(',', array_fill(0, count($productIds), '?'));
     $stmt = $conn->prepare("
         SELECT products.product_name, ratings.rating, ratings.feedback, ratings.rating_date
@@ -45,7 +43,7 @@ if (!empty($productIds)) {
     }
     $stmt->close();
 
-    // Retrieve ratings from `mech_ratings` table
+    // Retrieve ratings from mech_ratings table
     $stmt = $conn->prepare("
         SELECT products.product_name, mech_ratings.rating, mech_ratings.feedback, mech_ratings.rating_date
         FROM mech_ratings

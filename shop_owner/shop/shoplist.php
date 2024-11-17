@@ -5,12 +5,10 @@
     if (isset($_SESSION['email'])) {
         $loggedInEmail = $_SESSION['email'];
     } else {
-        // If user is not logged in, redirect them to the login page
         header("Location: login.php");
         exit();
     }
 
-    // Fetch shop data from the shops table where ownerEmail matches logged-in user's email
     $sql = "SELECT * FROM shops WHERE ownerEmail = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $loggedInEmail);
@@ -151,7 +149,6 @@
 
     <script>
         function viewProducts(shopId) {
-            // Redirect to products.php with shop ID as query parameter
             window.location.href = "products.php?shop_id=" + shopId;
         }
     </script>

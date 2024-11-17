@@ -6,7 +6,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$message = ''; // Initialize message variable
+$message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['login'])) {
@@ -81,7 +81,6 @@ $conn->close();
     <div class="form-box login">
         <form action="login.php" method="POST">
             <h1>Login</h1>
-            <!-- Display messages below the heading -->
             <?php if ($message): ?>
                 <p style="color: red;"><?= htmlspecialchars($message); ?></p>
             <?php endif; ?>

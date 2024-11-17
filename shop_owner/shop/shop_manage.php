@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 } else {
-    // Redirect back if the request method is not POST
     header("Location: shop.php");
     exit;
 }

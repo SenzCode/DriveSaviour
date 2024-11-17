@@ -1,8 +1,5 @@
 <?php
-// Start the session
 session_start();
-
-// Check if the session variable is set and not null
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit;
@@ -13,7 +10,6 @@ $loggedInOwnerEmail = $_SESSION['email'];
 require('../navbar/nav.php');
 include_once('../../connection.php');
 
-// Fetch all data from the shops table where the ownerEmail matches the logged-in user's email
 $shop_data = [];
 if (!empty($loggedInOwnerEmail)) {
     $stmt = $conn->prepare("SELECT * FROM shops WHERE ownerEmail = ?");

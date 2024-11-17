@@ -8,7 +8,6 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
-// Get logged-in user's email
 $loggedInOwnerEmail = $_SESSION['email'];
 $orders_data = [];
 
@@ -49,17 +48,14 @@ try {
     exit();
 }
 
-// Initialize a success message variable
 $successMessage = '';
-$redirect = false; // Flag to handle redirect
+$redirect = false;
 
-// Update order status if form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['status'], $_POST['source'])) {
     $order_id = $_POST['order_id'];
     $status = $_POST['status'];
     $source = $_POST['source'];
 
-    // Determine the correct table for updating
     $table = ($source === 'orders') ? 'orders' : 'mech_orders';
 
     $update_stmt = $conn->prepare("UPDATE $table SET status = ? WHERE id = ?");
@@ -67,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['st
 
     if ($update_stmt->execute()) {
         $successMessage = "Order status updated successfully.";
-        $redirect = true; // Set flag to trigger JavaScript redirect
+        $redirect = true;
     } else {
         echo "Error updating status: " . $conn->error;
     }
@@ -87,16 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['st
 <body>
     <div class="main_container">
         <h2 class="title">Order Data</h2>
-
-        <!-- Success Message Alert -->
         <?php if ($successMessage): ?>
             <div class="alert alert-success"><?php echo $successMessage; ?></div>
         <?php endif; ?>
 
-        <!-- JavaScript Redirect after Success Message -->
         <?php if ($redirect): ?>
             <script>
-                // Redirect to orders.php after 2 seconds
                 setTimeout(function() {
                     window.location.href = 'orders.php';
                 }, 2000);

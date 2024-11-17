@@ -32,8 +32,6 @@ try {
     $result = $stmt->get_result();
 
     $product_data = [];
-
-    // Fetch all products that need to be restocked
     while ($row = $result->fetch_assoc()) {
         $product_data[] = $row;
     }
