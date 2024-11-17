@@ -1,7 +1,5 @@
 <?php
-// Start session to access session variables
 session_start();
-
 require('../../connection.php');
 require '../navbar/nav.php';
 

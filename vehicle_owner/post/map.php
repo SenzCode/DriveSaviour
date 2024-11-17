@@ -1,8 +1,6 @@
 <?php
 session_start();
 require('../../connection.php');
-
-// Fetch vehicle issue location from the database
 $vehicleId = isset($_GET['vehicleId']) ? $_GET['vehicleId'] : '';
 
 $latitude = '';
@@ -15,7 +13,6 @@ if ($vehicleId) {
         $stmt->execute();
         $stmt->bind_result($location);
         if ($stmt->fetch()) {
-            // Assuming location is in 'lat,lon' format
             list($latitude, $longitude) = explode(',', $location);
         }
         $stmt->close();
@@ -47,7 +44,6 @@ $conn->close();
 
     <script>
         function initMap() {
-            // Check if latitude and longitude are valid
             const latitude = parseFloat('<?php echo $latitude; ?>');
             const longitude = parseFloat('<?php echo $longitude; ?>');
             if (isNaN(latitude) || isNaN(longitude)) {
@@ -56,14 +52,11 @@ $conn->close();
             }
 
             const userLocation = { lat: latitude, lng: longitude };
-
-            // Create map centered on user's location
             const map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 15,
                 center: userLocation
             });
 
-            // Add a marker at the user's location
             new google.maps.Marker({
                 position: userLocation,
                 map: map

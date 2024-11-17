@@ -1,8 +1,6 @@
-/* General */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
 
-/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -24,14 +22,14 @@ html {
 body {
     font-family: Arial, sans-serif;
     background-color: #ffffff;
-    color: #000000; /* Default text color */
+    color: #000000;
     margin: 0;
     padding: 0;
 }
 
 body.dark-mode {
-    background-color: #000000; /* Dark background */
-    color: #ffffff; /* Dark mode text color */
+    background-color: #000000;
+    color: #ffffff;
 }
 
 header {
@@ -47,7 +45,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* background-color: white; */
+
 }
 
 .logo img {
@@ -93,7 +91,6 @@ nav ul li a {
     position: relative; 
 }
 
-/* Underline effect */
 nav ul li a::before {
     content: '';
     position: absolute;
@@ -302,7 +299,7 @@ body.dark-mode .user-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.8); /* Optional: Add background */
+    background: rgba(255, 255, 255, 0.8);
 }
 .preloader {
    position: relative;

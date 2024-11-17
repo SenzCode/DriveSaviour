@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Footer at Bottom of Page</title>
     <style>
-        /* Full height for body and html to keep footer at bottom */
         body, html {
             margin: 0;
             padding: 0;
@@ -14,21 +13,19 @@
             flex-direction: column;
         }
 
-        /* Container for content and footer */
         .page-container {
             display: flex;
             flex-direction: column;
             flex: 1;
         }
 
-        /* Footer styles */
         footer {
             background-color: #ffffff; 
             padding: 20px 0;
             font-family: Arial, sans-serif;
             color: #333;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            margin-top: auto; /* Pushes footer to the bottom */
+            margin-top: auto;
         }
 
         body.dark-mode footer {

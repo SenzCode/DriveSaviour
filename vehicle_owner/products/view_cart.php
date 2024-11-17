@@ -3,16 +3,12 @@ session_start();
 require '../../connection.php';
 require '../navbar/nav.php';
 
-// Check if the user is logged in
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit;
 }
 
-// Get the logged-in user's email
 $userEmail = $_SESSION['email'];
-
-// Fetch cart items for the logged-in user
 $query = "SELECT c.*, p.product_name, p.image_url, s.shop_name 
           FROM cart c 
           JOIN products p ON c.product_id = p.id 
@@ -51,8 +47,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <?php elseif ($message == 'err'): ?>
             <div class="alert alert-success" id="success-alert">Something went wrong.</div>
         <?php endif; ?>
-        
-        <!-- Cart Header and Back Button -->
+
         <div class="cart-header">
             <button class="back-btn" onclick="window.location.href='product.php'">&larr; Back</button>
             <h1>Your Cart</h1>

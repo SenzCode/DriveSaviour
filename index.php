@@ -1,5 +1,4 @@
 <?php
-// Start session
 session_start();
 require 'connection.php';
 
@@ -10,8 +9,6 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userType = $_POST['userType'];
     $password = $_POST['password'];
-
-    // Sanitize user input
     $password = $conn->real_escape_string($password);
 
     if ($userType == "admin") {
@@ -47,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['name'] = $row['name'];
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['userType'] = $userType;
-                header("Location: {$userType}/Login/login.php"); // Redirect to the appropriate dashboard
+                header("Location: {$userType}/Login/login.php");
                 exit();
             } else {
                 echo "Invalid password.";
@@ -56,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $row['email'];
             $_SESSION['name'] = $row['name'];
             $_SESSION['userType'] = $userType;
-            header("Location: admin/Login/login.php"); // Redirect to admin dashboard
+            header("Location: admin/Login/login.php");
             exit();
         } else {
             echo "Invalid password.";
@@ -78,13 +75,11 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-        <!-- Left side panel for blue background -->
         <div class="left-panel">
             <h2>Welcome Back!</h2>
             <p>Login to continue to your dashboard</p>
         </div>
 
-        <!-- Right side form box -->
         <div class="form-box">
             <form action="index.php" method="post">
                 <h1>Login</h1>

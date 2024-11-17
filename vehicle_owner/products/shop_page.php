@@ -17,7 +17,6 @@ if ($shop_result && mysqli_num_rows($shop_result) > 0) {
     exit;
 }
 
-// Fetch products with average rating for the shop
 $product_query = "
     SELECT p.*, 
            (SELECT AVG(r.rating) FROM ratings r WHERE r.product_id = p.id) AS avg_rating 
@@ -75,11 +74,11 @@ if ($product_result) {
                             <!-- Star Rating Display -->
                             <div class="star-rating">
                                 <?php
-                                $averageRating = round($product['avg_rating'] ?? 0); // Get the average rating, default to 0
+                                $averageRating = round($product['avg_rating'] ?? 0);
                                 for ($i = 1; $i <= 5; $i++): ?>
                                     <span class="star<?= $i <= $averageRating ? ' filled' : '' ?>">&#9733;</span>
                                 <?php endfor; ?>
-                                <span>(<?= number_format($product['avg_rating'] ?? 0, 1) ?>)</span> <!-- Display average rating -->
+                                <span>(<?= number_format($product['avg_rating'] ?? 0, 1) ?>)</span>
                             </div>
 
                             <form action="add_to_cart.php" method="POST">

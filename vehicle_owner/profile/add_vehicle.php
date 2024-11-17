@@ -2,7 +2,6 @@
 session_start();
 require('../../connection.php');
 
-// Retrieve form data
 $email = $_POST['email'];
 $name = $_POST['name'];
 $phone = $_POST['contact'];
@@ -13,7 +12,6 @@ $fuel_type = $_POST['fuel_type'];
 $engine_type = $_POST['engine_type'];
 $tire_size = $_POST['tire_size'];
 
-// Prepare SQL query to insert the data into the vehicle table
 $sql = "INSERT INTO vehicle (email, name, contact, number_plate, model, year, fuel_type, engine_type, tire_size) 
         VALUES ('$email', '$name', '$phone', '$number_plate', '$model', '$year', '$fuel_type', '$engine_type', '$tire_size')";
 

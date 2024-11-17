@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Check if the session variable is set and not null
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit;
@@ -12,16 +11,11 @@ $loggedInOwnerEmail = $_SESSION['email'];
 require('../navbar/nav.php');
 include_once('../../connection.php');
 
-// Get the shop_id from the URL query string
 $shop_id = isset($_GET['shop_id']) ? intval($_GET['shop_id']) : 0;
-
-// Get the search query from the URL if it exists
 $search_query = isset($_GET['search']) ? trim($_GET['search']) : '';
 
-// Fetch products based on shop_id and search query
 $product_data = [];
 if ($shop_id > 0) {
-    // Prepare the query to search for products by name
     $query = "SELECT * FROM products WHERE shop_id = ?";
 
     if (!empty($search_query)) {
@@ -65,10 +59,8 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
 <body>
     <div class="main_container">
-        <!-- View Cart Button -->
         <button class="view-cart-btn" onclick="window.location.href='view_cart.php'">View Cart</button>
 
-        <!-- Search Bar -->
         <form method="GET" action="">
             <input type="hidden" name="shop_id" value="<?= $shop_id ?>">
             <div class="search-bar">

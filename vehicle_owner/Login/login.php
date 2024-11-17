@@ -2,7 +2,7 @@
 session_start();
 require '../../connection.php';
 
-$message = ""; // Initialize the message variable
+$message = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
     $name = $_POST['name'];
@@ -53,13 +53,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $user = $result->fetch_assoc();
 
         if (password_verify($password, $user['password'])) {
-            $_SESSION['userID'] = $user['id']; // Use the correct user ID
+            $_SESSION['userID'] = $user['id'];
             $_SESSION['name'] = $user['name'];
             $_SESSION['email'] = $user['email'];
             $_SESSION['phone'] = $user['phone'];
             $_SESSION['city'] = $user['city'];
 
-            // Start the session and redirect to the loader
             header("Location: ../loader.php");
             exit();
         } else {

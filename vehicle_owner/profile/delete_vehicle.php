@@ -1,8 +1,6 @@
 <?php
 session_start();
 require('../../connection.php');
-
-// Retrieve the vehicle ID from the form
 $v_id = $_POST['v_id'];
 
 // Delete the vehicle from the database

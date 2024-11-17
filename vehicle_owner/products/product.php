@@ -10,12 +10,10 @@ if (!isset($_SESSION['email'])) {
 
 $loggedInOwnerEmail = $_SESSION['email'];
 
-// Get search, category, and sorting parameters from the form
 $search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
 $category = isset($_GET['category']) ? (int)$_GET['category'] : 0;
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 
-// Build the SQL query with search and sorting filters
 $query = "SELECT p.*, s.shop_name, c.category_name, 
                  (SELECT AVG(r.rating) FROM ratings r WHERE r.product_id = p.id) AS avg_rating
           FROM products p 
@@ -48,7 +46,6 @@ if ($result) {
     }
 }
 
-// Fetch categories for the category filter dropdown
 $category_query = "SELECT * FROM category";
 $category_result = mysqli_query($conn, $category_query);
 $categories = [];
@@ -95,16 +92,13 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <i class='bx bx-cart' ></i>
     </a>
     <a href="../Loyalty_card/loyalty_card.php" class="image-link">
-        <i class='bx bxs-discount'></i> <!-- Loyalty Card Icon -->
+        <i class='bx bxs-discount'></i>
     </a>
     <a href="../orders/orders.php" class="image-link">
-        <i class='bx bx-list-check'></i> <!-- Orders Icon -->
+        <i class='bx bx-list-check'></i>
     </a>
 </div>
 
-
-
-    <!-- Search and Filter Form -->
     <form method="GET" action="">
         <div class="search-bar">
             <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Search by Product Name">
@@ -151,11 +145,11 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <!-- Star Rating Display -->
                         <div class="star-rating">
                             <?php
-                            $averageRating = round($row['avg_rating'] ?? 0); // Get the average rating, default to 0
+                            $averageRating = round($row['avg_rating'] ?? 0);
                             for ($i = 1; $i <= 5; $i++): ?>
                                 <span class="star<?= $i <= $averageRating ? ' filled' : '' ?>">&#9733;</span>
                             <?php endfor; ?>
-                            <span>(<?= number_format($row['avg_rating'] ?? 0, 1) ?>)</span> <!-- Display average rating -->
+                            <span>(<?= number_format($row['avg_rating'] ?? 0, 1) ?>)</span>
                         </div>
                         
                         <form action="add_to_cart.php" method="POST">

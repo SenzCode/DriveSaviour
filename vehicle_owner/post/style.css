@@ -29,7 +29,7 @@ body {
   justify-content: center;
   margin-bottom: 20px;
   position: relative;
-  padding-top: 20px; /* Add padding to prevent overlapping */
+  padding-top: 20px;
 }
 
 .back-btn {
@@ -166,7 +166,7 @@ body.dark-mode .vehicle-card p{
 
 /* Modal */
 .modal { 
-  display: none; /* Hidden by default */ 
+  display: none;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -238,7 +238,7 @@ input[type="text"]:focus, select:focus {
 
   } 
   .back-btn {
-      display: block; /* Ensures the back button is visible on mobile */
+      display: block;
   }
 
   .vehicle-card-container {

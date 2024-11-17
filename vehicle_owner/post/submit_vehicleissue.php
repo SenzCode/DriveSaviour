@@ -2,11 +2,9 @@
 session_start();
 require('../../connection.php');
 
-// Check if email and phone are set in session
 $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 $contact = isset($_SESSION['phone']) ? $_SESSION['phone'] : '';
 
-// Retrieve data from POST request
 $model = $_POST['model'];
 $city = $_POST['city'];
 $year = $_POST['year'];
@@ -19,7 +17,6 @@ $status = 'Pending';
 $location = $_POST['location'];
 $mech_id = isset($_POST['mech_id']) ? $_POST['mech_id'] : null;
 
-// Retrieve v_id from the vehicle table based on number_plate, model, or other identifiers
 $sql_vehicle = "SELECT v_id FROM vehicle WHERE number_plate = ? AND email = ?";
 $stmt_vehicle = $conn->prepare($sql_vehicle);
 $stmt_vehicle->bind_param("ss", $number_plate, $email);
@@ -30,12 +27,10 @@ if ($result_vehicle->num_rows > 0) {
     $row_vehicle = $result_vehicle->fetch_assoc();
     $v_id = $row_vehicle['v_id'];
 
-    // Insert data into vehicleissues table
     $sql = "INSERT INTO vehicleissues (v_id, email, vehicle_model, year, mobile_number, vehicle_issue, status, location, mech_id, city) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
 
-    // Check if the prepare() call was successful
     if ($stmt === false) {
         echo "Error preparing statement: " . $conn->error;
         exit();
@@ -55,7 +50,6 @@ if ($result_vehicle->num_rows > 0) {
     echo "Error: Vehicle not found in the database.";
 }
 
-// Close vehicle statement and connection
 $stmt_vehicle->close();
 $conn->close();
 ?>

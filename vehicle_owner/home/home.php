@@ -25,9 +25,7 @@
             <p>Our web app connects users with local mechanics for vehicle breakdowns, allowing easy posting, browsing, and towing services. It features customer reviews, live chat, and secure payments, making vehicle maintenance convenient and stress-free.</p>
         </div>
         <div class="profile-picture reveal">
-            <!-- Background image -->
             <img class="side-img" src="img/Leonardo_Phoenix_A_mechanic_in_a_modern_garage_wearing_a_dark_1.png" alt="Mechanic">
-            <!-- Foreground images -->
             <img class="gear rotate1" src="img/settings-icon.png" alt="Gear 1">
             <img class="gear rotate2" src="img/settings-icon.png" alt="Gear 2">
             <img class="gear rotate3" src="img/settings-icon.png" alt="Gear 3">
@@ -63,7 +61,6 @@
     </section> <br> 
 
     <section class="modal">
-        <!-- Dropdown Car Selection-->
     <div class="dropdown-container">
         <h2>Choose Your Car Model:</h2>
         <select id="carSelect">

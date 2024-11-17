@@ -11,12 +11,12 @@ body {
 }
 
 .shop-container h1 {
-    margin-top: 80px; /* Move the title down */
+    margin-top: 80px;
 }
 
 .shop-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Changed to 4 columns */
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     margin: 20px auto;
 }

@@ -3,7 +3,6 @@ session_start();
 require '../../connection.php';
 require '../navbar/nav.php';
 
-// Check if the user is logged in
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit;
@@ -12,21 +11,18 @@ if (!isset($_SESSION['email'])) {
 $userEmail = $_SESSION['email'];
 $product_id = $_GET['product_id'] ?? 0;
 
-// Handle form submission for adding or updating a rating
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rating = $_POST['rating'];
     $feedback = $_POST['feedback'];
     $rating_id = $_POST['rating_id'] ?? null;
 
     if ($rating_id) {
-        // Update an existing rating
         $query = "UPDATE ratings SET rating = ?, feedback = ? WHERE id = ? AND user_email = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("isis", $rating, $feedback, $rating_id, $userEmail);
         $stmt->execute();
         echo "Rating updated successfully!";
     } else {
-        // Insert a new rating
         $query = "INSERT INTO ratings (product_id, user_email, rating, feedback) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("isis", $product_id, $userEmail, $rating, $feedback);
@@ -35,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Handle delete request
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
     $query = "DELETE FROM ratings WHERE id = ? AND user_email = ?";
@@ -51,11 +46,10 @@ $stmt->bind_param("is", $product_id, $userEmail);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Prepare the second query
 $query = "SELECT * FROM products WHERE id = ?";
 $stmt = $conn->prepare($query);
 if (!$stmt) {
-    die("Prepare failed: " . $conn->error);  // Display error message if preparation fails
+    die("Prepare failed: " . $conn->error);
 }
 $stmt->bind_param("i", $product_id);
 $stmt->execute();
@@ -73,7 +67,6 @@ $stmt->close();
     <link rel="stylesheet" href="style.css">
     <title>Rate Product</title>
     <style>
-        /* Star rating styles */
         .stars {
             display: flex;
             direction: row-reverse;
@@ -147,7 +140,6 @@ $stmt->close();
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
                         <td>
-                            <!-- Display stars based on rating value -->
                             <?php for ($i = 1; $i <= 5; $i++): ?>
                                 <span class="star<?= $i <= $row['rating'] ? ' filled' : '' ?>">&starf;</span>
                             <?php endfor; ?>

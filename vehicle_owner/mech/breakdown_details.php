@@ -5,7 +5,7 @@ require '../navbar/nav.php';
 
 $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 
-// Query to fetch ongoing vehicle issues with 'Pending' status from vehicleissues table
+// fetching ongoing vehicle issues
 $ongoingQuery = "SELECT vi.*, mech.name AS mech_name, mech.*, v.* FROM vehicleissues vi
                  LEFT JOIN mechanic mech ON mech.userID = vi.mech_id
                  LEFT JOIN vehicle v ON v.v_id = vi.v_id
@@ -20,7 +20,7 @@ $ongoingStmt->bind_param("s", $email);
 $ongoingStmt->execute();
 $ongoingIssues = $ongoingStmt->get_result();
 
-// Query to fetch completed vehicle issues from vehicleissuesdone table
+// fetching completed vehicle issues
 $completedQuery = "SELECT vi.*, mech.name AS mech_name, mech.*, v.* FROM vehicleissuesdone vi
                    LEFT JOIN mechanic mech ON mech.userID = vi.mech_id
                    LEFT JOIN vehicle v ON v.v_id = vi.v_id
@@ -51,10 +51,9 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 <body>
     <div class="body">
 
-    <div class="order-header">
+        <div class="order-header">
             <button class="back-btn" onclick="window.location.href='mech.php'">&larr; Back</button>
         </div>
-
 
         <!-- Ongoing Breakdowns Section -->
         <div id="ongoing-breakdowns" style="display:<?php echo $ongoingIssues->num_rows > 0 ? 'block' : 'none'; ?>;">
@@ -149,14 +148,13 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             const breakdownListContainer = document.getElementById('breakdown-list');
             const otherCards = document.querySelectorAll('[data-status="resolved"]');
             
-            // Move cards into respective containers
             if (ongoingCards.length > 0) {
-                ongoingBreakdownsContainer.style.display = 'block'; // Show the ongoing section
+                ongoingBreakdownsContainer.style.display = 'block';
                 ongoingCards.forEach(card => {
                     ongoingBreakdownsContainer.querySelector('.vehicle-card-container').appendChild(card);
                 });
             } else {
-                ongoingBreakdownsContainer.style.display = 'none'; // Hide if no pending issues
+                ongoingBreakdownsContainer.style.display = 'none';
             }
 
             otherCards.forEach(card => {

@@ -6,7 +6,6 @@ require('../../connection.php');
 $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 $contact = isset($_SESSION['phone']) ? $_SESSION['phone'] : '';
 
-// Fetch vehicle data for the current user
 $vehicleQuery = "SELECT * FROM vehicle WHERE email = ?";
 $stmt = $conn->prepare($vehicleQuery);
 $stmt->bind_param("s", $email);
@@ -43,7 +42,6 @@ $vehicleResult = $stmt->get_result();
                             <p><strong>Engine Type:</strong> <?php echo $vehicle['engine_type']; ?></p>
                             <p><strong>Tire Size:</strong> <?php echo $vehicle['tire_size']; ?></p>
 
-                            <!-- Choose button triggers modal -->
                             <button type="button" class="btn openModal" 
                                 data-model="<?php echo $vehicle['model']; ?>" 
                                 data-year="<?php echo $vehicle['year']; ?>" 
@@ -62,13 +60,11 @@ $vehicleResult = $stmt->get_result();
         </div>
     </div>
 
-    <!-- Modal Structure -->
     <div id="vehicleModal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2 class="topic">Confirm Vehicle Details</h2>
             <form id="issueForm" method="POST" action="submit_vehicleissue.php">
-                <!-- Hidden fields for vehicle details -->
                 <input type="hidden" id="year" name="year">
                 <input type="hidden" id="number_plate" name="number_plate">
                 <input type="hidden" id="fuel_type" name="fuel_type">

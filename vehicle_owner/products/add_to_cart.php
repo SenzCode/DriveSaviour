@@ -1,24 +1,18 @@
 <?php
-session_start(); // Start the session
+session_start();
 require '../../connection.php';
 
-// Check if the user is logged in
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in. Please log in to add items to the cart.";
     exit;
 }
 
-// Get the logged-in user's email
 $email = $_SESSION['email'];
-
-// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get the form data
     $product_id = $_POST['id'];
     $shop_id = $_POST['shop_id'];
     $quantity = $_POST['quantity'];
 
-    // Get the product price and available quantity
     $query = "SELECT price, quantity_available FROM products WHERE id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $product_id);
@@ -30,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $price = $product['price'];
         $available_quantity = $product['quantity_available'];
 
-        // Check if the requested quantity is available
         if ($quantity > $available_quantity) {
             echo "Insufficient quantity available.";
             exit;
@@ -84,10 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Product not found.";
     }
 
-    // Close the prepared statement
     $stmt->close();
 }
 
-// Close the database connection
 $conn->close();
 ?>

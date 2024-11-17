@@ -2,7 +2,6 @@
 require '../navbar/nav.php';
 require '../../connection.php';
 
-// Fetch the top four mechanics based on the number of jobs done
 $query = "
     SELECT mech_id, COUNT(*) AS job_count, name
     FROM vehicleissuesdone

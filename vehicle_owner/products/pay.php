@@ -2,22 +2,17 @@
 session_start();
 require '../../connection.php';
 require '../navbar/nav.php';
+require 'vendor/autoload.php';
 
-require 'vendor/autoload.php'; // Stripe PHP library
-
-// Stripe API configuration
 \Stripe\Stripe::setApiKey('sk_test_51PfklnDFvPyG4fvuUh6ZfPSa5LBwdmWSlgABfkzEjUZeJH5YHDpHoHzWRKDrjYt325wJZSXY4ip4TY4tYfZ9cYnZ00AkL5f2Zd');
 
-// Check if the user is logged in
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit;
 }
 
-// Get the logged-in user's email
 $userEmail = $_SESSION['email'];
 
-// Check if the user is eligible for a loyalty card discount
 $discountRate = 0;
 $loyaltyCheckQuery = $conn->prepare("SELECT * FROM loyalty_card WHERE email = ?");
 $loyaltyCheckQuery->bind_param("s", $userEmail);
@@ -49,11 +44,9 @@ if ($result) {
     }
 }
 
-// Calculate discount amount and final total to pay
 $discountAmount = $subtotal * $discountRate;
 $totalAmountToPay = $subtotal - $discountAmount;
 
-// Prepare data for Stripe Checkout
 $line_items = [
     [
         'price_data' => [
@@ -67,16 +60,15 @@ $line_items = [
     ]
 ];
 
-// Create Stripe checkout session
 $session = \Stripe\Checkout\Session::create([
     'payment_method_types' => ['card'],
     'line_items' => $line_items,
     'mode' => 'payment',
-    'success_url' => 'http://localhost:3000/vehicle_owner/products/success.php?session_id={CHECKOUT_SESSION_ID}',  // Replace with your actual success URL
-    'cancel_url' => 'http://localhost:3000/vehicle_owner/products/view_cart.php',    // Replace with your actual cancel URL
+    'success_url' => 'http://localhost:3000/vehicle_owner/products/success.php?session_id={CHECKOUT_SESSION_ID}',
+    'cancel_url' => 'http://localhost:3000/vehicle_owner/products/view_cart.php',
 ]);
 
-// Close connections
+
 $stmt->close();
 $loyaltyCheckQuery->close();
 $conn->close();
@@ -291,10 +283,8 @@ tr:nth-child(even) td {
             <span>Rs. <?= htmlspecialchars($totalAmountToPay) ?></span>
         </div>
 
-        <!-- Checkout button -->
         <button id="checkout-button">Proceed to Payment</button>
 
-        <!-- Footer with Thank You and Barcode -->
         <div class="footer">
             <div class="thank-you">*** Thank You! ***</div>
             <div class="barcode">|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</div>

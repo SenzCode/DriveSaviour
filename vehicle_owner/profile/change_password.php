@@ -8,13 +8,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newPassword = $_POST['new_password'];
     $confirmPassword = $_POST['confirm_password'];
 
-    // Check if new passwords match
     if ($newPassword !== $confirmPassword) {
         header("Location: profile.php?message=Password+Mismatch");
         exit;
     }
 
-    // Retrieve current password from the database
     $query = "SELECT password FROM vehicle_owner WHERE email = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $email);
@@ -23,12 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->fetch();
     $stmt->close();
 
-    // Verify current password
     if (password_verify($currentPassword, $dbPassword)) {
-        // Hash new password
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
-        // Update the password in the database
         $updateQuery = "UPDATE vehicle_owner SET password = ? WHERE email = ?";
         $updateStmt = $conn->prepare($updateQuery);
         $updateStmt->bind_param("ss", $hashedPassword, $email);

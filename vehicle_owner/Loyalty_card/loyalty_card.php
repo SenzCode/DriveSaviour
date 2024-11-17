@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start the session at the beginning
+session_start();
 require '../../connection.php';
 require '../navbar/nav.php';
 
@@ -9,8 +9,6 @@ if (!isset($_SESSION['email'])) {
 }
 
 $loggedInOwnerEmail = $_SESSION['email'];
-
-// Get user details from the session
 $name = $_SESSION['name'];
 $phone = $_SESSION['phone'];
 $city = $_SESSION['city'];
@@ -22,7 +20,6 @@ $checkCardQuery->execute();
 $result = $checkCardQuery->get_result();
 
 if ($result->num_rows > 0) {
-    // User is already registered; fetch their loyalty card data
     $loyaltyCard = $result->fetch_assoc();
     $cardNo = htmlspecialchars($loyaltyCard['card_no']);
     $expireDate = htmlspecialchars($loyaltyCard['expire_date']);
@@ -37,7 +34,6 @@ if ($result->num_rows > 0) {
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <!-- Cart Header and Back Button -->
         <div class="cart-header">
             <button class="back-btn" onclick="window.location.href='../products/product.php'">&larr; Back</button>
         </div>
@@ -75,7 +71,6 @@ if ($result->num_rows > 0) {
     </html>
     <?php
 } else {
-    // User is not registered; show the purchase option
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +79,7 @@ if ($result->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loyalty Card</title>
     <link rel="stylesheet" href="../navbar/style.css">
-    <link rel="stylesheet" href="style.css"> <!-- Link to your new CSS file -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="loyalty-card-details">
@@ -108,7 +103,6 @@ if ($result->num_rows > 0) {
     <?php require '../footer/footer.php';
 }
 
-// Close the database connection
 $checkCardQuery->close();
 $conn->close();
 ?>

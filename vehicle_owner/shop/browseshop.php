@@ -1,11 +1,8 @@
 <?php
-// Start session
 session_start();
-
 require('../navbar/nav.php');
 require('../../connection.php');
 
-// Fetch shop data from the database
 $sql = "SELECT * FROM shops";
 $result = $conn->query($sql);
 ?>
@@ -20,15 +17,12 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="../navbar/style.css">
 </head>
 <body>
-
-<!-- Content Section -->
 <div class="shop-container">
     <h1>Shops</h1>
     <div class="shop-grid">
         <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                // Dynamic shop data
                 echo "
                 <div class='shop-card'>
                     <h2>{$row['shop_name']}</h2>
@@ -52,7 +46,6 @@ $result = $conn->query($sql);
 <?php require '../footer/footer.php'; ?>
 
 <script>
-// JavaScript function to view products for the specific shop
 function viewProducts(shopId) {
     window.location.href = 'products-card.php?shop_id=' + shopId;
 }
@@ -61,7 +54,3 @@ function viewProducts(shopId) {
 </body>
 </html>
 
-<?php
-// Close the database connection
-$conn->close();
-?>

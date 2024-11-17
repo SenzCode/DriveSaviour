@@ -1,12 +1,10 @@
 <?php
 session_start();
 require '../../connection.php';
-require 'vendor/autoload.php'; // Stripe PHP library
+require 'vendor/autoload.php';
 
-// Stripe API configuration
 \Stripe\Stripe::setApiKey('sk_test_51PfklnDFvPyG4fvuUh6ZfPSa5LBwdmWSlgABfkzEjUZeJH5YHDpHoHzWRKDrjYt325wJZSXY4ip4TY4tYfZ9cYnZ00AkL5f2Zd');
 
-// Check if the user is logged in
 if (!isset($_SESSION['email'])) {
     echo "User is not logged in.";
     exit;
@@ -71,7 +69,7 @@ foreach ($cartItems as $item) {
 
     // Calculate commission and seller income
     $commission = $itemTotal * 0.03; // 3% commission
-    $sellerIncome = $itemTotal - $commission; // Seller income after deducting commission
+    $sellerIncome = $itemTotal - $commission;
 
     $totalPrice = $totalAmountToPay;
 
