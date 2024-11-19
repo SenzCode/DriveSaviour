@@ -52,7 +52,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <?php elseif ($message == 'edit'): ?>
         <div class="alert alert-success" id="alert">The Shop was updated successfully.</div>
     <?php elseif ($message == 'error'): ?>
-        <div class="alert alert-danger" id="alert">Something went wrong: <?= htmlspecialchars($_GET['error'] ?? '') ?></div>
+        <div class="alert alert-danger" id="alert"> <?= htmlspecialchars($_GET['error'] ?? '') ?></div>
     <?php endif; ?>
 
     <br>
