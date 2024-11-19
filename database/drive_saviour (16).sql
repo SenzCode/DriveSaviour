@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Generation Time: Nov 12, 2024 at 10:38 AM
+-- Generation Time: Nov 19, 2024 at 12:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -65,9 +65,26 @@ CREATE TABLE `cart` (
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `category_name` varchar(150) NOT NULL,
-  `description` varchar(250) NOT NULL,
+  `description` varchar(250) DEFAULT NULL,
   `created_date` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `category_name`, `description`, `created_date`) VALUES
+(9, 'Oil Pumps', '', '2024-11-18'),
+(10, 'Oils', '', '2024-11-18'),
+(12, 'Automotive Accessories', '', '2024-11-18'),
+(13, 'Lubricant Spare Parts', '', '2024-11-18'),
+(14, 'Suspension Components', '', '2024-11-18'),
+(15, 'Braking System Components', '', '2024-11-18'),
+(16, 'Spoilers', NULL, '2024-11-18'),
+(17, 'Electronics Accessories', '', '2024-11-18'),
+(18, 'Headlights', '', '2024-11-18'),
+(19, 'Air Filter', '', '2024-11-18'),
+(20, 'Oil Filter', '', '2024-11-18');
 
 -- --------------------------------------------------------
 
@@ -81,13 +98,6 @@ CREATE TABLE `loyalty_card` (
   `expire_date` date NOT NULL,
   `email` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `loyalty_card`
---
-
-INSERT INTO `loyalty_card` (`id`, `card_no`, `expire_date`, `email`) VALUES
-(10, '1809496974655751', '2025-11-12', 'ramithacampus@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -109,7 +119,9 @@ CREATE TABLE `mechanic` (
 --
 
 INSERT INTO `mechanic` (`userID`, `name`, `address`, `phone`, `email`, `password`) VALUES
-(83, 'Nishantha Fernando', 'Panadura', '0777152678', 'nishanthafernando@gmail.com', '$2y$10$/E51jygS6uZmcVuTac3etusqHG1ph54O08DrQbEQOrVvFg83uXPEO');
+(83, 'Nishantha Fernando', 'Bambalapitiya', '0777152679', 'nishanthafernando@gmail.com', '$2y$10$/E51jygS6uZmcVuTac3etusqHG1ph54O08DrQbEQOrVvFg83uXPEO'),
+(84, 'test1', 'Kalutara', '0775016186', 'test@gmail.com', '$2y$10$lcWJ1Hdbs621HUVFDCZ31.SGyLrAEVWE1Zzoow/ZEVfAx.EtWn4/e'),
+(85, 'test2', 'Panadura', '0775017187', 'test2@gmail.com', '$2y$10$n588WTonb5ncYRy8fR39PeTzKpEHTJhsZznr6EkrSOPMamAkVBs7W');
 
 -- --------------------------------------------------------
 
@@ -138,6 +150,13 @@ CREATE TABLE `mech_loyalty_card` (
   `expire_date` date NOT NULL,
   `email` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mech_loyalty_card`
+--
+
+INSERT INTO `mech_loyalty_card` (`id`, `card_no`, `expire_date`, `email`) VALUES
+(4, '9856816773908767', '2025-11-19', 'nishanthafernando@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -205,9 +224,24 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `reference_number`, `product_id`, `quantity`, `purchase_date`, `item_total`, `total_price`, `discount`, `seller_income`, `commission`, `email`, `status`, `payment_status`, `paid_date`) VALUES
-(79, 'ORD-6732f5ea16e401.70268856', 34, 1, '2024-11-12', 18000.00, 17460.00, 540.00, 17460.00, 540.00, 'ramithacampus@gmail.com', 'Completed', 'paid', '2024-11-12'),
-(80, 'ORD-6732f7c235a449.75708135', 34, 1, '2024-11-12', 18000.00, 32500.00, 0.00, 17460.00, 540.00, 'niklesha@gmail.com', 'Completed', 'paid', '2024-11-12'),
-(81, 'ORD-6732f7c235a449.75708135', 35, 1, '2024-11-12', 14500.00, 32500.00, 0.00, 14065.00, 435.00, 'niklesha@gmail.com', 'Completed', 'paid', '2024-11-12');
+(86, 'ORD-673b3e8a080849.74979986', 41, 1, '2024-11-18', 13100.00, 29100.00, 0.00, 12707.00, 393.00, 'ramithacampus@gmail.com', 'Completed', 'Pending', NULL),
+(87, 'ORD-673b3e8a080849.74979986', 35, 1, '2024-11-18', 14500.00, 29100.00, 0.00, 14065.00, 435.00, 'ramithacampus@gmail.com', 'Completed', 'Pending', NULL),
+(88, 'ORD-673b3e8a080849.74979986', 44, 1, '2024-11-18', 1500.00, 29100.00, 0.00, 1455.00, 45.00, 'ramithacampus@gmail.com', 'Completed', 'Pending', NULL),
+(89, 'ORD-673c11b7e59791.18796763', 37, 11, '2024-11-19', 88000.00, 97500.00, 0.00, 85360.00, 2640.00, 'ramithacampus@gmail.com', 'Pending', 'Pending', NULL),
+(90, 'ORD-673c11b7e59791.18796763', 48, 1, '2024-11-19', 9500.00, 97500.00, 0.00, 9215.00, 285.00, 'ramithacampus@gmail.com', 'Pending', 'Pending', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `paid_mechanics`
+--
+
+CREATE TABLE `paid_mechanics` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `purchase_date` date NOT NULL,
+  `expire_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -243,10 +277,22 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `shop_id`, `cat_id`, `product_name`, `image_url`, `quantity_available`, `price`) VALUES
-(34, 48, NULL, 'Wagon R Oil Pump', '../../uploads/suzuki-wagon-r-genuine-oil-pump-22575353.jpg', 18, 18000.00),
-(35, 48, NULL, 'ALTO SUMP', '../../uploads/oil-sump-suzuki-alto-iii-10-vvt-11511m65l10-000-p0-6248p.jpg', 9, 14500.00),
-(36, 49, NULL, 'ALTO SUMP', '../../uploads/oil-sump-suzuki-alto-iii-10-vvt-11511m65l10-000-p0-6248p.jpg', 15, 14500.00),
-(37, 49, NULL, 'Valvoline Synpower 5W30', '../../uploads/xpro-thumb-1692179944.png.pagespeed.ic.AhI2q4y2Cs.png', 30, 8000.00);
+(34, 48, 9, 'Wagon R Oil Pump', '../../uploads/suzuki-wagon-r-genuine-oil-pump-22575353.jpg', 18, 18000.00),
+(35, 48, 13, 'ALTO SUMP', '../../uploads/images.jpeg', 8, 14500.00),
+(36, 49, 13, 'ALTO SUMP', '../../uploads/oil-sump-suzuki-alto-iii-10-vvt-11511m65l10-000-p0-6248p.jpg', 15, 14500.00),
+(37, 49, 10, 'Valvoline Synpower 5W30', '../../uploads/xpro-thumb-1692179944.png.pagespeed.ic.AhI2q4y2Cs.png', 19, 8000.00),
+(41, 51, 10, 'Shell Rotella', '../../uploads/Shell-Rotella-5w40-600x600.png', 19, 13100.00),
+(42, 51, 12, 'Steering wheel cover', '../../uploads/71-3u2EG4rL._AC_SX466_.jpg', 5, 750.00),
+(43, 52, 12, 'Seat cover', '../../uploads/81QonsMl7tL._AC_SX466_.jpg', 10, 17000.00),
+(44, 52, 12, 'Floor mats', '../../uploads/71uIoWQhMAL._AC_SX466_.jpg', 4, 1500.00),
+(45, 51, 18, 'Kahn Headlight', '../../uploads/69089-rtc4615-k-halogen-headlamp-kit-contains-2-units.jpg', 20, 20000.00),
+(46, 51, 18, '5 x 7 Square LED Headlight', '../../uploads/d49aaa21c5b502dc1c4d86c568328547.jpg_720x720q80.jpg', 10, 15000.00),
+(47, 48, 19, 'Air Filter - CHAMP PH2876', '../../uploads/png-transparent-oil-filter-air-filter-car-filtration-synthetic-oil-car-logo-quality-oil.png', 15, 5050.00),
+(48, 48, 14, 'Shock Absorber 12 inch', '../../uploads/Shock-absorbers.jpg', 29, 9500.00),
+(49, 49, 18, 'Iron Walls 5 x 7 Square LED Headlight', '../../uploads/d49aaa21c5b502dc1c4d86c568328547.jpg_720x720q80.jpg', 20, 18000.00),
+(50, 49, 15, 'Brembo Brake Caliper - 2pcs', '../../uploads/break.jpeg', 25, 3220.00),
+(51, 53, 19, 'Air Filter Japan', '../../uploads/png-transparent-oil-filter-air-filter-car-filtration-synthetic-oil-car-logo-quality-oil.png', 5, 5000.00),
+(53, 53, 13, 'ALTO SUMP', '../../uploads/images.jpeg', 10, 18000.00);
 
 -- --------------------------------------------------------
 
@@ -268,8 +314,7 @@ CREATE TABLE `ratings` (
 --
 
 INSERT INTO `ratings` (`id`, `product_id`, `user_email`, `rating`, `feedback`, `rating_date`) VALUES
-(14, 34, 'ramithacampus@gmail.com', 4, 'Good Product', '2024-11-12 12:00:33'),
-(15, 34, 'niklesha@gmail.com', 3, 'Nice one', '2024-11-12 12:08:13');
+(17, 41, 'ramithacampus@gmail.com', 4, 'good product', '2024-11-18 19:32:27');
 
 -- --------------------------------------------------------
 
@@ -293,7 +338,12 @@ CREATE TABLE `shops` (
 
 INSERT INTO `shops` (`id`, `ownerEmail`, `shop_name`, `email`, `number`, `address`, `branch`) VALUES
 (48, 'freddy@gmail.com', 'Freddy Motors', 'freddyneg@gmail.com', '0112345678', '50, Poruthota Rd, Negombo', 'Negombo'),
-(49, 'freddy@gmail.com', 'Freddy Motors', 'freddyc4@gmail.com', '0113456789', '150, Milagiriya Rd, Colombo 4.', 'Bambalapitiya');
+(49, 'freddy@gmail.com', 'Freddy Motors', 'freddyc4@gmail.com', '0113456789', '150, Milagiriya Rd, Colombo 4.', 'Bambalapitiya'),
+(51, 'sarath@gmail.com', 'Sarath Motors', 'sarathmotorskalutara@gmail.com', '0112345678', '8A, Siriniwasa Mawatha, Kalutara North.', 'Kalutara'),
+(52, 'sarath@gmail.com', 'Sarath Motors', 'sarathmotorsnagoda@gmail.com', '0112457896', 'No 5, Flower rd, Nagoda', 'Nagoda'),
+(53, 'freddy@gmail.com', 'ABC', 'ABC@gmail.com', '0775016186', '1/8A, Siriniwasa Mawatha, Kalutara North.', 'Bambalapitiya'),
+(54, 'freddy@gmail.com', 'ABC', 'ramithacampus@gmail.com', '0778121761', '1/8A, Siriniwasa Mawatha, Kalutara North.', 'Kohuwala'),
+(55, 'freddy@gmail.com', 'ABC', 'ramithacampus@gmail.com', '0778121761', '1/8A, Siriniwasa Mawatha, Kalutara North.', 'Kohuwala');
 
 -- --------------------------------------------------------
 
@@ -313,7 +363,8 @@ CREATE TABLE `shop_owner` (
 --
 
 INSERT INTO `shop_owner` (`name`, `phone`, `email`, `password`) VALUES
-('Freddy Fonseka', '0777152675', 'freddy@gmail.com', '$2y$10$7LhVg52tGRqqPEjP7ywla.138hfy8vmCrZwROrQI7zxxhzBoBx27y');
+('Freddy Fonseka', '0777152675', 'freddy@gmail.com', '$2y$10$7LhVg52tGRqqPEjP7ywla.138hfy8vmCrZwROrQI7zxxhzBoBx27y'),
+('Sarath Perera', '0748125777', 'sarath@gmail.com', '$2y$10$C/nuiNaTsAK956kqUnM5luYHk.0eqldFR4ckyI/kNMaZcqOW3bOzu');
 
 -- --------------------------------------------------------
 
@@ -362,6 +413,13 @@ CREATE TABLE `vehicleissues` (
   `city` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `vehicleissues`
+--
+
+INSERT INTO `vehicleissues` (`id`, `email`, `v_id`, `mech_id`, `vehicle_model`, `year`, `mobile_number`, `location`, `vehicle_issue`, `created_at`, `status`, `city`) VALUES
+(93, 'ramithacampus@gmail.com', 28, NULL, 'Toyota Prius', 2019, '778121762', '6.8856609, 79.8603439', 'test', '2024-11-19 04:35:28', 'Pending', 'Bambalapitiya');
+
 -- --------------------------------------------------------
 
 --
@@ -385,7 +443,7 @@ CREATE TABLE `vehicleissuesdone` (
 --
 
 INSERT INTO `vehicleissuesdone` (`id`, `email`, `v_id`, `mech_id`, `location`, `vehicle_issue`, `job_done_at`, `status`, `city`) VALUES
-(87, 'ramithacampus@gmail.com', 28, 83, '6.5982842, 79.9539367', 'Engine Overheating', '2024-11-12 07:01:56', 'Done', 'Panadura');
+(90, 'ramithacampus@gmail.com', 28, 83, '6.893888, 79.854722', 'Engine Overheat', '2024-11-19 04:38:00', 'Done', 'Bambalapitiya');
 
 -- --------------------------------------------------------
 
@@ -398,7 +456,6 @@ CREATE TABLE `vehicle_owner` (
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `phone` int(11) NOT NULL,
-  `address` varchar(150) DEFAULT NULL,
   `city` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -406,9 +463,10 @@ CREATE TABLE `vehicle_owner` (
 -- Dumping data for table `vehicle_owner`
 --
 
-INSERT INTO `vehicle_owner` (`name`, `email`, `password`, `phone`, `address`, `city`) VALUES
-('Niklesha Perera', 'niklesha@gmail.com', '$2y$10$vJYP1Y2ig.RG5k6ntDgce.fUsRgIusxUcKqjwq8blTnuAA/kQybI.', 721594786, NULL, 'Kalutara'),
-('Ramitha Heshan', 'ramithacampus@gmail.com', '$2y$10$w5/eYLOv3UT668KnXIt3HOxCbmEvnfMYBYNVq1BTCCCGFWDF/MNvC', 778121761, NULL, 'Kalutara');
+INSERT INTO `vehicle_owner` (`name`, `email`, `password`, `phone`, `city`) VALUES
+('Osura Chandula', 'osura@gmail.com', '$2y$10$Ng4dwPorO2/l0nShaQdB2u34lPeEXtFSvld7IBzG0dGMws1NoC1gG', 751218047, 'Minuwangoda'),
+('Prashid Dilshan', 'prashid@gmail.com', '$2y$10$OaFhyb2zkY.tK0yvribAWu.IyJoFzViGdSk9Orhy4r2zjY6xBfzp2', 725478952, 'Monaragala'),
+('Ramitha Heshan', 'ramithacampus@gmail.com', '$2y$10$w5/eYLOv3UT668KnXIt3HOxCbmEvnfMYBYNVq1BTCCCGFWDF/MNvC', 778121762, 'Kalutara');
 
 --
 -- Indexes for dumped tables
@@ -488,6 +546,13 @@ ALTER TABLE `orders`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `paid_mechanics`
+--
+ALTER TABLE `paid_mechanics`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `email` (`email`);
+
+--
 -- Indexes for table `payment`
 --
 ALTER TABLE `payment`
@@ -562,13 +627,13 @@ ALTER TABLE `vehicle_owner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `loyalty_card`
@@ -580,19 +645,19 @@ ALTER TABLE `loyalty_card`
 -- AUTO_INCREMENT for table `mechanic`
 --
 ALTER TABLE `mechanic`
-  MODIFY `userID` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `userID` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `mech_cart`
 --
 ALTER TABLE `mech_cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `mech_loyalty_card`
 --
 ALTER TABLE `mech_loyalty_card`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `mech_orders`
@@ -610,7 +675,13 @@ ALTER TABLE `mech_ratings`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+
+--
+-- AUTO_INCREMENT for table `paid_mechanics`
+--
+ALTER TABLE `paid_mechanics`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -622,19 +693,19 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `shops`
 --
 ALTER TABLE `shops`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `vehicle`
@@ -646,13 +717,13 @@ ALTER TABLE `vehicle`
 -- AUTO_INCREMENT for table `vehicleissues`
 --
 ALTER TABLE `vehicleissues`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `vehicleissuesdone`
 --
 ALTER TABLE `vehicleissuesdone`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- Constraints for dumped tables
@@ -704,6 +775,12 @@ ALTER TABLE `mech_ratings`
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`email`) REFERENCES `vehicle_owner` (`email`),
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+
+--
+-- Constraints for table `paid_mechanics`
+--
+ALTER TABLE `paid_mechanics`
+  ADD CONSTRAINT `paid_mechanics_ibfk_1` FOREIGN KEY (`email`) REFERENCES `mechanic` (`email`);
 
 --
 -- Constraints for table `payment`
