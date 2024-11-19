@@ -4,7 +4,7 @@ include_once('../../connection.php');
 require '../navbar/navbar.php';
 
 $owner_data = [];
-$stmt = $conn->prepare("SELECT name, email, phone, address, city FROM vehicle_owner");
+$stmt = $conn->prepare("SELECT name, email, phone, city FROM vehicle_owner");
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result) {
@@ -58,7 +58,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Address</th>
                     <th>City</th>
                     <th>Action</th>
                 </tr>
@@ -69,14 +68,12 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <td data-cell="Name"><?= htmlspecialchars($row['name']) ?></td>
                         <td data-cell="Email"><?= htmlspecialchars($row['email']) ?></td>
                         <td data-cell="Phone"><?= htmlspecialchars($row['phone']) ?></td>
-                        <td data-cell="Address"><?= htmlspecialchars($row['address']) ?></td>
                         <td data-cell="City"><?= htmlspecialchars($row['city']) ?></td>
                         <td>
                             <button class="manage-button view-link" 
                                     data-name="<?= htmlspecialchars($row['name']) ?>"
                                     data-email="<?= htmlspecialchars($row['email']) ?>"
                                     data-phone="<?= htmlspecialchars($row['phone']) ?>"
-                                    data-address="<?= htmlspecialchars($row['address']) ?>"
                                     data-city="<?= htmlspecialchars($row['city']) ?>">
                                 <i class='bx bxs-cog'></i>
                             </button>
@@ -106,10 +103,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <input type="text" id="manage_phone" name="phone" required>
                 </div>
                 <div class="form-group">
-                    <label for="manage_address">Address:</label>
-                    <input type="text" id="manage_address" name="address" required>
-                </div>
-                <div class="form-group">
                     <label for="manage_city">City:</label>
                     <input type="text" id="manage_city" name="city" required>
                 </div>
@@ -127,13 +120,11 @@ document.querySelectorAll('.manage-button').forEach(button => {
         var name = this.dataset.name;
         var email = this.dataset.email;
         var phone = this.dataset.phone;
-        var address = this.dataset.address;
         var city = this.dataset.city;
 
         document.getElementById('manage_name').value = name;
         document.getElementById('manage_email').value = email;
         document.getElementById('manage_phone').value = phone;
-        document.getElementById('manage_address').value = address;
         document.getElementById('manage_city').value = city;
 
         document.getElementById('manageBatchModal').style.display = "block";

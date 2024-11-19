@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'product_data' => [
                     'name' => 'Monthly Subscription',
                 ],
-                'unit_amount' => 500000,
+                'unit_amount' => 150000,
             ],
             'quantity' => 1,
         ]],

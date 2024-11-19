@@ -6,15 +6,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name    = mysqli_real_escape_string($conn, $_POST['name']);
     $email   = $_POST['email'];
     $phone   = $_POST['phone'];
-    $address = $_POST['address'];
     $city    = $_POST['city'];
 
     if ($_POST['action'] == 'edit') {
-        $sql = "UPDATE vehicle_owner SET name=?, phone=?, address=?, city=? WHERE email=?";
+        $sql = "UPDATE vehicle_owner SET name=?, phone=?, city=? WHERE email=?";
         $stmt = $conn->prepare($sql);
 
         if ($stmt) {
-            $stmt->bind_param('sssss', $name, $phone, $address, $city, $email);
+            $stmt->bind_param('ssss', $name, $phone, $city, $email);
 
             if ($stmt->execute()) {
                 header("Location: veiw_owners.php?message=edit_success");

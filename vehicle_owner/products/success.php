@@ -2,7 +2,9 @@
 session_start();
 require '../../connection.php';
 require 'vendor/autoload.php';
+require '../../vendor/autoload.php';
 
+// Stripe API setup
 \Stripe\Stripe::setApiKey('sk_test_51PfklnDFvPyG4fvuUh6ZfPSa5LBwdmWSlgABfkzEjUZeJH5YHDpHoHzWRKDrjYt325wJZSXY4ip4TY4tYfZ9cYnZ00AkL5f2Zd');
 
 if (!isset($_SESSION['email'])) {
@@ -30,7 +32,8 @@ try {
     exit;
 }
 
-$query = "SELECT c.*, p.id AS product_id, p.price 
+// Retrieve cart items for the user
+$query = "SELECT c.*, p.id AS product_id, p.product_name, p.price 
           FROM cart c 
           JOIN products p ON c.product_id = p.id 
           WHERE c.email = ?";
@@ -46,6 +49,7 @@ while ($item = $cartItemsResult->fetch_assoc()) {
     $subtotal += $item['price'] * $item['quantity'];
 }
 
+// Check for loyalty discount
 $discountRate = 0;
 $loyaltyCheckQuery = $conn->prepare("SELECT * FROM loyalty_card WHERE email = ?");
 $loyaltyCheckQuery->bind_param("s", $userEmail);
@@ -58,12 +62,14 @@ if ($loyaltyResult->num_rows > 0) {
 $discountAmount = $subtotal * $discountRate;
 $totalAmountToPay = $subtotal - $discountAmount;
 
+// Generate a unique order reference number
 $referenceNumber = uniqid('ORD-', true);
 
+// Insert order details into the database
 $orderInsertQuery = $conn->prepare("INSERT INTO orders (reference_number, product_id, quantity, purchase_date, item_total, total_price, discount, seller_income, commission, email, status) VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, 'Pending')");
 
 foreach ($cartItems as $item) {
-    $productName = $item['product_id'];
+    $productId = $item['product_id'];
     $quantity = $item['quantity'];
     $itemTotal = $item['price'] * $quantity;
 
@@ -73,18 +79,66 @@ foreach ($cartItems as $item) {
 
     $totalPrice = $totalAmountToPay;
 
-    $orderInsertQuery->bind_param("ssiidddss", $referenceNumber, $productName, $quantity, $itemTotal, $totalPrice, $discountAmount, $sellerIncome, $commission, $userEmail);
+    $orderInsertQuery->bind_param("ssiidddss", $referenceNumber, $productId, $quantity, $itemTotal, $totalPrice, $discountAmount, $sellerIncome, $commission, $userEmail);
     $orderInsertQuery->execute();
 
+    // Update product quantity in the database
     $updateProductQuantityQuery = $conn->prepare("UPDATE products SET quantity_available = quantity_available - ? WHERE id = ?");
-    $updateProductQuantityQuery->bind_param("ii", $quantity, $productName);
+    $updateProductQuantityQuery->bind_param("ii", $quantity, $productId);
     $updateProductQuantityQuery->execute();
 }
 
+// Clear the cart for the user
 $deleteCartQuery = $conn->prepare("DELETE FROM cart WHERE email = ?");
 $deleteCartQuery->bind_param("s", $userEmail);
 $deleteCartQuery->execute();
 
+// Send confirmation email using PHPMailer
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+$mail = new PHPMailer(true);
+
+try {
+    // Server settings
+    $mail->isSMTP();                                // Set mailer to use SMTP
+    $mail->Host       = 'smtp.gmail.com';           // Specify main and backup SMTP servers
+    $mail->SMTPAuth   = true;                       // Enable SMTP authentication
+    $mail->Username   = 'ramithacampus@gmail.com';     // SMTP username
+    $mail->Password   = 'ijjn tjwp erwe ktns';      // SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
+    $mail->Port       = 587;                        // TCP port to connect to
+
+    // Recipients
+    $mail->setFrom('ramithacampus@gmail.com', 'DriveSaviour');
+    $mail->addAddress($userEmail);                 // Add a recipient
+
+    // Email content
+    $mail->isHTML(true);                           // Set email format to HTML
+    $mail->Subject = 'Payment Successful - Your Order Confirmation';
+    $mail->Body    = "
+        <h1>Thank you for your purchase!</h1>
+        <p>Your payment has been successfully processed. Your order reference number is <strong>$referenceNumber</strong>.</p>
+        <p>Order Details:</p>
+        <ul>
+    ";
+    foreach ($cartItems as $item) {
+        $mail->Body .= "<li>{$item['product_name']} - Quantity: {$item['quantity']}</li>";
+    }
+    $mail->Body .= "
+        </ul>
+        <p>Total Amount Paid: <strong>Rs. {$totalAmountToPay}</strong></p>
+        <p>We appreciate your business and hope to see you again soon!</p>
+    ";
+
+    $mail->AltBody = "Thank you for your purchase! Your payment has been successfully processed. Your order reference number is $referenceNumber.";
+
+    $mail->send();
+} catch (Exception $e) {
+    echo "Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+
+// Close database connections
 $orderInsertQuery->close();
 $deleteCartQuery->close();
 $loyaltyCheckQuery->close();
@@ -163,4 +217,3 @@ $conn->close();
     </div>
 </body>
 </html>
-
