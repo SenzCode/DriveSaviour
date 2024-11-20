@@ -29,14 +29,23 @@ if ($shop_id > 0) {
     $shop_stmt->close();
 }
 
+// Fetch batch numbers and corresponding product names from the batch table
+$batch_data = [];
+if ($shop_id > 0) {
+    $batch_stmt = $conn->prepare("SELECT batch_num, product_name FROM batch WHERE suplier_id IN (SELECT suplier_id FROM products WHERE shop_id = ?)");
+    $batch_stmt->bind_param("i", $shop_id);
+    $batch_stmt->execute();
+    $batch_result = $batch_stmt->get_result();
+    while ($batch_row = $batch_result->fetch_assoc()) {
+        $batch_data[] = $batch_row;
+    }
+    $batch_stmt->close();
+}
+
 // Fetch products only for the specified shop
 $product_data = [];
 if ($shop_id > 0) {
     $stmt = $conn->prepare("SELECT * FROM products WHERE shop_id = ?");
-    if (!$stmt) {
-        echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
-        exit;
-    }
     $stmt->bind_param("i", $shop_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -85,6 +94,18 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             <div class="form-container">
                 <div class="form-row">
                     <div class="form-group">
+                        <label for="batch_num">Batch Number:</label>
+                        <select id="batch_num" name="batch_num" required>
+                            <option value="">Select Batch</option>
+                            <?php foreach ($batch_data as $batch): ?>
+                                <option value="<?= htmlspecialchars($batch['batch_num']) ?>"><?= htmlspecialchars($batch['batch_num']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            <div class="form-container">
+                <div class="form-row">
+                    <div class="form-group">
                         <label for="product_name">Product Name:</label>
                         <input type="text" id="product_name" name="product_name" required>
                     </div>
@@ -107,14 +128,15 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <input type="text" id="price" name="price" required>
                     </div>
                 </div>
-
+                <br>
+                <button type="submit" name="action" value="insert" class="batch view-link">Add Product</button>
             </div>
-            <br>
-            <button type="submit" name="action" value="insert" class="batch view-link">Add Product</button>
+            
         </form>
 
         <div class="searchbars">
             <!-- Search bar -->
+            
             <div class="search-bar">
                 <label for="search">Search by Product Name:</label>
                 <input type="text" id="search" class="search-select" placeholder="Product Name">
@@ -128,6 +150,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             <table>
                 <thead>
                     <tr>
+                        <th>Batch Number</th>
                         <th>Product Name</th>
                         <th>Image</th>
                         <th>Quantity Available</th>
@@ -139,8 +162,9 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <?php if (count($product_data) > 0): ?>
                         <?php foreach ($product_data as $row): ?>
                             <tr>
+                                <td data-cell="Batch Number"><?= htmlspecialchars($row['batch_num']) ?></td>
                                 <td data-cell="Product Name"><?= htmlspecialchars($row['product_name']) ?></td>
-                                <td data-cell="Image"><img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>" width="50"></td>
+                                <td data-cell="Image"><img src="<?= htmlspecialchars($row['image_url']) ?>" width="50"></td>
                                 <td data-cell="Quantity Available"><?= htmlspecialchars($row['quantity_available']) ?></td>
                                 <td data-cell="Price">Rs.<?= htmlspecialchars($row['price']) ?></td>
                                 <td class="manage-btn">
@@ -212,6 +236,23 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 manageProductModal.style.display = "none";
             }
         }
+
+        document.getElementById('batch_num').addEventListener('change', function() {
+    var batchNum = this.value;
+    
+    if (batchNum) {
+        // Find the product name for the selected batch number from the batch_data array
+        var productName = '';
+        <?php foreach ($batch_data as $batch): ?>
+            if ('<?= $batch['batch_num'] ?>' === batchNum) {
+                productName = '<?= $batch['product_name'] ?>';
+            }
+        <?php endforeach; ?>
+
+        // Set the product name field with the corresponding product name
+        document.getElementById('product_name').value = productName;
+    }
+});
 
         // Manage Product functionality
         document.querySelectorAll('.manage-button').forEach(button => {
