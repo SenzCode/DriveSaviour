@@ -101,20 +101,20 @@ $mail = new PHPMailer(true);
 
 try {
     // Server settings
-    $mail->isSMTP();                                // Set mailer to use SMTP
-    $mail->Host       = 'smtp.gmail.com';           // Specify main and backup SMTP servers
-    $mail->SMTPAuth   = true;                       // Enable SMTP authentication
-    $mail->Username   = 'ramithacampus@gmail.com';     // SMTP username
-    $mail->Password   = 'ijjn tjwp erwe ktns';      // SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
-    $mail->Port       = 587;                        // TCP port to connect to
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.gmail.com';
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'ramithacampus@gmail.com';
+    $mail->Password   = 'ijjn tjwp erwe ktns';
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = 587;
 
     // Recipients
     $mail->setFrom('ramithacampus@gmail.com', 'DriveSaviour');
-    $mail->addAddress($userEmail);                 // Add a recipient
+    $mail->addAddress($userEmail);
 
     // Email content
-    $mail->isHTML(true);                           // Set email format to HTML
+    $mail->isHTML(true);
     $mail->Subject = 'Payment Successful - Your Order Confirmation';
     $mail->Body    = "
         <h1>Thank you for your purchase!</h1>
