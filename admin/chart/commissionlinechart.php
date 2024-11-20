@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../navbar/style.css">
 </head>
 <body>
-    <h1>Commission by Day</h1>
+    <h1 class="comhead">Commission by Day</h1>
     <div class="content">
         <!-- Month Selection Dropdown -->
         <label for="month">Select Month:</label>

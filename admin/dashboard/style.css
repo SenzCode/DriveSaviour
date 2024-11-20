@@ -55,6 +55,10 @@ span.text {
     line-height: 0;
 }
 
+.commission {
+    margin-top: -30px;
+}
+
 /* Profile Section */
 .profile {
     position: absolute;
@@ -99,7 +103,7 @@ span.text {
 .content .text h2{
     font-size: 1.7rem;
     margin-left: 400px;
-    margin-top: 600px;
+    margin-top: 150px;
     margin-bottom: 10px;
 }
 

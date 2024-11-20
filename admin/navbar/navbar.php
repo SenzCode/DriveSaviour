@@ -41,8 +41,8 @@ if (isset($_POST['logout'])) {
                 <li><a href="../categories/category.php"><i class='bx bxs-category-alt'></i><span class="nav-item">Product Catogories</span></a></li>
                 <li><a href="../commission/commission.php"><i class='bx bx-money-withdraw'></i><span class="nav-item">Commission</span></a></li>
                 <li><a href="../finance/finance.php"><i class='bx bx-line-chart'></i><span class="nav-item">Finance</span></a></li>
-                <li><a href="../chart/orderslinechart.php"><i class='bx bx-line-chart'></i><span class="nav-item">OrdersCharts</span></a></li>
-                <li><a href="../chart/commissionlinechart.php"><i class='bx bx-line-chart'></i><span class="nav-item">CommissionCharts</span></a></li>
+                <!-- <li><a href="../chart/orderslinechart.php"><i class='bx bx-line-chart'></i><span class="nav-item">OrdersCharts</span></a></li> -->
+                <!-- <li><a href="../chart/commissionlinechart.php"><i class='bx bx-line-chart'></i><span class="nav-item">CommissionCharts</span></a></li> -->
 
                 <li>
                     <form method="POST">

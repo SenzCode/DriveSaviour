@@ -73,6 +73,7 @@ try {
     <link rel="shortcut icon" type="image/png" href="/img/Latte-Cappuccino-Transparent-PNG.png">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../chart/style.css">
     <link rel="stylesheet" type="text/css" href="../navbar/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -101,6 +102,12 @@ try {
             <span class="num" data-val="<?php echo $products_count; ?>">0</span>
             <span class="text">Total Shop Items</span>
         </div>
+    </div>
+
+    <div class="commission">
+        <?php
+            require '../chart/commissionlinechart.php'
+        ?>
     </div>
 
     <div class="content">

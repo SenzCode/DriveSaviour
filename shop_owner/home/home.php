@@ -54,6 +54,14 @@ try {
     <link rel="stylesheet" href="../navbar/style.css">
 
     <style>
+        select {
+            width: 20%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
         .product-card {
             background-color: white;
             border: 1px solid #ddd;
@@ -107,6 +115,10 @@ try {
                         <h3>Today Sales</h3>
                     </div>
                 </div>
+
+                <?php
+                    require '../chart/orderslinechart.php';
+                ?>
 
                 <div class="content">
                     <div class="text">
