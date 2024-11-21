@@ -80,13 +80,13 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
 <div class="image-buttons-container">
     <a href="view_cart.php" class="image-link">
-        <i class='bx bx-cart' ></i>
+        CART
     </a>
     <a href="../Loyalty_card/loyalty_card.php" class="image-link">
-        <i class='bx bxs-discount'></i>
+        loyalty card
     </a>
     <a href="../orders/orders.php" class="image-link">
-        <i class='bx bx-list-check'></i>
+        orders
     </a>
 </div>
 

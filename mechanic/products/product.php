@@ -91,13 +91,13 @@ ob_end_flush();
 
 <div class="image-buttons-container">
     <a href="view_cart.php" class="image-link">
-        <i class='bx bx-cart' ></i>
+        cart
     </a>
     <a href="../Loyalty_card/loyalty_card.php" class="image-link">
-        <i class='bx bxs-discount'></i>
+        loyalty card
     </a>
     <a href="../orders/orders.php" class="image-link">
-        <i class='bx bx-list-check'></i>
+        orders
     </a>
 </div>
 
