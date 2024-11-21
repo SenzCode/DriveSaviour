@@ -41,6 +41,18 @@ header {
     z-index: 1000;
 }
 
+.small-icon {
+    width: 32px; 
+    height: 32px; 
+    object-fit: contain; 
+    margin: 0 5px; 
+    transition: transform 0.3s; 
+}
+
+.small-icon:hover {
+    transform: scale(1.1);
+}
+
 .container {
     display: flex;
     justify-content: space-between;

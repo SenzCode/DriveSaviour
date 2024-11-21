@@ -69,20 +69,68 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../shop/product-list.css">
     <style>
-        
-        .small-icon {
-            width: 32px; 
-            height: 32px; 
-            object-fit: contain; 
-            margin: 0 5px; 
+        .product-card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 50px;
+        }
+
+        .product-card {
+            position: relative;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .store-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1;
+        }
+
+        .store-icon img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
             transition: transform 0.3s;
         }
 
-        .small-icon:hover {
-            transform: scale(1.1); 
+        .store-icon img:hover {
+            transform: scale(1.1);
+        }
+
+        .product-details img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product-details h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .star-rating {
+            margin: 5px 0;
+        }
+
+        .star-rating .star {
+            color: #ffd700;
+            font-size: 16px;
+        }
+
+        .star-rating .star.filled {
+            color: #ffa500;
         }
     </style>
-
 </head>
 <body>
 <div class="main_container">
@@ -93,16 +141,16 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <?php endif; ?>
 
     <div class="image-buttons-container">
-    <a href="view_cart.php" class="image-link">
-        <img src="../../img/cart.png" alt="Cart" class="small-icon">
-    </a>
-    <a href="../Loyalty_card/loyalty_card.php" class="image-link">
-        <img src="../../img/loyalty card.png" alt="Loyalty Card" class="small-icon">
-    </a>
-    <a href="../orders/orders.php" class="image-link">
-        <img src="../../img/orders.png" alt="Orders" class="small-icon">
-    </a>
-</div>
+        <a href="view_cart.php" class="image-link">
+            <img src="../../img/cart.png" alt="Cart" class="small-icon">
+        </a>
+        <a href="../Loyalty_card/loyalty_card.php" class="image-link">
+            <img src="../../img/loyalty card.png" alt="Loyalty Card" class="small-icon">
+        </a>
+        <a href="../orders/orders.php" class="image-link">
+            <img src="../../img/orders.png" alt="Orders" class="small-icon">
+        </a>
+    </div>
 
     <form method="GET" action="">
         <div class="search-bar">
@@ -110,7 +158,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             <button type="submit" class="search-btn"><i class="fas fa-search"></i> Search</button>
         </div>
 
-        <!-- Category Filter -->
         <div class="category-filter">
             <select name="category">
                 <option value="0">All Categories</option>
@@ -122,7 +169,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             </select>
         </div>
 
-        <!-- Sorting Options -->
         <div class="sort-options">
             <select name="sort">
                 <option value="">Sort by Price</option>
@@ -132,22 +178,22 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         </div>
     </form>
 
-    <!-- Product Display -->
     <div class="product-card-container">
         <?php if (count($product_data) > 0): ?>
             <?php foreach ($product_data as $row): ?>
                 <div class="product-card">
-                <a class="go-to-shop-icon" onclick="window.location.href='shop_page.php?shop_id=<?= $row['shop_id'] ?>'">
-                        <i class='bx bxs-store'></i>
-                    </a>
-                    <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?> loading='lazy'">
+                    <div class="store-icon">
+                        <a href="shop_page.php?shop_id=<?= $row['shop_id'] ?>">
+                            <img src="../../img/store.png" alt="store icon">
+                        </a>
+                    </div>
+                    <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>" loading="lazy">
                     <div class="product-details">
                         <h3><?= htmlspecialchars($row['product_name']) ?></h3>
                         <div class="price">Rs.<?= htmlspecialchars($row['price']) ?></div>
                         <div>Available: <?= htmlspecialchars($row['quantity_available']) ?></div>
                         <div>Category: <?= htmlspecialchars($row['category_name'] ?? '') ?></div>
                         <div>Shop: <?= htmlspecialchars($row['shop_name']) ?></div>
-                        <!-- Star Rating Display -->
                         <div class="star-rating">
                             <?php
                             $averageRating = round($row['avg_rating'] ?? 0);
@@ -156,7 +202,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                             <?php endfor; ?>
                             <span>(<?= number_format($row['avg_rating'] ?? 0, 1) ?>)</span>
                         </div>
-                        
                         <form action="add_to_cart.php" method="POST">
                             <input type="hidden" name="id" value="<?= $row['id'] ?>">
                             <input type="number" name="quantity" value="1" min="1" max="<?= $row['quantity_available'] ?>">
@@ -169,7 +214,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             <p>No products found.</p>
         <?php endif; ?>
     </div>
-
 </div>
 
 <script>
@@ -181,7 +225,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     }, 10000); // 10 seconds
 </script>
 <?php
-    require '../footer/footer.php';
-    ?>
+require '../footer/footer.php';
+?>
 </body>
 </html>

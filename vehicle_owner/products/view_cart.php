@@ -67,7 +67,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <form action="remove_from_cart.php" method="POST">
                             <input type="hidden" name="cart_id" value="<?= $item['id'] ?>">
                             <button type="submit" class="remove-btn">
-                                <i class='bx bx-trash'></i>
+                                <img src="../../img/delete.png" alt="delete icon" class="small-icon">
                             </button>
                         </form>
                     </div>
