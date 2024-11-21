@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $shop_id = filter_var($_POST['shop_id'], FILTER_SANITIZE_NUMBER_INT);
     $batch_num = filter_var($_POST['batch_num'], FILTER_SANITIZE_STRING);
     $product_name = filter_var($_POST['product_name'], FILTER_SANITIZE_STRING);
+    $category_id = filter_var($_POST['category_id'], FILTER_SANITIZE_NUMBER_INT);
     $quantity_available = (int)$_POST['quantity_available'];
     $price = filter_var($_POST['price'], FILTER_SANITIZE_STRING);
 
@@ -39,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Save web-accessible path
                 $image_url = '../../uploads/' . $image;
 
-                $stmt = $conn->prepare("INSERT INTO products (shop_id, batch_num, product_name, image_url, quantity_available, price) VALUES (?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("isssis", $shop_id, $batch_num, $product_name, $image_url, $quantity_available, $price);
+                $stmt = $conn->prepare("INSERT INTO products (shop_id, cat_id, batch_num, product_name, image_url, quantity_available, price) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("iiissis", $shop_id, $category_id, $batch_num, $product_name, $image_url, $quantity_available, $price);
 
                 if ($stmt->execute()) {
                     header("Location: products.php?shop_id=$shop_id&message=insert");

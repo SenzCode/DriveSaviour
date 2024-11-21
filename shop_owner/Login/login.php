@@ -11,7 +11,7 @@ $message = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['login'])) {
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $password = filter_input(INPUT_POST, 'password', FILTER_DEFAULT); // No sanitization for passwords
+        $password = filter_input(INPUT_POST, 'password', FILTER_DEFAULT);
 
         $query = "SELECT * FROM shop_owner WHERE email = ?";
         $stmt = $conn->prepare($query);

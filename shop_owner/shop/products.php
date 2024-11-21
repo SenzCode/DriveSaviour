@@ -29,6 +29,21 @@ if ($shop_id > 0) {
     $shop_stmt->close();
 }
 
+// Fetch categories from the database
+$categories = [];
+$cat_stmt = $conn->prepare("SELECT id, category_name FROM category ORDER BY category_name ASC");
+if ($cat_stmt) {
+    $cat_stmt->execute();
+    $cat_result = $cat_stmt->get_result();
+    while ($cat_row = $cat_result->fetch_assoc()) {
+        $categories[] = $cat_row;
+    }
+    $cat_stmt->close();
+} else {
+    echo "Prepare failed for categories: (" . $conn->errno . ") " . $conn->error;
+    exit;
+}
+
 // Fetch batch numbers and corresponding product names from the batch table
 $batch_data = [];
 if ($shop_id > 0) {
@@ -107,7 +122,20 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 <div class="form-row">
                     <div class="form-group">
                         <label for="product_name">Product Name:</label>
-                        <input type="text" id="product_name" name="product_name" required>
+                        <input type="text" id="product_name" name="product_name" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="category_id">Category:</label>
+                        <select id="category_id" name="category_id" required>
+                            <option value="">-- Select Category --</option>
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?= htmlspecialchars($category['id']) ?>">
+                                    <?= htmlspecialchars($category['category_name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </div>
                 <div class="form-row">
@@ -174,6 +202,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                                             data-image_url="<?= htmlspecialchars($row['image_url']) ?>"
                                             data-quantity_available="<?= htmlspecialchars($row['quantity_available']) ?>"
                                             data-price="<?= htmlspecialchars($row['price']) ?>"
+                                            data-category_id="<?= htmlspecialchars($row['cat_id']) ?>"
                                             data-batchName="<?= htmlspecialchars($row['batch_num']) ?>">
                                         Manage
                                     </button>
@@ -200,11 +229,22 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <input type="hidden" id="manage_shop_id" name="shop_id" value="">
                     <div class="form-group">
                         <label for="manage_batch_name">Batch Name:</label>
-                        <input type="text" id="manage_batch_name" name="batch_name" required>
+                        <input type="text" id="manage_batch_name" name="batch_name" readonly>
                     </div>
                     <div class="form-group">
                         <label for="manage_product_name">Product Name:</label>
-                        <input type="text" id="manage_product_name" name="product_name" required>
+                        <input type="text" id="manage_product_name" name="product_name" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="manage_category_id">Category:</label>
+                        <select id="manage_category_id" name="category_id" required>
+                            <option value="">-- Select Category --</option>
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?= htmlspecialchars($category['id']) ?>">
+                                    <?= htmlspecialchars($category['category_name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="manage_image_url">Image URL:</label>
@@ -267,16 +307,18 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 var imageUrl = this.dataset.image_url;
                 var quantityAvailable = this.dataset.quantity_available;
                 var price = this.dataset.price;
-                var batchName = this.dataset.batchname; // Corrected: Use `dataset.batchname` (case-insensitive)
+                var categoryId = this.dataset.category_id;
+                var batchName = this.dataset.batchname;
                 var shopId = "<?php echo $shop_id; ?>";
 
-                document.getElementById('manage_batch_name').value = batchName; // Fix here
+                document.getElementById('manage_batch_name').value = batchName;
                 document.getElementById('manage_product_id').value = productId;
                 document.getElementById('manage_product_name').value = productName;
                 document.getElementById('manage_image_url').value = imageUrl;
                 document.getElementById('manage_quantity_available').value = quantityAvailable;
                 document.getElementById('manage_price').value = price;
                 document.getElementById('manage_shop_id').value = shopId;
+                document.getElementById('manage_category_id').value = categoryId;
 
                 manageProductModal.style.display = "block";
             });
