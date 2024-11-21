@@ -174,6 +174,23 @@ if ($resultPaid->num_rows > 0) {
                 <input type="hidden" name="email" value="<?= htmlspecialchars($email) ?>">
                 <button type="submit" class="btn">Purchase Subscription</button>
             </form>
+            <style>
+                .btn {
+    display: inline-block;
+    margin-top: 20px;
+    width: 120px;
+    color: #182431;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #2B5AC2;
+    border-radius: 8px;
+    background-color: #f0f8ff;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color .5s ease, color .5s ease;
+    margin: 0 auto;
+}
+            </style>
         </div>
         <?php require '../../vehicle_owner/footer/footer.php'; ?>
     </body>
