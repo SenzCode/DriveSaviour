@@ -64,6 +64,7 @@ ob_end_flush();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../../vehicle_owner/shop/product-list.css">
@@ -76,6 +77,18 @@ ob_end_flush();
         }
         .star-rating .star.filled {
             color: gold;
+        } 
+        
+        .small-icon {
+            width: 32px; 
+            height: 32px; 
+            object-fit: contain; 
+            margin: 0 5px; 
+            transition: transform 0.3s;
+        }
+
+        .small-icon:hover {
+            transform: scale(1.1); 
         }
     </style>
 
@@ -91,22 +104,21 @@ ob_end_flush();
 
 <div class="image-buttons-container">
     <a href="view_cart.php" class="image-link">
-        cart
+        <img src="../../img/cart.png" alt="Cart" class="small-icon">
     </a>
     <a href="../Loyalty_card/loyalty_card.php" class="image-link">
-        loyalty card
+        <img src="../../img/loyalty card.png" alt="Loyalty Card" class="small-icon">
     </a>
     <a href="../orders/orders.php" class="image-link">
-        orders
+        <img src="../../img/orders.png" alt="Orders" class="small-icon">
     </a>
 </div>
-
-
-    <!-- Search and Filter Form -->
+ <!-- Search and Filter Form -->
     <form method="GET" action="">
         <div class="search-bar">
-            <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Search by Product Name" loading='lazy'>
-            <button type="submit" class="search-btn"><i class="fas fa-search"></i> Search</button>
+            <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Search by Product Name">
+            <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+
         </div>
 
         <!-- Category Filter -->
