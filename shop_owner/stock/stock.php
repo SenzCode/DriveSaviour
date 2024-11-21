@@ -8,13 +8,16 @@ if (!isset($_SESSION['email'])) {
 require('../navbar/nav.php');
 include_once('../../connection.php');
 
-// Fetch all batch data
+$email = $_SESSION['email']; // Get logged-in user's email
+
+// Fetch batch data for the logged-in user
 $batch_data = [];
-$stmt = $conn->prepare("SELECT * FROM batch");
+$stmt = $conn->prepare("SELECT * FROM batch WHERE email = ?");
 if (!$stmt) {
     echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
     exit;
 }
+$stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) {
@@ -24,6 +27,7 @@ $stmt->close();
 
 $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -124,13 +128,13 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                                 <td><?= htmlspecialchars($row['date']) ?></td>
                                 <td>
                                     <button class="manage-button view-link"
-                                            data-suplier_id="<?= htmlspecialchars($row['suplier_id']) ?>"
-                                            data-suplier_name="<?= htmlspecialchars($row['suplier_name']) ?>"
-                                            data-batch_num="<?= htmlspecialchars($row['batch_num']) ?>"
-                                            data-prod_id="<?= htmlspecialchars($row['product_name']) ?>"
-                                            data-purchase_price="<?= htmlspecialchars($row['purchase_price']) ?>"
-                                            data-avail_qty="<?= htmlspecialchars($row['avail_qty']) ?>"
-                                            data-date="<?= htmlspecialchars($row['date']) ?>">
+                                        data-suplier_id="<?= htmlspecialchars($row['suplier_id']) ?>"
+                                        data-suplier_name="<?= htmlspecialchars($row['suplier_name']) ?>"
+                                        data-batch_num="<?= htmlspecialchars($row['batch_num']) ?>"
+                                        data-prod_id="<?= htmlspecialchars($row['product_name']) ?>"
+                                        data-purchase_price="<?= htmlspecialchars($row['purchase_price']) ?>"
+                                        data-avail_qty="<?= htmlspecialchars($row['avail_qty']) ?>"
+                                        data-date="<?= htmlspecialchars($row['date']) ?>">
                                         Manage
                                     </button>
                                 </td>
@@ -214,7 +218,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 manageBatchModal.style.display = "block";
             });
         });
-        
     </script>
 </body>
 
