@@ -38,6 +38,19 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <title>Your Cart</title>
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../shop/add-to-cart.css">
+    <style>
+        .small-icon {
+            width: 32px; 
+            height: 32px; 
+            object-fit: contain; 
+            margin: 0 5px; 
+            transition: transform 0.3s; 
+        }
+
+        .small-icon:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 
 <body>
