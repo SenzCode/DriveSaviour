@@ -69,15 +69,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../shop/product-list.css">
 
-    <style>
-        .star-rating .star {
-            font-size: 1.2rem;
-            color: lightgray;
-        }
-        .star-rating .star.filled {
-            color: gold;
-        }
-    </style>
 </head>
 <body>
 <div class="main_container">

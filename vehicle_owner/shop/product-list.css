@@ -76,6 +76,14 @@
     width: 180px;
 }
 
+.star-rating .star {
+    font-size: 1.2rem;
+    color: lightgray;
+}
+.star-rating .star.filled {
+    color: gold;
+}
+
 .search-btn {
     display: inline-block;
     width: 100px;
