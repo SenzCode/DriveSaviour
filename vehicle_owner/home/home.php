@@ -25,10 +25,10 @@
             <p>Our web app connects users with local mechanics for vehicle breakdowns, allowing easy posting, browsing, and towing services. It features customer reviews, live chat, and secure payments, making vehicle maintenance convenient and stress-free.</p>
         </div>
         <div class="profile-picture reveal">
-            <img class="side-img" src="img/Leonardo_Phoenix_A_mechanic_in_a_modern_garage_wearing_a_dark_1.png" alt="Mechanic">
-            <img class="gear rotate1" src="img/settings-icon.png" alt="Gear 1">
-            <img class="gear rotate2" src="img/settings-icon.png" alt="Gear 2">
-            <img class="gear rotate3" src="img/settings-icon.png" alt="Gear 3">
+            <img class="side-img" src="img/Leonardo_Phoenix_A_mechanic_in_a_modern_garage_wearing_a_dark_1.png" alt="Mechanic" loading='lazy'>
+            <img class="gear rotate1" src="img/settings-icon.png" alt="Gear 1" loading='lazy'>
+            <img class="gear rotate2" src="img/settings-icon.png" alt="Gear 2" loading='lazy'>
+            <img class="gear rotate3" src="img/settings-icon.png" alt="Gear 3" loading='lazy'>
         </div>
     </div>
 </section>
@@ -41,19 +41,19 @@
         <div class="container">
             <div class="services-boxes">
                 <div class="service-box reveal">
-                    <img src="../../img/pngwing.com (8).png">
+                    <img src="../../img/pngwing.com (8).png" loading='lazy'>
                     <h3>On-Demand Mechanics</h3>
                 </div>
                 <div class="service-box reveal">
-                    <img src="../../img/towinig.png">
+                    <img src="../../img/towinig.png" loading='lazy'>
                     <h3>Emergency Towing</h3>
                 </div>
                 <div class="service-box reveal">
-                    <img src="../../img/oils.png">
+                    <img src="../../img/oils.png" loading='lazy'>
                     <h3>Shop & Compare</h3>
                 </div>
                 <div class="service-box reveal">
-                    <img src="../../img/card.png">
+                    <img src="../../img/card.png" loading='lazy'>
                     <h3>Secure Payments</h3>
                 </div>
             </div>
@@ -124,7 +124,7 @@
         <div class="slider-wrapper">
             <div class="card-list swiper-wrapper">
                 <div class=" swiper-slide card-item">
-                    <img src="../../img/img-1.jpg" alt="User Image" class="user-image">
+                    <img src="../../img/img-1.jpg" alt="User Image" class="user-image" loading='lazy'>
                     <h2 class="user-name">Prashid Dilshan</h2>
                     <div class="rating">
                        <i class='bx bxs-star'></i>
@@ -135,7 +135,7 @@
                     <p class="user-profession">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa, sit!</p>
                 </div>
                 <div class=" swiper-slide card-item">
-                    <img src="../../img/img-2.jpg" alt="User Image" class="user-image">
+                    <img src="../../img/img-2.jpg" alt="User Image" class="user-image" loading='lazy'>
                     <h2 class="user-name">Shamali Liyanage</h2>
                     <div class="rating">
                        <i class='bx bxs-star'></i>
@@ -145,7 +145,7 @@
                     <p class="user-profession">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa, sit!</p>
                 </div>
                 <div class=" swiper-slide card-item">
-                    <img src="../../img/img-3.jpg" alt="User Image" class="user-image">
+                    <img src="../../img/img-3.jpg" alt="User Image" class="user-image" loading='lazy'>
                     <h2 class="user-name">Ramitha Heshan</h2>
                     <div class="rating">
                        <i class='bx bxs-star'></i>
@@ -155,7 +155,7 @@
                     <p class="user-profession">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa, sit!</p>
                 </div>
                 <div class=" swiper-slide card-item">
-                    <img src="../../img/img-4.jpg" alt="User Image" class="user-image">
+                    <img src="../../img/img-4.jpg" alt="User Image" class="user-image" loading='lazy'>
                     <h2 class="user-name">Nusrath</h2>
                     <div class="rating">
                        <i class='bx bxs-star'></i>
@@ -165,7 +165,7 @@
                     <p class="user-profession">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa, sit!</p>
                 </div>
                 <div class=" swiper-slide card-item">
-                    <img src="../../img/img-5.jpg" alt="User Image" class="user-image">
+                    <img src="../../img/img-5.jpg" alt="User Image" class="user-image" loading='lazy'>
                     <h2 class="user-name">Kasun Buddika</h2>
                     <div class="rating">
                        <i class='bx bxs-star'></i>
@@ -176,7 +176,7 @@
                     <p class="user-profession">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa, sit!</p>
                 </div>
                 <div class=" swiper-slide card-item">
-                    <img src="../../img/img-6.jpg" alt="User Image" class="user-image">
+                    <img src="../../img/img-6.jpg" alt="User Image" class="user-image" loading='lazy'>
                     <h2 class="user-name">Brain</h2>
                     <div class="rating">
                        <i class='bx bxs-star'></i>

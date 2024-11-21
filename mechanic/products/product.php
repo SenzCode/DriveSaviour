@@ -105,7 +105,7 @@ ob_end_flush();
     <!-- Search and Filter Form -->
     <form method="GET" action="">
         <div class="search-bar">
-            <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Search by Product Name">
+            <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Search by Product Name" loading='lazy'>
             <button type="submit" class="search-btn"><i class="fas fa-search"></i> Search</button>
         </div>
 
