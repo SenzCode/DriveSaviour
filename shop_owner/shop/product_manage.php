@@ -3,6 +3,7 @@ session_start();
 include_once('../../connection.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $batch_name = $_POST['batch_num'];
     $product_id = $_POST['id'];
     $shop_id = $_POST['shop_id'];
     $product_name = mysqli_real_escape_string($conn, $_POST['product_name']);
@@ -11,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($_POST['action'] == 'edit') {
         // Update query
-        $sql = "UPDATE products SET product_name='$product_name', quantity_available='$quantity_available', price='$price' WHERE id='$product_id'";
+        $sql = "UPDATE products SET batch_num='$batch_name', product_name='$product_name', quantity_available='$quantity_available', price='$price' WHERE id='$product_id'";
         if (mysqli_query($conn, $sql)) {
             header("Location: products.php?shop_id=" . $shop_id . "&message=edit");
             exit;

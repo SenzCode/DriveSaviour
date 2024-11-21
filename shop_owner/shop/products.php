@@ -173,10 +173,12 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                                             data-product_name="<?= htmlspecialchars($row['product_name']) ?>"
                                             data-image_url="<?= htmlspecialchars($row['image_url']) ?>"
                                             data-quantity_available="<?= htmlspecialchars($row['quantity_available']) ?>"
-                                            data-price="<?= htmlspecialchars($row['price']) ?>">
+                                            data-price="<?= htmlspecialchars($row['price']) ?>"
+                                            data-batchName="<?= htmlspecialchars($row['batch_num']) ?>">
                                         Manage
                                     </button>
                                 </td>
+
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -196,7 +198,10 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 <form id="manageProductForm" action="product_manage.php" method="POST">
                     <input type="hidden" id="manage_product_id" name="id">
                     <input type="hidden" id="manage_shop_id" name="shop_id" value="">
-
+                    <div class="form-group">
+                        <label for="manage_batch_name">Batch Name:</label>
+                        <input type="text" id="manage_batch_name" name="batch_name" required>
+                    </div>
                     <div class="form-group">
                         <label for="manage_product_name">Product Name:</label>
                         <input type="text" id="manage_product_name" name="product_name" required>
@@ -262,8 +267,10 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 var imageUrl = this.dataset.image_url;
                 var quantityAvailable = this.dataset.quantity_available;
                 var price = this.dataset.price;
+                var batchName = this.dataset.batchname; // Corrected: Use `dataset.batchname` (case-insensitive)
                 var shopId = "<?php echo $shop_id; ?>";
 
+                document.getElementById('manage_batch_name').value = batchName; // Fix here
                 document.getElementById('manage_product_id').value = productId;
                 document.getElementById('manage_product_name').value = productName;
                 document.getElementById('manage_image_url').value = imageUrl;
@@ -274,6 +281,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 manageProductModal.style.display = "block";
             });
         });
+
 
         // Confirm deletion for Product
         document.getElementById("manageProductForm").addEventListener("submit", function(event) {

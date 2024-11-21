@@ -40,13 +40,13 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 <body>
     <div class="main_container">
         <?php if ($message == 'insert'): ?>
-            <div class="alert alert-success">The Batch was added successfully.</div>
+            <div class="alert alert-success" id="success-alert">The Batch was added successfully.</div>
         <?php elseif ($message == 'delete'): ?>
-            <div class="alert alert-danger">The Batch was deleted successfully.</div>
+            <div class="alert alert-danger" id="success-alert">The Batch was deleted successfully.</div>
         <?php elseif ($message == 'edit'): ?>
-            <div class="alert alert-success">The Batch was updated successfully.</div>
+            <div class="alert alert-success" id="success-alert">The Batch was updated successfully.</div>
         <?php elseif ($message == 'error'): ?>
-            <div class="alert alert-danger">Something went wrong: <?= htmlspecialchars($_GET['error'] ?? '') ?></div>
+            <div class="alert alert-danger" id="success-alert">Batch number is already exist</div>
         <?php endif; ?>
 
         <div class="title">
@@ -216,6 +216,16 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         });
         
     </script>
+
+
 </body>
 
+<script>
+    setTimeout(function() {
+        var alert = document.getElementById('success-alert');
+        if (alert) {
+            alert.style.display = 'none';
+        }
+    }, 10000); // 10 seconds
+</script>
 </html>
