@@ -98,7 +98,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 <div class="form-row">
                     <div class="form-group">
                         <label for="batch_num">Batch Number:</label>
-                        <select id="batch_num" name="batch_num" required>
+                        <select id="batch_num" name="batch_num">
                             <option value="">Select Batch</option>
                             <?php foreach ($batch_data as $batch): ?>
                                 <option value="<?= htmlspecialchars($batch['batch_num']) ?>"><?= htmlspecialchars($batch['batch_num']) ?> - <?= htmlspecialchars($batch['product_name']) ?></option>

@@ -98,23 +98,6 @@ try {
 <body>
         <div class="main-content">
             <div class="home-container">
-                <div class="overview-cards">
-                    <div class="card">
-                        <i class="fas fa-store"></i>
-                        <h2>50+</h2>
-                        <h3>Shop</h3>
-                    </div>
-                    <div class="card">
-                        <i class="fas fa-car"></i>
-                        <h2>15+</h2>
-                        <h3>Cars in Garage</h3>
-                    </div>
-                    <div class="card">
-                        <i class="fas fa-chart-line"></i>
-                        <h2>250+</h2>
-                        <h3>Today Sales</h3>
-                    </div>
-                </div>
 
                 <?php
                     require '../chart/orderslinechart.php';

@@ -68,16 +68,21 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../shop/product-list.css">
-
     <style>
-        .star-rating .star {
-            font-size: 1.2rem;
-            color: lightgray;
+        
+        .small-icon {
+            width: 32px; 
+            height: 32px; 
+            object-fit: contain; 
+            margin: 0 5px; 
+            transition: transform 0.3s;
         }
-        .star-rating .star.filled {
-            color: gold;
+
+        .small-icon:hover {
+            transform: scale(1.1); 
         }
     </style>
+
 </head>
 <body>
 <div class="main_container">
@@ -87,15 +92,15 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <div class="alert alert-success" id="success-alert">Another Item added to the cart successfully.</div>
     <?php endif; ?>
 
-<div class="image-buttons-container">
+    <div class="image-buttons-container">
     <a href="view_cart.php" class="image-link">
-        <i class='bx bx-cart' ></i>
+        <img src="../../img/cart.png" alt="Cart" class="small-icon">
     </a>
     <a href="../Loyalty_card/loyalty_card.php" class="image-link">
-        <i class='bx bxs-discount'></i>
+        <img src="../../img/loyalty card.png" alt="Loyalty Card" class="small-icon">
     </a>
     <a href="../orders/orders.php" class="image-link">
-        <i class='bx bx-list-check'></i>
+        <img src="../../img/orders.png" alt="Orders" class="small-icon">
     </a>
 </div>
 
@@ -135,7 +140,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 <a class="go-to-shop-icon" onclick="window.location.href='shop_page.php?shop_id=<?= $row['shop_id'] ?>'">
                         <i class='bx bxs-store'></i>
                     </a>
-                    <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>">
+                    <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?> loading='lazy'">
                     <div class="product-details">
                         <h3><?= htmlspecialchars($row['product_name']) ?></h3>
                         <div class="price">Rs.<?= htmlspecialchars($row['price']) ?></div>
