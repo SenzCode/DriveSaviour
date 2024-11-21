@@ -12,7 +12,12 @@ $email = $_SESSION['email']; // Get logged-in user's email
 
 // Fetch batch data for the logged-in user
 $batch_data = [];
-$stmt = $conn->prepare("SELECT * FROM batch WHERE email = ?");
+$stmt = $conn->prepare("
+    SELECT b.*, c.category_name 
+    FROM batch b 
+    LEFT JOIN category c ON b.cat_id = c.id 
+    WHERE b.email = ?");
+
 if (!$stmt) {
     echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
     exit;
@@ -80,6 +85,21 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     </div>
                 </div>
                 <div class="form-row">
+    <div class="form-group">
+        <label for="cat_id">Category:</label>
+        <select id="cat_id" name="cat_id" required>
+            <option value="">Select Category</option>
+            <?php
+            $categories = $conn->query("SELECT id, category_name FROM category");
+            while ($category = $categories->fetch_assoc()) {
+                echo "<option value='{$category['id']}'>" . htmlspecialchars($category['category_name']) . "</option>";
+            }
+            ?>
+        </select>
+    </div>
+</div>
+
+                <div class="form-row">
                     <div class="form-group">
                         <label for="purchase_price">Purchase Price:</label>
                         <input type="text" id="purchase_price" name="purchase_price" required>
@@ -110,6 +130,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <th>Supplier Name</th>
                         <th>Batch Number</th>
                         <th>Product Name</th>
+                        <th>Category</th>
                         <th>Purchase Price</th>
                         <th>Available Quantity</th>
                         <th>Date</th>
@@ -123,6 +144,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                                 <td><?= htmlspecialchars($row['suplier_name']) ?></td>
                                 <td><?= htmlspecialchars($row['batch_num']) ?></td>
                                 <td><?= htmlspecialchars($row['product_name']) ?></td>
+                                <td><?= htmlspecialchars($row['category_name'] ) ?></td>
                                 <td>Rs.<?= htmlspecialchars($row['purchase_price']) ?></td>
                                 <td><?= htmlspecialchars($row['avail_qty']) ?></td>
                                 <td><?= htmlspecialchars($row['date']) ?></td>
@@ -132,9 +154,11 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                                         data-suplier_name="<?= htmlspecialchars($row['suplier_name']) ?>"
                                         data-batch_num="<?= htmlspecialchars($row['batch_num']) ?>"
                                         data-prod_id="<?= htmlspecialchars($row['product_name']) ?>"
+                                        data-cat_id="<?= htmlspecialchars($row['cat_id']) ?>"
                                         data-purchase_price="<?= htmlspecialchars($row['purchase_price']) ?>"
                                         data-avail_qty="<?= htmlspecialchars($row['avail_qty']) ?>"
                                         data-date="<?= htmlspecialchars($row['date']) ?>">
+                                        
                                         Manage
                                     </button>
                                 </td>
@@ -168,6 +192,19 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <label for="manage_prod_id">Product Name:</label>
                         <input type="text" id="manage_prod_id" name="prod_id" required>
                     </div>
+                    <div class="form-group">
+    <label for="manage_cat_id">Category:</label>
+    <select id="manage_cat_id" name="cat_id" required>
+        <option value="">Select Category</option>
+        <?php
+        $categories = $conn->query("SELECT id, category_name FROM category");
+        while ($category = $categories->fetch_assoc()) {
+            echo "<option value='{$category['id']}'>" . htmlspecialchars($category['category_name']) . "</option>";
+        }
+        ?>
+    </select>
+</div>
+
                     <div class="form-group">
                         <label for="manage_purchase_price">Purchase Price:</label>
                         <input type="text" id="manage_purchase_price" name="purchase_price" required>
@@ -214,6 +251,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 document.getElementById('manage_purchase_price').value = this.dataset.purchase_price;
                 document.getElementById('manage_avail_qty').value = this.dataset.avail_qty;
                 document.getElementById('manage_date').value = this.dataset.date;
+                document.getElementById('manage_cat_id').value = this.dataset.cat_id;
 
                 manageBatchModal.style.display = "block";
             });
