@@ -29,7 +29,7 @@
                         <li><a href="../../index.php" onclick="showPreloader(event, '../../index.php')">Log Out</a></li>
                     <!-- User Icon -->
                     <div class="user-icon">
-                        <a href="../profile/profile.php"><i class='bx bx-user'></i></a>
+                        <a href="../profile/profile.php"><img src="../../img/profile.png" alt="profile image" class="small-icon"></a>
                     </div>
                         <li>
                             <!-- Dark Mode Toggle -->
