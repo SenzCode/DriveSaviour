@@ -137,6 +137,7 @@ body {
     color: #a01a1a;
 }
 
+/* Cart Header with Back Button */
 .cart-header {
     display: flex;
     align-items: center;
@@ -144,7 +145,7 @@ body {
     justify-content: center;
     margin-bottom: 20px;
     position: relative;
-    padding-top: 20px;
+    padding-top: 20px; /* Add padding to prevent overlapping */
 }
 
 .back-btn {
@@ -178,7 +179,7 @@ h1 {
 @media (max-width: 768px) {
     .main_container {
         width: 90%;
-        margin: 80px auto;
+        margin: 80px auto; /* Reduce margin for mobile */
         padding: 15px;
     }
 
@@ -186,7 +187,7 @@ h1 {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding-top: 15px;
+        padding-top: 15px; /* Add extra padding on mobile */
     }
 
     .cart-item {
@@ -219,14 +220,14 @@ h1 {
     }
 
     .back-btn {
-        display: block;
+        display: block; /* Ensures the back button is visible on mobile */
     }
 }
 
 @media (max-width: 480px) {
     .main_container {
         width: 95%;
-        margin: 100px auto;
+        margin: 100px auto; /* Adjust spacing for smaller screens */
     }
 
     .cart-item img {
