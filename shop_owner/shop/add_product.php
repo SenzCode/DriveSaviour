@@ -16,6 +16,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $quantity_available = (int)$_POST['quantity_available'];
     $price = filter_var($_POST['price'], FILTER_SANITIZE_STRING);
 
+    // Get the category ID based on the selected batch number
+    $stmt = $conn->prepare("SELECT cat_id FROM batch WHERE batch_num = ?");
+    $stmt->bind_param("s", $batch_num);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        $cat_id = $row['cat_id'];
+    } else {
+        $error = "Invalid batch number. Category not found.";
+        header("Location: products.php?message=error&error=" . urlencode($error));
+        exit;
+    }
+    $stmt->close();
+
+    // Check if an image is uploaded
     if (isset($_FILES['image'])) {
         $image = $_FILES['image']['name'];
         $image = filter_var($image, FILTER_SANITIZE_STRING);
@@ -39,8 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Save web-accessible path
                 $image_url = '../../uploads/' . $image;
 
-                $stmt = $conn->prepare("INSERT INTO products (shop_id, batch_num, product_name, image_url, quantity_available, price) VALUES (?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("isssis", $shop_id, $batch_num, $product_name, $image_url, $quantity_available, $price);
+                // Insert product data into the database
+                $stmt = $conn->prepare("
+                    INSERT INTO products (shop_id, batch_num, product_name, cat_id, image_url, quantity_available, price) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                ");
+                $stmt->bind_param("issisis", $shop_id, $batch_num, $product_name, $cat_id, $image_url, $quantity_available, $price);
 
                 if ($stmt->execute()) {
                     header("Location: products.php?shop_id=$shop_id&message=insert");
@@ -61,4 +81,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 }
-?>
