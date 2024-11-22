@@ -31,6 +31,19 @@ html {
   transform: scale(1.1); 
 }
 
+
+.small-icon {
+  width: 32px; 
+  height: 32px; 
+  object-fit: contain; 
+  margin: 0 5px; 
+  transition: transform 0.3s; 
+}
+
+.small-icon:hover {
+  transform: scale(1.1);
+}
+
 body.dark-mode .user-icon {
   color: #ffffff; 
 }
