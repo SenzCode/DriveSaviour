@@ -47,6 +47,19 @@ header {
     align-items: center;
 }
 
+
+.small-icon {
+    width: 32px; 
+    height: 32px; 
+    object-fit: contain; 
+    margin: 0 5px; 
+    transition: transform 0.3s; 
+}
+
+.small-icon:hover {
+    transform: scale(1.1);
+}
+
 .logo img {
     height: 70px;
     margin-left: 40px;

@@ -241,12 +241,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <input type="date" id="cdate" name="cdate" required>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" rows="4"></textarea>
-                </div>
-            </div>
         </div>
         <button type="submit" name="action" value="insert" class="batch view-link">Add Category</button>
     </form>
@@ -257,7 +251,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 <tr>
                     <th>ID</th>
                     <th>Category Name</th>
-                    <th>Description</th>
                     <th>Date</th>
                     <th>Action</th>
                 </tr>
@@ -267,13 +260,11 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <tr>
                         <td><?= htmlspecialchars($category['id']); ?></td>
                         <td><?= htmlspecialchars($category['category_name']); ?></td>
-                        <td><?= htmlspecialchars($category['description']); ?></td>
                         <td><?= htmlspecialchars($category['created_date']); ?></td>
                         <td>
                             <button class="manage-button view-link" 
                                     data-id="<?= htmlspecialchars($category['id']) ?>"
                                     data-category_name="<?= htmlspecialchars($category['category_name']) ?>"
-                                    data-description="<?= htmlspecialchars($category['description']) ?>"
                                     data-created_date="<?= htmlspecialchars($category['created_date']) ?>">
                                 Manage
                             </button>
@@ -293,10 +284,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 <div class="form-group">
                     <label for="manage_category_name">Category Name:</label>
                     <input type="text" id="manage_category_name" name="category_name" required>
-                </div>
-                <div class="form-group">
-                    <label for="manage_description">Description:</label>
-                    <textarea id="manage_description" name="description" rows="4" required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="manage_created_date">Created Date:</label>
@@ -320,7 +307,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 const category = e.target.dataset;
                 document.getElementById('manage_category_id').value = category.id;
                 document.getElementById('manage_category_name').value = category.category_name;
-                document.getElementById('manage_description').value = category.description;
                 document.getElementById('manage_created_date').value = category.created_date;
                 manageCategoryModal.style.display = 'block';
             });

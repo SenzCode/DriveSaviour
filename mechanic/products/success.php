@@ -2,6 +2,7 @@
 session_start();
 require '../../connection.php';
 require 'vendor/autoload.php';
+require '../../vendor/autoload.php';
 
 // Stripe API configuration
 \Stripe\Stripe::setApiKey('sk_test_51PfklnDFvPyG4fvuUh6ZfPSa5LBwdmWSlgABfkzEjUZeJH5YHDpHoHzWRKDrjYt325wJZSXY4ip4TY4tYfZ9cYnZ00AkL5f2Zd');
@@ -31,7 +32,7 @@ try {
     exit;
 }
 
-$query = "SELECT c.*, p.id AS product_id, p.price 
+$query = "SELECT c.*, p.id AS product_id, p.product_name, p.price 
           FROM mech_cart c 
           JOIN products p ON c.product_id = p.id 
           WHERE c.email = ?";
@@ -84,6 +85,53 @@ foreach ($cartItems as $item) {
 $deleteCartQuery = $conn->prepare("DELETE FROM mech_cart WHERE email = ?");
 $deleteCartQuery->bind_param("s", $userEmail);
 $deleteCartQuery->execute();
+
+
+// Send confirmation email using PHPMailer
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+$mail = new PHPMailer(true);
+
+try {
+    // Server settings
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.gmail.com';
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'ramithacampus@gmail.com';
+    $mail->Password   = 'ijjn tjwp erwe ktns';
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = 587;
+
+    // Recipients
+    $mail->setFrom('ramithacampus@gmail.com', 'DriveSaviour');
+    $mail->addAddress($userEmail);
+
+    // Email content
+    $mail->isHTML(true);
+    $mail->Subject = 'Payment Successful - Your Order Confirmation';
+    $mail->Body    = "
+        <h1>Thank you for your purchase!</h1>
+        <p>Your payment has been successfully processed. Your order reference number is <strong>$referenceNumber</strong>.</p>
+        <p>Order Details:</p>
+        <ul>
+    ";
+    foreach ($cartItems as $item) {
+        $mail->Body .= "<li>{$item['product_name']} - Quantity: {$item['quantity']}</li>";
+    }
+    $mail->Body .= "
+        </ul>
+        <p>Total Amount Paid: <strong>Rs. {$totalAmountToPay}</strong></p>
+        <p>We appreciate your business and hope to see you again soon!</p>
+    ";
+
+    $mail->AltBody = "Thank you for your purchase! Your payment has been successfully processed. Your order reference number is $referenceNumber.";
+
+    $mail->send();
+} catch (Exception $e) {
+    echo "Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+
 
 $orderInsertQuery->close();
 $deleteCartQuery->close();

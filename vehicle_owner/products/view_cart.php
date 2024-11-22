@@ -38,6 +38,19 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <title>Your Cart</title>
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../shop/add-to-cart.css">
+    <style>
+        .small-icon {
+            width: 32px; 
+            height: 32px; 
+            object-fit: contain; 
+            margin: 0 5px; 
+            transition: transform 0.3s; 
+        }
+
+        .small-icon:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 
 <body>
@@ -67,7 +80,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <form action="remove_from_cart.php" method="POST">
                             <input type="hidden" name="cart_id" value="<?= $item['id'] ?>">
                             <button type="submit" class="remove-btn">
-                                <i class='bx bx-trash'></i>
+                                <img src="../../img/delete.png" alt="delete icon" class="small-icon">
                             </button>
                         </form>
                     </div>
