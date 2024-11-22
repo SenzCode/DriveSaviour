@@ -23,55 +23,49 @@ if ($result->num_rows > 0) {
     $loyaltyCard = $result->fetch_assoc();
     $cardNo = htmlspecialchars($loyaltyCard['card_no']);
     $expireDate = htmlspecialchars($loyaltyCard['expire_date']);
-    ?>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Loyalty Card</title>
-        <link rel="stylesheet" href="../navbar/style.css">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="cart-header">
-            <button class="back-btn" onclick="window.location.href='../products/product.php'">&larr; Back</button>
-        </div>
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loyalty Card</title>
+    <link rel="stylesheet" href="../navbar/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="cart-header">
+        <button class="back-btn" onclick="window.location.href='../products/product.php'">&larr; Back</button>
+    </div>
 
     <div class="container-card">
-      <div class="up-1">
-        <span class="logo-card">
-          <img src="images/customer-loyalty.png" alt="" />
-          <h5>Loyalty Card</h5>
-        </span>
-        <img src="images/chip.png" alt="" class="chip" />
-      </div>
+        <div class="up-1">
+            <span class="logo-card">
+                <img src="images/customer-loyalty.png" alt="" />
+                <h5>Loyalty Card</h5>
+            </span>
+            <img src="images/chip.png" alt="" class="chip" />
+        </div>
 
-      <div class="card-details">
-        <div class="name-number">
-          <h6>Card Number</h6>
-          <h5 class="number"><?= $cardNo ?></h5><br><br><br><br>
-          <h5 class="name"><?= htmlspecialchars($name) ?></h5>
+        <div class="card-details">
+            <div class="name-number">
+                <h6>Card Number</h6>
+                <h5 class="number"><?= $cardNo ?></h5><br><br><br><br>
+                <h5 class="name"><?= htmlspecialchars($name) ?></h5>
+            </div>
+            <div class="valid-date">
+                <h6>Valid Thru</h6>
+                <h5><?= $expireDate ?></h5>
+            </div>
         </div>
-        <div class="valid-date">
-          <h6>Valid Thru</h6>
-          <h5><?= $expireDate ?></h5>
-        </div>
-      </div>
-        <!-- <div class="loyalty-card-details">
-            <h2>Your Loyalty Card Details</h2>
-            <p><strong>Name:</strong> <?= htmlspecialchars($name) ?></p>
-            <p><strong>Phone:</strong> <?= htmlspecialchars($phone) ?></p>
-            <p><strong>Email:</strong> <?= htmlspecialchars($loggedInOwnerEmail) ?></p>
-            <p><strong>City:</strong> <?= htmlspecialchars($city) ?></p>
-            <p><strong>Card Number:</strong> <?= $cardNo ?></p>
-            <p><strong>Expiration Date:</strong> <?= $expireDate ?></p>
-        </div> -->
-    </body>
-    </html>
-    <?php
+    </div>
+
+</body>
+</html>
+<?php
 } else {
-    ?>
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,15 +77,18 @@ if ($result->num_rows > 0) {
 </head>
 <body>
     <div class="loyalty-card-details">
-    <div class="cart-header">
-            <button class="back-btn" onclick="window.location.href='../products/product.php'">&larr; Back</button>
+        <div class="header-container">
+            <h2>Your Details</h2>
+            <div class="cart-header">
+                <button class="back-btn" onclick="window.location.href='../products/product.php'">&larr; Back</button>
+            </div>
         </div>
-        <h2>Your Details</h2>
+
         <p><strong>Name:</strong> <?= htmlspecialchars($name) ?></p>
         <p><strong>Phone:</strong> <?= htmlspecialchars($phone) ?></p>
         <p><strong>Email:</strong> <?= htmlspecialchars($loggedInOwnerEmail) ?></p>
         <p><strong>City:</strong> <?= htmlspecialchars($city) ?></p>
-        
+
         <form action="stripe_payment.php" method="POST">
             <input type="hidden" name="email" value="<?= htmlspecialchars($loggedInOwnerEmail) ?>">
             <button type="submit">Purchase Card</button>
@@ -100,7 +97,8 @@ if ($result->num_rows > 0) {
 </body>
 </html>
 
-    <?php require '../footer/footer.php';
+<?php
+require '../footer/footer.php';
 }
 
 $checkCardQuery->close();
