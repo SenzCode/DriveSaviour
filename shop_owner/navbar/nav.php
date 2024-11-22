@@ -57,6 +57,7 @@ if (isset($_POST['logout'])) {
                         <li><a href="../shop/shoplist.php"><i class="fas fa-boxes"></i> Manage Products</a></li>
                         <li><a href="../stock/stock.php"><i class="fas fa-boxes"></i> Manage Stock</a></li>
                         <li><a href="../order/orders.php"><i class="fas fa-receipt"></i> Manage Orders</a></li>
+                        <li><a href="../ratings/ratings.php"><i class="fas fa-star"></i> Ratings</a></li>
                         <li><a href="../Income/income.php"><i class="fas fa-coins"></i> Income Dashboard</a></li>
                         <!-- <li><a href="../ratings/ratings.php"><i class="fas fa-star"></i> Customer Ratings</a></li> -->
                     </ul>
