@@ -33,8 +33,8 @@
 
     </div>
     
-<?php
-    require '../../vehicle_owner/footer/footer.php';
+    <?php
+    require '../footer/footer.php';
 ?>
 
 </body>

@@ -192,7 +192,9 @@ if ($resultPaid->num_rows > 0) {
 }
             </style>
         </div>
-        <?php require '../../vehicle_owner/footer/footer.php'; ?>
+        <?php
+    require '../footer/footer.php';
+?>
     </body>
     </html>
     <?php

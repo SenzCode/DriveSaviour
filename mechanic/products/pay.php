@@ -308,5 +308,7 @@ tr:nth-child(even) td {
             });
         });
     </script>
+
+<?php require '../../vehicle_owner/footer/footer.php'; ?>
 </body>
 </html>

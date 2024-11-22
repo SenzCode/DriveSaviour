@@ -162,5 +162,8 @@ $result = $stmt->get_result();
             }
         </script>
     </div>
+    <?php
+    require '../footer/footer.php';
+?>
 </body>
 </html>

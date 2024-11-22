@@ -99,7 +99,7 @@ if ($result->num_rows > 0) {
 </body>
 </html>
 
-    <?php require '../../vehicle_owner/footer/footer.php';
+    <?php require '../footer/footer.php';
 }
 
 $checkCardQuery->close();

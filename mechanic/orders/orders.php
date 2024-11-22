@@ -66,5 +66,9 @@ if ($result) {
             <?php endif; ?>
         </div>
     </div>
+
+    <?php
+    require '../footer/footer.php';
+?>
 </body>
 </html>

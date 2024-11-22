@@ -50,6 +50,13 @@
 
     <script src="script.js"></script>
 
+    
+    
+    
+    <?php
+    require '../footer/footer.php';
+?>
+
 </body>
 </html>
 

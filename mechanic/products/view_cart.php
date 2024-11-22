@@ -34,64 +34,51 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="add-to-cart.css">
     <title>Your Cart</title>
-    <style>
-        .small-icon {
-            width: 32px; 
-            height: 32px; 
-            object-fit: contain; 
-            margin: 0 5px; 
-            transition: transform 0.3s; 
-        }
-
-        .small-icon:hover {
-            transform: scale(1.1);
-        }
-    </style>
 </head>
 <body>
     <div class="main_container">
+        <!-- Alert Messages -->
         <?php if ($message == 'removed'): ?>
-            <div class="alert remove-success" id="success-alert">The Item removed successfully.</div>
+            <div class="alert remove-success" id="success-alert">The item was removed successfully.</div>
         <?php elseif ($message == 'err'): ?>
             <div class="alert alert-success" id="success-alert">Something went wrong.</div>
         <?php endif; ?>
 
         <!-- Cart Header and Back Button -->
-            <div class="cart-header">
-            <button class="back-btn" onclick="window.location.href='product.php'">&larr; Back</button>
-            <h1>Your Cart</h1>
-        </div>
-
-        <div class="product-card">
-            <?php if (count($cart_items) > 0): ?>
-                <?php foreach ($cart_items as $item): ?>
-                    <div class="cart-item">
-                        <img src="<?= htmlspecialchars($item['image_url']) ?>" alt="<?= htmlspecialchars($item['product_name']) ?>">
-                        <div class="product-details">
-                            <h3><?= htmlspecialchars($item['product_name']) ?></h3>
-                            <div>Price: Rs. <?= htmlspecialchars($item['price']) ?></div>
-                            <div>Quantity: <?= htmlspecialchars($item['quantity']) ?></div>
-                            <div>Shop: <?= htmlspecialchars($item['shop_name']) ?></div>
+        <div class="cart-container">
+            <a href="product.php" class="back-button">← Back</a>
+            <h1 class="cart-header">Your Cart</h1>
+            <div class="cart-items">
+                <?php if (count($cart_items) > 0): ?>
+                    <?php foreach ($cart_items as $item): ?>
+                        <div class="cart-item">
+                            <img src="<?= htmlspecialchars($item['image_url']) ?>" alt="<?= htmlspecialchars($item['product_name']) ?>" class="product-image">
+                            <div class="item-details">
+                                <h3><?= htmlspecialchars($item['product_name']) ?></h3>
+                                <p>Price: Rs. <?= htmlspecialchars($item['price']) ?></p>
+                                <p>Quantity: <?= htmlspecialchars($item['quantity']) ?></p>
+                                <p>Shop: <?= htmlspecialchars($item['shop_name']) ?></p>
+                            </div>
+                            <form action="remove_from_cart.php" method="POST">
+                                <input type="hidden" name="cart_id" value="<?= $item['id'] ?>">
+                                <button type="submit" class="delete-btn">
+                                    <img src="../../img/delete.png" alt="Delete" class="small-icon">
+                                </button>
+                            </form>
                         </div>
-                        <form action="remove_from_cart.php" method="POST"> <!-- Create a remove_from_cart.php for removing items -->
-                            <input type="hidden" name="cart_id" value="<?= $item['id'] ?>">
-                            <button type="submit" class="remove-btn" >
-                            <img src="../../img/delete.png" alt="delete icon" class="small-icon">
-                            </button>
-                        </form>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>Your cart is empty.</p>
-            <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>Your cart is empty.</p>
+                <?php endif; ?>
+            </div>
+            <button class="checkout-btn" onclick="window.location.href='pay.php'">Proceed to Checkout</button>
         </div>
-        <button class="checkout-btn" onclick="window.location.href='pay.php'">Proceed to Checkout</button>
     </div>
-    <?php require '../../vehicle_owner/footer/footer.php';?>
+
+    <?php require '../../vehicle_owner/footer/footer.php'; ?>
 </body>
 
 <script>

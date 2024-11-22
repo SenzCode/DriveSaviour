@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
     </script>
     <?php
-    require '../../vehicle_owner/footer/footer.php';
+    require '../footer/footer.php';
 ?>
 </body>
 </html>

@@ -233,6 +233,8 @@ ob_end_flush();
         }
     }, 10000); // 10 seconds
 </script>
-<?php require '../../vehicle_owner/footer/footer.php';?>
+<?php
+    require '../footer/footer.php';
+?>
 </body>
 </html>

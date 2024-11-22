@@ -110,8 +110,8 @@ ob_end_flush();
 
     <!-- Footer -->
     <?php
-        require '../../vehicle_owner/footer/footer.php';
-    ?>
+    require '../footer/footer.php';
+?>
     
     <script>
         // Modal script
