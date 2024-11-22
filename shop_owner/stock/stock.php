@@ -10,19 +10,32 @@ include_once('../../connection.php');
 
 $email = $_SESSION['email']; // Get logged-in user's email
 
+// Handle date filtering
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : '';
+$end_date = isset($_GET['end_date']) ? $_GET['end_date'] : '';
+
 // Fetch batch data for the logged-in user
 $batch_data = [];
-$stmt = $conn->prepare("
+$query = "
     SELECT b.*, c.category_name 
     FROM batch b 
     LEFT JOIN category c ON b.cat_id = c.id 
-    WHERE b.email = ?");
+    WHERE b.email = ?";
+if ($start_date && $end_date) {
+    $query .= " AND b.date BETWEEN ? AND ?";
+}
 
+$stmt = $conn->prepare($query);
 if (!$stmt) {
     echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
     exit;
 }
-$stmt->bind_param("s", $email);
+
+if ($start_date && $end_date) {
+    $stmt->bind_param("sss", $email, $start_date, $end_date);
+} else {
+    $stmt->bind_param("s", $email);
+}
 $stmt->execute();
 $result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) {
@@ -121,6 +134,26 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             <br>
             <button type="submit" name="action" value="insert" class="batch view-link">Add Batch</button>
         </form>
+
+        <form method="GET" action="">
+    <div class="form-container">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="start_date">Start Date:</label>
+                <input type="date" id="start_date" name="start_date" value="<?= htmlspecialchars($start_date) ?>">
+            </div>
+            <div class="form-group">
+                <label for="end_date">End Date:</label>
+                <input type="date" id="end_date" name="end_date" value="<?= htmlspecialchars($end_date) ?>">
+            </div>
+            <div class="form-row buttons-group">
+            <button id="filter-button" type="submit" class="batch">Filter</button>
+            <a id="clear-button" href="stock.php" class="batch">Clear</a>
+        </div>
+        </div>
+    </div>
+</form>
+
 
         <h2>Batch List</h2>
         <div class="table">
