@@ -24,7 +24,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <title>Category Management</title>
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../../shop_owner/shop/style.css">
-    
+
     <style>
         /* Basic Reset */
         * {
@@ -93,17 +93,48 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             margin-bottom: 10px;
         }
 
-        .batch {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
+        .modal-content button {
+            display: inline-block;
+            margin-bottom: 5px;
+            width: 150px;
+            color: #182431;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid #2B5AC2;
+            border-radius: 88px;
+            background-color: #f0f8ff;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color .50s ease, color .50s ease;
         }
 
-        .view-link:hover,
+        .modal-content button:hover {
+            background-color: #2B5AC2;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .batch {
+            display: inline-block;
+            margin-bottom: 5px;
+            width: 150px;
+            color: #182431;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid #2B5AC2;
+            border-radius: 88px;
+            background-color: #f0f8ff;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color .50s ease, color .50s ease;
+        }
+
+        
+
+        .view-link:hover {
+            background-color: #0056b3;
+        }
+
         .delete-link:hover {
             background-color: #45a049;
         }
@@ -226,7 +257,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
     <div class="title">
         <h1>Category Management</h1>
-        <br><br>     
+        <br><br>
     </div>
 
     <form action="addcategory.php" method="POST">
@@ -262,10 +293,10 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <td><?= htmlspecialchars($category['category_name']); ?></td>
                         <td><?= htmlspecialchars($category['created_date']); ?></td>
                         <td>
-                            <button class="manage-button view-link" 
-                                    data-id="<?= htmlspecialchars($category['id']) ?>"
-                                    data-category_name="<?= htmlspecialchars($category['category_name']) ?>"
-                                    data-created_date="<?= htmlspecialchars($category['created_date']) ?>">
+                            <button class="manage-button view-link"
+                                data-id="<?= htmlspecialchars($category['id']) ?>"
+                                data-category_name="<?= htmlspecialchars($category['category_name']) ?>"
+                                data-created_date="<?= htmlspecialchars($category['created_date']) ?>">
                                 Manage
                             </button>
                         </td>
@@ -324,4 +355,5 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     </script>
 
 </body>
+
 </html>
