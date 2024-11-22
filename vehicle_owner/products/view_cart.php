@@ -37,66 +37,63 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart</title>
     <link rel="stylesheet" href="../navbar/style.css">
-    <link rel="stylesheet" href="../shop/add-to-cart.css">
-    <style>
-        .small-icon {
-            width: 32px; 
-            height: 32px; 
-            object-fit: contain; 
-            margin: 0 5px; 
-            transition: transform 0.3s; 
-        }
-
-        .small-icon:hover {
-            transform: scale(1.1);
-        }
-    </style>
+    <link rel="stylesheet" href="view_cart.css">
+    
 </head>
 
 <body>
     <div class="main_container">
+        <!-- Display success/error messages -->
         <?php if ($message == 'removed'): ?>
-            <div class="alert remove-success" id="success-alert">The Item removed successfully.</div>
+            <div class="alert remove-success" id="success-alert">The item was removed successfully.</div>
         <?php elseif ($message == 'err'): ?>
             <div class="alert alert-success" id="success-alert">Something went wrong.</div>
         <?php endif; ?>
 
+        <!-- Cart Header -->
         <div class="cart-header">
-            <button class="back-btn" onclick="window.location.href='product.php'">&larr; Back</button>
-            <h1>Your Cart</h1>
+            <a href="product.php" class="back-btn">← Back</a>
+            <h1 class="cart-title">Your Cart</h1>
         </div>
 
-        <div class="product-card">
+        <!-- Cart Items -->
+        <div class="cart-items-container">
             <?php if (count($cart_items) > 0): ?>
                 <?php foreach ($cart_items as $item): ?>
                     <div class="cart-item">
-                        <img src="<?= htmlspecialchars($item['image_url']) ?>" alt="<?= htmlspecialchars($item['product_name']) ?>">
-                        <div class="product-details">
-                            <h3><?= htmlspecialchars($item['product_name']) ?></h3>
-                            <div>Price: Rs. <?= htmlspecialchars($item['price']) ?></div>
-                            <div>Quantity: <?= htmlspecialchars($item['quantity']) ?></div>
-                            <div>Shop: <?= htmlspecialchars($item['shop_name']) ?></div>
+                        <div class="item-image">
+                            <img src="<?= htmlspecialchars($item['image_url']) ?>" alt="<?= htmlspecialchars($item['product_name']) ?>">
                         </div>
-                        <form action="remove_from_cart.php" method="POST">
+                        <div class="item-info">
+                            <h3 class="product-name"><?= htmlspecialchars($item['product_name']) ?></h3>
+                            <p class="product-price">Price: Rs. <?= htmlspecialchars($item['price']) ?></p>
+                            <p class="product-quantity">Quantity: <?= htmlspecialchars($item['quantity']) ?></p>
+                            <p class="product-shop">Shop: <?= htmlspecialchars($item['shop_name']) ?></p>
+                        </div>
+                        <form action="remove_from_cart.php" method="POST" class="remove-form">
                             <input type="hidden" name="cart_id" value="<?= $item['id'] ?>">
                             <button type="submit" class="remove-btn">
-                                <img src="../../img/delete.png" alt="delete icon" class="small-icon">
+                                <img src="../../img/delete.png" alt="Delete" class="small-icon">
                             </button>
                         </form>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <p>Your cart is empty.</p>
+                <p class="empty-cart-message">Your cart is empty.</p>
             <?php endif; ?>
         </div>
 
-        <button class="checkout-btn" onclick="window.location.href='pay.php'">Proceed to Checkout</button>
+        <!-- Checkout Button -->
+        <div class="checkout-container">
+            <button class="checkout-btn" onclick="window.location.href='pay.php'">Proceed to Checkout</button>
+        </div>
     </div>
 
+    <!-- Footer -->
     <?php require '../footer/footer.php'; ?>
 
+    <!-- JavaScript to hide success alert -->
     <script>
-        // Hide the alert message after 10 seconds
         setTimeout(function() {
             var alert = document.getElementById('success-alert');
             if (alert) {

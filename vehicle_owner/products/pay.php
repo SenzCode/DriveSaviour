@@ -308,3 +308,7 @@ tr:nth-child(even) td {
     </script>
 </body>
 </html>
+
+<?php
+require '../footer/footer.php';
+?>
