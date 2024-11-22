@@ -36,7 +36,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" href="../navbar/style.css">
-    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="add-to-cart.css">
     <title>Your Cart</title>
     <style>
         .small-icon {
