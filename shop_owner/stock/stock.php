@@ -8,13 +8,21 @@ if (!isset($_SESSION['email'])) {
 require('../navbar/nav.php');
 include_once('../../connection.php');
 
-// Fetch all batch data
+$email = $_SESSION['email']; // Get logged-in user's email
+
+// Fetch batch data for the logged-in user
 $batch_data = [];
-$stmt = $conn->prepare("SELECT * FROM batch");
+$stmt = $conn->prepare("
+    SELECT b.*, c.category_name 
+    FROM batch b 
+    LEFT JOIN category c ON b.cat_id = c.id 
+    WHERE b.email = ?");
+
 if (!$stmt) {
     echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
     exit;
 }
+$stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) {
@@ -24,6 +32,7 @@ $stmt->close();
 
 $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,13 +49,13 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 <body>
     <div class="main_container">
         <?php if ($message == 'insert'): ?>
-            <div class="alert alert-success">The Batch was added successfully.</div>
+            <div class="alert alert-success" id="success-alert">The Batch was added successfully.</div>
         <?php elseif ($message == 'delete'): ?>
-            <div class="alert alert-danger">The Batch was deleted successfully.</div>
+            <div class="alert alert-danger" id="success-alert">The Batch was deleted successfully.</div>
         <?php elseif ($message == 'edit'): ?>
-            <div class="alert alert-success">The Batch was updated successfully.</div>
+            <div class="alert alert-success" id="success-alert">The Batch was updated successfully.</div>
         <?php elseif ($message == 'error'): ?>
-            <div class="alert alert-danger">Something went wrong: <?= htmlspecialchars($_GET['error'] ?? '') ?></div>
+            <div class="alert alert-danger" id="success-alert">Batch number is already exist</div>
         <?php endif; ?>
 
         <div class="title">
@@ -75,6 +84,21 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <input type="text" id="prod_id" name="prod_id" required>
                     </div>
                 </div>
+                <div class="form-row">
+    <div class="form-group">
+        <label for="cat_id">Category:</label>
+        <select id="cat_id" name="cat_id" required>
+            <option value="">Select Category</option>
+            <?php
+            $categories = $conn->query("SELECT id, category_name FROM category");
+            while ($category = $categories->fetch_assoc()) {
+                echo "<option value='{$category['id']}'>" . htmlspecialchars($category['category_name']) . "</option>";
+            }
+            ?>
+        </select>
+    </div>
+</div>
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="purchase_price">Purchase Price:</label>
@@ -106,6 +130,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <th>Supplier Name</th>
                         <th>Batch Number</th>
                         <th>Product Name</th>
+                        <th>Category</th>
                         <th>Purchase Price</th>
                         <th>Available Quantity</th>
                         <th>Date</th>
@@ -119,18 +144,21 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                                 <td><?= htmlspecialchars($row['suplier_name']) ?></td>
                                 <td><?= htmlspecialchars($row['batch_num']) ?></td>
                                 <td><?= htmlspecialchars($row['product_name']) ?></td>
+                                <td><?= htmlspecialchars($row['category_name'] ) ?></td>
                                 <td>Rs.<?= htmlspecialchars($row['purchase_price']) ?></td>
                                 <td><?= htmlspecialchars($row['avail_qty']) ?></td>
                                 <td><?= htmlspecialchars($row['date']) ?></td>
                                 <td>
                                     <button class="manage-button view-link"
-                                            data-suplier_id="<?= htmlspecialchars($row['suplier_id']) ?>"
-                                            data-suplier_name="<?= htmlspecialchars($row['suplier_name']) ?>"
-                                            data-batch_num="<?= htmlspecialchars($row['batch_num']) ?>"
-                                            data-prod_id="<?= htmlspecialchars($row['product_name']) ?>"
-                                            data-purchase_price="<?= htmlspecialchars($row['purchase_price']) ?>"
-                                            data-avail_qty="<?= htmlspecialchars($row['avail_qty']) ?>"
-                                            data-date="<?= htmlspecialchars($row['date']) ?>">
+                                        data-suplier_id="<?= htmlspecialchars($row['suplier_id']) ?>"
+                                        data-suplier_name="<?= htmlspecialchars($row['suplier_name']) ?>"
+                                        data-batch_num="<?= htmlspecialchars($row['batch_num']) ?>"
+                                        data-prod_id="<?= htmlspecialchars($row['product_name']) ?>"
+                                        data-cat_id="<?= htmlspecialchars($row['cat_id']) ?>"
+                                        data-purchase_price="<?= htmlspecialchars($row['purchase_price']) ?>"
+                                        data-avail_qty="<?= htmlspecialchars($row['avail_qty']) ?>"
+                                        data-date="<?= htmlspecialchars($row['date']) ?>">
+                                        
                                         Manage
                                     </button>
                                 </td>
@@ -164,6 +192,19 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <label for="manage_prod_id">Product Name:</label>
                         <input type="text" id="manage_prod_id" name="prod_id" required>
                     </div>
+                    <div class="form-group">
+    <label for="manage_cat_id">Category:</label>
+    <select id="manage_cat_id" name="cat_id" required>
+        <option value="">Select Category</option>
+        <?php
+        $categories = $conn->query("SELECT id, category_name FROM category");
+        while ($category = $categories->fetch_assoc()) {
+            echo "<option value='{$category['id']}'>" . htmlspecialchars($category['category_name']) . "</option>";
+        }
+        ?>
+    </select>
+</div>
+
                     <div class="form-group">
                         <label for="manage_purchase_price">Purchase Price:</label>
                         <input type="text" id="manage_purchase_price" name="purchase_price" required>
@@ -210,12 +251,22 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 document.getElementById('manage_purchase_price').value = this.dataset.purchase_price;
                 document.getElementById('manage_avail_qty').value = this.dataset.avail_qty;
                 document.getElementById('manage_date').value = this.dataset.date;
+                document.getElementById('manage_cat_id').value = this.dataset.cat_id;
 
                 manageBatchModal.style.display = "block";
             });
         });
-        
     </script>
+
+
 </body>
 
+<script>
+    setTimeout(function() {
+        var alert = document.getElementById('success-alert');
+        if (alert) {
+            alert.style.display = 'none';
+        }
+    }, 10000); // 10 seconds
+</script>
 </html>

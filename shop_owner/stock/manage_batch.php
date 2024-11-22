@@ -1,57 +1,83 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['email'])) {
+    header("Location: ../login.php");
+    exit;
+}
+
 include_once('../../connection.php');
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
-    $batch_num = mysqli_real_escape_string($conn, $_POST['batch_num']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'];
+    $suplier_id = $_POST['suplier_id'];
+    $suplier_name = $_POST['suplier_name'];
+    $batch_num = $_POST['batch_num'];
+    $product_name = $_POST['prod_id'];
+    $cat_id = $_POST['cat_id'];
+    $purchase_price = $_POST['purchase_price'];
+    $avail_qty = $_POST['avail_qty'];
+    $date = $_POST['date'];
 
-    if ($action == 'edit') {
-        $prod_id =  $_POST['prod_id'];
-        $suplier_name = mysqli_real_escape_string($conn, $_POST['suplier_name']);
-        $purchase_price = (float) $_POST['purchase_price'];
-        $avail_qty = (int) $_POST['avail_qty'];
-        $date = $_POST['date']; 
+    if ($action === 'edit') {
+        // Update batch details
+        $stmt = $conn->prepare("
+            UPDATE batch
+            SET 
+                suplier_name = ?, 
+                batch_num = ?, 
+                product_name = ?, 
+                cat_id = ?, 
+                purchase_price = ?, 
+                avail_qty = ?, 
+                date = ?
+            WHERE 
+                suplier_id = ?
+        ");
 
-        $sql = "UPDATE batch SET product_name = ?, suplier_name = ?, purchase_price = ?, avail_qty = ?, date = ? WHERE batch_num = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssdiss", $prod_id, $suplier_name, $purchase_price, $avail_qty, $date, $batch_num);
+        if ($stmt) {
+            $stmt->bind_param(
+                "sssidssi", 
+                $suplier_name, 
+                $batch_num, 
+                $product_name, 
+                $cat_id, 
+                $purchase_price, 
+                $avail_qty, 
+                $date, 
+                $suplier_id
+            );
 
-        if ($stmt->execute()) {
-            header("Location: stock.php?message=edit");
-            exit;
+            if ($stmt->execute()) {
+                header("Location: stock.php?message=edit");
+            } else {
+                header("Location: stock.php?message=error&error=" . urlencode($stmt->error));
+            }
+
+            $stmt->close();
         } else {
-            $error = $stmt->error;
-            header("Location: stock.php?message=error&error=" . urlencode($error));
-            exit;
+            header("Location: stock.php?message=error&error=" . urlencode($conn->error));
         }
-    } elseif ($action == 'delete') {
-        $sql = "DELETE FROM batch WHERE batch_num = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $batch_num);
+    } elseif ($action === 'delete') {
+        // Delete batch
+        $stmt = $conn->prepare("DELETE FROM batch WHERE suplier_id = ?");
+        if ($stmt) {
+            $stmt->bind_param("i", $suplier_id);
 
-        if ($stmt->execute()) {
-            header("Location: stock.php?message=delete");
-            exit;
+            if ($stmt->execute()) {
+                header("Location: stock.php?message=delete");
+            } else {
+                header("Location: stock.php?message=error&error=" . urlencode($stmt->error));
+            }
+
+            $stmt->close();
         } else {
-            $error = $stmt->error;
-            header("Location: stock.php?message=error&error=" . urlencode($error));
-            exit;
+            header("Location: stock.php?message=error&error=" . urlencode($conn->error));
         }
     }
-} elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['batch_id'])) {
-    $batch_num = mysqli_real_escape_string($conn, $_GET['batch_id']);
-    $stmt = $conn->prepare("SELECT * FROM batch WHERE batch_num = ?");
-    $stmt->bind_param("s", $batch_num);
-    $stmt->execute();
-    $batch_data = $stmt->get_result()->fetch_assoc();
-    $stmt->close();
-
-    if (!$batch_data) {
-        echo "Batch not found.";
-        exit;
-    }
-
-    // Render form here (example HTML form above)
+} else {
+    header("Location: stock.php?message=error&error=Invalid Request");
 }
+
+$conn->close();
 ?>

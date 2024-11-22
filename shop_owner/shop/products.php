@@ -29,31 +29,43 @@ if ($shop_id > 0) {
     $shop_stmt->close();
 }
 
-// Fetch batch numbers and corresponding product names from the batch table
+// Fetch batches relevant to the logged-in user
 $batch_data = [];
-if ($shop_id > 0) {
-    $batch_stmt = $conn->prepare("SELECT batch_num, product_name FROM batch WHERE suplier_id IN (SELECT suplier_id FROM products WHERE shop_id = ?)");
-    $batch_stmt->bind_param("i", $shop_id);
-    $batch_stmt->execute();
-    $batch_result = $batch_stmt->get_result();
-    while ($batch_row = $batch_result->fetch_assoc()) {
-        $batch_data[] = $batch_row;
-    }
-    $batch_stmt->close();
+$batch_stmt = $conn->prepare("SELECT * FROM batch WHERE email = ?"); // Query batches where email matches
+if (!$batch_stmt) {
+    echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+    exit;
 }
+$batch_stmt->bind_param("s", $loggedInOwnerEmail); // Bind the logged-in user's email
+$batch_stmt->execute();
+$batch_result = $batch_stmt->get_result();
+while ($batch_row = $batch_result->fetch_assoc()) {
+    $batch_data[] = $batch_row;  // Store the batch details
+}
+$batch_stmt->close();
+
 
 // Fetch products only for the specified shop
 $product_data = [];
 if ($shop_id > 0) {
-    $stmt = $conn->prepare("SELECT * FROM products WHERE shop_id = ?");
+    // Fetch products with their category names
+    $stmt = $conn->prepare("
+        SELECT p.*, c.category_name 
+        FROM products p 
+        LEFT JOIN category c ON p.cat_id = c.id 
+        WHERE p.shop_id = ?
+    ");
     $stmt->bind_param("i", $shop_id);
     $stmt->execute();
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) {
+        // Handle undefined category_name gracefully
+        $row['category_name'] = $row['category_name'] ?? 'No Category';
         $product_data[] = $row;
     }
     $stmt->close();
 }
+
 
 $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 ?>
@@ -90,53 +102,63 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <!-- Add Product Form -->
         <form action="add_product.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="shop_id" value="<?php echo htmlspecialchars($shop_id); ?>">
-            
+
             <div class="form-container">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="batch_num">Batch Number:</label>
-                        <select id="batch_num" name="batch_num" required>
+                        <select id="batch_num" name="batch_num">
                             <option value="">Select Batch</option>
                             <?php foreach ($batch_data as $batch): ?>
-                                <option value="<?= htmlspecialchars($batch['batch_num']) ?>"><?= htmlspecialchars($batch['batch_num']) ?></option>
+                                <option value="<?= htmlspecialchars($batch['batch_num']) ?>">
+                                    <?= htmlspecialchars($batch['batch_num']) ?> - <?= htmlspecialchars($batch['product_name']) ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
+
+
                 </div>
-            <div class="form-container">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="product_name">Product Name:</label>
-                        <input type="text" id="product_name" name="product_name" required>
+                <div class="form-container">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product_name">Product Name:</label>
+                            <input type="text" id="product_name" name="product_name" required>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="image">Product Image:</label>
-                        <input type="file" id="image" name="image" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="category_name">Category:</label>
+                            <input type="text" id="category_name" name="category_name" readonly>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="quantity_available">Quantity Available:</label>
-                        <input type="number" id="quantity_available" name="quantity_available" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="image">Product Image:</label>
+                            <input type="file" id="image" name="image" required>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="price">Price:</label>
-                        <input type="text" id="price" name="price" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quantity_available">Quantity Available:</label>
+                            <input type="number" id="quantity_available" name="quantity_available" required>
+                        </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="price">Price:</label>
+                            <input type="text" id="price" name="price" required>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" name="action" value="insert" class="batch view-link">Add Product</button>
                 </div>
-                <br>
-                <button type="submit" name="action" value="insert" class="batch view-link">Add Product</button>
-            </div>
-            
+
         </form>
 
         <div class="searchbars">
             <!-- Search bar -->
-            
+
             <div class="search-bar">
                 <label for="search">Search by Product Name:</label>
                 <input type="text" id="search" class="search-select" placeholder="Product Name">
@@ -152,6 +174,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <tr>
                         <th>Batch Number</th>
                         <th>Product Name</th>
+                        <th>Category</th>
                         <th>Image</th>
                         <th>Quantity Available</th>
                         <th>Price</th>
@@ -164,16 +187,19 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                             <tr>
                                 <td data-cell="Batch Number"><?= htmlspecialchars($row['batch_num']) ?></td>
                                 <td data-cell="Product Name"><?= htmlspecialchars($row['product_name']) ?></td>
+                                <td data-cell="Category"><?= htmlspecialchars($row['category_name']) ?></td>
                                 <td data-cell="Image"><img src="<?= htmlspecialchars($row['image_url']) ?>" width="50"></td>
                                 <td data-cell="Quantity Available"><?= htmlspecialchars($row['quantity_available']) ?></td>
                                 <td data-cell="Price">Rs.<?= htmlspecialchars($row['price']) ?></td>
                                 <td class="manage-btn">
-                                    <button class="manage-button view-link" 
-                                            data-id="<?= htmlspecialchars($row['id']) ?>"
-                                            data-product_name="<?= htmlspecialchars($row['product_name']) ?>"
-                                            data-image_url="<?= htmlspecialchars($row['image_url']) ?>"
-                                            data-quantity_available="<?= htmlspecialchars($row['quantity_available']) ?>"
-                                            data-price="<?= htmlspecialchars($row['price']) ?>">
+                                    <button class="manage-button view-link"
+                                        data-id="<?= htmlspecialchars($row['id']) ?>"
+                                        data-product_name="<?= htmlspecialchars($row['product_name']) ?>"
+                                        data-cat_id="<?= htmlspecialchars($row['cat_id']) ?>"
+                                        data-batch_num="<?= htmlspecialchars($row['batch_num']) ?>"
+                                        data-image_url="<?= htmlspecialchars($row['image_url']) ?>"
+                                        data-quantity_available="<?= htmlspecialchars($row['quantity_available']) ?>"
+                                        data-price="<?= htmlspecialchars($row['price']) ?>">
                                         Manage
                                     </button>
                                 </td>
@@ -196,11 +222,38 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 <form id="manageProductForm" action="product_manage.php" method="POST">
                     <input type="hidden" id="manage_product_id" name="id">
                     <input type="hidden" id="manage_shop_id" name="shop_id" value="">
+                    <div class="form-group">
+                        <label for="manage_batch_num">Batch Number:</label>
+                        <select id="manage_batch_num" name="batch_num" required>
+                            <option value="">Select Batch</option>
+                            <?php foreach ($batch_data as $batch): ?>
+                                <option value="<?= htmlspecialchars($batch['batch_num']) ?>">
+                                    <?= htmlspecialchars($batch['batch_num']) ?> - <?= htmlspecialchars($batch['product_name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
 
                     <div class="form-group">
                         <label for="manage_product_name">Product Name:</label>
                         <input type="text" id="manage_product_name" name="product_name" required>
                     </div>
+                    <div class="form-group">
+                        <label for="manage_category_id">Category:</label>
+                        <select id="manage_category_id" name="cat_id" required>
+                            <option value="">Select Category</option>
+                            <?php
+                            $categories_stmt = $conn->prepare("SELECT id, category_name FROM category");
+                            $categories_stmt->execute();
+                            $categories_result = $categories_stmt->get_result();
+                            while ($category = $categories_result->fetch_assoc()) {
+                                echo '<option value="' . htmlspecialchars($category['id']) . '">' . htmlspecialchars($category['category_name']) . '</option>';
+                            }
+                            $categories_stmt->close();
+                            ?>
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label for="manage_image_url">Image URL:</label>
                         <input type="text" id="manage_image_url" name="image_url" required>
@@ -238,21 +291,36 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         }
 
         document.getElementById('batch_num').addEventListener('change', function() {
-    var batchNum = this.value;
-    
-    if (batchNum) {
-        // Find the product name for the selected batch number from the batch_data array
-        var productName = '';
-        <?php foreach ($batch_data as $batch): ?>
-            if ('<?= $batch['batch_num'] ?>' === batchNum) {
-                productName = '<?= $batch['product_name'] ?>';
-            }
-        <?php endforeach; ?>
+            var batchNum = this.value;
 
-        // Set the product name field with the corresponding product name
-        document.getElementById('product_name').value = productName;
-    }
-});
+            if (batchNum) {
+                var productName = '';
+                var categoryName = '';
+
+                <?php foreach ($batch_data as $batch): ?>
+                    if ('<?= $batch['batch_num'] ?>' === batchNum) {
+                        productName = '<?= addslashes($batch['product_name']) ?>';
+                        <?php if ($batch['cat_id']): ?>
+                            categoryName = '<?php
+                                            $cat_id = $batch['cat_id'];
+                                            $category_stmt = $conn->prepare("SELECT category_name FROM category WHERE id = ?");
+                                            $category_stmt->bind_param("i", $cat_id);
+                                            $category_stmt->execute();
+                                            $category_result = $category_stmt->get_result();
+                                            echo ($category_row = $category_result->fetch_assoc()) ? addslashes($category_row['category_name']) : '';
+                                            $category_stmt->close();
+                                            ?>';
+                        <?php endif; ?>
+                    }
+                <?php endforeach; ?>
+
+                document.getElementById('product_name').value = productName;
+                document.getElementById('category_name').value = categoryName;
+            } else {
+                document.getElementById('product_name').value = '';
+                document.getElementById('category_name').value = '';
+            }
+        });
 
         // Manage Product functionality
         document.querySelectorAll('.manage-button').forEach(button => {
@@ -263,6 +331,9 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 var quantityAvailable = this.dataset.quantity_available;
                 var price = this.dataset.price;
                 var shopId = "<?php echo $shop_id; ?>";
+                var catId = this.dataset.cat_id;
+                var batchNum = this.dataset.batch_num;
+
 
                 document.getElementById('manage_product_id').value = productId;
                 document.getElementById('manage_product_name').value = productName;
@@ -270,6 +341,8 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 document.getElementById('manage_quantity_available').value = quantityAvailable;
                 document.getElementById('manage_price').value = price;
                 document.getElementById('manage_shop_id').value = shopId;
+                document.getElementById('manage_category_id').value = catId;
+                document.getElementById('manage_batch_num').value = batchNum;
 
                 manageProductModal.style.display = "block";
             });
@@ -290,7 +363,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         document.getElementById('search').addEventListener('input', function() {
             var searchQuery = this.value.toLowerCase();
             var rows = document.querySelectorAll('#product-tbody tr');
-            
+
             rows.forEach(function(row) {
                 var productName = row.querySelector('td[data-cell="Product Name"]').textContent.toLowerCase();
                 if (productName.includes(searchQuery)) {
@@ -300,7 +373,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 }
             });
         });
-
     </script>
 </body>
 
