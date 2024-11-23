@@ -63,7 +63,7 @@ $discountAmount = $subtotal * $discountRate;
 $totalAmountToPay = $subtotal - $discountAmount;
 
 // Generate a unique order reference number
-$referenceNumber = uniqid('ORD-', true);
+$referenceNumber = 'VO - ' . str_pad(mt_rand(0, 9999999999999999), 16, '0', STR_PAD_LEFT);
 
 // Insert order details into the database
 $orderInsertQuery = $conn->prepare("INSERT INTO orders (reference_number, product_id, quantity, purchase_date, item_total, total_price, discount, seller_income, commission, email, status) VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, 'Pending')");
