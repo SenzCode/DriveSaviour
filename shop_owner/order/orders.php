@@ -187,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['st
         <th>Purchase Date</th>
         <th>Item Total</th>
         <th>Seller Income</th>
-        <th>Profit</th> <!-- Add this column -->
+        <th>Profit</th> 
         <th>Status</th>
         <th>Action</th>
     </tr>
@@ -202,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['st
                 <td data-cell="Purchase Date"><?php echo htmlspecialchars($order['purchase_date']); ?></td>
                 <td data-cell="Item Total"><?php echo htmlspecialchars($order['item_total']); ?></td>
                 <td data-cell="Seller Income"><?php echo htmlspecialchars($order['seller_income']); ?></td>
-                <td data-cell="Profit"><?php echo htmlspecialchars(number_format($order['profit'], 2)); ?></td> <!-- Display profit -->
+                <td data-cell="Profit"><?php echo htmlspecialchars(number_format($order['profit'], 2)); ?></td> 
                 <td data-cell="Status"><?php echo htmlspecialchars($order['status']); ?></td>
                 <td class="manage-btn">
                     <form action="" method="POST">
@@ -210,6 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['st
                         <input type="hidden" name="source" value="<?php echo $order['source']; ?>">
                         <select name="status">
                             <option value="Pending" <?php echo $order['status'] == 'Pending' ? 'selected' : ''; ?>>Pending</option>
+                            <option value="Ready to Pick" <?php echo $order['status'] == 'Ready to Pick' ? 'selected' : ''; ?>>Ready to Pick</option>
                             <option value="Completed" <?php echo $order['status'] == 'Completed' ? 'selected' : ''; ?>>Completed</option>
                             <option value="Cancelled" <?php echo $order['status'] == 'Cancelled' ? 'selected' : ''; ?>>Cancelled</option>
                         </select>
