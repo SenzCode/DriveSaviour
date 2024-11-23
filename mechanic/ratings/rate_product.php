@@ -62,7 +62,7 @@ $result = $stmt->get_result();
     <style>
         .stars {
             display: flex;
-            direction: row-reverse;
+            direction: rtl;
             justify-content: center;
             font-size: 2rem;
             cursor: pointer;
