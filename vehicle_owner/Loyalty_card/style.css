@@ -1,38 +1,47 @@
-/* General styles for loyalty card details */
 .loyalty-card-details {
   background-color: #ffffff;
   border-radius: 30px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 30px;
   width: 500px;
-  margin: 150px auto;
+  margin: 150px auto 0; 
 }
 
-.header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Ensures the button and header are at opposite ends */
-  margin-bottom: 20px;
+.dark-mode header{
+  background-color: rgb(0, 0, 0);;
+}
+
+.dark-mode nav ul li a{
+  color: white;
+}
+
+.dark-mode  .menu-toggle .bar,
+.dark-mode  .menu-toggle .bar2{
+  background-color: white;
+}
+
+.dark-mode .loyalty-card-details {
+  border: 1px solid #2B5AC2;
+  background-color: black;
+}
+
+.dark-mode .loyalty-card-details h2{
+  color: white;
+}
+
+.dark-mode .loyalty-card-details p{
+  color: rgb(255, 255, 255);
+}
+
+.dark-mode .loyalty-card-details strong{
+  color: rgb(216, 216, 216);
 }
 
 h2 {
+  text-align: center;
   color: #333;
-  font-size: 2rem;
-  margin: 0; /* Removes default margins for better alignment */
-}
-
-.cart-header .back-btn {
-  background: none;
-  border: none;
-  color: #007bff;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 5px 10px;
-  transition: color 0.3s ease;
-}
-
-.cart-header .back-btn:hover {
-  color: #0056b3;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
 }
 
 .loyalty-card-details p {
@@ -54,6 +63,7 @@ form {
 
 button {
   background-color: #007bff;
+  margin-top: 20px;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -67,28 +77,161 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* Responsive design */
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 400px; 
+  margin-left: 50px; 
+  position: absolute;
+  z-index: 10;
+}
+
+.cart-header .back-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.cart-header .back-btn:hover {
+  color: #0056b3;
+}
+
+
 @media (max-width: 500px) {
   .loyalty-card-details {
-    padding: 15px;
-    width: 90%;
+    padding: 15px;         
+    width: 90%;             
+    margin: 150px auto 0;   
   }
-
-  .header-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px; /* Adds spacing between the button and header on smaller screens */
-  }
-
-  h2 {
-    font-size: 1.5rem;
+  h2{
+    font-size: 2rem;
   }
 
   button {
-    width: 100%;
+      width: 100%;
   }
+}
+.container-card {
+  background-color: #111;
+  color: #fff;
+  width: 550px; 
+  height: 300px; 
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  background-image: url('https://img.freepik.com/premium-photo/abstract-blue-background-with-glowing-lines-particles_1332213-31257.jpg?w=996'); /* Subtle texture */
+  background-size: cover; 
+  margin: 200px auto 0; 
+  position: relative;
+  overflow: hidden; 
+}
 
-  .cart-header .back-btn {
-    font-size: 14px;
+.container-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.212); 
+  z-index: 1; 
+}
+
+.container-card > * {
+  position: relative; 
+  z-index: 2;
+}
+
+
+.up-1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.logo-card h5 {
+  font-size: 20px;
+  color: #f0f0f0;
+  margin-left: 60px;
+  margin-top: -35px;
+  text-transform: uppercase;
+}
+
+.logo-card img {
+  width: 50px; 
+  height: auto;
+}
+
+.chip {
+  width: 50px;
+  height: auto;
+}
+
+.card-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.name-number{
+  margin-top: 30px;
+}
+
+.name-number h6,
+.valid-date h6 {
+  font-size: 16px;
+  color: #ccc;
+  margin-bottom: 5px;
+}
+
+.name{
+  font-size: 36px; 
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.valid-date{
+  margin-top: 30px;
+}
+.number, .valid-date h5 {
+  font-size: 20px; 
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.name-number h5 {
+  margin-top: 5px;
+}
+
+
+@media (max-width: 500px) {
+  .container-card {
+      width: 90%;
+      height: auto;
+      margin: 100px auto 0;
+      padding: 15px;
+  }
+  
+  .logo-card h5 {
+      font-size: 16px;
+  }
+  
+  .logo-card img, .chip {
+      width: 40px;
+  }
+  
+  .name-number h6, .valid-date h6 {
+      font-size: 12px;
+  }
+  
+  .number, .name, .valid-date h5 {
+      font-size: 16px;
   }
 }

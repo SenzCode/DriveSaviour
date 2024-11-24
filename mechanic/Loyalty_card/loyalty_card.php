@@ -57,15 +57,6 @@ if ($result->num_rows > 0) {
           <h5><?= $expireDate ?></h5>
         </div>
       </div>
-        <!-- <div class="loyalty-card-details">
-            <h2>Your Loyalty Card Details</h2>
-            <p><strong>Name:</strong> <?= htmlspecialchars($name) ?></p>
-            <p><strong>Phone:</strong> <?= htmlspecialchars($phone) ?></p>
-            <p><strong>Email:</strong> <?= htmlspecialchars($loggedInOwnerEmail) ?></p>
-            <p><strong>City:</strong> <?= htmlspecialchars($city) ?></p>
-            <p><strong>Card Number:</strong> <?= $cardNo ?></p>
-            <p><strong>Expiration Date:</strong> <?= $expireDate ?></p>
-        </div> -->
     </body>
     </html>
     <?php

@@ -52,7 +52,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <div class="body">
 
         <div class="order-header">
-            <button class="back-btn" onclick="window.location.href='mech.php'">&larr; Back</button>
+            <!-- <button class="back-btn" onclick="window.location.href='mech.php'">&larr; Back</button> -->
         </div>
 
         <!-- Ongoing Breakdowns Section -->
@@ -76,7 +76,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
                         <button class="btn" onclick="openUpdateModal(<?php echo $vehicle['id']; ?>, '<?php echo addslashes($vehicle['model']); ?>', '<?php echo addslashes($vehicle['created_at']); ?>', '<?php echo addslashes($vehicle['vehicle_issue']); ?>')">Update</button>
                         <button class="btn" onclick="confirmDelete(<?php echo $vehicle['id']; ?>)">Delete</button>
-                        <button class="btn" onclick="openRateModal(<?php echo $vehicle['userID']; ?>, '<?php echo $vehicle['mech_name']; ?>')">Rate</button>
                     </div>
                 <?php } ?>
             </div>
@@ -97,7 +96,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                             <p><strong>Mechanic's Name:</strong> <?php echo $vehicle['mech_name']; ?></p>
                             <p><strong>Mechanic's Contact:</strong> <?php echo $vehicle['phone']; ?></p>
 
-                            <button class="btn" onclick="openRateModal(<?php echo $vehicle['userID']; ?>, '<?php echo $vehicle['mech_name']; ?>')">Rate</button>
+                            
                         </div>
                     <?php 
                     }
@@ -125,20 +124,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 <button type="submit" class="btn">Update</button>
             </form>
         </div>
-    </div>
-
-    <!-- Rate Modal -->
-    <div id="rateModal" class="modal" style="display:none;">
-        <h2>Rate Mechanic</h2>
-        <p>Mechanic Name: <span id="mechanicName"></span></p>
-        <div class="rating">
-            <span onclick="rate(5)">&#9733;</span>
-            <span onclick="rate(4)">&#9733;</span>
-            <span onclick="rate(3)">&#9733;</span>
-            <span onclick="rate(2)">&#9733;</span>
-            <span onclick="rate(1)">&#9733;</span>
-        </div>
-        <button onclick="submitRating()">Submit Rating</button>
     </div>
 
     <script>
