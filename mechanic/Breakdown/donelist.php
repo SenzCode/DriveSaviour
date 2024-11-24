@@ -42,7 +42,6 @@ $stmt->close();
                 <thead>
                     <tr>
                         <th>Vehicle ID</th>
-                        <th>Location</th>
                         <th>Issue</th>
                         <th>Completed At</th>
                         <th>Status</th>
@@ -53,7 +52,6 @@ $stmt->close();
                     <?php foreach ($jobdonelist_data as $row): ?>
                         <tr>
                             <td data-cell="Vehicle ID"><?= htmlspecialchars($row['v_id']) ?></td>
-                            <td data-cell="Location"><?= htmlspecialchars($row['location']) ?></td>
                             <td data-cell="Issue"><?= htmlspecialchars($row['vehicle_issue']) ?></td>
                             <td data-cell="Completed At"><?= htmlspecialchars($row['job_done_at']) ?></td>
                             <td data-cell="Status"><?= htmlspecialchars($row['status']) ?></td>

@@ -60,7 +60,7 @@ if ($loyaltyResult->num_rows > 0) {
 $discountAmount = $subtotal * $discountRate;
 $totalAmountToPay = $subtotal - $discountAmount;
 
-$referenceNumber = uniqid('MORD-', true);
+$referenceNumber = 'MO - ' . str_pad(mt_rand(0, 9999999999999999), 16, '0', STR_PAD_LEFT);
 
 $orderInsertQuery = $conn->prepare("INSERT INTO mech_orders (reference_number, product_id, quantity, purchase_date, item_total, total_price, discount, seller_income, commission, email, status) VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, 'Pending')");
 

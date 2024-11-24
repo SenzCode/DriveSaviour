@@ -111,7 +111,7 @@ if ($resultPaid->num_rows > 0) {
             </div>
 
             <h2 class="vihead">Accepted Vehicle Issues</h2>
-            <button class="btn1" onclick="window.location.href='donelist.php'">Job Done</button>
+            <button class="btn1" onclick="window.location.href='donelist.php'">Job History</button>
             <div class="issues-container">
                 <?php if ($result_accepted->num_rows > 0): ?>
                     <?php while($row = $result_accepted->fetch_assoc()): ?>
@@ -176,29 +176,29 @@ if ($resultPaid->num_rows > 0) {
             </form>
             <style>
                 .btn {
-    display: inline-block;
-    margin-top: 20px;
-    width: 120px;
-    color: #182431;
-    font-weight: bold;
-    padding: 10px;
-    border: 1px solid #2B5AC2;
-    border-radius: 8px;
-    background-color: #f0f8ff;
-    text-decoration: none;
-    text-align: center;
-    transition: background-color .5s ease, color .5s ease;
-    margin: 0 auto;
-}
-            </style>
-        </div>
-        <?php
-    require '../footer/footer.php';
-?>
-    </body>
-    </html>
-    <?php
-}
+                display: inline-block;
+                margin-top: 20px;
+                width: 120px;
+                color: #182431;
+                font-weight: bold;
+                padding: 10px;
+                border: 1px solid #2B5AC2;
+                border-radius: 8px;
+                background-color: #f0f8ff;
+                text-decoration: none;
+                text-align: center;
+                transition: background-color .5s ease, color .5s ease;
+                margin: 0 auto;
+            }
+                        </style>
+                    </div>
+                    <?php
+                require '../footer/footer.php';
+            ?>
+                </body>
+                </html>
+                <?php
+            }
 
 $checkPaidMechanicQuery->close();
 $conn->close();
