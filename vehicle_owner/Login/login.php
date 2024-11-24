@@ -106,7 +106,7 @@ $conn->close();
                 <i class='bx bxs-lock-alt'></i>
             </div>
             <div class="forgot-link">
-                <a href="">Forgot Password?</a>
+                <a href="forget_password.php">Forgot Password?</a>
             </div>
             <button type="submit" class="btn" name="login">Login</button>
             <p>our social platforms</p>
@@ -143,7 +143,7 @@ $conn->close();
                 <i class='bx bx-map-pin'></i>
             </div>
             <div class="forgot-link">
-                <a href="">Forgot Password?</a>
+                <a href="forget_password.php">Forgot Password?</a>
             </div>
             <button type="submit" name="register" class="btn">Register</button>
             <p>or register with social platforms</p>
