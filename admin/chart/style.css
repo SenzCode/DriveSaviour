@@ -1,17 +1,79 @@
-body{
-    margin-left: 300px;
-    margin-top: 500px;
-}
-
-select {
-    width: 20%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
 .comhead {
-    margin-bottom: 100px;
+    text-align: center; /* Centers text horizontally */
+    font-size: 2rem;
+    color: #333;
+    margin: 20px 0; /* Space around the heading */
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 100px; /* Optional: Adjust height for visual balance */
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 20px;
+    width: 90%; /* Responsive width */
+    max-width: 1200px; /* Maximum width */
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+select {
+    width: 50%;
+    max-width: 400px;
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+#commissionChart {
+    display: block;
+    width: 100% !important; /* Ensures full width of container */
+    height: 400px; /* Default height */
+}
+
+@media screen and (max-width: 1024px) {
+    .content {
+        width: 95%; /* Slightly more compact on tablets */
+    }
+
+    select {
+        width: 80%; /* Adjust dropdown width */
+    }
+
+    #commissionChart {
+        height: 350px; /* Slightly smaller chart on smaller screens */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .comhead {
+        font-size: 1.5rem; /* Adjust header size for smaller screens */
+    }
+
+    .content {
+        width: 100%; /* Full width on mobile */
+        padding: 10px; /* Reduce padding */
+    }
+
+    select {
+        width: 100%; /* Full width dropdown */
+    }
+
+    #commissionChart {
+        height: 300px; /* Reduced height on mobile */
+    }
 }
