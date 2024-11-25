@@ -3,6 +3,35 @@
     margin: 120px auto 0;
     padding: 20px;
 }
+
+.trending-card-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; /* Allows wrapping of items for better responsiveness */
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.trending-card {
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 10px 8px #a9a9a9;
+    text-align: center;
+    padding: 10px;
+    border: 2px solid #0085FF;
+    width: 250px;
+    height: auto;
+}
+
+.trending-card img {
+    width: 150px;
+    height: 150px;
+    text-align: center;
+}
+
+
 .dark-mode header{
     background-color: rgb(0, 0, 0);;
 }
@@ -308,6 +337,12 @@ h2{
         width: 100%;
         padding: 12px 10px;
         margin-top: 10px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .trending-card {
+        display: inline;
     }
 }
 

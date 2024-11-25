@@ -55,6 +55,33 @@ if ($category_result) {
 
 $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 ob_end_flush();
+
+// Get the current date and the date for 7 days ago
+$currentDate = date('Y-m-d');
+$lastWeekDate = date('Y-m-d', strtotime('-1 week'));
+
+// Query to get the total quantity sold for each product in the last week
+$trendingQuery = "
+    SELECT p.id, p.product_name, p.image_url, SUM(o.quantity) AS total_sold
+    FROM products p
+    JOIN (
+        SELECT product_id, quantity FROM orders WHERE purchase_date BETWEEN '$lastWeekDate' AND '$currentDate'
+        UNION ALL
+        SELECT product_id, quantity FROM mech_orders WHERE purchase_date BETWEEN '$lastWeekDate' AND '$currentDate'
+    ) o ON p.id = o.product_id
+    GROUP BY p.id
+    ORDER BY total_sold DESC
+    LIMIT 5"; // Show top 5 trending products
+
+$trendingResult = mysqli_query($conn, $trendingQuery);
+$trendingProducts = [];
+if ($trendingResult) {
+    while ($row = mysqli_fetch_assoc($trendingResult)) {
+        $trendingProducts[] = $row;
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -155,7 +182,30 @@ ob_end_flush();
             <img src="../../img/orders.png" alt="Orders" class="small-icon">
         </a>
     </div>
- <!-- Search and Filter Form -->
+    
+    <div class="trending-products">
+        <h2>Trending Products of the Week</h2>
+        <div class="trending-card-container">
+            <?php if (count($trendingProducts) > 0): ?>
+                <?php foreach ($trendingProducts as $product): ?>
+                    <div class="trending-card">
+                        <img src="<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" loading="lazy">
+                        <div class="product-details">
+                            <h3><?= htmlspecialchars($product['product_name']) ?></h3>
+                            <form action="add_to_cart.php" method="POST">
+                                <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                                <button type="submit">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No trending products this week.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+
+
     <form method="GET" action="">
         <div class="search-bar">
             <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Search by Product Name">
