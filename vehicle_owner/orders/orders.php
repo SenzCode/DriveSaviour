@@ -147,7 +147,7 @@ if ($result) {
                             <div>Total Price: Rs. <?= htmlspecialchars($order['total_price']) ?></div>
                             <div>Discount: Rs. <?= htmlspecialchars($order['discount']) ?></div>
                             <div>Status: <?= htmlspecialchars($order['status']) ?></div>
-                            <button class="rate-btn" onclick="window.location.href='../ratings/rate_product.php?product_id=<?= $order['product_id'] ?>'">Rate Product</button>
+                            <!-- <button class="rate-btn" onclick="window.location.href='../ratings/rate_product.php?product_id=<?= $order['product_id'] ?>'">Rate Product</button> -->
                         </div>
                     </div>
                 <?php endforeach; ?>
