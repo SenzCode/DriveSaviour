@@ -9,12 +9,27 @@ if (!isset($_SESSION['email'])) {
 }
 
 $userEmail = $_SESSION['email'];
+
+// Initialize the filter condition
+$filterDate = isset($_GET['purchase_date']) ? $_GET['purchase_date'] : null;
+
+// Prepare the query based on whether a date is provided
 $query = "SELECT o.*, p.product_name, p.image_url 
           FROM orders o 
           JOIN products p ON o.product_id = p.id 
           WHERE o.email = ?";
+if ($filterDate) {
+    $query .= " AND o.purchase_date = ?";
+}
+
 $stmt = $conn->prepare($query);
-$stmt->bind_param("s", $userEmail);
+
+if ($filterDate) {
+    $stmt->bind_param("ss", $userEmail, $filterDate);
+} else {
+    $stmt->bind_param("s", $userEmail);
+}
+
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -31,19 +46,22 @@ if ($result) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="style.css">
     <title>Your Orders</title>
 </head>
 <body>
     <div class="main_container">
+        <form method="get" class="date">
+            <label for="purchase_date">Select a date:</label>
+            <input type="date" name="purchase_date" id="purchase_date" value="<?= htmlspecialchars($filterDate) ?>">
+            <button type="submit" class="search"><i class="bx bx-search"></i></button>
+        </form>
         <div class="order-header">
             <button class="back-btn" onclick="window.location.href='../products/product.php'">&larr; Back</button>
-                <h1>Your Orders</h1>
+            <h1>Your Orders</h1>
         </div>
         <div class="order-card">
-            
             <?php if (count($orders) > 0): ?>
                 <?php foreach ($orders as $order): ?>
                     <div class="order-item">
@@ -62,12 +80,10 @@ if ($result) {
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <p>You have no orders.</p>
+                <p>You have no orders for this date.</p>
             <?php endif; ?>
         </div>
     </div>
-    <?php
-    require '../footer/footer.php';
-    ?>
+    <?php require '../footer/footer.php'; ?>
 </body>
 </html>
