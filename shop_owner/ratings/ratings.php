@@ -45,7 +45,7 @@ if (!empty($productIds)) {
 
     // Retrieve ratings from mech_ratings table
     $stmt = $conn->prepare("
-        SELECT products.product_name, mech_ratings.rating, mech_ratings.feedback, mech_ratings.rating_date
+        SELECT products.image_url, products.product_name, mech_ratings.rating, mech_ratings.feedback, mech_ratings.rating_date
         FROM mech_ratings
         JOIN products ON mech_ratings.product_id = products.id
         WHERE mech_ratings.product_id IN ($placeholders)");
@@ -85,6 +85,7 @@ if (!empty($productIds)) {
             <table>
                 <thead>
                     <tr>
+                        <th>Product Image</th>
                         <th>Product Name</th>
                         <th>Rating</th>
                         <th>Feedback</th>
@@ -94,6 +95,7 @@ if (!empty($productIds)) {
                 <tbody>
                     <?php foreach ($ratings_data as $rating): ?>
                         <tr>
+                            <td><img src="<?= htmlspecialchars($rating['image_url']) ?>" alt="<?= htmlspecialchars($rating['product_name']) ?>" width="100" height="100"></td>
                             <td><?= htmlspecialchars($rating['product_name']) ?></td>
                             <td>
                                 <?php for ($i = 1; $i <= 5; $i++): ?>
@@ -105,6 +107,7 @@ if (!empty($productIds)) {
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
+
             </table>
         <?php else: ?>
             <p>No ratings found for your products.</p>
