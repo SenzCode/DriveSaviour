@@ -133,13 +133,22 @@ body {
 
 /* Delete Button */
 button.batch.delete-link[value="delete"] {
-    background-color: red;
-    color: white;
-    transition: background-color 0.3s ease;
+    font-size: 13px;
+    width: 120px;
+    color: #182431;
+    padding: 10px;
+    border: 1px solid #c22b2b;
+    border-radius: 88px;
+    background-color: #fff0f0;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color .50s ease, color .50s ease;
 }
 
 button.batch.delete-link[value="delete"]:hover {
-    background-color: darkred;
+    cursor: pointer;
+    background-color: #c22b2b;
+    color: #ffffff;
 }
 
 /* Responsive Design */
