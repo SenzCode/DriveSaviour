@@ -120,6 +120,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 <br>
                 <button type="submit" name="action" value="edit" class="batch view-link">Edit</button>
                 <button type="submit" name="action" value="delete" class="batch delete-link">Delete</button>
+
             </form>
         </div>
     </div>

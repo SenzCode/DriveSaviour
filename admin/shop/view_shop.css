@@ -327,3 +327,15 @@ body {
         max-width: 100%;
     }
 }
+
+
+button.batch.delete-link[value="delete"] {
+    background-color: red !important;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.batch.delete-link[value="delete"]:hover {
+    background-color: darkred !important;
+}

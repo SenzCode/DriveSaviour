@@ -37,7 +37,9 @@ $stmt->close();
 </head>
 <body>
     <div class="main_container">
+    
         <div class="table">
+           
             <table>
                 <thead>
                     <tr>
