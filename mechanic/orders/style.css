@@ -180,23 +180,22 @@ h1 {
 }
 
 
-.rate-btn {
-    margin-top: 20px;
-    background-color: rgb(190, 0, 0);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 15px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    display: block;
-    width: 100%;
+.search {
+    width: 30px;
+    height: 30px;
+    color: #182431;
+    font-weight: bold;
+    border: 1px solid #2B5AC2;
+    border-radius: 10px;
+    background-color: #f0f8ff;
     text-align: center;
-    transition: background-color 0.3s ease;
+    transition: background-color .50s ease, color .50s ease;
 }
 
-.rate-btn:hover {
-    background-color: red;
+.search:hover {
+    background-color: #2B5AC2;
+    color: #ffffff;
+    cursor: pointer;
 }
 
 
