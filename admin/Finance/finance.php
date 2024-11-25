@@ -42,7 +42,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Income</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../navbar/style.css">
 </head>
 <body>
@@ -78,7 +78,7 @@ try {
                 <?php endif; ?>
             </tbody>
         </table>
-
+<br>
         <div class="total-income">
             <h3>Total Seller Income: LKR <?php echo number_format($total_seller_income, 2); ?></h3>
         </div>
