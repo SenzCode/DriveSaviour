@@ -71,7 +71,7 @@ $trendingQuery = "
     ) o ON p.id = o.product_id
     GROUP BY p.id
     ORDER BY total_sold DESC
-    LIMIT 5"; // Show top 5 trending products
+    LIMIT 5";
 
 $trendingResult = mysqli_query($conn, $trendingQuery);
 $trendingProducts = [];
