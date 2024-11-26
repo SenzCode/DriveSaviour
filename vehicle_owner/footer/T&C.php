@@ -12,6 +12,7 @@
 <body>
   <header class="header">
     <div class="container">
+    <a href="../home/home.php" class="back-button">← Back</a>
       <h1>Terms and Conditions</h1>
     </div>
   </header>

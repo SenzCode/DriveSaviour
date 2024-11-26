@@ -8,6 +8,20 @@ body {
   background-color: #f9f9f9;
 }
 
+.back-button {
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #f9f9fc;
+  display: inline-block;
+  margin-right: 900px;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+
 /* Header Styles */
 .header {
   background-color: #007bff; /* Blue to match navbar */

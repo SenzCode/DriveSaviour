@@ -9,6 +9,7 @@
 <body>
   <header class="header">
     <div class="container">
+    <a href="../home/home.php" class="back-button">← Back</a>
       <h1>Privacy Policy</h1>
     </div>
   </header>
