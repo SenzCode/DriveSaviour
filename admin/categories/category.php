@@ -23,7 +23,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category Management</title>
     <link rel="stylesheet" href="../navbar/style.css">
-    <link rel="stylesheet" href="../../shop_owner/shop/style.css">
+    <!-- <link rel="stylesheet" href="../../shop_owner/shop/style.css"> -->
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -60,7 +60,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <button type="submit" name="action" value="insert" class="batch view-link">Add Category</button>
     </form>
 
-    <div class="category-table">
+    <div class="table">
         <table>
             <thead>
                 <tr>
