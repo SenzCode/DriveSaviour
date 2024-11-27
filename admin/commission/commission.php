@@ -39,6 +39,17 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <title>Commission Manage</title>
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../Vehicle Owners/view_owners.css">
+
+    <style>
+        .date {
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 40%;
+        }
+    </style>
 </head>
 <body>
 <div class="main_container">
@@ -50,11 +61,9 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         <div class="search-bar">
             <label for="search">Search</label>
             <input type="text" id="search" class="search-select" placeholder="Product Name">
-        </div>
-        <br>
-        <div class="search-bar">
+
             <label for="date-filter">Select Date</label>
-            <input type="date" id="date-filter">
+            <input type="date" id="date-filter" class="date">
         </div>
         <br>
     </div>
@@ -64,7 +73,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
             <thead>
                 <tr>
                     <th>Product Name</th>
-                    <th>Product ID</th>
                     <th>Quantity</th>
                     <th>Purchase Date</th>
                     <th>Item Total</th>
@@ -79,7 +87,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <?php foreach ($orders_data as $row): ?>
                         <tr>
                             <td data-cell="Product Name"><?= htmlspecialchars($row['product_name']) ?></td>
-                            <td data-cell="Product ID"><?= htmlspecialchars($row['product_id']) ?></td>
                             <td data-cell="Quantity"><?= htmlspecialchars($row['quantity']) ?></td>
                             <td data-cell="Purchase Date"><?= htmlspecialchars($row['purchase_date']) ?></td>
                             <td data-cell="Item Total"><?= htmlspecialchars($row['item_total']) ?></td>

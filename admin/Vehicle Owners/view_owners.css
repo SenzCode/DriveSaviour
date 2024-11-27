@@ -202,10 +202,12 @@ td:last-child {
 }
 
 .form-group input {
-    width: 100%;
-    padding: 10px;
+    border-radius: 4px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    font-size: 1em;
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 100%;
 }
 
 

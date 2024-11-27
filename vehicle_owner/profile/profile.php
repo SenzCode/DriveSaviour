@@ -1,5 +1,12 @@
 <?php
 session_start();
+ob_start();
+
+if (!isset($_SESSION['email'])) {
+    header('Location: ../Login/login.php');
+    exit;
+}
+
 require('../../connection.php');
 require '../navbar/nav.php';
 
