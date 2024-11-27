@@ -8,7 +8,7 @@
     <link rel="shortcut icon" type="dp" href="../../img/ss.png">
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-
+    <link rel="icon" type="image/png" href="../../img/logo.jpg">
 </head>
 <body>
     

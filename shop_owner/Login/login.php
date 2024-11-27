@@ -75,6 +75,7 @@ $conn->close();
 <title>Login</title>
 <link rel="stylesheet" href="style.css">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="icon" type="image/png" href="../../img/logo.jpg">
 </head>
 <body>
 <div class="container">
