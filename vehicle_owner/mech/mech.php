@@ -1,4 +1,13 @@
 <?php
+session_start();
+ob_start();
+
+if (!isset($_SESSION['email'])) {
+    header("Location: ../Login/login.php");
+    exit;
+}
+
+
 require '../navbar/nav.php';
 require '../../connection.php';
 
@@ -18,6 +27,7 @@ $top_mechanics = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $top_mechanics[] = $row;
 }
+ob_end_flush();
 ?>
 
 <!DOCTYPE html>

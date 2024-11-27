@@ -62,7 +62,7 @@ $lastWeekDate = date('Y-m-d', strtotime('-1 week'));
 
 // Query to get the total quantity sold for each product in the last week
 $trendingQuery = "
-    SELECT p.id, p.product_name, p.image_url, SUM(o.quantity) AS total_sold
+    SELECT p.id, p.product_name, p.image_url, p.shop_id, SUM(o.quantity) AS total_sold
     FROM products p
     JOIN (
         SELECT product_id, quantity FROM orders WHERE purchase_date BETWEEN '$lastWeekDate' AND '$currentDate'
@@ -193,7 +193,10 @@ if ($trendingResult) {
                         <div class="product-details">
                             <h3><?= htmlspecialchars($product['product_name']) ?></h3>
                             <form action="add_to_cart.php" method="POST">
+                                <!-- Hidden fields to pass shop_id and default quantity -->
                                 <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                                <input type="hidden" name="shop_id" value="<?= $product['shop_id'] ?>">
+                                <input type="number" name="quantity" value="1" min="1">
                                 <button type="submit">Add to Cart</button>
                             </form>
                         </div>

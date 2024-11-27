@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 require '../navbar/nav.php';
 require '../../connection.php';
 
@@ -202,4 +203,5 @@ if ($resultPaid->num_rows > 0) {
 
 $checkPaidMechanicQuery->close();
 $conn->close();
+ob_end_flush();
 ?>
