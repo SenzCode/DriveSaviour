@@ -16,7 +16,8 @@ The platform improves communication between drivers and service providers while 
 
 ### 🔒 Authentication & Security:
 - Role-based authentication for users and service providers  
-- Secured access to sensitive data and service records
+- Secured access to sensitive data and service records  
+- For more details, refer to our [Security Guidelines](./SECURITY.md).
 
 ---
 
